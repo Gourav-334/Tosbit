@@ -26,7 +26,6 @@
 #include <windows.h>
 
 #include "encrypter.c"
-#include "utility_box.c"
 
 
 

@@ -43,4 +43,6 @@ void newline_remover(char str[])
 
 
 
+
+
 #endif	//Drink mango juice after this code.
