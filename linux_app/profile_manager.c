@@ -108,10 +108,7 @@ void login_starts()
 
 		// 2) Console text interface starts!
 
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-
-		printf("Username: "); fgets(username, USERNAME_MAX_SIZE, stdin); // RACE CONDITION 1
+		printf("Username: "); std::getline(std::cin, input); // RACE CONDITION 1
 		newline_remover(username);
 
 		if (strlen(username)==0) {continue;}
@@ -122,8 +119,6 @@ void login_starts()
 
 		if ((strlen(username)<USERNAME_MIN_SIZE)||(strlen(username)>USERNAME_MAX_SIZE))
 		{
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
 			printf("Username must be between 3 to 32 characters!\n\n");
 
 			continue;
@@ -140,8 +135,6 @@ void login_starts()
 		// 5) Colour back to white & file pointer closing!
 
 		fclose(fptr);
-
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	}
 }
 
@@ -180,13 +173,9 @@ void check_account_existence()
 
 	if (fptr==NULL)
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
 		printf("Username doesn't exist!\n\n");
 
 
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
 		printf("Want to open a new account? (y/n): ");
 		scanf("%c", &decision); printf("\n");
@@ -218,9 +207,6 @@ void check_account_existence()
 
 		else
 		{
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
 			printf("Unknown command received!");
 			login_starts();
 		}
@@ -263,7 +249,7 @@ void password_setting()
 
 		// 10) Password & re-authentication.
 
-		printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin); // RACE CONDITION 2
+		printf("Enter password: "); std::getline(std::cin, password); // RACE CONDITION 2
 		memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password)));
 
 		if (strlen(password)==0) {continue;}
@@ -274,12 +260,7 @@ void password_setting()
 
 		if ((strlen(password)<PASSWORD_MIN_SIZE)||(strlen(password)>PASSWORD_MAX_SIZE))
 		{
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
 			printf("Password range must be min 6 to 30 characters max!\n\n");
-
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
 			continue;
 		}
@@ -290,7 +271,7 @@ void password_setting()
 
 		else
 		{
-			printf("Re-enter password: "); fgets(re_password, PASSWORD_MAX_SIZE, stdin);
+			printf("Re-enter password: "); std::getline(std::cin, re_password);
 			memset(re_password + strlen(re_password), 0, (PASSWORD_MAX_SIZE-(strlen(re_password))));
 
 			create_account();
@@ -325,12 +306,8 @@ void create_account()
 	{
 		fptr = fopen(buffer, "w");
 		fputs(encrypt(password), fptr);
-		
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
 
 		printf("Account created successfully!\n\n");
-		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED);
 
 		welcome_note();
 	}
@@ -341,12 +318,8 @@ void create_account()
 
 	else
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
 		printf("Authentication failed, retry!\n\n");
 
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 		password_setting();
 	}
 }
@@ -383,9 +356,6 @@ void logging_in()
 
 	if (!strcmp(password,decrypt(username_buffer)))
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-
 		welcome_note();
 	}
 
@@ -395,12 +365,7 @@ void logging_in()
 
 	else
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
 		printf("Password doesn't match, retry!\n\n");
-
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
 		logging_in();
 	}
@@ -427,14 +392,9 @@ void logging_in()
 
 void welcome_note()
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-
 	printf("Hello %s! Welcome to Data-Godown v1.0.0!\n", username);
 	printf("Copyright (C) under Apache 2.0 license,");
 	printf("read documentation for more information.\n\n");
-
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 	return;
 }
