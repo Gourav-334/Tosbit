@@ -58,10 +58,12 @@ Comment sections in series:
 
 NOTES!:
 
-login_system()
-	check_account_existence()
-		password_setting()
-			create_account()
+login_starts()
+	login_starts()
+		check_account_existence()
+			password_setting()
+				create_account()
+					welcome_note()
 
 
 i. buffer[] is used for general storage of anything required.
@@ -95,48 +97,52 @@ vi. If username=n, then decrypted password length = 3n + 1.
 
 
 
-void login_system()
+void login_starts()
 {
-	// 1) Cleansing username.
-
-	memset(username, 0, USERNAME_MAX_SIZE*sizeof(char));
-
-
-
-	// 2) Console text interface starts!
-
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-
-	printf("Username: "); fgets(username, USERNAME_MAX_SIZE, stdin); // RACE CONDITION 1
-	newline_remover(username);
-	
-
-
-	// 3) If username size is not in range (self recursion).
-
-	if ((strlen(username)<USERNAME_MIN_SIZE)||(strlen(username)>USERNAME_MAX_SIZE))
+	while (TRUE)
 	{
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+		// 1) Cleansing username.
 
-		printf("Username must be between 3 to 32 characters!\n\n");
+		memset(username, 0, USERNAME_MAX_SIZE*sizeof(char));
 
-		login_system();
+
+		// 2) Console text interface starts!
+
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
+
+		printf("Username: "); fgets(username, USERNAME_MAX_SIZE, stdin); // RACE CONDITION 1
+		newline_remover(username);
+
+		if (strlen(username)==0) {continue;}
+		
+
+
+		// 3) If username size is not in range (self recursion).
+
+		if ((strlen(username)<USERNAME_MIN_SIZE)||(strlen(username)>USERNAME_MAX_SIZE))
+		{
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+
+			printf("Username must be between 3 to 32 characters!\n\n");
+
+			continue;
+		}
+
+
+
+		// 4) If username size is in range (forward recursion).
+
+		else {check_account_existence();}
+
+
+
+		// 5) Colour back to white & file pointer closing!
+
+		fclose(fptr);
+
+		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	}
-
-
-
-	// 4) If username size is in range (forward recursion).
-
-	else {check_account_existence();}
-
-
-
-	// 5) Colour back to white & file pointer closing!
-
-	fclose(fptr);
-
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
 
 
@@ -204,7 +210,7 @@ void check_account_existence()
 
 		// 9) If user doesn't want to create a new account (back recursion).
 
-		else if (decision=='n') {login_system();}
+		else if (decision=='n') {login_starts();}
 
 
 
@@ -216,7 +222,7 @@ void check_account_existence()
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
 
 			printf("Unknown command received!");
-			login_system();
+			login_starts();
 		}
 	}
 
@@ -248,42 +254,47 @@ void check_account_existence()
 
 void password_setting()
 {
-	memset(password, 0, PASSWORD_MAX_SIZE*sizeof(char));
-	memset(re_password, 0, PASSWORD_MAX_SIZE*sizeof(char));
-
-
-
-	// 10) Password & re-authentication.
-
-	printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin); // RACE CONDITION 2
-	memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password)));
-
-
-
-	// 11) If password is too short or too long (self recursion).
-
-	if ((strlen(password)<PASSWORD_MIN_SIZE)||(strlen(password)>PASSWORD_MAX_SIZE))
+	while (TRUE)
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+		memset(password, 0, PASSWORD_MAX_SIZE*sizeof(char));
+		memset(re_password, 0, PASSWORD_MAX_SIZE*sizeof(char));
 
-		printf("Password range must be min 6 to 30 characters max!\n\n");
+		
 
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
+		// 10) Password & re-authentication.
 
-		password_setting();
-	}
+		printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin); // RACE CONDITION 2
+		memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password)));
 
-	
+		if (strlen(password)==0) {continue;}
 
-	// 12) If password is in range (forward recursion).
 
-	else
-	{
-		printf("Re-enter password: "); fgets(re_password, PASSWORD_MAX_SIZE, stdin);
-		memset(re_password + strlen(re_password), 0, (PASSWORD_MAX_SIZE-(strlen(re_password))));
 
-		create_account();
+		// 11) If password is too short or too long (self recursion).
+
+		if ((strlen(password)<PASSWORD_MIN_SIZE)||(strlen(password)>PASSWORD_MAX_SIZE))
+		{
+			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+
+			printf("Password range must be min 6 to 30 characters max!\n\n");
+
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
+
+			continue;
+		}
+
+		
+
+		// 12) If password is in range (forward recursion).
+
+		else
+		{
+			printf("Re-enter password: "); fgets(re_password, PASSWORD_MAX_SIZE, stdin);
+			memset(re_password + strlen(re_password), 0, (PASSWORD_MAX_SIZE-(strlen(re_password))));
+
+			create_account();
+		}
 	}
 }
 
@@ -320,6 +331,8 @@ void create_account()
 
 		printf("Account created successfully!\n\n");
 		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED);
+
+		welcome_note();
 	}
 
 
@@ -373,11 +386,7 @@ void logging_in()
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
 
-		printf("Hello %s! Welcome to Data-Godown v1.0.0!\n", username);
-		printf("Copyright under Apache 2.0 license,");
-		printf("read documentation for more information.\n\n");
-
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		welcome_note();
 	}
 
 
@@ -395,6 +404,39 @@ void logging_in()
 
 		logging_in();
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void welcome_note()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+
+	printf("Hello %s! Welcome to Data-Godown v1.0.0!\n", username);
+	printf("Copyright (C) under Apache 2.0 license,");
+	printf("read documentation for more information.\n\n");
+
+	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+	return;
 }
 
 

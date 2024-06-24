@@ -7,8 +7,7 @@
 
 int main()
 {
-	login_system();
-	
+	login_starts();
 
 	return 0;
 }

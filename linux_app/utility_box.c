@@ -45,4 +45,14 @@ void newline_remover(char str[])
 
 
 
+void flush_stdin()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+
+
+
+
 #endif	//Drink mango juice after this code.

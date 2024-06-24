@@ -17,6 +17,9 @@
 #define CONTINUE 1
 #define DISCONTINUE 0
 
+#define TRUE 1
+#define FALSE 0
+
 
 
 
@@ -44,28 +47,35 @@ int create_account_func = CONTINUE;
 
 /* GLOBAL VARIABLES */
 
+// int(s)
+int login_complete = FALSE;
+int buffer_pos = 0;
+int password_pos = 0;
+int re_password_pos = 0;
+
 // char(s)
 char decision;
 
 // string(s)
-char username[USERNAME_MAX_SIZE];
-char username_buffer[USERNAME_BUFFER];
-char buffer[BUFFER_SIZE]; int buffer_pos = 0;
-char password[PASSWORD_MAX_SIZE]; int password_pos = 0;
-char re_password[PASSWORD_MAX_SIZE]; int re_password_pos = 0;
+char username[USERNAME_MAX_SIZE] = {0};
+char username_buffer[USERNAME_BUFFER] = {0};
+char buffer[BUFFER_SIZE] = {0}; 
+char password[PASSWORD_MAX_SIZE] = {0};
+char re_password[PASSWORD_MAX_SIZE] = {0};
 
 // pointer(s)
-FILE *fptr;
+FILE *fptr = NULL;
 
 
 
 
 
-void login_system();
+void login_starts();
 void check_account_existence();
 void password_setting();
 void create_account();
 void logging_in();
+void welcome_note();
 
 
 
