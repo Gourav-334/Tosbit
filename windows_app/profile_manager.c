@@ -31,22 +31,28 @@
 Comment sections in series:
 
 		1) Cleansing username.
-	2) Console text interface starts!
-	3) If username size is not in range (self recursion).
-	4) If username size is in range (forward recursion).
-	5) Colour back to white & file pointer closing!
-	
+		2) Console text interface starts!
+		3) If username size is not in range (self recursion).
+		4) If username size is in range (forward recursion).
+		5) Colour back to white & file pointer closing!
+
 	6) Cleansing buffer.
 	7) If username doesn't exist.
 		8) If user wills to create a new account (forward recursion).
 		9) If user doesn't want to create a new account (back recursion).
-	
-	10) Password & re-authentication.
-	11) If password is too short or too long (self recursion).
-	12) If password is in range (forward recursion).
+		10) If command other than 'y' and 'n' is entered.
+	11) If account already exists.
 
-	13) If re-authentication is successful.
-	14) If re-authentication fails (back recursion).
+		12) Cleansing password & authentication password.
+		13) Password & re-authentication.
+		14) If password is too short or too long (self recursion).
+		15) If password is in range (forward recursion).
+
+	16) If re-authentication is successful.
+	17) If re-authentication fails (back recursion).
+
+	18) If password matches.
+	19) If the password doesn't match.
 
 */
 
@@ -70,8 +76,9 @@ i. buffer[] is used for general storage of anything required.
 ii. scanf("%s", str) mustn't be used when SPACES too has to be read.
 iii. gets() is UNSAFE and can overwrite memory beyond limit, creating a security issue.
 iv. fgets() is safer but adds NEWLINE at end by default & also skips to last fgets() in series.
-v. Both get() and fgets() show apparent RACE CONDITION by passing empty strings by themselves.
-vi. If username=n, then decrypted password length = 3n + 1.
+v. Input buffer must cleaned with flush_stdin() when receiving input character.
+vi. Input character must be scanf(" %c", c) to avoid whitespaces & newline hazards.
+vii. If username=n, then decrypted password length = 3n + 1.
 
 */
 
@@ -101,9 +108,14 @@ void login_starts()
 {
 	while (TRUE)
 	{
+		if (username_set==TRUE) {break;}
+
+
+
 		// 1) Cleansing username.
 
 		memset(username, 0, USERNAME_MAX_SIZE*sizeof(char));
+
 
 
 		// 2) Console text interface starts!
@@ -111,10 +123,8 @@ void login_starts()
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
-		printf("Username: "); fgets(username, USERNAME_MAX_SIZE, stdin); // RACE CONDITION 1
+		printf("Username: "); fgets(username, USERNAME_MAX_SIZE, stdin);
 		newline_remover(username);
-
-		if (strlen(username)==0) {continue;}
 		
 
 
@@ -189,7 +199,7 @@ void check_account_existence()
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
 		printf("Want to open a new account? (y/n): ");
-		scanf("%c", &decision); printf("\n");
+		scanf(" %c", &decision); while (getchar() != '\n');
 
 
 
@@ -202,6 +212,8 @@ void check_account_existence()
 			strappend(buffer, &buffer_pos, username);
 			strappend(buffer, &buffer_pos, ".dgw");
 			memset((buffer + buffer_pos), 0, (BUFFER_SIZE*sizeof(char) - buffer_pos));
+
+			username_set = TRUE;
 
 			password_setting();
 		}
@@ -230,7 +242,7 @@ void check_account_existence()
 
 	// 11) If account already exists.
 
-	else {logging_in();}
+	else {username_set = TRUE; logging_in();}
 }
 
 
@@ -256,21 +268,25 @@ void password_setting()
 {
 	while (TRUE)
 	{
+		if (password_set==TRUE) {break;}
+
+
+
+		// 12) Cleansing password & authentication password.
+
 		memset(password, 0, PASSWORD_MAX_SIZE*sizeof(char));
 		memset(re_password, 0, PASSWORD_MAX_SIZE*sizeof(char));
 
 		
 
-		// 10) Password & re-authentication.
+		// 13) Password & re-authentication.
 
 		printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin); // RACE CONDITION 2
 		memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password)));
 
-		if (strlen(password)==0) {continue;}
 
 
-
-		// 11) If password is too short or too long (self recursion).
+		// 14) If password is too short or too long (self recursion).
 
 		if ((strlen(password)<PASSWORD_MIN_SIZE)||(strlen(password)>PASSWORD_MAX_SIZE))
 		{
@@ -286,12 +302,14 @@ void password_setting()
 
 		
 
-		// 12) If password is in range (forward recursion).
+		// 15) If password is in range (forward recursion).
 
 		else
 		{
 			printf("Re-enter password: "); fgets(re_password, PASSWORD_MAX_SIZE, stdin);
 			memset(re_password + strlen(re_password), 0, (PASSWORD_MAX_SIZE-(strlen(re_password))));
+
+			password_set = TRUE;
 
 			create_account();
 		}
@@ -319,7 +337,7 @@ void password_setting()
 
 void create_account()
 {
-	// 13) If re-authentication is successful.
+	// 16) If re-authentication is successful.
 
 	if (!strcmp(password, re_password))
 	{
@@ -337,7 +355,7 @@ void create_account()
 
 
 
-	// 14) If re-authentication fails (back recursion).
+	// 17) If re-authentication fails (back recursion).
 
 	else
 	{
@@ -375,11 +393,11 @@ void logging_in()
 	printf("Password: "); fgets(password, PASSWORD_MAX_SIZE, stdin);
 	newline_remover(password);
 
-	fgets(username_buffer, USERNAME_BUFFER, fptr); printf("\n");
+	fgets(username_buffer, USERNAME_BUFFER, fptr); printf("%c", '\n');
 
 
 
-	// 12) If password matches.
+	// 18) If password matches.
 
 	if (!strcmp(password,decrypt(username_buffer)))
 	{
@@ -391,7 +409,7 @@ void logging_in()
 
 
 
-	// 13) If the password doesn't match.
+	// 19) If the password doesn't match.
 
 	else
 	{

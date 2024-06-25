@@ -14,9 +14,6 @@
 #define PASSWORD_MIN_SIZE 6
 #define PASSWORD_MAX_SIZE 33
 
-#define CONTINUE 1
-#define DISCONTINUE 0
-
 #define TRUE 1
 #define FALSE 0
 
@@ -34,21 +31,18 @@
 
 
 
-// Function continuation manager.
-
-int login_system_func = CONTINUE;
-int check_account_existence_func = CONTINUE;
-int password_setting_func = CONTINUE;
-int create_account_func = CONTINUE;
-
 
 
 
 
 /* GLOBAL VARIABLES */
 
-// int(s)
+// boolean(s)
 int login_complete = FALSE;
+int username_set = FALSE;
+int password_set = FALSE;
+
+// int(s)
 int buffer_pos = 0;
 int password_pos = 0;
 int re_password_pos = 0;

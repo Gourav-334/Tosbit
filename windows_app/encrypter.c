@@ -57,7 +57,7 @@ char *encrypt(char *input)
 		{
 			if (keyboard_chars[j]==input[i])
 			{
-				strappend(output, &cursor_pos, prime_codes[j]);
+				constrappend(output, &cursor_pos, prime_codes[j]);
 				charappend(output, &cursor_pos, '0');
 
 				break;
