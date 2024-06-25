@@ -199,7 +199,7 @@ void check_account_existence()
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
 		printf("Want to open a new account? (y/n): ");
-		scanf(" %c", &decision); while (getchar() != '\n');
+		scanf(" %c", &decision); while (getchar() != '\n'); printf("%c", '\n');
 
 
 
