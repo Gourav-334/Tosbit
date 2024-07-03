@@ -2,22 +2,22 @@
 
 ## I\) Create new account:
 ```
-user account switch;
+create new account;
 ```
 
 ## II\) Switch account:
 ```
-user account switch;
+switch account to user2;
 ```
 
 ## III\) Change password:
 ```
-user account change_password;
+change account password;
 ```
 
 ## IV\) Delete account:
 ```
-user account delete;
+delete account;
 
 Enter details in password#username format to confirm:
 abc123#my_account

@@ -4,7 +4,7 @@
 
 ### i. JSON to DGW:
 ```
-make table named Exam
+make table Exam
 from json at "path/to/file/filename.json";
 ```
 
@@ -18,7 +18,7 @@ from table Exam;
 
 ### i. TOML to DGW:
 ```
-make table named Exam
+make table Exam
 from toml at "path/to/file/filename.json";
 ```
 

@@ -14,6 +14,7 @@ const char keyboard_chars[TOTAL_CHARS];
 const char *prime_arr[TOTAL_CHARS];
 
 char *encrypt(char *input);
+char *decrypt(char *input);
 
 
 #endif

@@ -4,7 +4,7 @@
 
 ### i. Too long named variable:
 ```
-make database named onekilogramswedishcarrotwhichwasbad;
+make database onekilogramswedishcarrotwhichwasbad;
 
 Error: Too long variable, keep it below 32 characters.
 ```
@@ -19,13 +19,13 @@ Error: Incorrect syntax, re-refer to documentation.
 ## II\) Syntax Style
 ### i. Single-line syntax:
 ```
-make database named Office;
+make database Office;
 ```
 
 ### ii. Multiline syntax:
 ```
 make data
-base named
+base
 Office;
 ```
 

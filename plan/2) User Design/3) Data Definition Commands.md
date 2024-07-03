@@ -20,12 +20,12 @@ show Desk structure in database Office;
 
 ## II\) Creating database:
 ```
-make database named Office;
+make database Office;
 ```
 
 ## III\) Using database:
 ```
-open database named Office;
+open database Office;
 ```
 
 ## IV\) Dropping (deleting) database:
@@ -37,7 +37,7 @@ delete this database;
 
 ### i. While outside database:
 ```
-delete database named Office;
+delete database Office;
 ```
 
 ## V\) Truncating (clearing) database:
@@ -49,7 +49,7 @@ clear this database;
 
 ### ii. While outside database:
 ```
-clear database named Office;
+clear database Office;
 ```
 
 ## VI\) Renaming database:
@@ -61,7 +61,7 @@ rename this database as Classroom;
 
 ### ii. While outside database:
 ```
-rename database named Office as Classroom;
+rename database Office as Classroom;
 ```
 
 ## VII\) Exiting database:
@@ -73,7 +73,7 @@ exit database;
 
 ## VIII\) Creating table:
 ```
-make table named Desk columns [
+make table Desk columns [
     int Sno,
     string name,
     string dep
@@ -89,7 +89,7 @@ delete recent table;
 
 ### ii. Dropping table by mentioning:
 ```
-delete table named Desk;
+delete table Desk;
 ```
 
 ## X\) Truncating (clearing) table:
@@ -101,7 +101,7 @@ clear recent table;
 
 ### ii. Truncating table by mentioning:
 ```
-clear table named Desk;
+clear table Desk;
 ```
 
 ## XI\) Renaming database:
@@ -113,5 +113,5 @@ rename recent table as Room;
 
 ### ii. While outside database:
 ```
-rename table named Desk as Room;
+rename table Desk as Room;
 ```

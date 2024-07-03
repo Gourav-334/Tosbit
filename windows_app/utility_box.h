@@ -15,6 +15,7 @@ void newline_remover(char str[]);
 void frontchar_remover(char str[]);
 void flush_stdin();
 void binary_print(char str[], int size);
+int char_in_array(char c, char arr[], int length);
 
 
 

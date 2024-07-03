@@ -30,14 +30,14 @@ show column Name,Dep from table Desk;
 
 ### i. Recent table:
 ```
-show rows recent table where age<25;
-show rows recent table where age=25;
-show rows recent table where age>25;
+show rows from recent table where age<25;
+show rows from recent table where age=25;
+show rows from recent table where age>25;
 ```
 
 ### ii. Explicitly mentioned table:
 ```
-show rows table Desk where age<25;
-show rows table Desk where age=25;
-show rows table Desk where age>25;
+show rows from table Desk where age<25;
+show rows from table Desk where age=25;
+show rows from table Desk where age>25;
 ```

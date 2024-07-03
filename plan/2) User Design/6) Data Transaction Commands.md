@@ -2,7 +2,7 @@
 
 ## I\) Adding it to stash:
 ```
-add state to stash;
+add to stash;
 ```
 
 
@@ -14,7 +14,7 @@ reverse stash;
 
 ## III\) Committing:
 ```
-commit from stash;
+commit stash;
 ```
 
 

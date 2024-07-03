@@ -119,4 +119,18 @@ void binary_print(char str[], int size)
 
 
 
+int char_in_array(char c, char arr[], int length)
+{
+	for (int i=0; i<length; i++)
+	{
+		if (c==arr[i]) {return 1;}
+	}
+
+	return 0;
+}
+
+
+
+
+
 #endif	//Drink mango juice after this code.
