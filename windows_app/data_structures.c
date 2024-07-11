@@ -3,7 +3,7 @@
 
 
 
-#include <string.h>
+
 
 #include "data_structures.h"
 
@@ -26,34 +26,9 @@
 
 
 
-typedef struct token {char name[33]; token *next;} token;
-
-typedef struct Queue
-{
-	int n, pos;
-
-	token *m; token *head; token *temp; token *trav;
-
-
-
-	void (queue)(struct Queue *q, char str[]);
-	void (clear_queue)(struct Queue *q, );
-
-	int (get_index)(struct Queue *q, char str[]);
-	char (*get_value)(struct Queue *q, int index);
-
-	void (show_current)(struct Queue *q, );
-	void (show_all)(struct Queue *q, );
-
-} Queue;
-
-
-
-
-
 // 2) Queue the given token/string to our queue.
 
-void queue(struct Queue *q, char str[])
+void queue(Queue *q, char str[])
 {
 	if (n==0)
 	{
@@ -86,7 +61,7 @@ void queue(struct Queue *q, char str[])
 
 // 3) Clear whole queue (freeing whole structure)
 
-void clear_queue(struct Queue *q)
+void clear_queue(Queue *q)
 {
 	while (n!=0)
 	{
@@ -103,7 +78,7 @@ void clear_queue(struct Queue *q)
 
 // 4) Fetch index number for a string argument.
 
-int get_index(struct Queue *q, char str[])
+int get_index(Queue *q, char str[])
 {
 	pos = 0;
 
@@ -124,7 +99,7 @@ int get_index(struct Queue *q, char str[])
 
 // 5) Fetch string for an index as argument.
 
-char *get_value(struct Queue *q, int index)
+char *get_value(Queue *q, int index)
 {
 	char data[33] = {0};
 
@@ -141,7 +116,7 @@ char *get_value(struct Queue *q, int index)
 
 // 6) Shows last node of a queue.
 
-void show_current(struct Queue *q)
+void show_current(Queue *q)
 {
 	printf("Name: %s\nNext: %x", temp->name, temp->next);
 }
@@ -152,7 +127,7 @@ void show_current(struct Queue *q)
 
 // 7) Shows all the nodes of a queue.
 
-void show_all(struct Queue *q)
+void show_all(Queue *q)
 {
 	while (trav->next!=NULL)
 	{
