@@ -24,7 +24,7 @@
 
 
 
-typedef struct token {char name[33]; struct token *next;} token;
+typedef struct node {char name[33]; struct node *next;} node;
 
 
 
@@ -32,13 +32,9 @@ typedef struct token {char name[33]; struct token *next;} token;
 
 typedef struct Queue
 {
-	//struct token node;
-
-
-
 	int n, pos;
 
-	struct token *m, *head, *temp, *trav;
+	struct node *m, *head, *temp, *trav;
 
 
 

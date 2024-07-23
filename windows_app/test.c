@@ -5,12 +5,18 @@
 
 int main()
 {
-	Queue q;
+	Queue q = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+
 	Queue_queue(&q, "Gourav");
+	Queue_queue(&q, "Deepanjan");
+	Queue_queue(&q, "Atharv");
+	Queue_queue(&q, "Ankit");
+	Queue_queue(&q, "Anirudh");
+	Queue_queue(&q, "Bhairav");
 
-	printf("Passing\n");
+	Queue_all_node(&q);
 
-	//printf("%x", q->name);
+	printf("Index: %s", Queue_get_value(&q, 2));
 
 	return 0;
 }
