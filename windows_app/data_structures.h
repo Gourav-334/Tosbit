@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 
+#include "utility_box.c"
 
 
 
@@ -17,8 +18,9 @@
 
 
 
-// Size variables
-//int Queue_n_size = 48;
+
+// Variable(s)
+char node_value[33] = {0};
 
 
 

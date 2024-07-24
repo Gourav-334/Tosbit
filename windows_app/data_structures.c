@@ -60,6 +60,8 @@ Queue behaviour:
 
 void Queue_queue(Queue *q, char str[])
 {
+	//str[strlen(str)] = '\0';
+
 	if ((q -> n)==0)
 	{
 		q -> m = (node*)malloc(sizeof(node));		//'m' might be something else
@@ -67,6 +69,7 @@ void Queue_queue(Queue *q, char str[])
 		q -> temp = q -> m;
 
 		strcpy(q -> head -> name, str);
+		q -> head -> name[strlen(q -> head -> name)] = '\0';
 
 		q -> head -> next = NULL;
 		q -> trav = q -> m;
@@ -114,9 +117,14 @@ void Queue_clear(Queue *q)
 
 int Queue_get_index(Queue *q, char str[])
 {
+	// 'str2' is 'str' with null character (\0) at the end.
+
+	char str2[strlen(str)+1]; strcpy(str2,str);
+	str2[strlen(str2)] = '\0';
+
 	q -> pos = 0;
 
-	while (strcmp(q->trav->name,str))
+	while (strcmp(q->trav->name,str2))
 	{
 		q -> trav = q -> trav -> next;
 		q -> pos++;
@@ -124,7 +132,7 @@ int Queue_get_index(Queue *q, char str[])
 
 	q -> trav = q -> head;
 
-	return q -> pos;
+	return (q -> pos);
 }
 
 
@@ -135,14 +143,12 @@ int Queue_get_index(Queue *q, char str[])
 
 char *Queue_get_value(Queue *q, int index)
 {
-	char *data;			// TO BE REPAIRED...
-
 	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
 
-	strcpy(data, q->trav->name);
+	strcpy(node_value, q->trav->name);
 	q -> trav = q -> head;
 
-	return data;		// warning: function returns address of local variable
+	return node_value;		// warning: function returns address of local variable
 }
 
 
@@ -157,9 +163,9 @@ void Queue_current_node(Queue *q)
 
 	else
 	{
-		printf("----------------------------------\n");
-		printf("Name: %s\nNext: %x\n", q->temp->name, q->temp->next);
-		printf("----------------------------------\n");
+		printf("\n----------------------------------\n");
+		printf("Name: %s\nNext: %x", q->temp->name, q->temp->next);
+		printf("\n----------------------------------\n");
 	}
 }
 
@@ -175,19 +181,21 @@ void Queue_all_node(Queue *q)
 
 	else
 	{
-		printf("----------------------------------\n");
+		printf("\n----------------------------------\n");
 
 		while (q->trav->next!=NULL)
 		{
-			printf("Name: %s\nNext: %x\n", q->trav->name, q->trav->next);
+			printf("Name: %s\nNext: %x", q->trav->name, q->trav->next);
 			q -> trav = q -> trav -> next;
 
-			printf("----------------------------------\n");
-		} printf("Name: %s\nNext: %x\n", q->trav->name, q->trav->next);
+			printf("\n----------------------------------\n");
+		} printf("Name: %s\nNext: %x", q->trav->name, q->trav->next);
 
-		printf("----------------------------------\n");
+		printf("\n----------------------------------\n");
 
 		q -> trav = q -> head;
+
+		printf("Whole queue cleaned!\n");
 	}
 }
 

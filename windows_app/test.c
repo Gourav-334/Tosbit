@@ -16,7 +16,10 @@ int main()
 
 	Queue_all_node(&q);
 
-	printf("Index: %s", Queue_get_value(&q, 2));
+	printf("Index: %s\n", Queue_get_value(&q, 2));
+	
+	Queue_clear(&q);
+	Queue_current_node(&q);
 
 	return 0;
 }
