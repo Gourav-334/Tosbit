@@ -80,16 +80,19 @@ void newline_remover(char str[])
 
 
 
+// 6) Removes first character from the string.
+
 void frontchar_remover(char str[])
 {
 	memset(str, 0, 1*sizeof(char));
+	(*str)++;
 }
 
 
 
 
 
-// 6) Cleans the standard input buffer.
+// 7) Cleans the standard input buffer.
 
 void flush_stdin()
 {
@@ -100,6 +103,8 @@ void flush_stdin()
 
 
 
+
+// 8) Print whole string transparently.
 
 void binary_print(char str[], int size)
 {
@@ -118,6 +123,8 @@ void binary_print(char str[], int size)
 
 
 
+
+// 9) Check existence of a character in an array.
 
 int char_in_array(char c, char arr[], int length)
 {
