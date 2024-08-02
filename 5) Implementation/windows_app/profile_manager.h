@@ -42,11 +42,6 @@ int login_complete = FALSE;
 int username_set = FALSE;
 int password_set = FALSE;
 
-// int(s)
-int buffer_pos = 0;
-int password_pos = 0;
-int re_password_pos = 0;
-
 // char(s)
 char decision;
 

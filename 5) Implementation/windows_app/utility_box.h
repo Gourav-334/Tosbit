@@ -7,10 +7,10 @@
 
 
 
-void strappend(char str[], int *cursor_pos, char *addition);
-void constrappend(char str[], int *cursor_pos, const char *addition);
-void charappend(char str[], int *cursor_pos, char addition);
-void const_charappend(char str[], int *cursor_pos, const char *addition);
+void strappend(char str[], char *addition);
+void constrappend(char str[], const char *addition);
+void charappend(char str[], char addition);
+void const_charappend(char str[], const char addition);
 void newline_remover(char str[]);
 void frontchar_remover(char str[]);
 void flush_stdin();

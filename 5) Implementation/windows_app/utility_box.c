@@ -10,14 +10,13 @@
 
 // 1) Appends string to another string.
 
-void strappend(char str[], int *cursor_pos, char *addition)
+void strappend(char str[], char *addition)
 {
 	for (int i=0; i<strlen(addition); i++)
 	{
-		str[i + (*cursor_pos)] = addition[i];
+		str[strlen(str)] = addition[i];
+		printf("%d-%c-%s\n", i, addition[i], str);
 	}
-
-	*cursor_pos += strlen(addition);
 }
 
 
@@ -26,14 +25,12 @@ void strappend(char str[], int *cursor_pos, char *addition)
 
 // 2) Appends contant string to another string.
 
-void constrappend(char str[], int *cursor_pos, const char *addition)
+void constrappend(char str[], const char *addition)
 {
 	for (int i=0; i<strlen(addition); i++)
 	{
-		str[i + (*cursor_pos)] = addition[i];
+		str[i + strlen(str)] = addition[i];
 	}
-
-	*cursor_pos += strlen(addition);
 }
 
 
@@ -42,11 +39,9 @@ void constrappend(char str[], int *cursor_pos, const char *addition)
 
 // 3) Appends character to a string.
 
-void charappend(char str[], int *cursor_pos, char addition)
+void charappend(char str[], char addition)
 {
-	str[*cursor_pos] = addition;
-
-	*cursor_pos += sizeof(char);
+	str[strlen(str)] = addition;
 }
 
 
@@ -55,11 +50,9 @@ void charappend(char str[], int *cursor_pos, char addition)
 
 // 4) Appends constant character to a string.
 
-void const_charappend(char str[], int *cursor_pos, const char *addition)
+void const_charappend(char str[], const char addition)
 {
-	str[*cursor_pos] = *addition;
-
-	*cursor_pos += sizeof(char);
+	str[strlen(str)] = addition;
 }
 
 

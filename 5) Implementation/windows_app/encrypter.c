@@ -1,7 +1,6 @@
 #ifndef ENCRYPTER_C
 	#define ENCRYPTER_C
 
-#define MAX_OUTPUT_SIZE 93
 
 
 #include "encrypter.h"
@@ -48,7 +47,7 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 char *encrypt(char *input)
 {
-	static char output[MAX_OUTPUT_SIZE]; int cursor_pos = 0;
+	static char output[MAX_OUTPUT_SIZE];
 	memset(output, 0, MAX_OUTPUT_SIZE*sizeof(char));
 	
 	for (int i=0; i<strlen(input); i++)
@@ -57,19 +56,22 @@ char *encrypt(char *input)
 		{
 			if (keyboard_chars[j]==input[i])
 			{
-				constrappend(output, &cursor_pos, prime_codes[j]);
-				charappend(output, &cursor_pos, '0');
+				constrappend(output, prime_codes[j]);
+				charappend(output, '0');
 
 				break;
 			}
 		}
 	}
 
-	charappend(output, &cursor_pos, '0');
-	memset((output + cursor_pos), 0, (strlen(output)-cursor_pos)*sizeof(char));
+	charappend(output, '0');
+	memset((output + strlen(output)), 0, (strlen(output)-strlen(output))*sizeof(char));
 
 	return output;
 }
+
+
+
 
 
 char *decrypt(char *input)
@@ -77,9 +79,7 @@ char *decrypt(char *input)
 	static char output[MAX_OUTPUT_SIZE]; int str_cursor_pos = 0;
 	memset(output, 0, MAX_OUTPUT_SIZE*sizeof(char));
 
-	char character[4]; int char_cursor_pos = 0;
-	memset(character, 0, strlen(character)*sizeof(char));
-
+	char character[4] = {0}; 
 	int zero_count = 0;
 	
 	for (int i=0; i<strlen(input); i++)
@@ -88,7 +88,7 @@ char *decrypt(char *input)
 		{
 			if (zero_count==1) {zero_count = 0;}
 
-			charappend(character, &char_cursor_pos, input[i]);
+			charappend(character, input[i]);
 		}
 
 		else if ((input[i]=='0')&&(zero_count==0))
@@ -99,9 +99,8 @@ char *decrypt(char *input)
 			{
 				if (!strcmp(character, prime_codes[j]))
 				{
-					charappend(output, &str_cursor_pos, keyboard_chars[j]);
+					charappend(output, keyboard_chars[j]);
 					memset(character, 0, strlen(character)*sizeof(char));
-					char_cursor_pos = 0;
 
 					break;
 				}

@@ -180,7 +180,7 @@ void check_account_existence()
 
 	memset(buffer, 0, BUFFER_SIZE*sizeof(char));
 
-	snprintf(buffer, sizeof(buffer), "users\\%s.dgw", username);
+	snprintf(buffer, sizeof(buffer), "users\\%s.tosbit", username);
 
 	fptr = fopen(buffer, "r");
 
@@ -199,7 +199,7 @@ void check_account_existence()
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
 
 		printf("Want to open a new account? (y/n): ");
-		scanf(" %c", &decision); while (getchar() != '\n'); printf("%c", '\n');
+		scanf(" %c", &decision); flush_stdin();
 
 
 
@@ -208,10 +208,11 @@ void check_account_existence()
 		if (decision=='y')
 		{
 			memset(buffer, 0, BUFFER_SIZE*sizeof(char));
-			strappend(buffer, &buffer_pos, "users\\");
-			strappend(buffer, &buffer_pos, username);
-			strappend(buffer, &buffer_pos, ".dgw");
-			memset((buffer + buffer_pos), 0, (BUFFER_SIZE*sizeof(char) - buffer_pos));
+			strappend(buffer, "users\\");
+			strappend(buffer, username);
+			newline_remover(username);
+			strappend(buffer, ".tosbit");
+			memset((buffer + strlen(buffer)), 0, ((BUFFER_SIZE-strlen(buffer)))*sizeof(char));
 
 			username_set = TRUE;
 
@@ -281,8 +282,8 @@ void password_setting()
 
 		// 13) Password & re-authentication.
 
-		printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin); // RACE CONDITION 2
-		memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password)));
+		printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin);
+		memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password))*sizeof(char));
 
 
 
@@ -307,7 +308,7 @@ void password_setting()
 		else
 		{
 			printf("Re-enter password: "); fgets(re_password, PASSWORD_MAX_SIZE, stdin);
-			memset(re_password + strlen(re_password), 0, (PASSWORD_MAX_SIZE-(strlen(re_password))));
+			memset(re_password + strlen(re_password), 0, (PASSWORD_MAX_SIZE-(strlen(re_password)))*sizeof(char));
 
 			password_set = TRUE;
 
@@ -341,6 +342,7 @@ void create_account()
 
 	if (!strcmp(password, re_password))
 	{
+		printf("BUFFER: %s\n", buffer);/////////////////////////////////////////////
 		fptr = fopen(buffer, "w");
 		fputs(encrypt(password), fptr);
 		
@@ -365,7 +367,7 @@ void create_account()
 		printf("Authentication failed, retry!\n\n");
 
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-		password_setting();
+		password_set = FALSE; password_setting();
 	}
 }
 
