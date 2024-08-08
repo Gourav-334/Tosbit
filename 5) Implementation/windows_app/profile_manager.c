@@ -342,7 +342,6 @@ void create_account()
 
 	if (!strcmp(password, re_password))
 	{
-		printf("BUFFER: %s\n", buffer);/////////////////////////////////////////////
 		fptr = fopen(buffer, "w");
 		fputs(encrypt(password), fptr);
 		
@@ -396,6 +395,10 @@ void logging_in()
 	newline_remover(password);
 
 	fgets(username_buffer, USERNAME_BUFFER, fptr); printf("%c", '\n');
+
+	printf("PASSWORD: %s\n", password);/////////////////////////////////////////////////
+	printf("user name buffer: %s\n", username_buffer);/////////////////////////////////
+	printf("decrypt password: %s\n", decrypt(password));//////////////////////////////
 
 
 
