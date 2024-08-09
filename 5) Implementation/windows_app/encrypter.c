@@ -27,10 +27,27 @@ zZxXcCvVbBnNmM,<.>/?			Keyboard row: 4
 
 
 
+/*
+
+To debug:
+
+i) Not proceeding after 2nd character of input string.
+	-> Check for accidental decrement to value of 'i'.
+	-> Detect if the problem is with 2nd character or with first appearance of '0'.
+
+ii) Nothing appended to output string.
+	-> Check why the section with 'const_charappend isn't working (if that's so).
+
+*/
+
+
+
+
+
 char *encrypt(char *input)
 {
-	static char output[MAX_OUTPUT_SIZE];
-	memset(output, 0, MAX_OUTPUT_SIZE*sizeof(char));
+	static char output[MAX_ENCRYPTED_SIZE];
+	memset(output, 0, MAX_ENCRYPTED_SIZE*sizeof(char));
 	
 	for (int i=0; i<strlen(input); i++)
 	{
@@ -58,42 +75,40 @@ char *encrypt(char *input)
 
 char *decrypt(char *input)
 {
-	static char output[MAX_OUTPUT_SIZE];
-	memset(output, 0, MAX_OUTPUT_SIZE*sizeof(char));
+	static char output[MAX_ENCRYPTED_SIZE] = {0};
+	char buffer[MAX_DECRYPTED_SIZE] = {0};
 
-	char character[4] = {0}; 
-	int zero_count = 0;
-	
 	for (int i=0; i<strlen(input); i++)
 	{
-		if (input[i]!='0')
+		printf("Input: %s\nInput[i]: %c\nBuffer: %s\nOutput: %s\n\n", input, input[i], buffer, output);
+
+		if (input[i]=='0')
 		{
-			if (zero_count==1) {zero_count = 0;}
-
-			charappend(character, input[i]);
-		}
-
-		else if ((input[i]=='0')&&(zero_count==0))
-		{
-			zero_count++;
-
 			for (int j=0; j<TOTAL_CHARS; j++)
 			{
-				if (!strcmp(character, prime_codes[j]))
+				printf("Input: %s\nInput[i]: %c\nBuffer: %s\nOutput: %s\n\n", input, input[i], buffer, output);
+
+				if (!strcmp(buffer,prime_codes[j]))
 				{
-					charappend(output, keyboard_chars[j]);
-					memset(character, 0, strlen(character)*sizeof(char));
+					const_charappend(output,keyboard_chars[j]);
 
 					break;
+				}
+
+				else if (strcmp(buffer,prime_codes[j]))
+				{
+					continue;
 				}
 			}
 		}
 
-		else if ((input[i]=='0')&&(zero_count==1))
+
+
+		else if (input[i]!='0')
 		{
-			zero_count = 0;
-			
-			break;
+			charappend(buffer,input[i]);
+
+			continue;
 		}
 	}
 

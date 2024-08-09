@@ -2,7 +2,8 @@
 	#define ENCRYPTER_H
 
 #define TOTAL_CHARS 95
-#define MAX_OUTPUT_SIZE 93
+#define MAX_ENCRYPTED_SIZE 133
+#define MAX_DECRYPTED_SIZE 33
 
 
 
