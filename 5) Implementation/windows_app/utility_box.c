@@ -29,7 +29,7 @@ void constrappend(char str[], const char *addition)
 {
 	for (int i=0; i<strlen(addition); i++)
 	{
-		str[i + strlen(str)] = addition[i];
+		str[strlen(str)] = addition[i];
 	}
 }
 

@@ -8,8 +8,12 @@ int main()
 {
 	//login_starts();
 
-	char str[128] = "30592039109310933079107310993013070";
-	printf("%s\n", decrypt(str));
+	char str[128] = "Deepanjan's Lamp";
+	//
+
+	printf("ENCRYPTED: %s\nDECRYPTED: %s\n\n\n", encrypt(str), decrypt(encrypt(str)));
+
+	printf("HELLO, GOD!");
 
 
 
