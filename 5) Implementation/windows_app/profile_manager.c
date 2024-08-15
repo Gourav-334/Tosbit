@@ -80,6 +80,11 @@ v. Input buffer must cleaned with flush_stdin() when receiving input character.
 vi. Input character must be scanf(" %c", c) to avoid whitespaces & newline hazards.
 vii. If username=n, then decrypted password length = 3n + 1.
 
+
+Problems:
+
+i) Password is being appended on each attempt, if first attempt fails.
+
 */
 
 
@@ -234,7 +239,7 @@ void check_account_existence()
 			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
 
-			printf("Unknown command received!");
+			printf("Unknown command received!\n\n");
 			login_starts();
 		}
 	}
@@ -394,11 +399,8 @@ void logging_in()
 	printf("Password: "); fgets(password, PASSWORD_MAX_SIZE, stdin);
 	newline_remover(password);
 
+	memset(username_buffer, 0, USERNAME_BUFFER*sizeof(char));
 	fgets(username_buffer, USERNAME_BUFFER, fptr); printf("%c", '\n');
-
-	printf("PASSWORD: %s\n", password);/////////////////////////////////////////////////
-	printf("user name buffer: %s\n", username_buffer);/////////////////////////////////
-	printf("decrypt password: %s\n", decrypt(password));//////////////////////////////
 
 
 

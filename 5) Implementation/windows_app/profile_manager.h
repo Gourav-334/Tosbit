@@ -51,7 +51,6 @@ char username_buffer[USERNAME_BUFFER] = {0};
 char buffer[BUFFER_SIZE] = {0}; 
 char password[PASSWORD_MAX_SIZE] = {0};
 char re_password[PASSWORD_MAX_SIZE] = {0};
-//char encrypted_password[PASSWORD_MAX_SIZE*3] = {0};
 
 // pointer(s)
 FILE *fptr = NULL;
