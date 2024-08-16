@@ -1,0 +1,23 @@
+# profile_manager
+
+- **(1)** Prompt user for entering username.
+- Match username with each file's name.
+- If file found:
+    - **(2)** Prompt user for password.
+    - If password matches:
+        - Bring user to Tosbit terminal.
+    - If password doesn't match:
+        - Go back to **(2)**.
+- If file not found:
+    - Provide user choice to create an account.
+    - If user wants an account:
+        - **(3)** Ask for a new password.
+        - Reauthenticate the password.
+        - If password is reauthenticated:
+            - Create a file with user's name.
+            - Store encrypted password in it.
+            - Tell user that account has been created.
+        - If password is not reauthenticated:
+            - Go back to **(3)**.
+    - If user doesn't want an account:
+        - Go back to **(1)**.
