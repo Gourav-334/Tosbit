@@ -1,7 +1,7 @@
 # profile_manager
 
 - **(1)** Prompt user for entering username.
-- Match username with each file's name.
+- Check if username exists or not.
 - If file found:
     - **(2)** Prompt user for password.
     - If password matches:
