@@ -60,8 +60,6 @@ Queue behaviour:
 
 void Queue_queue(Queue *q, char str[])
 {
-	//str[strlen(str)] = '\0';
-
 	if ((q -> n)==0)
 	{
 		q -> m = (node*)malloc(sizeof(node));		//'m' might be something else
@@ -89,6 +87,8 @@ void Queue_queue(Queue *q, char str[])
 
 		(q -> n)++;
 	}
+
+	printf("Node \"%s\" queued!", str);
 }
 
 
@@ -107,6 +107,8 @@ void Queue_clear(Queue *q)
 
 		(q -> n)--;
 	}
+
+	printf("Whole queue cleared!\n");
 }
 
 
@@ -115,7 +117,7 @@ void Queue_clear(Queue *q)
 
 // 4) Fetch index number for a string argument.
 
-int Queue_get_index(Queue *q, char str[])
+int Queue_getIndex(Queue *q, char str[])
 {
 	// 'str2' is 'str' with null character (\0) at the end.
 
@@ -141,7 +143,7 @@ int Queue_get_index(Queue *q, char str[])
 
 // 5) Fetch string for an index as argument.
 
-char *Queue_get_value(Queue *q, int index)
+char *Queue_getValue(Queue *q, int index)
 {
 	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
 
@@ -157,7 +159,7 @@ char *Queue_get_value(Queue *q, int index)
 
 // 6) Shows last node of a queue.
 
-void Queue_current_node(Queue *q)
+void Queue_peek(Queue *q)
 {
 	if (q->n==0) {printf("Queue is clean!\n");}
 
@@ -175,7 +177,7 @@ void Queue_current_node(Queue *q)
 
 // 7) Shows all the nodes of a queue.
 
-void Queue_all_node(Queue *q)
+void Queue_showAll(Queue *q)
 {
 	if (q->n==0) {printf("Queue is clean!\n");}
 
@@ -194,8 +196,6 @@ void Queue_all_node(Queue *q)
 		printf("\n----------------------------------\n");
 
 		q -> trav = q -> head;
-
-		printf("Whole queue cleaned!\n");
 	}
 }
 

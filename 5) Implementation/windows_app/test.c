@@ -1,11 +1,15 @@
 #include <stdio.h>
-#include "profile_manager.c"
+#include "data_structures.c"
 
 
 
 int main()
 {
-	login_starts();
+	Queue q = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+
+	Queue_queue(&q, "Gourav");
+	Queue_queue(&q, "Kumar");
+	Queue_queue(&q, "Mallick");
 
 	return 0;
 }

@@ -31,6 +31,8 @@ typedef struct node {char name[33]; struct node *next;} node;
 
 
 
+// Queue q = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+
 
 typedef struct Queue
 {
@@ -42,10 +44,10 @@ typedef struct Queue
 
 	void (*Queue_queue)(struct Queue *q, char str[]);
 	void (*Queue_clear)(struct Queue *q);
-	int (*Queue_get_index)(struct Queue *q, char str[]);
-	char *(*Queue_get_value)(struct Queue *q, int index);
-	void (*Queue_current_node)(struct Queue *q);
-	void (*Queue_all_node)(struct Queue *q);
+	int (*Queue_getIndex)(struct Queue *q, char str[]);
+	char *(*Queue_getValue)(struct Queue *q, int index);
+	void (*Queue_peek)(struct Queue *q);
+	void (*Queue_showAll)(struct Queue *q);
 
 } Queue;
 
@@ -56,11 +58,11 @@ typedef struct Queue
 void Queue_queue(Queue *q, char str[]);
 void Queue_clear(Queue *q);
 
-int Queue_get_index(Queue *q, char str[]);
-char *Queue_get_value(Queue *q, int index);
+int Queue_getIndex(Queue *q, char str[]);
+char *Queue_getValue(Queue *q, int index);
 
-void Queue_current_node(Queue *q);
-void Queue_all_node(Queue *q);
+void Queue_peek(Queue *q);
+void Queue_showAll(Queue *q);
 
 
 
