@@ -22,7 +22,7 @@
     - Until just one node is left:
         - Clear node.
         - Move to next node. 
-    - Clear node.
+    - Clear last node.
 
 
 ### Queue.getIndex
@@ -30,8 +30,8 @@
 - Keep a counter set to zero.
 - Starting from first node.
 - Until the input value isn't found:
-    - Compare the input value & node value.
     - Increment the counter by 1.
+    - Compare the input value & node value.
     - Move to next node.
 - Return the counter value.
 

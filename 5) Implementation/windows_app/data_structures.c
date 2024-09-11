@@ -60,35 +60,31 @@ Queue behaviour:
 
 void Queue_queue(Queue *q, char str[])
 {
+	// Creating a node
+
+	q -> m = (node*)malloc(sizeof(node));
+
+
 	if ((q -> n)==0)
 	{
-		q -> m = (node*)malloc(sizeof(node));		//'m' might be something else
 		q -> head = q -> m;
-		q -> temp = q -> m;
-
-		strcpy(q -> head -> name, str);
-		q -> head -> name[strlen(q -> head -> name)] = '\0';
-
-		q -> head -> next = NULL;
 		q -> trav = q -> m;
-
-		(q -> n)++;
 	}
 
 
-	else
-	{
-		q -> m = (node*)malloc(sizeof(node));
-		strcpy(q -> m -> name, str);
+	else {q -> temp -> next = q -> m;}
 
-		q -> temp -> next = q -> m;
-		q -> m -> next = NULL;
-		q -> temp = q -> m;
 
-		(q -> n)++;
-	}
+	q -> temp = q -> m;
+	q -> temp -> next = NULL;
 
-	printf("Node \"%s\" queued!", str);
+
+	strcpy(q -> m -> name, str);
+	q -> m -> name[strlen(q -> m -> name)] = '\0';
+
+	(q -> n)++;
+
+	printf("Node \"%s\" queued!", q -> m -> name);
 }
 
 
