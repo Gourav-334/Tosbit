@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef SYNTAX_PARSER_H
 	#define SYNTAX_PARSER_H
 
@@ -17,22 +21,20 @@
 
 
 
-/* Variables */
+/* VARIABLES */
 
-// char(s)
+/* Characters */
 char dividers[TOTAL_DIVIDERS] = {'.',',',';','[',']','<','=','>'};
 
 
 
-
-
-// Arrays
+/* Arrays */
 
 char command_buffer[STRING_MAX_LENGTH][MAX_STRINGS];
 
 
 
-// Functions
+/* Functions */
 
 void string_tokenizer(char command[COMMAND_LENGTH]);
 
@@ -41,3 +43,7 @@ void string_tokenizer(char command[COMMAND_LENGTH]);
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

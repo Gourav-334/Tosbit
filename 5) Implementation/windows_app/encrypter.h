@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef ENCRYPTER_H
 	#define ENCRYPTER_H
 
@@ -16,6 +20,8 @@
 
 
 
+/* All possible inputs coming from STDOUT (keyboard) */
+
 const char keyboard_chars[TOTAL_CHARS] = {' ','`','~','1','!','2','@','3','#','4',		//10
 	'$','5','%','6','^','7','&','8','*','9','(','0',')','-','_','=','+','q','Q','w',	//30
 	'W','e','E','r','R','t','T','y','Y','u','U','i','I','o','O','p','P','[','{',']',	//50
@@ -23,6 +29,10 @@ const char keyboard_chars[TOTAL_CHARS] = {' ','`','~','1','!','2','@','3','#','4
 	':','\'','\"','z','Z','x','X','c','C','v','V','b','B','n','N','m','M',',','<',		//89
 	'.','>','/','?'																		//93
 };
+
+
+
+/* Equivalent encrypted prime codes for STDOUT symbols */
 
 const char *prime_codes[TOTAL_CHARS] = {
     "11", "13", "17", "19", "23", "29", "31", "37", "41", "43", "47", "53", "59",		//13
@@ -40,8 +50,14 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 
 
+/* Encryption & decryption functions */
+
 char *encrypt(char *input);
 char *decrypt(char *input);
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

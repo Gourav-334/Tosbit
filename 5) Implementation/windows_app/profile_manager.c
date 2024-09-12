@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef PROFILE_MANAGER_C
 	#define PROFILE_MANAGER_C
 
@@ -14,62 +18,26 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-//--------------------------------------------------------------------------------------
+/*____________________________________________________________________________________*/
 
 /*
 
-Comment sections in series:
-
-		1) Cleansing username.
-		2) Console text interface starts!
-		3) If username size is not in range (self recursion).
-		4) If username size is in range (forward recursion).
-		5) Colour back to white & file pointer closing!
-
-	6) Cleansing buffer.
-	7) If username doesn't exist.
-		8) If user wills to create a new account (forward recursion).
-		9) If user doesn't want to create a new account (back recursion).
-		10) If command other than 'y' and 'n' is entered.
-	11) If account already exists.
-
-		12) Cleansing password & authentication password.
-		13) Password & re-authentication.
-		14) If password is too short or too long (self recursion).
-		15) If password is in range (forward recursion).
-
-	16) If re-authentication is successful.
-	17) If re-authentication fails (back recursion).
-
-	18) If password matches.
-	19) If the password doesn't match.
-
-*/
-
-
-//--------------------------------------------------------------------------------------
-
-
-/*
-
-NOTES!:
+NOTES!
 
 login_starts()
-	login_starts()
-		check_account_existence()
-			password_setting()
-				create_account()
-					welcome_note()
+	check_account_existence()
+		password_setting()
+			create_account()
+				welcome_note()
+
+
+
+USED TERMINOLOGIES:
+
+-> Self recursion - Recursion to the same function it is written at.
+-> Forward recursion - Recursion to next function as per the procedure.
+-> Back recursion - Recursion to previous function in the procedure.
+
 
 
 i. buffer[] is used for general storage of anything required.
@@ -80,16 +48,9 @@ v. Input buffer must cleaned with flush_stdin() when receiving input character.
 vi. Input character must be scanf(" %c", c) to avoid whitespaces & newline hazards.
 vii. If username=n, then decrypted password length = 3n + 1.
 
-
-Problems:
-
-i) Password is being appended on each attempt, if first attempt fails.
-
 */
 
-
-//--------------------------------------------------------------------------------------
-
+/*____________________________________________________________________________________*/
 
 
 
@@ -108,6 +69,9 @@ i) Password is being appended on each attempt, if first attempt fails.
 
 
 
+
+
+/* If the entered username is in range (in terms of length), then the next function is called */
 
 void login_starts()
 {
@@ -117,13 +81,13 @@ void login_starts()
 
 
 
-		// 1) Cleansing username.
+		/* Cleansing username to ensure string doesn't contain garbage values */
 
 		memset(username, 0, USERNAME_MAX_SIZE*sizeof(char));
 
 
 
-		// 2) Console text interface starts!
+		/* Console text interface starts! */
 
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
@@ -133,7 +97,7 @@ void login_starts()
 		
 
 
-		// 3) If username size is not in range (self recursion).
+		/* If username size is not in range (self recursion) */
 
 		if ((strlen(username)<USERNAME_MIN_SIZE)||(strlen(username)>USERNAME_MAX_SIZE))
 		{
@@ -146,13 +110,13 @@ void login_starts()
 
 
 
-		// 4) If username size is in range (forward recursion).
+		/* If username size is in range (forward recursion) */
 
 		else {check_account_existence();}
 
 
 
-		// 5) Colour back to white & file pointer closing!
+		/* Colour back to white & file pointer closing! */
 
 		fclose(fptr);
 
@@ -179,9 +143,11 @@ void login_starts()
 
 
 
+/* Check if the account as per entered username exists or not & follow procedures accordingly */
+
 void check_account_existence()
 {
-	// 6) Cleansing buffer.
+	/* Cleansing buffer */
 
 	memset(buffer, 0, BUFFER_SIZE*sizeof(char));
 
@@ -191,7 +157,7 @@ void check_account_existence()
 
 
 
-	// 7) If username doesn't exist.
+	/* If username doesn't exist */
 
 	if (fptr==NULL)
 	{
@@ -208,7 +174,7 @@ void check_account_existence()
 
 
 
-		// 8) If user wills to create a new account (forward recursion).
+		/* If user wills to create a new account (forward recursion) */
 
 		if (decision=='y')
 		{
@@ -226,13 +192,13 @@ void check_account_existence()
 
 
 
-		// 9) If user doesn't want to create a new account (back recursion).
+		/* If user doesn't want to create a new account (back recursion) */
 
 		else if (decision=='n') {login_starts();}
 
 
 
-		// 10) If command other than 'y' and 'n' is entered.
+		/* If command other than 'y' and 'n' is entered */
 
 		else
 		{
@@ -246,7 +212,7 @@ void check_account_existence()
 
 
 
-	// 11) If account already exists.
+	/* If account already exists */
 
 	else {username_set = TRUE; logging_in();}
 }
@@ -270,6 +236,8 @@ void check_account_existence()
 
 
 
+/* Set & re-authenticate the password, concurrently checking constraints also */
+
 void password_setting()
 {
 	while (TRUE)
@@ -278,21 +246,21 @@ void password_setting()
 
 
 
-		// 12) Cleansing password & authentication password.
+		/* Cleansing password & authentication password */
 
 		memset(password, 0, PASSWORD_MAX_SIZE*sizeof(char));
 		memset(re_password, 0, PASSWORD_MAX_SIZE*sizeof(char));
 
 		
 
-		// 13) Password & re-authentication.
+		/* Password & re-authentication */
 
 		printf("Enter password: "); fgets(password, PASSWORD_MAX_SIZE, stdin);
 		memset((password + strlen(password)), 0, (PASSWORD_MAX_SIZE-strlen(password))*sizeof(char));
 
 
 
-		// 14) If password is too short or too long (self recursion).
+		/* If password is too short or too long (self recursion) */
 
 		if ((strlen(password)<PASSWORD_MIN_SIZE)||(strlen(password)>PASSWORD_MAX_SIZE))
 		{
@@ -308,7 +276,7 @@ void password_setting()
 
 		
 
-		// 15) If password is in range (forward recursion).
+		/* If password is in range (forward recursion) */
 
 		else
 		{
@@ -341,9 +309,11 @@ void password_setting()
 
 
 
+/* Acknowledge the re-authentication result to the user */
+
 void create_account()
 {
-	// 16) If re-authentication is successful.
+	/* If re-authentication is successful */
 
 	if (!strcmp(password, re_password))
 	{
@@ -361,7 +331,7 @@ void create_account()
 
 
 
-	// 17) If re-authentication fails (back recursion).
+	/* If re-authentication fails (back recursion) */
 
 	else
 	{
@@ -394,6 +364,8 @@ void create_account()
 
 
 
+/* Checking the user's entered password with encrypted code stored locally */
+
 void logging_in()
 {
 	printf("Password: "); fgets(password, PASSWORD_MAX_SIZE, stdin);
@@ -404,7 +376,7 @@ void logging_in()
 
 
 
-	// 18) If password matches.
+	/* If password matches */
 
 	if (!strcmp(password,decrypt(username_buffer)))
 	{
@@ -416,7 +388,7 @@ void logging_in()
 
 
 
-	// 19) If the password doesn't match.
+	/* If the password doesn't match */
 
 	else
 	{
@@ -450,6 +422,8 @@ void logging_in()
 
 
 
+/* Decorative note about license & database system in general */
+
 void welcome_note()
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -467,3 +441,7 @@ void welcome_note()
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

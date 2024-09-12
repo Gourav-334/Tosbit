@@ -1,5 +1,10 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef UTILITY_BOX_C
 	#define UTILITY_BOX_C
+
 
 
 #include "utility_box.h"
@@ -8,7 +13,7 @@
 
 
 
-// 1) Appends string to another string.
+/* Appends string to another string */
 
 void strappend(char str[], char *addition)
 {
@@ -23,7 +28,7 @@ void strappend(char str[], char *addition)
 
 
 
-// 2) Appends contant string to another string.
+/* Appends contant string to another string */
 
 void constrappend(char str[], const char *addition)
 {
@@ -37,7 +42,7 @@ void constrappend(char str[], const char *addition)
 
 
 
-// 3) Appends character to a string.
+/* Appends character to a string */
 
 void charappend(char str[], char addition)
 {
@@ -48,7 +53,7 @@ void charappend(char str[], char addition)
 
 
 
-// 4) Appends constant character to a string.
+/* Appends constant character to a string */
 
 void const_charappend(char str[], const char addition)
 {
@@ -59,7 +64,7 @@ void const_charappend(char str[], const char addition)
 
 
 
-// 5) Removes newline from a string.
+/* Removes newline from a string */
 
 void newline_remover(char str[])
 {
@@ -73,7 +78,7 @@ void newline_remover(char str[])
 
 
 
-// 6) Removes first character from the string.
+/* Removes first character from the string */
 
 void frontchar_remover(char str[])
 {
@@ -85,7 +90,7 @@ void frontchar_remover(char str[])
 
 
 
-// 7) Cleans the standard input buffer.
+/* BRAINF*CK WARNING!: Cleans the standard input buffer */
 
 void flush_stdin()
 {
@@ -97,17 +102,17 @@ void flush_stdin()
 
 
 
-// 8) Print whole string transparently.
+/* Print whole string transparently */
 
 void binary_print(char str[], int size)
 {
 	for (int i=0; i<size; i++)
 	{
-		if (str[i]=='\n') {printf("%c", '$');}
+		if (str[i]=='\n') {printf("%c", '$');}			// For newlines
 
-		else if (str[i]=='\0') {printf("%c", '-');}
+		else if (str[i]=='\0') {printf("%c", '-');}		// For string terminators
 
-		else {printf("%c", str[i]);}
+		else {printf("%c", str[i]);}					// Otherwise
 	}
 
 	printf("%c", '\n');
@@ -117,7 +122,7 @@ void binary_print(char str[], int size)
 
 
 
-// 9) Check existence of a character in an array.
+/* Check existence of a character in an array */
 
 int char_in_array(char c, char arr[], int length)
 {
@@ -134,3 +139,7 @@ int char_in_array(char c, char arr[], int length)
 
 
 #endif	//Drink mango juice after this code.
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

@@ -1,9 +1,15 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef PROFILE_MANAGER_H
 	#define PROFILE_MANAGER_H
 
 
 
 
+
+/* Constant (must not change) macros */
 
 #define USERNAME_MIN_SIZE 3
 #define USERNAME_MAX_SIZE 33
@@ -21,6 +27,8 @@
 
 
 
+/* Header & source file inclusion */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
@@ -35,29 +43,40 @@
 
 
 
-/* GLOBAL VARIABLES */
+// GLOBAL VARIABLES
 
-// boolean(s)
+/* Global boolean variables*/
+
 int login_complete = FALSE;
 int username_set = FALSE;
 int password_set = FALSE;
 
-// char(s)
+
+
+/* Characters */
+
 char decision;
 
-// string(s)
+
+
+/* Strings */
+
 char username[USERNAME_MAX_SIZE] = {0};
 char username_buffer[USERNAME_BUFFER] = {0};
 char buffer[BUFFER_SIZE] = {0}; 
 char password[PASSWORD_MAX_SIZE] = {0};
 char re_password[PASSWORD_MAX_SIZE] = {0};
 
-// pointer(s)
+
+/* Pointers */
+
 FILE *fptr = NULL;
 
 
 
 
+
+/* Login functions declaration */
 
 void login_starts();
 void check_account_existence();
@@ -69,3 +88,7 @@ void welcome_note();
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef UTILITY_BOX_H
 	#define UTILITY_BOX_H
 
@@ -6,6 +10,10 @@
 #include <string.h>
 
 
+
+
+
+/* Funtions declarations (most are related to string manipulation) */
 
 void strappend(char str[], char *addition);
 void constrappend(char str[], const char *addition);
@@ -20,3 +28,7 @@ int char_in_array(char c, char arr[], int length);
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

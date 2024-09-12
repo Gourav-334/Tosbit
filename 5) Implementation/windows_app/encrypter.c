@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef ENCRYPTER_C
 	#define ENCRYPTER_C
 
@@ -27,12 +31,19 @@ zZxXcCvVbBnNmM,<.>/?			Keyboard row: 4
 
 
 
+/* Encrypts the passed argument string */
+
 char *encrypt(char *input)
 {
 	static char output[MAX_ENCRYPTED_SIZE] = {0};
 	
+
+	/* This loop ensures each character is encrypted */
+
 	for (int i=0; i<strlen(input); i++)
 	{
+		/* This loop searches for the encrypted code for a particular character */
+
 		for (int j=0; j<TOTAL_CHARS; j++)
 		{
 			if (keyboard_chars[j]==input[i])
@@ -52,17 +63,28 @@ char *encrypt(char *input)
 
 
 
+/* Decrypts the passed argument string */
+
 char *decrypt(char *input)
 {
 	static char output[MAX_ENCRYPTED_SIZE] = {0};
 	char buffer[MAX_DECRYPTED_SIZE] = {0};
 
+
+	/* This loop ensures that each character is considered for decryption */
+
 	for (int i=0; i<strlen(input); i++)
 	{
+		/* Separates each ASCII letter */
+
 		if (input[i]=='0')
 		{
+			/* Searches for ASCII letter of current encrypted code in buffer */
+
 			for (int j=0; j<TOTAL_CHARS; j++)
 			{
+				/* Transform if matching code is found */
+
 				if (!strcmp(buffer,prime_codes[j]))
 				{
 					const_charappend(output,keyboard_chars[j]);
@@ -70,6 +92,10 @@ char *decrypt(char *input)
 
 					break;
 				}
+
+
+
+				/* Continue if code isn't found yet */
 
 				else if (strcmp(buffer,prime_codes[j]))
 				{
@@ -79,6 +105,8 @@ char *decrypt(char *input)
 		}
 
 
+
+		/* If this character is part of current word (word != memory unit) */
 
 		else if (input[i]!='0')
 		{
@@ -94,3 +122,7 @@ char *decrypt(char *input)
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

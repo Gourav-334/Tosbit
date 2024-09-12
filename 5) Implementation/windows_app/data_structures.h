@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef DATA_STRUCTURES_H
 	#define DATA_STRUCTURES_H
 
@@ -19,27 +23,24 @@
 
 
 
-// Variable(s)
+/* Variables */
+
 char node_value[33] = {0};
 
 
 
-
+/* The structure containing Queue node's instructions */
 
 typedef struct node {char name[33]; struct node *next;} node;
 
 
 
-
-// Queue q = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
-
+/* Queue class with all related functions */
 
 typedef struct Queue
 {
 	int n, pos;
-
 	struct node *m, *head, *temp, *trav;
-
 
 
 	void (*Queue_queue)(struct Queue *q, char str[]);
@@ -55,6 +56,8 @@ typedef struct Queue
 
 
 
+/* Queue class methods */
+
 void Queue_queue(Queue *q, char str[]);
 void Queue_clear(Queue *q);
 
@@ -69,3 +72,7 @@ void Queue_showAll(Queue *q);
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
