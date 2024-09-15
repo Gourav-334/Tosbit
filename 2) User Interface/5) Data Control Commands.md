@@ -5,29 +5,38 @@
 ### i. On database:
 ```
 @ Control over reading @
-grant user1 r control over database Office;
+r+ user1 over db Office;
 
 @ Control over writing @
-grant user1 w control over database Office;
+w+ user1 over db Office;
 ```
 
 ### ii. On table:
 ```
 @ Control over reading @
-grant user1 r control over table Desk in database Office;
+r+ user1 over Desk in db Office;
 
 @ Control over writing @
-grant user1 w control over table Desk in database Office;
+w+ user1 over Desk in db Office;
 ```
+
 
 ## II\) Revoking access:
 
 ### i. On database:
 ```
-snatch control from user1 over database Office;
+@ Control over reading @
+r- user1 over db Office;
+
+@ Control over writing @
+w- user1 over db Office;
 ```
 
 ### ii. On table:
 ```
-snatch control from user1 over table Desk in database Office;
+@ Control over reading @
+r- user1 over Desk in db Office;
+
+@ Control over writing @
+w- user1 over Desk in db Office;
 ```

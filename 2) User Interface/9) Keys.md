@@ -2,10 +2,10 @@
 
 ## I\) Unique key:
 ```
-set column Sno in table Desk as unique_key;
+set Sno in Desk as unique_key;
 ```
 
 ## II\) Regular key:
 ```
-set column Sno in table Desk as regular_key;
+set Sno in Desk as regular_key;
 ```

@@ -1,11 +1,8 @@
 # 8\) JOIN OPERATORS
 
-## I\) One-to-one:
+## I\) Temporary display:
 ```
-join column Sno from table Desk & column Name from table Class;
-```
+join Sno from Desk & Name from Class;
 
-## II\) Other than one-to-one:
-```
-join column Sno,Name from table Desk & column Name from table Class;
+join Sno,Name from Desk & Name from Class;
 ```

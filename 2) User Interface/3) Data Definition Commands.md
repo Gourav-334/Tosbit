@@ -4,114 +4,116 @@
 
 ### i. Checking all databases:
 ```
-show all databases;
+show all db;
 ```
 
-### ii. Checking all tables:
+### ii. Checking all tables (inside):
+```
+show all tables;
+```
+
+### iii. Show all tables (outside):
 ```
 show all tables in Office;
 ```
 
-### iii. Describe a table:
+### iii. Describe a table (inside):
 ```
-show Desk structure in database Office;
+show Desk struct;
+```
+
+### iv. Describe a table (outside):
+```
+show Desk struct in Office;
 ```
 
 
 ## II\) Creating database:
 ```
-make database Office;
+make db Office;
 ```
 
 ## III\) Using database:
 ```
-open database Office;
+open db Office;
 ```
 
 ## IV\) Dropping (deleting) database:
 
 ### i. While inside database:
 ```
-delete this database;
+delete db;
 ```
 
-### i. While outside database:
+### ii. While outside database:
 ```
-delete database Office;
+delete db Office;
 ```
+
 
 ## V\) Truncating (clearing) database:
 
 ### i. While inside database:
 ```
-clear this database;
+clear db;
 ```
 
 ### ii. While outside database:
 ```
-clear database Office;
+clear db Office;
 ```
 
 ## VI\) Renaming database:
 
 ### i. While inside database:
 ```
-rename this database as Classroom;
+rename db as Classroom;
 ```
 
 ### ii. While outside database:
 ```
-rename database Office as Classroom;
+rename db Office as Classroom;
 ```
 
 ## VII\) Exiting database:
 ```
-exit database;
+exit db;
 ```
 
 ---
 
 ## VIII\) Creating table:
 ```
-make table Desk columns [
+make table Desk [
     int Sno,
     string name,
     string dep
     ];
 ```
 
+
 ## IX\) Dropping (deleting) table:
 
-### i. Dropping recently used referred table:
-```
-delete recent table;
-```
-
-### ii. Dropping table by mentioning:
 ```
 delete table Desk;
 ```
 
+
 ## X\) Truncating (clearing) table:
 
-### i. Truncating recently used referred table:
-```
-clear recent table;
-```
-
-### ii. Truncating table by mentioning:
 ```
 clear table Desk;
 ```
 
-## XI\) Renaming database:
+
+## XI\) Renaming table:
 
 ### i. While inside database:
 ```
-rename recent table as Room;
+rename table Desk as Room;
 ```
 
-### ii. While outside database:
+### ii. While outdide databse:
 ```
-rename table Desk as Room;
+rename table Desk in Office as Room;
 ```

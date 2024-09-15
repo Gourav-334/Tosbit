@@ -21,7 +21,7 @@ commit stash;
 ## IV\) Rollback:
 ```
 @ Rollback 'n' points back @
-rollback by 2 points;
+rollback by 2;
 ```
 
 
@@ -29,16 +29,11 @@ rollback by 2 points;
 
 ### i. Showing all log records:
 ```
-show log records;
+show log;
 ```
 
-### ii. Showing recent log record:
-```
-show recent log record;
-```
-
-### iii. Show selected number of records:
+### ii. Show selected number of records:
 ```
 @ showing last 'n' records @
-show last 4 log records;
+show last 4 log;
 ```

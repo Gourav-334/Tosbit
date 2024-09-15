@@ -2,28 +2,29 @@
 
 ## I\) Javascript Object Notation:
 
-### i. JSON to DGW:
+### i. JSON to TOS:
 ```
-make table Exam
+make Exam
 from json at "path/to/file/filename.json";
 ```
 
-### ii. DGW to JSON:
+### ii. DGW to TOS:
 ```
 make json at "path/to/file/filename.json"
-from table Exam;
+from Exam;
 ```
+
 
 ## II\) Tom's Obvious Markup Language:
 
-### i. TOML to DGW:
+### i. MARKDOWN to TOS:
 ```
-make table Exam
-from toml at "path/to/file/filename.json";
+make Exam
+from md at "path/to/file/filename.md";
 ```
 
-### ii. DGW to TOML:
+### ii. TOS to MARKDOWN:
 ```
-make toml at "path/to/file/filename.json"
-from table Exam;
+make md at "path/to/file/filename.md"
+from Exam;
 ```

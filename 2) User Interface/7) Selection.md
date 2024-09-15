@@ -2,42 +2,23 @@
 
 ## I\) Selecting all:
 
-### i. Recent table:
-```
-show all from recent table;
-```
-
-### ii. Explicitly mentioned table:
 ```
 show all from table Desk;
 ```
 
+
 ## II\) Column selection:
 
-### i. Recent table:
 ```
-show column Name from recent table;
-show column Name,Dep from recent table;
+show column Name from Desk;
+show column Name,Dep from Desk;
 ```
 
-### ii. Explicitly mentioned table:
-```
-show column Name from table Desk;
-show column Name,Dep from table Desk;
-```
 
 ## III\) Conditional selection:
 
-### i. Recent table:
 ```
-show rows from recent table where age<25;
-show rows from recent table where age=25;
-show rows from recent table where age>25;
-```
-
-### ii. Explicitly mentioned table:
-```
-show rows from table Desk where age<25;
-show rows from table Desk where age=25;
-show rows from table Desk where age>25;
+show rows from Desk where age<25;
+show rows from Desk where age=25;
+show rows from Desk where age>25;
 ```
