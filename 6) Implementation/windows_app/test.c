@@ -1,11 +1,11 @@
 #include <stdio.h>
-#include "profile_manager.c"
+#include "syntax_parser.c"
 
 
 
 int main()
 {
-	login_starts();
+	syntax_processing();
 
 	return 0;
 }

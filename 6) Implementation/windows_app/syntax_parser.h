@@ -7,13 +7,19 @@
 
 
 
-#define COMMAND_LENGTH 256
+#define FALSE 0
+#define TRUE 1
+
+#define COMMAND_MAX_LENGTH 257
 #define STRING_MAX_LENGTH 33
-#define MAX_STRINGS 9
-#define TOKEN_MAX_SIZE 33
-#define TOTAL_DIVIDERS 9
 
 
+
+
+
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
 
 #include "utility_box.c"
 
@@ -23,20 +29,21 @@
 
 /* VARIABLES */
 
-/* Characters */
-char dividers[TOTAL_DIVIDERS] = {'.',',',';','[',']','<','=','>'};
+char command[COMMAND_MAX_LENGTH] = {0};
+
+int state = 0;
+int brk = FALSE;
 
 
 
-/* Arrays */
-
-char command_buffer[STRING_MAX_LENGTH][MAX_STRINGS];
 
 
+/* FUNCTIONS */
 
-/* Functions */
-
-void string_tokenizer(char command[COMMAND_LENGTH]);
+void syntax_processing();
+void ack1();
+void error1();
+void error2();
 
 
 
