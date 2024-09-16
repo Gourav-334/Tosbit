@@ -23,6 +23,7 @@
 
 #include "utility_box.c"
 #include "console_colour.c"
+#include "data_structures.c"
 
 
 
@@ -42,9 +43,6 @@ int brk = FALSE;
 /* FUNCTIONS */
 
 void syntax_parser(char username[]);
-void ack1();
-void error1();
-void error2();
 
 
 

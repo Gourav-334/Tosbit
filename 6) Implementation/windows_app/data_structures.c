@@ -99,8 +99,6 @@ void Queue_queue(Queue *q, char str[])
 	q -> m -> name[strlen(q -> m -> name)] = '\0';
 
 	(q -> n)++;
-
-	printf("Node \"%s\" queued!", q -> m -> name);
 }
 
 
@@ -121,8 +119,6 @@ void Queue_clear(Queue *q)
 
 		(q -> n)--;
 	}
-
-	printf("Whole queue cleared!\n");		// Acknowledgement to dear user
 }
 
 

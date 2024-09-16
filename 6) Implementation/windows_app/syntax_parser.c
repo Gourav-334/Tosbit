@@ -69,6 +69,14 @@ ii) Change the state to 0 after line analysis is complete, bloody fool!
 
 void syntax_parser(char username[])
 {
+	/* Will save each line of script in each node */
+
+	struct Queue script = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+
+
+
+
+
 	while (TRUE)
 	{
 		printf("TOS> ");
@@ -171,7 +179,10 @@ void syntax_parser(char username[])
 			case 0:
 
 				green_console();
+
+				Queue_queue(&script, command);
 				printf("No changes are made!\n\n");
+
 				white_console();
 
 				break;
@@ -204,6 +215,12 @@ void syntax_parser(char username[])
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 		state = 0;
 	}
+
+
+
+
+
+	Queue_clear(&script);
 }
 
 

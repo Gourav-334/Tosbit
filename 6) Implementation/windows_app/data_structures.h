@@ -25,13 +25,13 @@
 
 /* Variables */
 
-char node_value[33] = {0};
+char node_value[257];
 
 
 
 /* The structure containing Queue node's instructions */
 
-typedef struct node {char name[33]; struct node *next;} node;
+typedef struct node {char name[257]; struct node *next;} node;
 
 
 
