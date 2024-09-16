@@ -22,6 +22,7 @@
 #include <windows.h>
 
 #include "utility_box.c"
+#include "console_colour.c"
 
 
 
@@ -40,7 +41,7 @@ int brk = FALSE;
 
 /* FUNCTIONS */
 
-void syntax_processing(char username[]);
+void syntax_parser(char username[]);
 void ack1();
 void error1();
 void error2();

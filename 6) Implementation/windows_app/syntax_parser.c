@@ -20,18 +20,13 @@
 
 /*
 
-TO DEBUG:
+STATISTICS:
 
-i) For some reason, an extra character is getting read, leaving a blank or '\n'.
-ii) The state remains the last one for some reasons.
-
-
-
-SOLUTION:
-
-i) We terminate the loop after reading the 2nd last character of entered string (excluding the
-unexpected character).
-ii) Change the state to 0 after line analysis is complete, fool.
+Total DFA states: 				14
+Total error types: 				2
+Total acknowledgement types:	1
+Total unexpected bugs:			1
+Total silly bugs:				1
 
 */
 
@@ -44,9 +39,35 @@ ii) Change the state to 0 after line analysis is complete, fool.
 
 
 
-/* Tokenizes strings into pieces as per depending characters, like space */
+/*
 
-void syntax_processing(char username[])
+TO DEBUG:
+
+i) For some reason, an extra character is getting read, leaving a blank or '\n'.
+ii) The state remains the last one for some reason.
+
+
+
+SOLUTION:
+
+i) We terminate the loop after reading the 2nd last character of entered string (excluding the
+unexpected character).
+ii) Change the state to 0 after line analysis is complete, bloody fool!
+
+*/
+
+
+
+
+
+
+
+
+
+
+/* The automaton, each state has to be defined for all situations. */
+
+void syntax_parser(char username[])
 {
 	while (TRUE)
 	{
@@ -56,6 +77,10 @@ void syntax_processing(char username[])
 
 
 
+
+
+		/* Automaton starts running & moves until whole syntax has been read */
+
 		for (int i=0; i<strlen(command); i++)
 		{
 			switch (state)
@@ -64,6 +89,7 @@ void syntax_processing(char username[])
 
 					if (command[i]==' ' || command[i]=='\0') {}
 					else if (command[i]=='@') {state = 1;}
+					else if (command[i]=='o') {state = 3;}
 					else {state = 2;}
 
 					break;
@@ -84,6 +110,43 @@ void syntax_processing(char username[])
 					brk = 1;
 
 					break;
+
+
+
+				case 3:
+
+					if (command[i]=='p') {state = 4;}
+					else {state = 2;}
+
+					break;
+
+
+
+				case 4:
+
+					if (command[i]=='e') {state = 5;}
+					else {state = 2;}
+
+					break;
+
+
+
+				case 5:
+
+					if (command[i]=='n') {state = 6;}
+					else {state = 2;}
+
+					break;
+
+
+
+				case 6:	// THIS IS WHERE YOU LEFT!
+
+					if (command[i]==' ') {}
+					//else if (command[i]==)
+					else {state = 2;}
+
+					break;
 			}
 
 
@@ -94,66 +157,53 @@ void syntax_processing(char username[])
 
 
 
+
+
+
+
+
+
+
+		/* Final state, NOT accept state. Its the result after whole syntax has been read */
+
 		switch (state)
 		{
-			case 0: ack1(); break;
-			case 1: error1(); break;
-			case 2: error2(); break;
+			case 0:
+
+				green_console();
+				printf("No changes are made!\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 1:
+
+				red_console();
+				printf("Error1: Comment brackets opened, but not closed!\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 2:
+
+				red_console();
+				printf("Error2: Unknown command passed!\n\n");
+				white_console();
+
+				break;
 		}
+
+
 
 
 
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 		state = 0;
 	}
-}
-
-
-
-
-
-/* Acknowledges that no changes are made */
-
-void ack1()
-{
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-
-	printf("No changes are made!\n\n");
-
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-}
-
-
-
-
-
-/* Error for leaving comment open */
-
-void error1()
-{
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
-	printf("Error1: Comment brackets opened, but not closed!\n\n");
-
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-}
-
-
-
-
-
-/* Tells if an unknown command is passed */
-
-void error2()
-{
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
-	printf("Error2: Unknown command passed!\n\n");
-
-	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
 
 

@@ -17,9 +17,9 @@
 ## Table Data
 
 ```
-attr0type0key00attr0type0key000record00record
+attr00type00key000attr00type00key0000record000record
 ```
 
-- Attributes, data types & keys are separated by 0.
-- Attributes are separated by 00.
-- Rows are separated by 000.
+- Attributes, data types & keys are separated by 00.
+- Attributes are separated by 000.
+- Rows are separated by 0000.

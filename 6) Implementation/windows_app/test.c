@@ -5,7 +5,7 @@
 
 int main()
 {
-	syntax_processing("Ravishankar");
+	syntax_parser("Ravishankar");
 
 	return 0;
 }
