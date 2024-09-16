@@ -2,10 +2,24 @@
 
 ## Storage Hierarchy
 
-![What is within what](others//data_storage_hierarchy.png)
+![What is within what](3) Representations/Other/data_storage_hierarchy.png)
 
-- The 0 encoding will be done accordingly.
+
+## File Hierarchy
+
+- data/
+    - user/
+        - db/
+            - tables/
+                - table_name.tos
+
+
+## Table Data
 
 ```
-columnA0rowA00columnA0rowA00...00columnN0rowN
+attr0type0key00attr0type0key000record00record
 ```
+
+- Attributes, data types & keys are separated by 0.
+- Attributes are separated by 00.
+- Rows are separated by 000.

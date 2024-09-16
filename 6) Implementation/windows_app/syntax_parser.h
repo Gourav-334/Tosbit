@@ -29,7 +29,7 @@
 
 /* VARIABLES */
 
-char command[COMMAND_MAX_LENGTH] = {0};
+char command[COMMAND_MAX_LENGTH];
 
 int state = 0;
 int brk = FALSE;
@@ -40,7 +40,7 @@ int brk = FALSE;
 
 /* FUNCTIONS */
 
-void syntax_processing();
+void syntax_processing(char username[]);
 void ack1();
 void error1();
 void error2();
