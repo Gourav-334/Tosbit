@@ -19,8 +19,10 @@
 
 ## open db db_name;
 
-- Check if any directory from name db_name exists.
-- If exists:
-    - Acknowledge that it has been opened.
-- If it doesn't exist:
-    - Tell that no such database exists.
+- Open file `cache\\databases.tosbit` in read mode.
+- Until EOF not reached, read each character:
+    - If 0 encountered, decrypt string in buffer & append it to enc_database variable.
+    - If again zero is encountered, clean the buffer & read string afterwards.
+    - Else just append to intermediate buffer.
+- Match it to the variable database.
+- If it matches, then good. Otherwise display error.

@@ -20,7 +20,7 @@ void strappend(char str[], char *addition)
 	for (int i=0; i<strlen(addition); i++)
 	{
 		str[strlen(str)] = addition[i];
-		printf("%d-%c-%s\n", i, addition[i], str);
+		//printf("%d-%c-%s\n", i, addition[i], str);
 	}
 }
 

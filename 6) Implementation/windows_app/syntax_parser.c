@@ -22,11 +22,11 @@
 
 STATISTICS:
 
-Total DFA states: 				14
-Total error types: 				2
-Total acknowledgement types:	1
-Total unexpected bugs:			1
-Total silly bugs:				1
+Total DFA states: 				15
+Total error types: 				7
+Total acknowledgement types:	2
+Total unexpected bugs:			4
+Total silly bugs:				3
 
 */
 
@@ -46,6 +46,11 @@ TO DEBUG:
 i) For some reason, an extra character is getting read, leaving a blank or '\n'.
 ii) The state remains the last one for some reason.
 iii) Even if user passes a blank command, the stdin takes an invisible character.
+iv) If a database is found to exist, the same database can't be found the next time.
+v) memset() functions are getting skipped for unknown reason.
+vi) Not only string formatting functions but my own strappend() is recursively adding the varaible
+(if mentioned), not the directly passed strings. It has to do something with strappend() only, encrypter
+is derived from it.
 
 
 
@@ -55,6 +60,9 @@ i) We terminate the loop after reading the 2nd last character of entered string 
 unexpected character).
 ii) Change the state to 0 after line analysis is complete, bloody fool!
 iii) Bandage the program by assuming having read a character (continue from 2nd character).
+iv) Check the formatted string function & state transitions.
+v) It isn't skipped! You are trying to print the string after emptying it, idiot!
+vi) Something is wrong with either variable "database" or the functions, or even variable "directory".
 
 */
 
@@ -99,7 +107,7 @@ void syntax_parser(char username[])
 
 					if (command[i]==' ' || command[i]=='\0' || strlen(command)==1) {}
 					else if (command[i]=='@') {state = 1;}
-					else if (command[i]=='o') {state = 3;}
+					else if (command[i]=='o' || command[i]=='O') {state = 3;}
 					else {state = 2;}
 
 					break;
@@ -125,7 +133,7 @@ void syntax_parser(char username[])
 
 				case 3:
 
-					if (command[i]=='p') {state = 4;}
+					if (command[i]=='p' || command[i]=='P') {state = 4;}
 					else {state = 2;}
 
 					break;
@@ -134,7 +142,7 @@ void syntax_parser(char username[])
 
 				case 4:
 
-					if (command[i]=='e') {state = 5;}
+					if (command[i]=='e' || command[i]=='E') {state = 5;}
 					else {state = 11; brk = TRUE;}
 
 					break;
@@ -143,7 +151,7 @@ void syntax_parser(char username[])
 
 				case 5:
 
-					if (command[i]=='n') {state = 6;}
+					if (command[i]=='n' || command[i]=='N') {state = 6;}
 					else {state = 11; brk = TRUE;}
 
 					break;
@@ -161,7 +169,7 @@ void syntax_parser(char username[])
 
 				case 7:
 
-					if (command[i]=='b') {state = 8;}
+					if (command[i]=='b'  || command[i]=='B') {state = 8;}
 					else {state = 11; brk = TRUE;}
 
 					break;
@@ -203,7 +211,7 @@ void syntax_parser(char username[])
 				case 13:
 
 					if (command[i]==' ') {}
-					else if (command[i]=='d') {state = 7;}
+					else if (command[i]=='d' || command[i]=='D') {state = 7;}
 					else {state = 11; brk = TRUE;}
 
 					break;
@@ -333,9 +341,73 @@ void syntax_parser(char username[])
 
 
 
-			case 9:
+			case 9:	// YOU WERE DEBUGGING THIS... (MAKE A FUNCTION FOR IT TO BE EASY)
 
-				sprintf(directory, "data\\database\\%s.tos", encrypt(database));
+				fptr = fopen("cache\\databases.tosbit", "r");
+
+				while (!feof(fptr))
+				{
+					filechar = fgetc(fptr);
+
+
+					if ((filechar=='0') && (zero_count==1))
+					{
+						strappend(dec_buffer, decrypt(buffer));
+
+						zero_count = 0;
+
+						memset(buffer, 0, BUFFER_MAX_LENGTH);
+						memset(dec_buffer, 0, BUFFER_MAX_LENGTH);
+					}
+
+
+					else if ((filechar=='0') && (zero_count==0))
+					{
+						zero_count++;
+
+						charappend(buffer, filechar);
+					}
+
+
+					else {charappend(buffer, filechar);}
+				}
+
+
+				strappend(dec_buffer, decrypt(buffer));
+
+				zero_count = 0;
+				printf("dec: %s, buff: %s\n", dec_buffer, buffer);//////////////////////////////////////////
+
+
+				memset(buffer, 0, BUFFER_MAX_LENGTH);
+				memset(dec_buffer, 0, BUFFER_MAX_LENGTH);
+
+
+
+
+
+				if (strcmp(dec_buffer, database))
+				{
+					red_console();
+					printf("Error4: No database named \"%s\" exists!\n\n", database);
+					white_console();
+				}
+
+
+				else if (!strcmp(dec_buffer, database))
+				{
+					green_console();
+					printf("Database %s online!\n\n", database);
+					white_console();
+				}
+
+				break;
+
+
+
+			case 10:
+
+				snprintf(directory, sizeof(directory), "data\\%s.tosbit", encrypt(database));
 				fptr = fopen(directory, "r");
 
 				if (fptr==NULL)
@@ -348,30 +420,7 @@ void syntax_parser(char username[])
 				else
 				{
 					green_console();
-					printf("Database %s online.\n\n", database);
-					white_console();
-				}
-
-				break;
-
-
-
-			case 10:
-
-				sprintf(directory, "data\\database\\%s.tos", encrypt(database));
-				fptr = fopen(directory, "r");
-
-				if (fptr==NULL)
-				{
-					red_console();
-					printf("Error4: No database named %s exists!\n\n", database);
-					white_console();
-				}
-
-				else
-				{
-					green_console();
-					printf("Database %s online.\n\n", database);
+					printf("Database %s online!\n\n", database);
 					white_console();
 				}
 
@@ -429,10 +478,13 @@ void syntax_parser(char username[])
 		}
 
 
-
+printf("dir: %s\n", directory);
 
 
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
+		memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));
+		memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));
+
 		state = 0;
 	}
 

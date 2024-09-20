@@ -14,6 +14,7 @@
 #define STRING_MAX_LENGTH 33
 #define DATABASE_MAX_LENGTH 33
 #define DIRECTORY_MAX_LENGTH 65
+#define BUFFER_MAX_LENGTH 133
 
 
 
@@ -34,12 +35,20 @@
 
 /* VARIABLES */
 
+char filechar;
+
+
 char command[COMMAND_MAX_LENGTH];
 char database[DATABASE_MAX_LENGTH];
 char directory[DIRECTORY_MAX_LENGTH];
+char buffer[BUFFER_MAX_LENGTH];
+char enc_buffer[BUFFER_MAX_LENGTH];
+char dec_buffer[BUFFER_MAX_LENGTH];
+
 
 int state = 0;
 int brk = FALSE;
+int zero_count = 0;
 
 FILE *fptr;
 
