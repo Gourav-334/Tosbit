@@ -10,12 +10,21 @@
 ## @ Comment @
 
 ```
-_*@_*(STRING)_*@*_*
+_*@_*(STRING)_*@_*
 ```
 
+- (STRING) = Comment
+- _ = Space
 
 ## open db Office
 
 ```
 open__*db__*(STRING)_*
 ```
+
+- (STRING) = Database name
+- _ = Space
+
+
+
+-----------------------------------------

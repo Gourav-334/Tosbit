@@ -45,6 +45,7 @@ TO DEBUG:
 
 i) For some reason, an extra character is getting read, leaving a blank or '\n'.
 ii) The state remains the last one for some reason.
+iii) Even if user passes a blank command, the stdin takes an invisible character.
 
 
 
@@ -53,6 +54,7 @@ SOLUTION:
 i) We terminate the loop after reading the 2nd last character of entered string (excluding the
 unexpected character).
 ii) Change the state to 0 after line analysis is complete, bloody fool!
+iii) Bandage the program by assuming having read a character (continue from 2nd character).
 
 */
 
@@ -95,7 +97,7 @@ void syntax_parser(char username[])
 			{
 				case 0:
 
-					if (command[i]==' ' || command[i]=='\0') {}
+					if (command[i]==' ' || command[i]=='\0' || strlen(command)==1) {}
 					else if (command[i]=='@') {state = 1;}
 					else if (command[i]=='o') {state = 3;}
 					else {state = 2;}
@@ -115,7 +117,7 @@ void syntax_parser(char username[])
 
 				case 2:
 
-					brk = 1;
+					brk = TRUE;
 
 					break;
 
@@ -133,7 +135,7 @@ void syntax_parser(char username[])
 				case 4:
 
 					if (command[i]=='e') {state = 5;}
-					else {state = 2;}
+					else {state = 11; brk = TRUE;}
 
 					break;
 
@@ -142,24 +144,88 @@ void syntax_parser(char username[])
 				case 5:
 
 					if (command[i]=='n') {state = 6;}
-					else {state = 2;}
+					else {state = 11; brk = TRUE;}
 
 					break;
 
 
 
-				case 6:	// THIS IS WHERE YOU LEFT!
+				case 6:
+
+					if (command[i]==' ') {state = 13;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 7:
+
+					if (command[i]=='b') {state = 8;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 8:
+
+					if (command[i]==' ') {state = 14;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 9:
+
+					if (command[i]==' ') {state = 10;}
+					
+					else
+					{
+						if (strlen(database)==32) {state = 15; brk = TRUE;}
+						else {database[strlen(database)] = command[i];}
+					}
+
+					break;
+
+
+
+				case 10:
 
 					if (command[i]==' ') {}
-					//else if (command[i]==)
-					else {state = 2;}
+					else {state = 12; brk = TRUE;}
 
 					break;
+
+
+
+				case 13:
+
+					if (command[i]==' ') {}
+					else if (command[i]=='d') {state = 7;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 14:
+
+					if (command[i]==' ') {}
+					
+					else
+					{
+						state = 9;
+						database[strlen(database)] = command[i];
+					}
+
+				break;
 			}
 
 
 
-			if (brk==1) {brk = 0; break;}
+			if (brk==TRUE) {brk = FALSE; break;}
 			if (i==strlen(command)-2) {break;}
 		}
 
@@ -179,10 +245,8 @@ void syntax_parser(char username[])
 			case 0:
 
 				green_console();
-
 				Queue_queue(&script, command);
 				printf("No changes are made!\n\n");
-
 				white_console();
 
 				break;
@@ -203,6 +267,162 @@ void syntax_parser(char username[])
 
 				red_console();
 				printf("Error2: Unknown command passed!\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 3:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 4:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 5:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 6:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 7:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 8:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 9:
+
+				sprintf(directory, "data\\database\\%s.tos", encrypt(database));
+				fptr = fopen(directory, "r");
+
+				if (fptr==NULL)
+				{
+					red_console();
+					printf("Error4: No database named \"%s\" exists!\n\n", database);
+					white_console();
+				}
+
+				else
+				{
+					green_console();
+					printf("Database %s online.\n\n", database);
+					white_console();
+				}
+
+				break;
+
+
+
+			case 10:
+
+				sprintf(directory, "data\\database\\%s.tos", encrypt(database));
+				fptr = fopen(directory, "r");
+
+				if (fptr==NULL)
+				{
+					red_console();
+					printf("Error4: No database named %s exists!\n\n", database);
+					white_console();
+				}
+
+				else
+				{
+					green_console();
+					printf("Database %s online.\n\n", database);
+					white_console();
+				}
+
+				break;
+
+
+
+			case 11:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 12:
+
+				red_console();
+				printf("Error7: Did you meant open db %s?\n\n", database);
+				white_console();
+
+				break;
+
+
+
+			case 13:
+
+				red_console();
+				printf("Error3: Did you meant \"open db db_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 14:
+
+				red_console();
+				printf("Error5: No database name entered!\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 15:
+
+				red_console();
+				printf("Error6: Name of database must be 32 characters long at max!\n\n");
 				white_console();
 
 				break;
