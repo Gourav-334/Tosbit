@@ -23,6 +23,9 @@ void newline_remover(char str[]);
 void frontchar_remover(char str[]);
 void flush_stdin();
 void binary_print(char str[], int size);
+void remove_spaces(char str[]);
+void str_shift(char str[], int start, int end, int direction, int steps);
+
 int char_in_array(char c, char arr[], int length);
 
 

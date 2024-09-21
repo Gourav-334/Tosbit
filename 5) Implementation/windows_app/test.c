@@ -6,12 +6,11 @@
 
 int main()
 {
-	// printf("%s\n", encrypt("Office"));
-	// printf("%s\n", encrypt("Office"));
+	//printf("%s\n", decrypt("2410331033102290461017300"));
 
 	syntax_parser("Ravishankar");
 
-	//login_starts();
+	//str_shift("00073184600", 3, 8, -1, 2);
 
 	return 0;
 }

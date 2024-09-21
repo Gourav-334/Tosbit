@@ -38,3 +38,17 @@
 ## 9. CHECK CHARACTER EXISTENCE IN ARRAY:
 - Move to the first character of the array.
 - Sequentially match each character to the elements.
+
+## 10. SPACE REMOVER:
+- Read each character of a string.
+- If a space is encountered, mark its index & move until any character isn't encountered.
+- When character is found, fill the marked space with this character & set that character's place as 0.
+- If the array ends finding a character, keep nulling each space with 0, moving backward until a character is found.
+
+## 11. STRING SHIFTER
+- Know direction & steps to move.
+- Move the cursor to start index.
+- Copy the character to the choosen direction by choosen steps.
+- Continue with next character.
+- Repeat until end index reaches.
+- As per the direction, fill the characters upto start/end with 0.

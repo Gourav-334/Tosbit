@@ -23,8 +23,10 @@
 STATISTICS:
 
 Total DFA states: 				15
+
 Total error types: 				7
 Total acknowledgement types:	2
+
 Total unexpected bugs:			4
 Total silly bugs:				3
 
@@ -51,6 +53,7 @@ v) memset() functions are getting skipped for unknown reason.
 vi) Not only string formatting functions but my own strappend() is recursively adding the varaible
 (if mentioned), not the directly passed strings. It has to do something with strappend() only, encrypter
 is derived from it.
+vii) Case 9, buffer has first character as space after emptying or maybe doesn't empty properly.
 
 
 
@@ -63,6 +66,7 @@ iii) Bandage the program by assuming having read a character (continue from 2nd 
 iv) Check the formatted string function & state transitions.
 v) It isn't skipped! You are trying to print the string after emptying it, idiot!
 vi) Something is wrong with either variable "database" or the functions, or even variable "directory".
+vii) First check if it is being empties properly or not & then bandage it if required.
 
 */
 
@@ -345,61 +349,56 @@ void syntax_parser(char username[])
 
 				fptr = fopen("cache\\databases.tosbit", "r");
 
+
 				while (!feof(fptr))
 				{
-					filechar = fgetc(fptr);
+					prev_filechar = filechar; filechar = fgetc(fptr);
+					charappend(buffer, filechar);
 
+					printf("PREV_FILECHAR:%c, FILECHAR:%c, BUFF:%s\n", prev_filechar, filechar, buffer);
 
-					if ((filechar=='0') && (zero_count==1))
+					if ((filechar=='0')&&(prev_filechar=='0'))
 					{
-						strappend(dec_buffer, decrypt(buffer));
+						if (!strcmp(database, decrypt(buffer)))
+						{
+							db_found = TRUE;
 
-						zero_count = 0;
+							green_console();
+							printf("Database \"%s\" online!\n\n", database);
+							white_console();
 
-						memset(buffer, 0, BUFFER_MAX_LENGTH);
-						memset(dec_buffer, 0, BUFFER_MAX_LENGTH);
+							memset(buffer, 0, BUFFER_MAX_LENGTH);
+							prev_filechar = '$'; filechar = '$';
+
+							break;
+						}
+
+
+						else
+						{
+							memset(buffer, 0, BUFFER_MAX_LENGTH);
+							continue;
+						}
 					}
 
 
-					else if ((filechar=='0') && (zero_count==0))
+					else ////////////////////////////////////////////////////////////////////////
 					{
-						zero_count++;
-
-						charappend(buffer, filechar);
+						printf("prev_filechar:%c, filechar:%c\n", prev_filechar, filechar);
 					}
-
-
-					else {charappend(buffer, filechar);}
 				}
 
 
-				strappend(dec_buffer, decrypt(buffer));
-
-				zero_count = 0;
-				printf("dec: %s, buff: %s\n", dec_buffer, buffer);//////////////////////////////////////////
-
-
-				memset(buffer, 0, BUFFER_MAX_LENGTH);
-				memset(dec_buffer, 0, BUFFER_MAX_LENGTH);
-
-
-
-
-
-				if (strcmp(dec_buffer, database))
+				if (db_found==FALSE)
 				{
 					red_console();
-					printf("Error4: No database named \"%s\" exists!\n\n", database);
+					printf("Error8: Database \"%s\" not found!\n\n", database);
 					white_console();
 				}
 
 
-				else if (!strcmp(dec_buffer, database))
-				{
-					green_console();
-					printf("Database %s online!\n\n", database);
-					white_console();
-				}
+				db_found = FALSE;
+
 
 				break;
 
@@ -478,12 +477,11 @@ void syntax_parser(char username[])
 		}
 
 
-printf("dir: %s\n", directory);
+
 
 
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 		memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));
-		memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));
 
 		state = 0;
 	}

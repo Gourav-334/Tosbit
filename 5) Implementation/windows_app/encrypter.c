@@ -56,6 +56,9 @@ char *encrypt(char *input)
 		}
 	}
 
+	charappend(output, '0');
+
+
 	return output;
 }
 
@@ -70,16 +73,28 @@ char *decrypt(char *input)
 	static char output[MAX_ENCRYPTED_SIZE] = {0};
 	char buffer[MAX_DECRYPTED_SIZE] = {0};
 
+	int zero_count = 0;
+
 
 	/* This loop ensures that each character is considered for decryption */
 
 	for (int i=0; i<strlen(input); i++)
 	{
+		if ((input[i]!='0')&&(input[i]!='1')&&(input[i]!='2')&&(input[i]!='3')&&(input[i]!='4')&&
+			(input[i]!='5')&&(input[i]!='6')&&(input[i]!='7')&&(input[i]!='8')&&(input[i]!='9'))
+		{
+			continue;
+		}
+
+
 		/* Separates each ASCII letter */
 
-		if (input[i]=='0')
+		if ((input[i]=='0') && (zero_count==0))
 		{
 			/* Searches for ASCII letter of current encrypted code in buffer */
+
+			if (input[i+1]=='0') {zero_count++;}
+
 
 			for (int j=0; j<TOTAL_CHARS; j++)
 			{
@@ -106,6 +121,15 @@ char *decrypt(char *input)
 
 
 
+		else if ((input[i]=='0') && (zero_count==1))
+		{
+			zero_count = 0;
+
+			break;
+		}
+
+
+
 		/* If this character is part of current word (word != memory unit) */
 
 		else if (input[i]!='0')
@@ -115,6 +139,7 @@ char *decrypt(char *input)
 			continue;
 		}
 	}
+
 
 	return output;
 }

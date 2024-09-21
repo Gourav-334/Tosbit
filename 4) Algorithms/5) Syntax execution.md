@@ -20,9 +20,10 @@
 ## open db db_name;
 
 - Open file `cache\\databases.tosbit` in read mode.
-- Until EOF not reached, read each character:
-    - If 0 encountered, decrypt string in buffer & append it to enc_database variable.
-    - If again zero is encountered, clean the buffer & read string afterwards.
-    - Else just append to intermediate buffer.
-- Match it to the variable database.
-- If it matches, then good. Otherwise display error.
+- Start reading each character one-by-one.
+- Append the characters to buffer.
+- If a 0 is encountered for the first time, append it.
+- If again a 0 is encountered immediately after previous one, append it & decrypt whole string.
+- Match the decrypted string to user entered DB name.
+- If they match then terminate, else empty buffer & continue with upcoming characters.
+- If EOF reached & match not found yet, DB doesn't exist.
