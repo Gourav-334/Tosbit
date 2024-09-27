@@ -1,23 +1,10 @@
 # profile_manager
 
-- **(1)** Prompt user for entering username.
-- Check if username exists or not.
-- If file found:
-    - **(2)** Prompt user for password.
-    - If password matches:
-        - Bring user to Tosbit terminal.
-    - If password doesn't match:
-        - Go back to **(2)**.
-- If file not found:
-    - Provide user choice to create an account.
-    - If user wants an account:
-        - **(3)** Ask for a new password.
-        - Reauthenticate the password.
-        - If password is reauthenticated:
-            - Create a file with user's name.
-            - Store encrypted password in it.
-            - Tell user that account has been created.
-        - If password is not reauthenticated:
-            - Go back to **(3)**.
-    - If user doesn't want an account:
-        - Go back to **(1)**.
+- Check if user account exists or not.
+- If not, then ask user to set up & create one.
+- Ask him username & password (with re-authentication).
+- If it matches, then show the welcome note.
+- Else show error & again re-authenticate.
+- If account exists, prompt asking password.
+- If password matches, then welcome.
+- Else keep asking until it doesn't match.

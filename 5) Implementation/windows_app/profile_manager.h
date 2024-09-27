@@ -14,8 +14,7 @@
 #define USERNAME_MIN_SIZE 3
 #define USERNAME_MAX_SIZE 33
 
-#define USERNAME_BUFFER 101
-#define BUFFER_SIZE 39
+#define BUFFER_SIZE 133
 
 #define PASSWORD_MIN_SIZE 6
 #define PASSWORD_MAX_SIZE 33
@@ -34,6 +33,7 @@
 #include <windows.h>
 
 #include "encrypter.c"
+#include "console_colour.h"
 
 
 
@@ -43,46 +43,45 @@
 
 
 
-// GLOBAL VARIABLES
+/*
 
-/* Global boolean variables*/
+NOTES:
 
-int login_complete = FALSE;
-int username_set = FALSE;
-int password_set = FALSE;
-
-
-
-/* Characters */
-
-char decision;
-
-
-
-/* Strings */
-
-char username[USERNAME_MAX_SIZE] = {0};
-char username_buffer[USERNAME_BUFFER] = {0};
-char buffer[BUFFER_SIZE] = {0}; 
-char password[PASSWORD_MAX_SIZE] = {0};
-char re_password[PASSWORD_MAX_SIZE] = {0};
-
-
-/* Pointers */
-
-FILE *fptr = NULL;
+*/
 
 
 
 
 
-/* Login functions declaration */
 
-void login_starts();
-void check_account_existence();
-void password_setting();
+
+
+
+/* Variables */
+
+char username[USERNAME_MAX_SIZE];
+char password[PASSWORD_MAX_SIZE];
+char re_password[PASSWORD_MAX_SIZE];
+char file_buff[BUFFER_SIZE];
+
+int functionID = 1;
+int exit_status = TRUE;
+
+FILE *fptr;
+
+
+
+
+
+
+
+
+
+/* Functions */
+
+void check_account();
 void create_account();
-void logging_in();
+void set_password();
 void welcome_note();
 
 

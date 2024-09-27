@@ -19,6 +19,7 @@ void blue_console();			// Blue
 void yellow_console();			// Yellow
 void cyan_console();			// Cyan
 void pink_console();			// Pink
+void black_console();			// Black
 
 
 

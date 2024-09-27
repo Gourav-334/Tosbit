@@ -27,7 +27,7 @@ Total DFA states: 				15
 Total error types: 				7
 Total acknowledgement types:	2
 
-Total unexpected bugs:			4
+Total strange bugs:				5
 Total silly bugs:				3
 
 */

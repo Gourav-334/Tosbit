@@ -83,6 +83,18 @@ void pink_console()
 
 
 
+/* Black console */
+
+void black_console()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY);
+}
+
+
+
+
+
 #endif
 
 /* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
