@@ -1,4 +1,4 @@
-# TOSBIT (v1.0.0)
+# TOSBIT (v1.0.0)[Dipayan]
 
 ## Directory Structure Representation
 ### .git/
