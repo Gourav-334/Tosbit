@@ -1,4 +1,4 @@
-# TOSBIT (v1.0.0)
+# TOSBIT (v1.0.0) (Gourav)
 
 ## Directory Structure Representation
 ### .git/

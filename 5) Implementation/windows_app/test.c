@@ -7,9 +7,7 @@
 
 int main()
 {
-	syntax_parser("Ravishankar");
-
-	//check_account();
+	syntax_parser("Username");
 
 	return 0;
 }
