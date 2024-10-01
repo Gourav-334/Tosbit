@@ -30,24 +30,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 
 #include "encrypter.c"
-#include "console_colour.h"
+#include "console_colour.c"
 
-
-
-
-
-
-
-
-
-/*
-
-NOTES:
-
-*/
 
 
 
@@ -62,10 +48,10 @@ NOTES:
 char username[USERNAME_MAX_SIZE];
 char password[PASSWORD_MAX_SIZE];
 char re_password[PASSWORD_MAX_SIZE];
-char file_buff[BUFFER_SIZE];
+char buffer[BUFFER_SIZE];
 
 int functionID = 1;
-int exit_status = TRUE;
+int exit_status = FALSE;
 
 FILE *fptr;
 
