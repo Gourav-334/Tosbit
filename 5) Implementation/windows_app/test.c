@@ -6,7 +6,6 @@
 
 int main()
 {
-	//printf("%d\n", strlen(decrypt("3470239041029011302904300")));
 	profile_manager();
 
 	return 0;

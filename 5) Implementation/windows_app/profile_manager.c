@@ -49,6 +49,8 @@ i) An endline character is added at the end of any string that has used fgets() 
 ii) Using decrypt() prints the decrypted string twice despite there being no printf() function
 used in decrypt().
 iii) Same decrypt issue continues, appending everything.
+iv) When input string exceeds its buffer size, the string is read in sets of strings. For example,
+if entered string is of 74 chars & buffer size is 32 chars, then it will be read in set {32, 32, 10}.
 
 
 
@@ -57,6 +59,7 @@ FIXES:
 i) That's how it works. If wanting to get rid of it, use newline_remover() function.
 ii) Re-check for presence of printf() function, note that strlen() still returns the right value.
 iii) decrypt() & encrypt() work as saved strings, flush them with memset to null it.
+iv) The so called race condition can be simply solved by using memset() for fgets().
 
 */
 
@@ -131,36 +134,47 @@ void profile_manager()
 						fgets(password, PASSWORD_MAX_SIZE, stdin); newline_remover(password);
 
 
-						if (!strcmp(password, decrypt(buffer)))
+						if (strlen(password)>(PASSWORD_MAX_SIZE-2))
 						{
-							memset(buffer, 0 , strlen(buffer)*sizeof(char));
-							memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
-
-							functionID = 4;
+							red_console();
+							printf("Password size must not exceed %d characters!\n\n", PASSWORD_MAX_SIZE);
+							
+							memset(fgets(password, PASSWORD_MAX_SIZE, stdin), 0, strlen(password)*sizeof(char));
 						}
 
 
-						else // CONTINUE FROM HERE 1/2...
+						else if (strlen(password)<PASSWORD_MIN_SIZE)
 						{
-							if (strlen(password)<=PASSWORD_MAX_SIZE)
+							red_console();
+							printf("Password size must be more than %d characters!\n\n", PASSWORD_MIN_SIZE);
+						}
+
+
+						else
+						{
+							if (!strcmp(password, decrypt(buffer)))
+							{
+								memset(buffer, 0 , strlen(buffer)*sizeof(char));
+								memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
+
+								functionID = 4;
+							}
+
+
+							else if (strcmp(password, decrypt(buffer)))
 							{
 								red_console();
 								printf("Password doesn't match!\n\n");
 								yellow_console();
 							}
-
-							else if (strlen(password)>PASSWORD_MAX_SIZE)
-							{
-								red_console();
-								printf("Password length can be 32 characters max!\n\n");
-								yellow_console();
-							}
-
-							memset(buffer, 0 , strlen(buffer)*sizeof(char));
-							memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
-
-							continue;
 						}
+
+
+
+						memset(buffer, 0 , strlen(buffer)*sizeof(char));
+						memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
+
+						continue;
 					}
 				}
 
@@ -185,25 +199,32 @@ void profile_manager()
 				printf("New username: "); fgets(username, USERNAME_MAX_SIZE, stdin);
 
 
-				if (strlen(username)>32)
+				if (strlen(username)>(USERNAME_MAX_SIZE-2))
 				{
 					memset(username, 0, strlen(username)*sizeof(char));
-					red_console(); printf("Username must be of 32 characters max!\n\n");
+					red_console();
+					printf("Username must be of %d characters max!\n\n", USERNAME_MAX_SIZE);
+
+					memset(fgets(username, USERNAME_MAX_SIZE, stdin), 0, strlen(username)*sizeof(char));
 				}
 
 
-				else if (strlen(username)<USERNAME_MIN_SIZE)
+				else if (strlen(username)<(USERNAME_MIN_SIZE+1))
 				{
 					memset(username, 0, strlen(username)*sizeof(char));
-					red_console(); printf("Username must be of minimum 6 characters!\n\n");
+					red_console();
+					printf("Username must be of minimum %d characters!\n\n", USERNAME_MIN_SIZE);
 				}
 
 
 				else
 				{
 					green_console(); printf("Alright!\n\n");
-					functionID = 3; continue;
+					functionID = 3;
 				}
+
+
+				continue;
 
 
 
@@ -219,7 +240,7 @@ void profile_manager()
 
 			/* Set password for created account */
 
-			case 3:	// CONTINUE FROM HERE 2/2...
+			case 3:
 
 				memset(password, 0, strlen(password)*sizeof(char));
 				memset(re_password, 0, strlen(re_password)*sizeof(char));
@@ -228,25 +249,45 @@ void profile_manager()
 				printf("Enter password: "); white_console();
 				fgets(password, PASSWORD_MAX_SIZE, stdin);
 
-				yellow_console();
-				printf("Re-enter password: "); white_console();
-				fgets(re_password, PASSWORD_MAX_SIZE, stdin);
 
 
-
-				if (!strcmp(password, re_password))
+				if (strlen(password)>(PASSWORD_MAX_SIZE-2))
 				{
-					fputs(encrypt(password), fptr);
+					red_console();
+					printf("Password size must not exceed %d characters!\n\n", PASSWORD_MAX_SIZE);
 
-					functionID = 4;
+					memset(fgets(password, PASSWORD_MAX_SIZE, stdin), 0, strlen(password)*sizeof(char));
 				}
 
 
 
-				else if (strcmp(password, re_password))
+				else if (strlen(password)<PASSWORD_MIN_SIZE)
 				{
 					red_console();
-					printf("Passwords don't match, try again!\n\n");
+					printf("Password size must be more than %d characters!\n\n", PASSWORD_MIN_SIZE);
+				}
+
+
+
+				else
+				{
+					yellow_console();
+					printf("Re-enter password: "); white_console();
+					fgets(re_password, PASSWORD_MAX_SIZE, stdin);
+
+					if (!strcmp(password, re_password))
+					{
+						fputs(encrypt(password), fptr);
+
+						functionID = 4;
+					}
+
+
+					else if (strcmp(password, re_password))
+					{
+						red_console();
+						printf("Passwords don't match, try again!\n\n");
+					}
 				}
 
 
