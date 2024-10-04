@@ -1,12 +1,15 @@
 # TOSBIT (v1.0.0) (Gourav)
 
 ## Directory Structure Representation
+
 ### .git/
 
 ### 1\) Objectives/
+
 - 1\) Objectives for v1.0.0
 
 ### 2\) User Interface/
+
 - 1\) Login System
 - 2\) System Features
 - 3\) Data Definition Commands
@@ -21,11 +24,13 @@
 - 12\) Switch User
 
 ### 3\) Algorithms/
+
 - 1\) utility_box
 - 2\) encrypter
 - 3\) profile_manager
 
 ### 4\) Flowcharts/
+
 - 1\) utility_box - String append, constant string append
 - 2\) utility_box - Character append, constant character append
 - 3\) utility_box - Newline remover
@@ -36,12 +41,13 @@
 - 8\) encrypter - Decrypter
 
 ### 5\) Implementation/
+
 - docs/
 - windows_app/
-    - data/
-    - data_manual.txt
+  - data/
+  - data_manual.txt
 - users/
-    - users_manual.txt
+  - users_manual.txt
 - data_structures.c
 - data_structures.h
 - encrypter.c
@@ -57,12 +63,13 @@
 ### 6\) Deployment/
 
 ### LICENSE
-### README.md
 
+### README.md
 
 ## Directory Structure Description
 
 ### Description:
+
 - **.git:** Contains the *version control* information about the project.
 - **1\) Objectives:** Stores markdown files with written information about the *objectives* set for various *"Tosbit"* versions.
 - **2\) User interface:** Information about the *expected design* of the end product for a particular version.
@@ -71,8 +78,8 @@
 - **5\) Implementation:** Contains the *final version components* in conventional format. These are the files that developers can collaborate to.
 - **6\) Deployment:** Contains *setups* for various versions of *"Data Godown"*.
 
-
 ### Things to note:
+
 - Setups in ***6\) Deployment*** are using [NSIS](https://nsis.sourceforge.io/License) packaging.
 - ***6\) Deployment*** contains files meant for end users, which might not be much helpful to the collaborating developers.
 - ***5\) Implementation*** contains files meants for collaborating developers.
