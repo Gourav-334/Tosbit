@@ -92,7 +92,7 @@ void profile_manager()
 
 			case 1:
 
-				fptr = fopen("data\\user.tosbit", "r");
+				fptr = fopen("data\\password.tosbit", "r"); // Changed user to password
 
 
 				/* If compulsory user system file not found */
@@ -120,7 +120,7 @@ void profile_manager()
 					{
 						/* Open file in write mode if it doesn't exist */
 
-						fptr = fopen("data\\user.tosbit", "w");
+						fptr = fopen("data\\password.tosbit", "w");
 						functionID = 2; continue;
 					}
 
