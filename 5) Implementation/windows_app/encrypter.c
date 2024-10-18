@@ -13,6 +13,12 @@
 
 
 
+
+
+
+
+
+
 /* 
 
 The order: total 47
@@ -26,6 +32,11 @@ zZxXcCvVbBnNmM,<.>/?			Keyboard row: 4
 '00' means term/word separation.
 
  */
+
+
+
+
+
 
 
 
@@ -61,6 +72,11 @@ char *encrypt(char *input)
 
 	return output;
 }
+
+
+
+
+
 
 
 
@@ -142,6 +158,25 @@ char *decrypt(char *input)
 
 
 	return output;
+}
+
+
+
+
+
+
+
+
+
+
+char keymapped(char *input)
+{
+	for (int i=0; i<TOTAL_CHARS; i++)
+	{
+		if (!strcmp(input, prime_codes[i])) {return keyboard_chars[i];}
+	}
+
+	return ' ';
 }
 
 

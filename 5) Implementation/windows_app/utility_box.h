@@ -5,6 +5,9 @@
 #ifndef UTILITY_BOX_H
 	#define UTILITY_BOX_H
 
+#define FALSE 0
+#define TRUE 1
+
 
 #include <stdio.h>
 #include <string.h>
