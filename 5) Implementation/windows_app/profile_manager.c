@@ -278,6 +278,10 @@ void profile_manager()
 					if (!strcmp(password, re_password))
 					{
 						fputs(encrypt(password), fptr);
+						memset(encrypt(password), 0, strlen(password)*sizeof(char));
+
+						fputs(encrypt(username), fptr);
+						memset(encrypt(username), 0, strlen(username)*sizeof(char));
 
 						functionID = 4;
 					}

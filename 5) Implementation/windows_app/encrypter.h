@@ -50,10 +50,16 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 
 
+
+
+
+
+
 /* Encryption & decryption functions */
 
 char *encrypt(char *input);
 char *decrypt(char *input);
+char keymapped(char *input);
 
 
 #endif
