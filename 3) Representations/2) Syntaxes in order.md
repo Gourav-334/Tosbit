@@ -8,18 +8,12 @@ show Desk struct in Office;
 
 show all db;
 
-make table Desk [
-    int Sno,
-    string name,
-    string dep
-];
+make table Desk [int Sno, string name, string dep];
 
 set Sno in Desk as unique_key;
 set Sno in Desk as regular_key;
 
-insert into table Desk [
-    1, Yuvraj, 25
-];
+insert into table Desk [1, Yuvraj, 25];
 
 delete from table Desk where Sno=5;
 delete from table Desk where Sno=5 & name="Yuvraj";

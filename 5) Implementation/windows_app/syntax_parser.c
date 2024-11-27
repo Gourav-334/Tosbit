@@ -66,7 +66,7 @@ iii) Bandage the program by assuming having read a character (continue from 2nd 
 iv) Check the formatted string function & state transitions.
 v) It isn't skipped! You are trying to print the string after emptying it, idiot!
 vi) Something is wrong with either variable "database" or the functions, or even variable "directory".
-vii) First check if it is being empties properly or not & then bandage it if required.
+vii) First check if it is being emptied properly or not & then bandage it if required.
 
 */
 
@@ -345,68 +345,33 @@ void syntax_parser(char username[])
 
 
 
-			case 9:	// YOU WERE DEBUGGING THIS... (MAKE A FUNCTION FOR IT TO BE EASY)
+			case 9:
 
-				fptr = fopen("cache\\databases.tosbit", "r");
+				snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+				fptr = fopen(directory, "r");
 
-
-				while (!feof(fptr))
-				{
-					prev_filechar = filechar; filechar = fgetc(fptr);
-					charappend(buffer, filechar);
-
-					printf("PREV_FILECHAR:%c, FILECHAR:%c, BUFF:%s\n", prev_filechar, filechar, buffer);
-
-					if ((filechar=='0')&&(prev_filechar=='0'))
-					{
-						if (!strcmp(database, decrypt(buffer)))
-						{
-							db_found = TRUE;
-
-							green_console();
-							printf("Database \"%s\" online!\n\n", database);
-							white_console();
-
-							memset(buffer, 0, BUFFER_MAX_LENGTH);
-							prev_filechar = '$'; filechar = '$';
-
-							break;
-						}
-
-
-						else
-						{
-							memset(buffer, 0, BUFFER_MAX_LENGTH);
-							continue;
-						}
-					}
-
-
-					else ////////////////////////////////////////////////////////////////////////
-					{
-						printf("prev_filechar:%c, filechar:%c\n", prev_filechar, filechar);
-					}
-				}
-
-
-				if (db_found==FALSE)
+				if (fptr==NULL)
 				{
 					red_console();
-					printf("Error8: Database \"%s\" not found!\n\n", database);
+					printf("Error4: No database named \"%s\" exists!\n\n", database);
 					white_console();
 				}
 
-
-				db_found = FALSE;
+				else
+				{
+					green_console();
+					printf("Database %s online!\n\n", database);
+					white_console();
+				}
 
 
 				break;
 
 
 
-			case 10:
+			case 10: // CONTINUE FROM HERE... (recorded on 27-11-2024)
 
-				snprintf(directory, sizeof(directory), "data\\%s.tosbit", encrypt(database));
+				snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
 				fptr = fopen(directory, "r");
 
 				if (fptr==NULL)

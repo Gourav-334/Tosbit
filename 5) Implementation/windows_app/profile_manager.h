@@ -65,10 +65,7 @@ FILE *fptr;
 
 /* Functions */
 
-void check_account();
-void create_account();
-void set_password();
-void welcome_note();
+void profile_manager();
 
 
 
