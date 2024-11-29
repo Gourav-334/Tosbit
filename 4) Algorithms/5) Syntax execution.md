@@ -11,7 +11,7 @@
     - Execute
 
 
-## Comments
+## @ Comment @
 
 - Until its just space, keep skipping the characters.
 - If @ appears, open the comment.
@@ -27,3 +27,32 @@
 - Match the decrypted string to user entered DB name.
 - If they match then terminate, else empty buffer & continue with upcoming characters.
 - If EOF reached & match not found yet, DB doesn't exist.
+
+
+## show Table struct
+
+- First of all, ban using `"`, `[`, `]` for users in Tosbit.
+
+```
+{
+    "fetch": ["fetch", "fetch"],
+    "fetch": ["fetch", "fetch"],
+
+    ...
+
+    "fetch": ["fetch", "fetch"]
+}
+```
+
+- If `database` is an empty string:
+    - Print error saying database doesn't exist.
+- Else if string is not empty:
+    - Open `data\\db_name\\table_name\\details.json` in read mode.
+    - 
+        - Keep reading until you encounter an `"`.
+        - Then keep printing the characters **attribute name** until `"` is encounter.
+        - Again keep reading until you encounter an `"`.
+        - Then keep printing the characters as **last attribute's data type** until `"` is encounter.
+        - Again keep reading until you encounter an `"`.
+        - Then keep printing the characters as **last attribute's key type** until `"` is encounter, without `\` being immediately previous to it.
+        - If `]` is encountered & then immediately after it `\n` is encountered, then break from loop.
