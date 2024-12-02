@@ -20,8 +20,8 @@ func1()
 }
 ```
 
-- **Space complexity:** O(cn)
-- c = Number of nested function layers
+- **Space complexity:** $O(cn)$
+- $c$ is number of nested function layers.
 
 
 ## New structure
@@ -45,4 +45,4 @@ switch (function)
 }
 ```
 
-- **Space complexity:** O(n)
+- **Space complexity:** $O(n)$

@@ -187,14 +187,22 @@ void str_shift(char str[], int start, int end, int direction, int steps)
 
 /* Check existence of a character in an array */
 
-int char_in_array(char c, char arr[], int length)
+int illegalChars(char arr[], char chars[])
 {
-	for (int i=0; i<length; i++)
+	int brk = FALSE;
+
+	for (int i=0; i<strlen(chars); i++)
 	{
-		if (c==arr[i]) {return 1;}
+		for (int j=0; j<strlen(arr); j++)
+		{
+			if (arr[j]==chars[i])
+			{
+				return TRUE;
+			}
+		}
 	}
 
-	return 0;
+	return FALSE;
 }
 
 

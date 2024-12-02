@@ -1,4 +1,17 @@
-# profile_manager
+# Profile Manager
+
+
+## 0. Description:
+
+- This documentation is regarding ***profile_manager.h*** & ***profile_manager.c***.
+- Purpose of this library is to maintain the user credential data throughout the lifecycle of the program.
+
+
+## 1. Profile Manager:
+
+```
+void profile_manager();
+```
 
 - Check if user account exists or not.
 - If not, then ask user to set up & create one.

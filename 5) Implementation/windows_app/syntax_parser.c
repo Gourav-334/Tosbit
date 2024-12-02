@@ -99,6 +99,13 @@ void syntax_parser(char username[])
 
 
 
+		for (int i=0; i<strlen(command); i++)
+		{
+			if 
+		}
+
+
+
 
 
 		/* Automaton starts running & moves until whole syntax has been read */
@@ -674,7 +681,9 @@ void syntax_parser(char username[])
 
 			case 27:
 
-				// CONTINUE FROM HERE FOR FINDING A DATABASE...
+				//
+
+				break;
 
 
 

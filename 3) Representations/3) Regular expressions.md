@@ -1,30 +1,22 @@
 # REGULAR EXPRESSIONS
 
-## There are 3 types of states:
-
-- Accept state
-- Error state
-- Incomplete state
+> **<u>NOTE</u>:**
+> - 3 types of states:
+>   1. Accept state
+>   2. Error state (dump state)
+>   3. Incomplete state
 
 
 ## @ Comment @
 
-```
-_*@_*(STRING)_*@_*
-```
+$$ \_*@\_*(STRING)\_*@\_* $$
 
-- (STRING) = Comment
-- _ = Space
+- $(STRING)$ is Comment
+- $\_$ is space
 
 ## open db Office
 
-```
-open__*db__*(STRING)_*
-```
+$$ open\_\_*db\_\_*(STRING)\_* $$
 
-- (STRING) = Database name
-- _ = Space
-
-
-
------------------------------------------
+- $(STRING)$ is database name.
+- $\_$ is space.
