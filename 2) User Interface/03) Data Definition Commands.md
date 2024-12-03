@@ -19,12 +19,12 @@ show all tables in Office;
 
 ### iii. Describe a table (inside):
 ```
-show Desk struct;
+show struct Desk;
 ```
 
 ### iv. Describe a table (outside):
 ```
-show Desk struct in Office;
+show struct Desk in Office;
 ```
 
 

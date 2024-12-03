@@ -14,7 +14,7 @@
 #define STRING_MAX_LENGTH 33
 #define DATABASE_MAX_LENGTH 33
 #define TABLE_MAX_LENGTH 33
-#define DIRECTORY_MAX_LENGTH 65
+#define DIRECTORY_MAX_LENGTH 129
 #define BUFFER_MAX_LENGTH 133
 
 
@@ -48,7 +48,7 @@ char buffer[BUFFER_MAX_LENGTH];
 int state = 0;
 int zero_count = 0;
 
-int brk = FALSE;
+int brk = FALSE;			// Set TRUE when the syntax goes wrong
 int db_found = FALSE;
 
 FILE *fptr;
@@ -60,6 +60,7 @@ FILE *fptr;
 /* FUNCTIONS */
 
 void syntax_parser(char username[]);
+//int checkTable()
 
 
 

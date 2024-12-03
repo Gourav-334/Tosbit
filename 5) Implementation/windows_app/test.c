@@ -1,13 +1,10 @@
-//#include "syntax_parser.c"
-#include "utility_box.c"
+#include "syntax_parser.c"
 
 
 
 int main()
 {
-	//syntax_parser("Gourav");
-
-	printf("Result: %d\n", illegalChars("Syntax p[arser", "\"[]"));
+	syntax_parser("Gourav");
 
 	return 0;
 }

@@ -99,9 +99,13 @@ void syntax_parser(char username[])
 
 
 
-		for (int i=0; i<strlen(command); i++)
+		if (illegalChars(command, "\"[]")==TRUE)
 		{
-			if 
+			red_console();
+			printf("Error9: Please don't use \", [ or ]\n\n");
+			white_console();
+
+			continue;
 		}
 
 
@@ -232,6 +236,8 @@ void syntax_parser(char username[])
 
 				case 14:
 
+					memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));
+
 					if (command[i]==' ') {}
 					
 					else
@@ -246,8 +252,8 @@ void syntax_parser(char username[])
 
 				case 16:
 
-					if (command[i]=='h') {state = 17;}
-					else {state = 28;}
+					if (command[i]=='h' || command[i]=='H') {state = 17;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -255,8 +261,8 @@ void syntax_parser(char username[])
 
 				case 17:
 
-					if (command[i]=='o') {state = 18;}
-					else {state = 28;}
+					if (command[i]=='o' || command[i]=='O') {state = 18;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -264,8 +270,8 @@ void syntax_parser(char username[])
 
 				case 18:
 
-					if (command[i]=='w') {state = 19;}
-					else {state = 28;}
+					if (command[i]=='w'  || command[i]=='W') {state = 19;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -274,7 +280,7 @@ void syntax_parser(char username[])
 				case 19:
 
 					if (command[i]==' ') {state = 20;}
-					else {state = 28;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -283,7 +289,8 @@ void syntax_parser(char username[])
 				case 20:
 
 					if (command[i]==' ') {}
-					else {table[i] = command[i];}
+					else if (command[i]=='s' || command[i]=='S') {state = 22;}
+					else {state = 28;}
 
 					break;
 
@@ -292,7 +299,7 @@ void syntax_parser(char username[])
 				case 21:
 
 					if (command[i]==' ') {state = 29;}
-					else {state = 28;}
+					else {table[strlen(table)] = command[i];}
 
 					break;
 
@@ -300,8 +307,8 @@ void syntax_parser(char username[])
 
 				case 22:
 
-					if (command[i]=='t') {state = 23;}
-					else {state = 28;}
+					if (command[i]=='t' || command[i]=='T') {state = 23;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -309,8 +316,8 @@ void syntax_parser(char username[])
 
 				case 23:
 
-					if (command[i]=='r') {state = 24;}
-					else {state = 28;}
+					if (command[i]=='r' || command[i]=='R') {state = 24;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -318,8 +325,8 @@ void syntax_parser(char username[])
 
 				case 24:
 
-					if (command[i]=='u') {state = 25;}
-					else {state = 28;}
+					if (command[i]=='u' || command[i]=='U') {state = 25;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -327,8 +334,8 @@ void syntax_parser(char username[])
 
 				case 25:
 
-					if (command[i]=='c') {state = 26;}
-					else {state = 28;}
+					if (command[i]=='c' || command[i]=='C') {state = 26;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
@@ -336,14 +343,25 @@ void syntax_parser(char username[])
 
 				case 26:
 
-					if (command[i]=='t') {state = 27;}
-					else {state = 28;}
+					if (command[i]=='t' || command[i]=='T') {state = 27;}
+					else {state = 28; brk = TRUE;}
 
 					break;
 
 
 
 				case 27:
+
+					memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));
+
+					if (command[i]==' ') {state = 30;}
+					else {state = 28; brk = TRUE;}
+
+					break;
+
+
+
+				case 29:
 
 					if (command[i]==' ') {}
 					else {state = 28;}
@@ -352,14 +370,23 @@ void syntax_parser(char username[])
 
 
 
-				case 29:
+				case 30:
 
-					if (command[i]=='s') {state = 22;}
-					else {state = 28;}
+					if (command[i]==' ') {}
+
+					else
+					{
+						table[strlen(table)] = command[i];
+						state = 21;
+					}
 
 					break;
 
-				break;
+
+
+			
+
+				break;		// What is its purpose? Is it necessary?
 			}
 
 
@@ -572,7 +599,7 @@ void syntax_parser(char username[])
 			case 16:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -582,7 +609,7 @@ void syntax_parser(char username[])
 			case 17:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -592,7 +619,7 @@ void syntax_parser(char username[])
 			case 18:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -602,7 +629,7 @@ void syntax_parser(char username[])
 			case 19:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -612,7 +639,7 @@ void syntax_parser(char username[])
 			case 20:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -621,9 +648,22 @@ void syntax_parser(char username[])
 
 			case 21:
 
-				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
-				white_console();
+				snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
+				fptr = fopen(directory, "r");
+
+				if (fptr==NULL)
+				{
+					red_console();
+					printf("Error10: No table named \"%s\" exists!\n\n", table);
+					white_console();
+				}
+
+				else
+				{
+					yellow_console();
+					printf("Table %s online!\n\n", table);
+					white_console();
+				}
 
 				break;
 
@@ -632,7 +672,7 @@ void syntax_parser(char username[])
 			case 22:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -642,7 +682,7 @@ void syntax_parser(char username[])
 			case 23:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -652,7 +692,7 @@ void syntax_parser(char username[])
 			case 24:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -662,7 +702,7 @@ void syntax_parser(char username[])
 			case 25:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -672,7 +712,7 @@ void syntax_parser(char username[])
 			case 26:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -681,7 +721,9 @@ void syntax_parser(char username[])
 
 			case 27:
 
-				//
+				red_console();
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
+				white_console();
 
 				break;
 
@@ -690,7 +732,40 @@ void syntax_parser(char username[])
 			case 28:
 
 				red_console();
-				printf("Error8: Did you meant \"show table struct\"?\n\n");
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
+				white_console();
+
+				break;
+
+
+
+			case 29:
+
+				snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
+				fptr = fopen(directory, "r");
+
+				if (fptr==NULL)
+				{
+					red_console();
+					printf("Error10: No table named \"%s\" exists!\n\n", table);
+					white_console();
+				}
+
+				else
+				{
+					yellow_console();
+					printf("Table %s online!\n\n", table);
+					white_console();
+				}
+
+				break;
+
+
+
+			case 30:
+
+				red_console();
+				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
 				white_console();
 
 				break;
@@ -701,8 +776,6 @@ void syntax_parser(char username[])
 
 
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
-		memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));
-		memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));
 
 		state = 0;
 	}

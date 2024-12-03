@@ -1,6 +1,17 @@
-# data_structures
+# Data Structures
 
-### Queue.queueing
+
+## 0. Description:
+
+- This documentation is regarding ***data_structures.h*** & ***data_structures.c***.
+- Its purpose is to provide storage facilities in form of various data structures.
+
+
+## 1. Queueing:
+
+```
+void Queue_queue(Queue *q, char str[]);
+```
 
 - If the number of nodes are zero:
     - Create a node.
@@ -13,7 +24,11 @@
     - Fill the user information.
 
 
-### Queue.clear
+## 2. Dequeueing:
+
+```
+void Queue_clear(Queue *q);
+```
 
 - Starting from first node.
 - If number of nodes is zero:
@@ -25,7 +40,11 @@
     - Clear last node.
 
 
-### Queue.getIndex
+## 3. Getting Index:
+
+```
+int Queue_getIndex(Queue *q, char str[]);
+```
 
 - Keep a counter set to zero.
 - Starting from first node.
@@ -36,7 +55,11 @@
 - Return the counter value.
 
 
-### Queue.getValue
+## 4. Getting Value:
+
+```
+char *Queue_getValue(Queue *q, int index);
+```
 
 - Set a counter to zero.
 - For given {input number} of times:
@@ -45,7 +68,11 @@
 - Return the index number of current node.
 
 
-### Queue.peek
+## 5. Peek Element:
+
+```
+void Queue_peek(Queue *q);
+```
 
 - If number of nodes is zero:
     - Print "No nodes present" message.
@@ -53,7 +80,11 @@
     - Print current node details.
 
 
-### Queue.printAll
+## 6. Print All Elements
+
+```
+void Queue_showAll(Queue *q);
+```
 
 - If number of nodes is zero:
     - Print "No nodes present" message.

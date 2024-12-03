@@ -1,7 +1,18 @@
 # SYNTAX EXECUTION
 
 
-## General
+
+## 0. Description:
+
+```
+void syntax_parser(char username[]);
+```
+
+- This documentation is regarding ***syntax_parser.h*** & ***syntax_parser.c***.
+- Purpose of this library is to execute the designed automata to parse user commands & give corresponding appropriate answer.
+
+
+## 1. General:
 
 - Wait for user to input.
 - Analyze
@@ -13,11 +24,13 @@
 
 ## @ Comment @
 
+$$ \_*@\_*(STRING)\_*@\_* $$
+
 - Until its just space, keep skipping the characters.
 - If @ appears, open the comment.
 
 
-## open db db_name;
+## open db db_name
 
 - Open file `cache\\databases.tosbit` in read mode.
 - Start reading each character one-by-one.
@@ -29,7 +42,7 @@
 - If EOF reached & match not found yet, DB doesn't exist.
 
 
-## show Table struct
+## show struct table_name
 
 - First of all, ban using `"`, `[`, `]` for users in Tosbit.
 

@@ -8,8 +8,7 @@
 
 open db Office
 
-show Desk struct
-show Desk struct in Office
+show struct Desk
 
 show all db
 
@@ -39,4 +38,4 @@ delete account
 
 $$ Total\;commands\;=\;18 $$
 $$ Total\;categories\;=\;11 $$
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{96}{16}\;=\;6\;days/command
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{95}{16}\;=\;5\;days/command
