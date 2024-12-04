@@ -2,8 +2,8 @@
 
 
 
-#ifndef SYNTAX_PARSER_C
-	#define SYNTAX_PARSER_C
+#ifndef SYNTAX_PARSER_LEGACY_C
+	#define SYNTAX_PARSER_LEGACY_C
 
 
 
@@ -118,19 +118,92 @@ void syntax_parser(char username[])
 		{
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsS", "0,1,3,3,16,16", &state, 2); break;
-				case 1: changeState(command[i], "@", "0", &state, 1); break;
-				case 2: brk = TRUE; break;
-				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
-				case 4: changeState(command[i], "eE", "5,5", &state, 11); breakValue(&state, 11, &brk); break;
-				case 5: changeState(command[i], "nN", "6,6", &state, 11); breakValue(&state, 11, &brk); break;
-				case 6: changeState(command[i], " ", "13", &state, 11); breakValue(&state, 11, &brk); break;
-				case 7: changeState(command[i], "bB", "8,8", &state, 11); breakValue(&state, 11, &brk); break;
-				case 8: changeState(command[i], " ", "14,14", &state, 11); breakValue(&state, 11, &brk); break;
+				case 0: //changeState(command[i], " @oOsS", "0,1,3,3,16,16", &state, 2);
 
-				case 9: changeState(command[i], " ", "10,10", &state, 11); breakValue(&state, 11, &brk); break;
+					if (command[i]==' ' || command[i]=='\0' || strlen(command)==1) {}
+					else if (command[i]=='@') {state = 1;}
+					else if (command[i]=='o' || command[i]=='O') {state = 3;}
+					else if (command[i]=='s') {state = 16;}
+					else {state = 2;}
 
-					if (command[i]==' ') {state = 10;}	// CONTINUE FROM THIS case SECTION (12-Dec-2024_23:15)
+					break;
+
+
+
+				case 1:
+
+					if (command[i]=='@') {state = 0;}
+					else {}
+
+					break;
+
+
+
+				case 2:
+
+					brk = TRUE;
+
+					break;
+
+
+
+				case 3:
+
+					if (command[i]=='p' || command[i]=='P') {state = 4;}
+					else {state = 2;}
+
+					break;
+
+
+
+				case 4:
+
+					if (command[i]=='e' || command[i]=='E') {state = 5;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 5:
+
+					if (command[i]=='n' || command[i]=='N') {state = 6;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 6:
+
+					if (command[i]==' ') {state = 13;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 7:
+
+					if (command[i]=='b'  || command[i]=='B') {state = 8;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 8:
+
+					if (command[i]==' ') {state = 14;}
+					else {state = 11; brk = TRUE;}
+
+					break;
+
+
+
+				case 9:
+
+					if (command[i]==' ') {state = 10;}
 					
 					else
 					{

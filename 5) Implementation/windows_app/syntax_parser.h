@@ -23,12 +23,12 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
 
 #include "utility_box.c"
 #include "console_colour.c"
 #include "data_structures.c"
 #include "encrypter.c"
+#include "transition_tool.c"		// May vary (test or tested version)
 
 
 

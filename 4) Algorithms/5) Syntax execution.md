@@ -24,10 +24,8 @@ void syntax_parser(char username[]);
 
 ## @ Comment @
 
-$$ \_*@\_*(STRING)\_*@\_* $$
-
 - Until its just space, keep skipping the characters.
-- If @ appears, open the comment.
+- If $@$ appears, open the comment.
 
 
 ## open db db_name
