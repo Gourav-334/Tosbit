@@ -20,6 +20,7 @@
 void changeState(char input, char symbols[], char transition[], int *state, int dump);
 void breakValue(int *state, int breakState, int *brk);
 void appendState(int *state, int breakState, char *target, char value);
+void limitChecker(char *target, int limit, int *state, int newState, int *brk);
 
 
 

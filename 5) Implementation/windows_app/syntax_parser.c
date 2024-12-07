@@ -126,196 +126,26 @@ void syntax_parser(char username[])
 				case 5: changeState(command[i], "nN", "6,6", &state, 11); breakValue(&state, 11, &brk); break;
 				case 6: changeState(command[i], " ", "13", &state, 11); breakValue(&state, 11, &brk); break;
 				case 7: changeState(command[i], "bB", "8,8", &state, 11); breakValue(&state, 11, &brk); break;
-				case 8: changeState(command[i], " ", "14,14", &state, 11); breakValue(&state, 11, &brk); break;
-
-				case 9: changeState(command[i], " ", "10,10", &state, 11); breakValue(&state, 11, &brk); break;
-
-					if (command[i]==' ') {state = 10;}	// CONTINUE FROM THIS case SECTION (12-Dec-2024_23:15)
-					
-					else
-					{
-						if (strlen(database)==32) {state = 15; brk = TRUE;}
-						else {database[strlen(database)] = command[i];}
-					}
-
-					break;
-
-
-
-				case 10:
-
-					if (command[i]==' ') {}
-					else {state = 12; brk = TRUE;}
-
-					break;
-
-
-
-				case 13:
-
-					if (command[i]==' ') {}
-					else if (command[i]=='d' || command[i]=='D') {state = 7;}
-					else {state = 11; brk = TRUE;}
-
-					break;
-
-
-
-				case 14:
-
-					memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));
-
-					if (command[i]==' ') {}
-					
-					else
-					{
-						state = 9;
-						database[strlen(database)] = command[i];
-					}
-
-					break;
-
-
-
-				case 16:
-
-					if (command[i]=='h' || command[i]=='H') {state = 17;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 17:
-
-					if (command[i]=='o' || command[i]=='O') {state = 18;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 18:
-
-					if (command[i]=='w'  || command[i]=='W') {state = 19;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 19:
-
-					if (command[i]==' ') {state = 20;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 20:
-
-					if (command[i]==' ') {}
-					else if (command[i]=='s' || command[i]=='S') {state = 22;}
-					else {state = 28;}
-
-					break;
-
-
-
-				case 21:
-
-					if (command[i]==' ') {state = 29;}
-					else {table[strlen(table)] = command[i];}
-
-					break;
-
-
-
-				case 22:
-
-					if (command[i]=='t' || command[i]=='T') {state = 23;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 23:
-
-					if (command[i]=='r' || command[i]=='R') {state = 24;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 24:
-
-					if (command[i]=='u' || command[i]=='U') {state = 25;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 25:
-
-					if (command[i]=='c' || command[i]=='C') {state = 26;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 26:
-
-					if (command[i]=='t' || command[i]=='T') {state = 27;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 27:
-
-					memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));
-
-					if (command[i]==' ') {state = 30;}
-					else {state = 28; brk = TRUE;}
-
-					break;
-
-
-
-				case 29:
-
-					if (command[i]==' ') {}
-					else {state = 28;}
-
-					break;
-
-
-
-				case 30:
-
-					if (command[i]==' ') {}
-
-					else
-					{
-						table[strlen(table)] = command[i];
-						state = 21;
-					}
-
-					break;
-
-
-
-			
-
-				break;		// What is its purpose? Is it necessary?
+				case 8: changeState(command[i], " ", "14", &state, 11); breakValue(&state, 11, &brk); break;
+				case 9: changeState(command[i], " ", "10", &state, 9); appendState(&state, 9, database, command[i]); limitChecker(database, 32, &state, 15, &brk); break;
+				case 10: changeState(command[i], " ", "10", &state, 12); breakValue(&state, 12, &brk); break;
+				case 13: changeState(command[i], " dD", "13,7,7", &state, 11); breakValue(&state, 11, &brk); break;
+				case 14: clearEntity("database"); changeState(command[i], " ", "14", &state, 9); appendState(&state, 9, database, command[i]); break;
+				case 16: changeState(command[i], "hH", "17,17", &state, 28); breakValue(&state, 28, &brk); break;
+				case 17: changeState(command[i], "oO", "18,18", &state, 28); breakValue(&state, 28, &brk); break;
+				case 18: changeState(command[i], "wW", "19,19", &state, 28); breakValue(&state, 28, &brk); break;
+				case 19: changeState(command[i], " ", "20", &state, 28); breakValue(&state, 28, &brk); break;
+				case 20: changeState(command[i], " sS", "20,22,22", &state, 28); break;
+				case 21: changeState(command[i], " ", "29", &state, 21); appendState(&state, 21, table, command[i]); break;
+				case 22: changeState(command[i], "tT", "23,23", &state, 28); breakValue(&state, 28, &brk); break;
+				case 23: changeState(command[i], "rR", "24,24", &state, 28); breakValue(&state, 28, &brk); break;
+				case 24: changeState(command[i], "uU", "25,25", &state, 28); breakValue(&state, 28, &brk); break;
+				case 25: changeState(command[i], "cC", "26,26", &state, 28); breakValue(&state, 28, &brk); break;
+				case 26: changeState(command[i], "tT", "27,27", &state, 28); breakValue(&state, 28, &brk); break;
+				case 27: clearEntity("table"); changeState(command[i], " ", "30", &state, 28); breakValue(&state, 28, &brk); break;
+				case 29: changeState(command[i], " ", "29", &state, 28); break;
+				case 30: changeState(command[i], " ", "30", &state, 21); appendState(&state, 21, table, command[i]); break;
 			}
-
 
 
 			if (brk==TRUE) {brk = FALSE; break;}
@@ -335,96 +165,15 @@ void syntax_parser(char username[])
 
 		switch (state)
 		{
-			case 0:
-
-				green_console();
-				Queue_queue(&script, command);
-				printf("No changes are made!\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 1:
-
-				red_console();
-				printf("Error1: Comment brackets opened, but not closed!\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 2:
-
-				red_console();
-				printf("Error2: Unknown command passed!\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 3:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 4:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 5:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 6:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 7:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 8:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
+			case 0: Queue_queue(&script, command); colouredMessage("green", "No changes are made!\n\n"); break;
+			case 1: colouredMessage("red", "Error1: Comment brackets opened, but not closed!\n\n"); break;
+			case 2: colouredMessage("red", "Error2: Unknown command passed!\n\n"); break;
+			case 3: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 4: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 5: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 6: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 7: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 8: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
 
 			case 9:
 
@@ -712,6 +461,46 @@ void syntax_parser(char username[])
 
 
 	Queue_clear(&script);
+}
+
+
+
+
+
+
+
+
+
+
+// Internal functions
+
+
+/* This function clears a string, identified through entered value of string. */
+
+void clearEntity(char *str)
+{
+	if (!strcmp(str,"command")) {memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"database")) {memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"table")) {memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"directory")) {memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
+}
+
+
+
+
+
+/* This function will print a coloured message & return back to white console colour. */
+
+void colouredMessage(char *colour, char *str)
+{
+	if (!strcmp(colour,"red")) {red_console(); printf("%s", str); white_console();}
+	else if (!strcmp(colour,"green")) {green_console(); printf("%s", str); white_console();}
+	else if (!strcmp(colour,"blue")) {blue_console(); printf("%s", str); white_console();}
+	else if (!strcmp(colour,"yellow")) {yellow_console(); printf("%s", str); white_console();}
+	else if (!strcmp(colour,"cyan")) {cyan_console(); printf("%s", str); white_console();}
+	else if (!strcmp(colour,"pink")) {pink_console(); printf("%s", str); white_console();}
+	else if (!strcmp(colour,"black")) {black_console(); printf("%s", str); white_console();}
 }
 
 

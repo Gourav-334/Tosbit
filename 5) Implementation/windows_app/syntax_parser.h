@@ -60,7 +60,8 @@ FILE *fptr;
 /* FUNCTIONS */
 
 void syntax_parser(char username[]);
-//int checkTable()
+void clearEntity(char *str);
+void colouredMessage(char *colour, char *str);
 
 
 

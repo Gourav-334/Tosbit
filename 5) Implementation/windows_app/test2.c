@@ -5,10 +5,9 @@
 
 int main()
 {
-	char str[55] = "Goura";
-	int state = 4;
-	appendChar(&state, 4, str, 'v');
-	printf("STR: %s\n", str);
+	char *str = "Gourav";
+	if ((strcmp(str,"Gourav"))) {printf("1");}
+	else {printf("2");}
 
 	return 0;
 }
