@@ -38,6 +38,7 @@
 
 char filechar = '$';
 char prev_filechar = '$';
+char c = '$', c2 = '$';
 
 char command[COMMAND_MAX_LENGTH];
 char database[DATABASE_MAX_LENGTH];
@@ -62,6 +63,9 @@ FILE *fptr;
 void syntax_parser(char username[]);
 void clearEntity(char *str);
 void colouredMessage(char *colour, char *str);
+void checkDbExistence(FILE *fptr);
+void checkTableExistence(FILE *fptr);
+void tableStructure(FILE *fptr);
 
 
 

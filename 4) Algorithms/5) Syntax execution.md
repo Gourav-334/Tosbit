@@ -4,7 +4,7 @@
 
 ## 0. Description:
 
-```
+```c
 void syntax_parser(char username[]);
 ```
 
@@ -59,11 +59,10 @@ void syntax_parser(char username[]);
     - Print error saying database doesn't exist.
 - Else if string is not empty:
     - Open `data\\db_name\\table_name\\details.json` in read mode.
-    - 
         - Keep reading until you encounter an `"`.
-        - Then keep printing the characters **attribute name** until `"` is encounter.
+        - Then keep printing the characters **attribute name** until `"` is encountered.
         - Again keep reading until you encounter an `"`.
         - Then keep printing the characters as **last attribute's data type** until `"` is encounter.
         - Again keep reading until you encounter an `"`.
-        - Then keep printing the characters as **last attribute's key type** until `"` is encounter, without `\` being immediately previous to it.
+        - Then keep printing the characters as **last attribute's key type** until `"` is encounter.
         - If `]` is encountered & then immediately after it `\n` is encountered, then break from loop.

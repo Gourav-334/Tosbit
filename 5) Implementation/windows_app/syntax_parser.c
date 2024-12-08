@@ -79,15 +79,15 @@ vii) First check if it is being emptied properly or not & then bandage it if req
 
 
 
+
+
+
+
 /* The automaton, each state has to be defined for all situations. */
 
 void syntax_parser(char username[])
 {
-	/* Will save each line of script in each node */
-
 	struct Queue script = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
-
-
 
 
 
@@ -100,13 +100,7 @@ void syntax_parser(char username[])
 
 
 		if (illegalChars(command, "\"[]")==TRUE)
-		{
-			red_console();
-			printf("Error9: Please don't use \", [ or ]\n\n");
-			white_console();
-
-			continue;
-		}
+			{colouredMessage("red", "Error9: Please don't use \", [ or ]\n\n"); continue;}
 
 
 
@@ -174,280 +168,29 @@ void syntax_parser(char username[])
 			case 6: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
 			case 7: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
 			case 8: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-
-			case 9:
-
-				snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
-				fptr = fopen(directory, "r");
-
-				if (fptr==NULL)
-				{
-					red_console();
-					printf("Error4: No database named \"%s\" exists!\n\n", database);
-					white_console();
-				}
-
-				else
-				{
-					green_console();
-					printf("Database %s online!\n\n", database);
-					white_console();
-				}
-
-
-				break;
-
-
-
-			case 10:
-
-				snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
-				fptr = fopen(directory, "r");
-
-				if (fptr==NULL)
-				{
-					red_console();
-					printf("Error4: No database named \"%s\" exists!\n\n", database);
-					white_console();
-				}
-
-				else
-				{
-					green_console();
-					printf("Database %s online!\n\n", database);
-					white_console();
-				}
-
-				break;
-
-
-
-			case 11:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 12:
-
-				red_console();
-				printf("Error7: Did you meant open db %s?\n\n", database);
-				white_console();
-
-				break;
-
-
-
-			case 13:
-
-				red_console();
-				printf("Error3: Did you meant \"open db db_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 14:
-
-				red_console();
-				printf("Error5: No database name entered!\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 15:
-
-				red_console();
-				printf("Error6: Name of database must be 32 characters long at max!\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 16:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 17:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 18:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 19:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 20:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 21:
-
-				snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
-				fptr = fopen(directory, "r");
-
-				if (fptr==NULL)
-				{
-					red_console();
-					printf("Error10: No table named \"%s\" exists!\n\n", table);
-					white_console();
-				}
-
-				else
-				{
-					yellow_console();
-					printf("Table %s online!\n\n", table);
-					white_console();
-				}
-
-				break;
-
-
-
-			case 22:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 23:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 24:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 25:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 26:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 27:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 28:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
-
-
-
-			case 29:
-
-				snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
-				fptr = fopen(directory, "r");
-
-				if (fptr==NULL)
-				{
-					red_console();
-					printf("Error10: No table named \"%s\" exists!\n\n", table);
-					white_console();
-				}
-
-				else
-				{
-					yellow_console();
-					printf("Table %s online!\n\n", table);
-					white_console();
-				}
-
-				break;
-
-
-
-			case 30:
-
-				red_console();
-				printf("Error8: Did you meant \"show struct table_name\"?\n\n");
-				white_console();
-
-				break;
+			case 9: checkDbExistence(fptr); break;
+			case 10: checkDbExistence(fptr); break;
+			case 11: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 12: colouredMessage("red", "Error7: Did you meant open db %s?\n\n"); break;
+			case 13: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 14: colouredMessage("red", "Error5: No database name entered!\n\n"); break;
+			case 15: colouredMessage("red", "Error6: Name of database must be 32 characters long at max!\n\n"); break;
+			case 16: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 17: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 18: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 19: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 20: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 21: checkTableExistence(fptr); break;
+			case 22: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 23: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 24: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 25: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 26: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 27: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 28: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 29: checkTableExistence(fptr); break;
+			case 30: colouredMessage("red", "Error8: Did you meant \"show struct table_name\"?\n\n"); break;
 		}
-
-
 
 
 
@@ -462,6 +205,16 @@ void syntax_parser(char username[])
 
 	Queue_clear(&script);
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -490,6 +243,11 @@ void clearEntity(char *str)
 
 
 
+
+
+
+
+
 /* This function will print a coloured message & return back to white console colour. */
 
 void colouredMessage(char *colour, char *str)
@@ -501,6 +259,149 @@ void colouredMessage(char *colour, char *str)
 	else if (!strcmp(colour,"cyan")) {cyan_console(); printf("%s", str); white_console();}
 	else if (!strcmp(colour,"pink")) {pink_console(); printf("%s", str); white_console();}
 	else if (!strcmp(colour,"black")) {black_console(); printf("%s", str); white_console();}
+}
+
+
+
+
+
+
+
+
+
+
+/* Checks if the user requested database exists or not. */
+
+void checkDbExistence(FILE *fptr)
+{
+	snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+	fptr = fopen(directory, "r");
+
+
+
+	if (fptr==NULL)
+	{
+		red_console();
+		printf("Error4: No database named \"%s\" exists!\n\n", database);
+		white_console();
+	}
+
+
+	else
+	{
+		green_console();
+		printf("Database %s online!\n\n", database);
+		white_console();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Checks if a user requested table exists or not. */
+
+void checkTableExistence(FILE *fptr)
+{
+	snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
+	fptr = fopen(directory, "r");
+
+
+
+	if (fptr==NULL)
+	{
+		red_console();
+		printf("Error10: No table named \"%s\" exists!\n\n", table);
+		white_console();
+	}
+
+
+	else
+	{
+		tableStructure(fptr);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Shows structure of the requested table (console design comes before fetching). */
+
+void tableStructure(FILE *fptr)
+{
+	yellow_console();
+
+	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n");
+	printf("|         ATTRIBUTE NAME         | DATA TYPE | KEY TYPE |\n");
+	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n");
+
+	while (c2!=']' && c!='\n')
+	{
+		// Printing the attribute name.
+
+		printf("|");
+
+		while (c!='\"') {c2 = c; c = fgetc(fptr);}
+
+		while(c!='\"')
+		{
+			c2 = c; c = fgetc(fptr);
+			clearEntity("buffer"); buffer[strlen(buffer)] = c;
+		}
+
+		printf("%s", buffer);
+		for (int i=strlen(buffer); i<32; i++) {printf(" ");}
+
+
+
+		// Printing the attribute data type.
+
+		printf("|");
+
+		while (c!='\"') {c2 = c; c = fgetc(fptr);}
+
+		while(c!='\"')
+		{
+			c2 = c; c = fgetc(fptr);
+			clearEntity("buffer"); buffer[strlen(buffer)] = c;
+		}
+
+		printf("%s", buffer);
+		for (int i=strlen(buffer); i<11; i++) {printf(" ");}
+
+
+
+		// Printing the key type of attribute.
+
+		printf("|");
+
+		while (c!='\"') {c2 = c; c = fgetc(fptr);}
+
+		while(c!='\"')
+		{
+			c2 = c; c = fgetc(fptr);
+			clearEntity("buffer"); buffer[strlen(buffer)] = c;
+		}
+
+		printf("%s", buffer);
+		for (int i=strlen(buffer); i<10; i++) {printf(" ");}
+		printf("|\n");
+	}
+
+	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n\n");
+
+	white_console();
 }
 
 
