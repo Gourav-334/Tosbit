@@ -66,3 +66,22 @@ void syntax_parser(char username[]);
         - Again keep reading until you encounter an `"`.
         - Then keep printing the characters as **last attribute's key type** until `"` is encounter.
         - If `]` is encountered & then immediately after it `\n` is encountered, then break from loop.
+
+
+## show all db
+
+```
+{
+	"databases": [
+		"db1",
+		"db2",
+        ...
+        "dbn"
+	]
+}
+```
+
+- Open `data\\databases.json` in read mode.
+- Start reading each character one-by-one.
+- When `"` is encountered 3rd time, start printing the upcoming characters until `"` is encountered again.
+- 

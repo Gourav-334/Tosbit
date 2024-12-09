@@ -11,12 +11,28 @@
 
 $$ \_*@\_*(STRING)\_*@\_* $$
 
-- $(STRING)$ is Comment
 - $\_$ is space
+- $(STRING)$ is Comment
+
 
 ## open db Office
 
 $$ open\_\_*db\_\_*(STRING)\_* $$
 
+- $\_$ is space.
 - $(STRING)$ is database name.
+
+
+## show struct Table
+
+$$ show\_\_*struct\_\_*(STRING)\_* $$
+
+- $\_$ is space.
+- $(STRING)$ is table name.
+
+
+## show all db
+
+$$ show\_\_*all\_\_*db\_\_* $$
+
 - $\_$ is space.

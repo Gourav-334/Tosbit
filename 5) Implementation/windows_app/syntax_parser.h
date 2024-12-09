@@ -10,12 +10,7 @@
 #define FALSE 0
 #define TRUE 1
 
-#define COMMAND_MAX_LENGTH 257
 #define STRING_MAX_LENGTH 33
-#define DATABASE_MAX_LENGTH 33
-#define TABLE_MAX_LENGTH 33
-#define DIRECTORY_MAX_LENGTH 129
-#define BUFFER_MAX_LENGTH 133
 
 
 
@@ -28,23 +23,44 @@
 #include "console_colour.c"
 #include "data_structures.c"
 #include "encrypter.c"
-#include "transition_tool.c"		// May vary (test or tested version)
+#include "transition_tool.c"
+#include "database_operations.c"
 
 
 
 
 
-/* VARIABLES */
+
+
+
+
+
+/*
+
+-> Majority of macros, strings & pointers have migrated to "database_operations.h".
+-> Reason for migration was using less parameters in DB functions without creating a deadlock.
+-> Export graph has a linear structure.
+-> Graph: database_operations.h >>> database_operations.c >>> syntax_parser.h >>> syntax_parser.c
+
+-> Firstly, the syntaxes are written using regular expressions of the database query grammar.
+-> Then they are plotted as Deterministic Finite Automata [see in "6) Flowcharts/"].
+-> Lastly, the algorithms are written the way a Turing Machine works & then implemented in code.
+
+*/
+
+
+
+
+
+
+
+
+
+
+/* Variables */
 
 char filechar = '$';
 char prev_filechar = '$';
-char c = '$', c2 = '$';
-
-char command[COMMAND_MAX_LENGTH];
-char database[DATABASE_MAX_LENGTH];
-char table[TABLE_MAX_LENGTH];
-char directory[DIRECTORY_MAX_LENGTH];
-char buffer[BUFFER_MAX_LENGTH];
 
 int state = 0;
 int zero_count = 0;
@@ -52,20 +68,20 @@ int zero_count = 0;
 int brk = FALSE;			// Set TRUE when the syntax goes wrong
 int db_found = FALSE;
 
-FILE *fptr;
 
 
 
 
 
-/* FUNCTIONS */
+
+/* Functions */
 
 void syntax_parser(char username[]);
-void clearEntity(char *str);
-void colouredMessage(char *colour, char *str);
-void checkDbExistence(FILE *fptr);
-void checkTableExistence(FILE *fptr);
-void tableStructure(FILE *fptr);
+
+
+
+
+
 
 
 
