@@ -23,6 +23,8 @@
 
 
 
+/* Major buffer string & other variables. */
+
 FILE *fptr;
 
 char command[COMMAND_MAX_LENGTH];
@@ -35,12 +37,15 @@ char buffer[BUFFER_MAX_LENGTH];
 
 
 
+/* Implementation of DB operations. */
+
 void colouredMessage(char *colour, char *str);
 void clearEntity(char *str);
 
 void checkDbExistence();
 void checkTableExistence();
 void tableStructure();
+void allDatabases();
 
 
 

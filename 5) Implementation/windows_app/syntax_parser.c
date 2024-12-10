@@ -22,13 +22,13 @@
 
 STATISTICS:
 
-Total DFA states: 				30
+Total DFA states: 				38
 
-Total error types: 				10
+Total error types: 				7
 Total acknowledgement types:	4
 
 Total strange bugs:				5
-Total silly bugs:				3
+Total silly bugs:				4
 
 */
 
@@ -202,9 +202,9 @@ void syntax_parser(char username[])
 			case 33: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
 			case 34: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
 			case 35: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
-			case 36: colouredMessage("green", "All databases listed!\n\n"); break;
+			case 36: allDatabases(); break;
 			case 37: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
-			case 38: colouredMessage("green", "All databases listed!\n\n"); break;
+			case 38: allDatabases(); break;
 		}
 
 

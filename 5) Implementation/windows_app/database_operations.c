@@ -139,21 +139,24 @@ void tableStructure()
 
 
 
+
+
 	char c = '$', c2 = '$';
 
 	while (!(c2==']' && c=='\n'))
 	{
+
 		// Printing the attribute name.
 
 		printf("|");
 
-		c = '$'; c2 = '$';		// Reset c & c2's values to read upcoming "
+		c = '$'; c2 = '$';
 
 
 		while (c!='\"') {c2 = c; c = fgetc(fptr);}
-		c = '$'; c2 = '$';		// Reset c & c2's values to read upcoming "
+		c = '$'; c2 = '$';
 
-		memset(buffer, 0, sizeof(char)*strlen(buffer)); // SOMETHING MIGHT HAPPEN..................
+		memset(buffer, 0, sizeof(char)*strlen(buffer));
 
 		while(c!='\"')
 		{
@@ -161,10 +164,12 @@ void tableStructure()
 			if (c!='\"'){buffer[strlen(buffer)] = c;}
 		}
 
-		c = '$'; c2 = '$';		// Reset c & c2's values to read upcoming "
+		c = '$'; c2 = '$';
 
 		printf("%s", buffer);
 		for (int i=strlen(buffer); i<32; i++) {printf(" ");}
+
+
 
 
 
@@ -173,9 +178,9 @@ void tableStructure()
 		printf("|");
 
 		while (c!='\"') {c2 = c; c = fgetc(fptr);}
-		c = '$'; c2 = '$';		// Reset c & c2's values to read upcoming "
+		c = '$'; c2 = '$';
 
-		memset(buffer, 0, sizeof(char)*strlen(buffer)); // SOMETHING MIGHT HAPPEN..................
+		memset(buffer, 0, sizeof(char)*strlen(buffer));
 
 		while(c!='\"')
 		{
@@ -183,10 +188,12 @@ void tableStructure()
 			if (c!='\"'){buffer[strlen(buffer)] = c;}
 		}
 
-		c = '$'; c2 = '$';		// Reset c & c2's values to read upcoming "
+		c = '$'; c2 = '$';
 
 		printf("%s", buffer);
 		for (int i=strlen(buffer); i<11; i++) {printf(" ");}
+
+
 
 
 
@@ -195,9 +202,9 @@ void tableStructure()
 		printf("|");
 
 		while (c!='\"') {c2 = c; c = fgetc(fptr);}
-		c = '$'; c2 = '$';		// Reset c & c2's values to read upcoming "
+		c = '$'; c2 = '$';
 
-		memset(buffer, 0, sizeof(char)*strlen(buffer)); // SOMETHING MIGHT HAPPEN..................
+		memset(buffer, 0, sizeof(char)*strlen(buffer));
 
 		while(c!='\"')
 		{
@@ -205,7 +212,11 @@ void tableStructure()
 			if (c!='\"'){buffer[strlen(buffer)] = c;}
 		}
 
+
+
 		// Resetting is done at top to avoid detecting end of attribute in JSON file.
+
+
 
 		printf("%s", buffer);
 		for (int i=strlen(buffer); i<10; i++) {printf(" ");}
@@ -214,9 +225,87 @@ void tableStructure()
 		c = fgetc(fptr); c2 = c; c = fgetc(fptr);
 	}
 
+
+
+
+
 	c = '$'; c2 = '$';
 	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n\n");
 
+	white_console();
+}
+
+
+
+
+
+
+
+
+
+
+
+void allDatabases()
+{
+	fptr = fopen("data\\databases.json", "r");
+
+	char c = '$';
+	int count = 0, reading = FALSE;
+
+
+
+	while (count!=3)
+	{
+		c = fgetc(fptr);
+
+		if (c=='\"') {count++;}
+
+		if (feof(fptr)) {colouredMessage("yellow", "No databases found!\n\n");}
+	}
+
+
+
+	reading = TRUE;
+	memset(buffer, 0, BUFFER_MAX_LENGTH);
+	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
+
+
+
+	yellow_console();
+
+	printf("------------------\n");
+	printf("|   DATABASES    |\n");
+	printf("------------------\n");
+
+	while (!feof(fptr))
+	{
+		while (c!='\"') {buffer[strlen(buffer)] = c; c = fgetc(fptr);}
+
+		reading = FALSE;
+		c = '$';
+
+		printf("|%s", buffer);
+		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
+		printf("|\n");
+
+		memset(buffer, 0, BUFFER_MAX_LENGTH);
+
+
+
+		while (c!='\"')
+		{
+			c = fgetc(fptr);
+			if (feof(fptr)) {break;}
+		}
+
+		reading = TRUE;
+
+		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
+	}
+
+
+
+	printf("------------------\n\n");
 	white_console();
 }
 

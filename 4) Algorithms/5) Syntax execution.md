@@ -83,5 +83,7 @@ void syntax_parser(char username[]);
 
 - Open `data\\databases.json` in read mode.
 - Start reading each character one-by-one.
-- When `"` is encountered 3rd time, start printing the upcoming characters until `"` is encountered again.
-- 
+- When `"` is encountered 3rd time, turn `reading` ON, empty buffer.
+- Until EOF not reached:
+    - Append characters to buffer until another `"` appears.
+    - When `"` appears again, turn `reading` OFF, print buffer & keep walking until another `"` appears.
