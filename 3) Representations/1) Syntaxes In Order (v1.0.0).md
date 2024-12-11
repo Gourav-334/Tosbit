@@ -11,6 +11,7 @@ open db Office
 show struct Desk
 
 show all db
+show all tables
 
 make table Desk [int Sno, string name, string dep]
 
@@ -37,5 +38,4 @@ delete account
 ## Details
 
 $$ Total\;commands\;=\;18 $$
-$$ Total\;categories\;=\;11 $$
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{95}{15}\;=\;6\;days/command
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{87}{13}\;=\;6\;days/command

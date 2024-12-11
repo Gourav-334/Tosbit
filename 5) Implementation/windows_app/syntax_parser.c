@@ -22,10 +22,10 @@
 
 STATISTICS:
 
-Total DFA states: 				38
+Total DFA states: 				46
 
-Total error types: 				7
-Total acknowledgement types:	4
+Total error types: 				10+
+Total acknowledgement types:	5+
 
 Total strange bugs:				5
 Total silly bugs:				4
@@ -142,10 +142,17 @@ void syntax_parser(char username[])
 				case 31: changeState(command[i], "lL", "32,32", &state, 37); breakValue(&state, 37, &brk); break;
 				case 32: changeState(command[i], "lL", "33,33", &state, 37); breakValue(&state, 37, &brk); break;
 				case 33: changeState(command[i], " ", "34", &state, 37); breakValue(&state, 37, &brk); break;
-				case 34: changeState(command[i], " dD", "34,35,35", &state, 37); breakValue(&state, 37, &brk); break;
+				case 34: changeState(command[i], " dDtT", "34,35,35,39,39", &state, 37); breakValue(&state, 37, &brk); break;
 				case 35: changeState(command[i], "bB", "36,36", &state, 37); breakValue(&state, 37, &brk); break;
-				case 36: changeState(command[i], " ", "38,38", &state, 37); breakValue(&state, 37, &brk); break;
+				case 36: changeState(command[i], " ", "38", &state, 37); breakValue(&state, 37, &brk); break;
 				case 38: changeState(command[i], " ", "38", &state, 37); breakValue(&state, 37, &brk); break;
+				case 39: changeState(command[i], "aA", "40,40", &state, 46); breakValue(&state, 46, &brk); break;
+				case 40: changeState(command[i], "bB", "41,41", &state, 46); breakValue(&state, 46, &brk); break;
+				case 41: changeState(command[i], "lL", "42,42", &state, 46); breakValue(&state, 46, &brk); break;
+				case 42: changeState(command[i], "eE", "43,43", &state, 46); breakValue(&state, 46, &brk); break;
+				case 43: changeState(command[i], "sS", "44,44", &state, 46); breakValue(&state, 46, &brk); break;
+				case 44: changeState(command[i], " ", "45", &state, 46); breakValue(&state, 46, &brk); break;
+				case 45: changeState(command[i], " ", "45", &state, 46); breakValue(&state, 46, &brk); break;
 			}
 
 
@@ -167,44 +174,52 @@ void syntax_parser(char username[])
 		switch (state)
 		{
 			case 0: Queue_queue(&script, command); colouredMessage("green", "No changes are made!\n\n"); break;
-			case 1: colouredMessage("red", "Error1: Comment brackets opened, but not closed!\n\n"); break;
-			case 2: colouredMessage("red", "Error2: Unknown command passed!\n\n"); break;
-			case 3: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 4: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 5: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 6: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 7: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 8: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
+			case 1: colouredMessage("red", "Comment brackets opened, but not closed!\n\n"); break;
+			case 2: colouredMessage("red", "Unknown command passed!\n\n"); break;
+			case 3: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 4: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 5: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 6: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 7: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 8: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
 			case 9: checkDbExistence(); break;
 			case 10: checkDbExistence(); break;
-			case 11: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 12: colouredMessage("red", "Error3: Did you meant open db db_name?\n\n"); break;
-			case 13: colouredMessage("red", "Error3: Did you meant \"open db db_name\"?\n\n"); break;
-			case 14: colouredMessage("red", "Error4: No database name entered!\n\n"); break;
-			case 15: colouredMessage("red", "Error5: Name of database must be 32 characters long at max!\n\n"); break;
-			case 16: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 17: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 18: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 19: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 20: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 11: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 12: colouredMessage("red", "Did you meant open db db_name?\n\n"); break;
+			case 13: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 14: colouredMessage("red", "No database name entered!\n\n"); break;
+			case 15: colouredMessage("red", "Name of database must be 32 characters long at max!\n\n"); break;
+			case 16: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 17: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 18: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 19: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 20: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 21: checkTableExistence(); break;
-			case 22: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 23: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 24: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 25: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 26: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 27: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 28: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 22: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 23: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 24: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 25: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 26: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 27: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 28: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 29: checkTableExistence(); break;
-			case 30: colouredMessage("red", "Error6: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 31: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
-			case 32: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
-			case 33: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
-			case 34: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
-			case 35: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
+			case 30: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 31: colouredMessage("red", "Try \"show all db\".\n\n"); break;
+			case 32: colouredMessage("red", "Try \"show all db\".\n\n"); break;
+			case 33: colouredMessage("red", "Try \"show all db\".\n\n"); break;
+			case 34: colouredMessage("red", "Try \"show all db\".\n\n"); break;
+			case 35: colouredMessage("red", "Try \"show all db\".\n\n"); break;
 			case 36: allDatabases(); break;
-			case 37: colouredMessage("red", "Error7: Try \"show all db\".\n\n"); break;
+			case 37: colouredMessage("red", "Try \"show all db\".\n\n"); break;
 			case 38: allDatabases(); break;
+			case 39: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			case 40: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			case 41: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			case 42: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			case 43: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			case 44: allTables(); break;
+			case 45: allTables(); break;
+			case 46: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
 		}
 
 

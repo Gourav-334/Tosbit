@@ -9,7 +9,7 @@
 
 ## @ Comment @
 
-$$ \_*@\_*(STRING)\_*@\_* $$
+$$ \_^*@\_^*(STRING)\_^*@\_^* $$
 
 - $\_$ is space
 - $(STRING)$ is Comment
@@ -17,7 +17,7 @@ $$ \_*@\_*(STRING)\_*@\_* $$
 
 ## open db Office
 
-$$ open\_\_*db\_\_*(STRING)\_* $$
+$$ open\_\_^*db\_\_^*(STRING)\_^* $$
 
 - $\_$ is space.
 - $(STRING)$ is database name.
@@ -25,7 +25,7 @@ $$ open\_\_*db\_\_*(STRING)\_* $$
 
 ## show struct Table
 
-$$ show\_\_*struct\_\_*(STRING)\_* $$
+$$ show\_\_^*struct\_\_^*(STRING)\_^* $$
 
 - $\_$ is space.
 - $(STRING)$ is table name.
@@ -33,6 +33,20 @@ $$ show\_\_*struct\_\_*(STRING)\_* $$
 
 ## show all db
 
-$$ show\_\_*all\_\_*db\_\_* $$
+$$ show\_\_^*all\_\_^*db\_\_^* $$
+
+- $\_$ is space.
+
+
+## show all tables
+
+$$ show\_\_^*all\_\_^*tables\_\_^* $$
+
+- $\_$ is space.
+
+
+## make table Desk[string name, int age]
+
+$$ make\_\_^*table\_\_^*Desk\_^*[\_^*(STRING)\_^*] $$
 
 - $\_$ is space.

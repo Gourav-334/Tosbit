@@ -1,13 +1,8 @@
-#include "transition_tool.c"
-
-
-//Database Simulator?
+#include <stdio.h>
 
 int main()
 {
-	char *str = "Gourav";
-	if ((strcmp(str,"Gourav"))) {printf("1");}
-	else {printf("2");}
+	printf("Learning POSIX!\n");
 
 	return 0;
 }

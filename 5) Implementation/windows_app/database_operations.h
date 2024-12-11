@@ -2,7 +2,7 @@
 	#define DATABASE_OPERATIONS_H
 
 #define COMMAND_MAX_LENGTH 257
-#define DATABASE_MAX_LENGTH 33
+#define DATABASE_MAX_LENGTH 17
 #define TABLE_MAX_LENGTH 33
 #define DIRECTORY_MAX_LENGTH 129
 #define BUFFER_MAX_LENGTH 133
@@ -46,6 +46,7 @@ void checkDbExistence();
 void checkTableExistence();
 void tableStructure();
 void allDatabases();
+void allTables();
 
 
 

@@ -107,7 +107,11 @@ void checkTableExistence()
 
 
 
-	if (fptr==NULL)
+	if (strlen(database)==0) {colouredMessage("red", "No database opened yet!\n\n");}
+
+
+
+	else if (fptr==NULL)
 	{
 		red_console();
 		printf("Error10: No table named \"%s\" exists!\n\n", table);
@@ -133,9 +137,9 @@ void tableStructure()
 {
 	yellow_console();
 
-	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n");
+	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
 	printf("|         ATTRIBUTE NAME         | DATA TYPE | KEY TYPE |\n");
-	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n");
+	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
 
 
 
@@ -230,7 +234,7 @@ void tableStructure()
 
 
 	c = '$'; c2 = '$';
-	for (int i=0; i<(32+11+10+4); i++) {printf("-");} printf("\n\n");
+	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n\n");
 
 	white_console();
 }
@@ -248,6 +252,12 @@ void tableStructure()
 void allDatabases()
 {
 	fptr = fopen("data\\databases.json", "r");
+	if (fptr==NULL)
+	{
+		red_console();
+		printf("\"databases.json\" file not found!\n\n", database);
+		white_console();
+	}
 
 	char c = '$';
 	int count = 0, reading = FALSE;
@@ -273,9 +283,9 @@ void allDatabases()
 
 	yellow_console();
 
-	printf("------------------\n");
+	printf("+----------------+\n");
 	printf("|   DATABASES    |\n");
-	printf("------------------\n");
+	printf("+----------------+\n");
 
 	while (!feof(fptr))
 	{
@@ -305,7 +315,91 @@ void allDatabases()
 
 
 
-	printf("------------------\n\n");
+	printf("+----------------+\n\n");
+	white_console();
+}
+
+
+
+
+
+
+
+
+
+
+void allTables()
+{
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+
+	fptr = fopen(directory, "r");
+	if (fptr==NULL)
+	{
+		red_console();
+		printf("No database named \"%s\" exists.\n\n", database);
+		white_console();
+
+		return;
+	}
+
+	char c = '$';
+	int count = 0, reading = FALSE;
+
+
+
+	while (count!=3)
+	{
+		c = fgetc(fptr);
+
+		if (c=='\"') {count++;}
+
+		if (feof(fptr)) {colouredMessage("yellow", "No tables found!\n\n");}
+	}
+
+
+
+	reading = TRUE;
+	memset(buffer, 0, BUFFER_MAX_LENGTH);
+	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
+
+
+
+	yellow_console();
+
+	printf("+----------------+\n");
+	printf("|    TABLES      |\n");
+	printf("+----------------+\n");
+
+	while (!feof(fptr))
+	{
+		while (c!='\"') {buffer[strlen(buffer)] = c; c = fgetc(fptr);}
+
+		reading = FALSE;
+		c = '$';
+
+		printf("|%s", buffer);
+		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
+		printf("|\n");
+
+		memset(buffer, 0, BUFFER_MAX_LENGTH);
+
+
+
+		while (c!='\"')
+		{
+			c = fgetc(fptr);
+			if (feof(fptr)) {break;}
+		}
+
+		reading = TRUE;
+
+		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
+	}
+
+
+
+	printf("+----------------+\n\n");
 	white_console();
 }
 

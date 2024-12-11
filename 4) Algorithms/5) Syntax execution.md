@@ -44,7 +44,7 @@ void syntax_parser(char username[]);
 
 - First of all, ban using `"`, `[`, `]` for users in Tosbit.
 
-```
+```json
 {
     "fetch": ["fetch", "fetch"],
     "fetch": ["fetch", "fetch"],
@@ -68,9 +68,9 @@ void syntax_parser(char username[]);
         - If `]` is encountered & then immediately after it `\n` is encountered, then break from loop.
 
 
-## show all db
+## show all db / show all tables
 
-```
+```json
 {
 	"databases": [
 		"db1",
@@ -87,3 +87,22 @@ void syntax_parser(char username[]);
 - Until EOF not reached:
     - Append characters to buffer until another `"` appears.
     - When `"` appears again, turn `reading` OFF, print buffer & keep walking until another `"` appears.
+
+
+## make table Desk [string name, int age, float score, bool status]
+
+### Syntax:
+
+```
+make table Desk[]
+
+make table Desk[int]
+
+make table Desk[int num]
+
+make table Desk[int num, string]
+
+make table Desk[int num, string code]
+
+make table Desk[int num, int num]
+```
