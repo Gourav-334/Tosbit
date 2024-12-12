@@ -100,7 +100,7 @@ void syntax_parser(char username[])
 
 
 		if (illegalChars(command, "\"[]")==TRUE)
-			{colouredMessage("red", "Error9: Please don't use \", [ or ]\n\n"); continue;}
+			{colouredMessage("red", "Please don't use \", [ or ]\n\n"); continue;}
 
 
 
@@ -112,7 +112,7 @@ void syntax_parser(char username[])
 		{
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsS", "0,1,3,3,16,16", &state, 2); break;
+				case 0: changeState(command[i], " @oOsSmM", "0,1,3,3,16,16,47,47", &state, 2); break;
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
 				case 2: brk = TRUE; break;
 				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
@@ -153,6 +153,22 @@ void syntax_parser(char username[])
 				case 43: changeState(command[i], "sS", "44,44", &state, 46); breakValue(&state, 46, &brk); break;
 				case 44: changeState(command[i], " ", "45", &state, 46); breakValue(&state, 46, &brk); break;
 				case 45: changeState(command[i], " ", "45", &state, 46); breakValue(&state, 46, &brk); break;
+				case 47: changeState(command[i], "aA", "48,48", &state, 63); breakValue(&state, 63, &brk); break;
+				case 48: changeState(command[i], "kK", "49,49", &state, 63); breakValue(&state, 63, &brk); break;
+				case 49: changeState(command[i], "eE", "50,50", &state, 63); breakValue(&state, 63, &brk); break;
+				case 50: changeState(command[i], " ", "51", &state, 63); breakValue(&state, 63, &brk); break;
+				case 51: changeState(command[i], " tT", "51,52,52", &state, 63); breakValue(&state, 63, &brk); break;
+				case 52: changeState(command[i], "aA", "53,53", &state, 63); breakValue(&state, 63, &brk); break;
+				case 53: changeState(command[i], "bB", "54,54", &state, 63); breakValue(&state, 63, &brk); break;
+				case 54: changeState(command[i], "lL", "55,55", &state, 63); breakValue(&state, 63, &brk); break;
+				case 55: changeState(command[i], "eE", "56,56", &state, 63); breakValue(&state, 63, &brk); break;
+				case 56: changeState(command[i], " ", "57,57", &state, 63); breakValue(&state, 63, &brk); break;
+				case 57: clearEntity("table"); changeState(command[i], " ", "57", &state, 58); appendState(&state, 58, table, command[i]); break;
+				case 58: changeState(command[i], " ", "59", &state, 58); appendState(&state, 58, table, command[i]); break;
+				case 59: changeState(command[i], " [", "59,60", &state, 63); breakValue(&state, 63, &brk); break;
+				case 60: clearEntity("buffer"); changeState(command[i], "]", "64", &state, 61); appendState(&state, 61, buffer, command[i]); break;
+				case 61: changeState(command[i], "]", "62", &state, 61); appendState(&state, 61, buffer, command[i]); break;
+				case 62: changeState(command[i], " ", "62", &state, 63); breakValue(&state, 63, &brk); break;
 			}
 
 
@@ -220,6 +236,7 @@ void syntax_parser(char username[])
 			case 44: allTables(); break;
 			case 45: allTables(); break;
 			case 46: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			// CONTINUE FROM HERE... (state 47 to 64)
 		}
 
 
