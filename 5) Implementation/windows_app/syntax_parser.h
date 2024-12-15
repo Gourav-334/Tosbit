@@ -10,8 +10,6 @@
 #define FALSE 0
 #define TRUE 1
 
-#define STRING_MAX_LENGTH 33
-
 
 
 
@@ -59,9 +57,6 @@
 
 /* Variables */
 
-char filechar = '$';
-char prev_filechar = '$';
-
 int state = 0;
 int zero_count = 0;
 
@@ -76,7 +71,8 @@ int db_found = FALSE;
 
 /* Functions */
 
-void syntax_parser(char username[]);
+void syntaxParser(char username[]);
+void attributeParser();
 
 
 

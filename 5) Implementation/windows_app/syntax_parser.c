@@ -85,7 +85,7 @@ vii) First check if it is being emptied properly or not & then bandage it if req
 
 /* The automaton, each state has to be defined for all situations. */
 
-void syntax_parser(char username[])
+void syntaxParser(char username[])
 {
 	struct Queue script = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
 
@@ -106,7 +106,7 @@ void syntax_parser(char username[])
 
 
 
-		/* Automaton starts running & moves until whole syntax has been read */
+		/* Semantic analysis of the entered command. */
 
 		for (int i=0; i<strlen(command); i++)
 		{
@@ -162,12 +162,12 @@ void syntax_parser(char username[])
 				case 53: changeState(command[i], "bB", "54,54", &state, 63); breakValue(&state, 63, &brk); break;
 				case 54: changeState(command[i], "lL", "55,55", &state, 63); breakValue(&state, 63, &brk); break;
 				case 55: changeState(command[i], "eE", "56,56", &state, 63); breakValue(&state, 63, &brk); break;
-				case 56: changeState(command[i], " ", "57,57", &state, 63); breakValue(&state, 63, &brk); break;
+				case 56: changeState(command[i], " ", "57", &state, 63); breakValue(&state, 63, &brk); break;
 				case 57: clearEntity("table"); changeState(command[i], " ", "57", &state, 58); appendState(&state, 58, table, command[i]); break;
 				case 58: changeState(command[i], " ", "59", &state, 58); appendState(&state, 58, table, command[i]); break;
-				case 59: changeState(command[i], " [", "59,60", &state, 63); breakValue(&state, 63, &brk); break;
-				case 60: clearEntity("buffer"); changeState(command[i], "]", "64", &state, 61); appendState(&state, 61, buffer, command[i]); break;
-				case 61: changeState(command[i], "]", "62", &state, 61); appendState(&state, 61, buffer, command[i]); break;
+				case 59: changeState(command[i], " (", "59,60", &state, 63); breakValue(&state, 63, &brk); break;
+				case 60: clearEntity("buffer"); changeState(command[i], ")", "64", &state, 61); appendState(&state, 61, buffer, command[i]); break;
+				case 61: changeState(command[i], ")", "62", &state, 61); appendState(&state, 61, buffer, command[i]); break;
 				case 62: changeState(command[i], " ", "62", &state, 63); breakValue(&state, 63, &brk); break;
 			}
 
@@ -185,7 +185,7 @@ void syntax_parser(char username[])
 
 
 
-		/* Final state, NOT accept state. Its the result after whole syntax has been read */
+		/* Stage where the result is implemented as per final state. */
 
 		switch (state)
 		{
@@ -236,7 +236,24 @@ void syntax_parser(char username[])
 			case 44: allTables(); break;
 			case 45: allTables(); break;
 			case 46: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
-			// CONTINUE FROM HERE... (state 47 to 64)
+			case 47: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 48: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 49: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 50: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 51: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 52: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 53: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 54: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 55: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 56: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 57: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 58: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 59: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 60: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 61: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 62: colouredMessage("green", "Table created!\n\n"); break;////////////////////////////
+			case 63: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 64: colouredMessage("red", "No attributes assigned to table!\n\n"); break;////////////
 		}
 
 
@@ -272,44 +289,15 @@ void syntax_parser(char username[])
 
 
 
-// Internal functions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void attributeParser()
+{
+	for (int i=0; i<strlen(buffer); i++)
+	{
+		while (command[i]==' ') {continue;}
+		
+		// PROBABLY HAVE TO CONTINUE FROM HERE...
+	}
+}
 
 
 

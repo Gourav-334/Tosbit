@@ -6,6 +6,8 @@
 #define TABLE_MAX_LENGTH 33
 #define DIRECTORY_MAX_LENGTH 129
 #define BUFFER_MAX_LENGTH 257
+#define DATA_TYPE_MAX_LENGTH 7
+#define ATTRIBUTE_MAX_LENGTH 17
 
 
 
@@ -32,6 +34,10 @@ char database[DATABASE_MAX_LENGTH];
 char table[TABLE_MAX_LENGTH];
 char directory[DIRECTORY_MAX_LENGTH];
 char buffer[BUFFER_MAX_LENGTH];
+char dataType[DATA_TYPE_MAX_LENGTH];
+char attribute[ATTRIBUTE_MAX_LENGTH];
+
+int db_online = FALSE;
 
 
 

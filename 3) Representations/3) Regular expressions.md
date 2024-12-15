@@ -50,3 +50,8 @@ $$ show\_\_^*all\_\_^*tables\_\_^* $$
 $$ make\_\_^*table\_\_^*Desk\_^*[\_^*(STRING)\_^*] $$
 
 - $\_$ is space.
+
+
+## string name, int age, ..., bool married
+
+$$ \_^*(STRING1)\_\_^*(STRING2)\_^* $$

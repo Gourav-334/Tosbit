@@ -1,0 +1,5 @@
+MAKE TABLE PARSER:
+
+-> Create automaton for checking attribute semantics.
+-> Add code to check if a database is opened & table duplicacy.
+-> Add code to check the table name length limit.

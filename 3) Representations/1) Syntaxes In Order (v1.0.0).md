@@ -14,6 +14,8 @@ show all db
 show all tables
 
 make table Desk [int Sno, string name, string dep]
+make db Office
+
 
 insert into table Desk [1, Yuvraj, 25]
 

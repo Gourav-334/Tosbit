@@ -53,6 +53,8 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"table")) {memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"directory")) {memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -78,11 +80,15 @@ void checkDbExistence()
 		red_console();
 		printf("Error4: No database named \"%s\" exists!\n\n", database);
 		white_console();
+
+		clearEntity("database");
 	}
 
 
 	else
 	{
+		db_online = TRUE;
+
 		green_console();
 		printf("Database %s online!\n\n", database);
 		white_console();
@@ -110,12 +116,13 @@ void checkTableExistence()
 	if (strlen(database)==0) {colouredMessage("red", "No database opened yet!\n\n");}
 
 
-
 	else if (fptr==NULL)
 	{
 		red_console();
-		printf("Error10: No table named \"%s\" exists!\n\n", table);
+		printf("No table named \"%s\" exists!\n\n", table);
 		white_console();
+
+		clearEntity("table");
 	}
 
 
@@ -160,7 +167,7 @@ void tableStructure()
 		while (c!='\"') {c2 = c; c = fgetc(fptr);}
 		c = '$'; c2 = '$';
 
-		memset(buffer, 0, sizeof(char)*strlen(buffer));
+		clearEntity("buffer");
 
 		while(c!='\"')
 		{
@@ -184,7 +191,7 @@ void tableStructure()
 		while (c!='\"') {c2 = c; c = fgetc(fptr);}
 		c = '$'; c2 = '$';
 
-		memset(buffer, 0, sizeof(char)*strlen(buffer));
+		clearEntity("buffer");
 
 		while(c!='\"')
 		{
@@ -208,7 +215,7 @@ void tableStructure()
 		while (c!='\"') {c2 = c; c = fgetc(fptr);}
 		c = '$'; c2 = '$';
 
-		memset(buffer, 0, sizeof(char)*strlen(buffer));
+		clearEntity("buffer");
 
 		while(c!='\"')
 		{
@@ -236,6 +243,8 @@ void tableStructure()
 	c = '$'; c2 = '$';
 	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n\n");
 
+	clearEntity("buffer");
+
 	white_console();
 }
 
@@ -248,6 +257,8 @@ void tableStructure()
 
 
 
+
+/* Shows all the available databases. */
 
 void allDatabases()
 {
@@ -276,7 +287,7 @@ void allDatabases()
 
 
 	reading = TRUE;
-	memset(buffer, 0, BUFFER_MAX_LENGTH);
+	clearEntity("buffer");
 	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
 
 
@@ -298,7 +309,7 @@ void allDatabases()
 		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
 		printf("|\n");
 
-		memset(buffer, 0, BUFFER_MAX_LENGTH);
+		clearEntity("buffer");
 
 
 
@@ -315,6 +326,10 @@ void allDatabases()
 
 
 
+	clearEntity("buffer");
+
+
+
 	printf("+----------------+\n\n");
 	white_console();
 }
@@ -327,6 +342,8 @@ void allDatabases()
 
 
 
+
+/* Shows all available tables in the online database. */
 
 void allTables()
 {
@@ -360,7 +377,7 @@ void allTables()
 
 
 	reading = TRUE;
-	memset(buffer, 0, BUFFER_MAX_LENGTH);
+	clearEntity("buffer");
 	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
 
 
@@ -382,7 +399,7 @@ void allTables()
 		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
 		printf("|\n");
 
-		memset(buffer, 0, BUFFER_MAX_LENGTH);
+		clearEntity("buffer");
 
 
 
@@ -396,6 +413,10 @@ void allTables()
 
 		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
 	}
+
+
+
+	clearEntity("buffer");
 
 
 

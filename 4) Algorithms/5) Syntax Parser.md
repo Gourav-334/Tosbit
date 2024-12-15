@@ -5,7 +5,7 @@
 ## 0. Description:
 
 ```c
-void syntax_parser(char username[]);
+void syntaxParser(char username[]);
 ```
 
 - This documentation is regarding ***syntax_parser.h*** & ***syntax_parser.c***.
@@ -106,3 +106,77 @@ make table Desk[int num, string code]
 
 make table Desk[int num, int num]
 ```
+
+
+
+## Attribute Parser
+
+
+### Function:
+
+```c
+void attributeParse();
+```
+
+
+### Semantic checking:
+
+```
+[string age, int age]
+```
+
+- Start with parsing `(`.
+- Keep parsing until a non-space charater comes.
+- Then keep parsing & storing occuring string characters to buffer until a space occurs.
+- Then check if this string matches to any of the Tosbit data types.
+- If the data type doesn't match, empty buffer, return error & break.
+- If they match, keep parsing until a non-space character appears.
+- Now keep parsing & storing the characters as attribute name until a space appears.
+- Stop at `)`.
+
+
+### Creating table:
+
+```json
+{
+	"tables": [
+	]
+}
+```
+
+- If there is no error in previous stage, proceed.
+- Open `data\\db_name\\tables.json` in read & append mode.
+- Keep parsing until a `\n` is encountered immediately after `]`.
+- When found, insert `\tTableName`.
+
+
+### Storing configuration:
+
+```json
+{
+	"name": ["string", "unique"],
+	"age": ["int", "regular"]
+}
+```
+
+- Now open `data\\db_name\\tbl_name\\details.json` in write mode.
+- Append `{\n\t` to file.
+- Keep parsing & storing occuring string characters to buffer until a space occurs.
+- Continue parsing the string characters after space until `,` or `]` occurs.
+- Store the fetched string in another buffer.
+- Append `"Attribute": ["DataType", "unique"]` to file.
+- If its a `,`, then append `,\n\t` & continue.
+- Else if its a `]`, then append `\n}`.
+
+
+### Setting up row environment:
+
+```json
+{
+	"rows": [
+	]
+}
+```
+
+- Open `data\\db_name\\tbl_name\\rows.json` in write & append mode.
+- Append `{\n\t"rows": [\n\t]\n}` to file.
