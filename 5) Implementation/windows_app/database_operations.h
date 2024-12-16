@@ -53,6 +53,7 @@ void checkTableExistence();
 void tableStructure();
 void allDatabases();
 void allTables();
+int checkDataType();
 
 
 

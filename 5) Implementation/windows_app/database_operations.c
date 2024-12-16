@@ -433,6 +433,27 @@ void allTables()
 
 
 
+/* This funstion checks if a invalid data type was passed. */
+
+int checkDataType()
+{
+	int valid = FALSE;
+
+	if ((dataType=='int')||(dataType=='string')||(dataType=='float')||(dataType=='bool')) {valid = TRUE;}
+	if (valid==FALSE) {colouredMessage("red", "Invalid data type passed!\n\n");}
+
+	return valid;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

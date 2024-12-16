@@ -251,9 +251,9 @@ void syntaxParser(char username[])
 			case 59: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 60: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 61: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 62: colouredMessage("green", "Table created!\n\n"); break;////////////////////////////
+			case 62: attributeParser(); break;
 			case 63: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 64: colouredMessage("red", "No attributes assigned to table!\n\n"); break;////////////
+			case 64: attributeParser(); break;
 		}
 
 
@@ -289,14 +289,47 @@ void syntaxParser(char username[])
 
 
 
+/* Parses the attribute(s) passed for making a table. */
+
 void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
-		while (command[i]==' ') {continue;}
-		
-		// PROBABLY HAVE TO CONTINUE FROM HERE...
+		switch (state2)
+		{
+			case 0: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
+			case 1: changeState(buffer[i], " ,", "3,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
+			case 2: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
+			case 3: changeState(buffer[i], " ,", "3,6", &state2, 4); breakValue(&state2, 6, &brk2); appendState(&state2, 4, attribute, buffer[i]); break;
+			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, attribute, buffer[i]); break;
+			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state2, 7, &brk2); break;
+		}
+
+
+		if (brk2==TRUE) {brk2 = FALSE; break;}
+		if (i==strlen(buffer)-2) {break;}			// Will it work?
 	}
+
+
+
+
+
+	switch (state2)
+	{
+		case 0: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 1: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 2: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 3: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 4: colouredMessage("green", "Query OK!\n\n"); break;
+		case 5: colouredMessage("green", "Query OK!\n\n"); break;
+		case 6: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 7: colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
+	}
+
+
+	clearEntity("buffer"); clearEntity("dataType"); clearEntity("attribute");
+
+	state2 = 0;
 }
 
 
