@@ -40,4 +40,4 @@ delete account
 ## Details
 
 $$ Total\;commands\;=\;18 $$
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{87}{13}\;=\;6\;days/command
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{82}{13}\;=\;6\;days/command
