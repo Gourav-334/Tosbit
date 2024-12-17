@@ -55,22 +55,6 @@
 
 
 
-/* Variables */
-
-int state = 0;				// Main automaton
-int state2 = 0;				// Table attribute automaton
-int zero_count = 0;
-
-int brk = FALSE;			// Set TRUE when the syntax goes wrong
-int brk2 = FALSE;
-int db_found = FALSE;
-
-
-
-
-
-
-
 /* Functions */
 
 void syntaxParser(char username[]);

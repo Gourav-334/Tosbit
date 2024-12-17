@@ -1,5 +1,5 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
-  <diagram name="string name, int age (r6)" id="o7Y56yq4pEd0rIy2Bkul">
+  <diagram name="string name, int age (r8)" id="o7Y56yq4pEd0rIy2Bkul">
     <mxGraphModel dx="1034" dy="511" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -65,7 +65,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="L-ZtMOVgikKe5YNHNsSq-2" value="Wrong data type" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8tU6JRy4QZ_vIWNlZWhQ-10" target="L-ZtMOVgikKe5YNHNsSq-1">
+        <mxCell id="L-ZtMOVgikKe5YNHNsSq-2" value="Wrong data type" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="8tU6JRy4QZ_vIWNlZWhQ-10" target="L-ZtMOVgikKe5YNHNsSq-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="8tU6JRy4QZ_vIWNlZWhQ-10" value="r3" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
@@ -139,7 +139,7 @@
         <mxCell id="8tU6JRy4QZ_vIWNlZWhQ-38" value="r7" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="120" y="680" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="L-ZtMOVgikKe5YNHNsSq-1" value="r8" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="L-ZtMOVgikKe5YNHNsSq-1" value="r8" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="440" y="600" width="80" height="80" as="geometry" />
         </mxCell>
       </root>

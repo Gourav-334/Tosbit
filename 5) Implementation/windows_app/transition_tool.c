@@ -98,7 +98,7 @@ function(string_to_check, limit_set, current_state, new_state, current_break_val
 
 void limitChecker(char *target, int limit, int *state, int newState, int *brk)
 {
-	if (strlen(target)==limit) {*state = newState; *brk = TRUE;}
+	if (strlen(target)>=limit) {*state = newState; *brk = TRUE;}
 }
 
 

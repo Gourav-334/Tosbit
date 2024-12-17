@@ -115,7 +115,7 @@ make table Desk[int num, int num]
 ### Function:
 
 ```c
-void attributeParse();
+void attributeParser();
 ```
 
 

@@ -3,7 +3,7 @@
 
 #define COMMAND_MAX_LENGTH 257
 #define DATABASE_MAX_LENGTH 17
-#define TABLE_MAX_LENGTH 33
+#define TABLE_MAX_LENGTH 17
 #define DIRECTORY_MAX_LENGTH 129
 #define BUFFER_MAX_LENGTH 257
 #define DATA_TYPE_MAX_LENGTH 7
@@ -38,6 +38,13 @@ char dataType[DATA_TYPE_MAX_LENGTH];
 char attribute[ATTRIBUTE_MAX_LENGTH];
 
 int db_online = FALSE;
+int state = 0;				// Main automaton
+int state2 = 0;				// Table attribute automaton
+int zero_count = 0;
+
+int brk = FALSE;			// Set TRUE when the syntax goes wrong
+int brk2 = FALSE;
+int db_found = FALSE;
 
 
 
@@ -53,7 +60,7 @@ void checkTableExistence();
 void tableStructure();
 void allDatabases();
 void allTables();
-int checkDataType();
+void checkDataType();
 
 
 

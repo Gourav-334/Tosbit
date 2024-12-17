@@ -121,7 +121,7 @@ void syntaxParser(char username[])
 				case 6: changeState(command[i], " ", "13", &state, 11); breakValue(&state, 11, &brk); break;
 				case 7: changeState(command[i], "bB", "8,8", &state, 11); breakValue(&state, 11, &brk); break;
 				case 8: changeState(command[i], " ", "14", &state, 11); breakValue(&state, 11, &brk); break;
-				case 9: changeState(command[i], " ", "10", &state, 9); appendState(&state, 9, database, command[i]); limitChecker(database, 32, &state, 15, &brk); break;
+				case 9: changeState(command[i], " ", "10", &state, 9); appendState(&state, 9, database, command[i]); limitChecker(database, 16, &state, 15, &brk); break;
 				case 10: changeState(command[i], " ", "10", &state, 12); breakValue(&state, 12, &brk); break;
 				case 13: changeState(command[i], " dD", "13,7,7", &state, 11); breakValue(&state, 11, &brk); break;
 				case 14: clearEntity("database"); changeState(command[i], " ", "14", &state, 9); appendState(&state, 9, database, command[i]); break;
@@ -164,7 +164,7 @@ void syntaxParser(char username[])
 				case 55: changeState(command[i], "eE", "56,56", &state, 63); breakValue(&state, 63, &brk); break;
 				case 56: changeState(command[i], " ", "57", &state, 63); breakValue(&state, 63, &brk); break;
 				case 57: clearEntity("table"); changeState(command[i], " ", "57", &state, 58); appendState(&state, 58, table, command[i]); break;
-				case 58: changeState(command[i], " ", "59", &state, 58); appendState(&state, 58, table, command[i]); break;
+				case 58: changeState(command[i], " (", "59,60", &state, 58); appendState(&state, 58, table, command[i]); limitChecker(table, 17, &state, 65, &brk); break;
 				case 59: changeState(command[i], " (", "59,60", &state, 63); breakValue(&state, 63, &brk); break;
 				case 60: clearEntity("buffer"); changeState(command[i], ")", "64", &state, 61); appendState(&state, 61, buffer, command[i]); break;
 				case 61: changeState(command[i], ")", "62", &state, 61); appendState(&state, 61, buffer, command[i]); break;
@@ -254,6 +254,7 @@ void syntaxParser(char username[])
 			case 62: attributeParser(); break;
 			case 63: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 64: attributeParser(); break;
+			case 65: colouredMessage("red", "Table name can be of 16 characters max!\n\n"); break;
 		}
 
 
@@ -295,35 +296,40 @@ void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
+		/* Semantic analysis with DFA & Turing machine. */
+
 		switch (state2)
 		{
 			case 0: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 1: changeState(buffer[i], " ,", "3,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 2: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
-			case 3: changeState(buffer[i], " ,", "3,6", &state2, 4); breakValue(&state2, 6, &brk2); appendState(&state2, 4, attribute, buffer[i]); break;
+			case 3: changeState(buffer[i], " ,", "3,6", &state2, 4); breakValue(&state2, 6, &brk2); checkDataType(); appendState(&state2, 4, attribute, buffer[i]); break;
 			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, attribute, buffer[i]); break;
 			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state2, 7, &brk2); break;
 		}
 
 
 		if (brk2==TRUE) {brk2 = FALSE; break;}
-		if (i==strlen(buffer)-2) {break;}			// Will it work?
+		//if (i==strlen(buffer)-2) {break;}			// Will it work?
 	}
 
 
 
 
 
+	/* Final result, or action to be taken on last stage. */
+
 	switch (state2)
 	{
-		case 0: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 1: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
-		case 2: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 3: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
-		case 4: colouredMessage("green", "Query OK!\n\n"); break;
-		case 5: colouredMessage("green", "Query OK!\n\n"); break;
-		case 6: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 7: colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
+		case 0: printf("STATE: %d", state2); colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 1: printf("STATE: %d", state2); colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 2: printf("STATE: %d", state2); colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 3: printf("STATE: %d", state2); colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 4: printf("STATE: %d", state2); colouredMessage("green", "Query OK!\n\n"); break;
+		case 5: printf("STATE: %d", state2); colouredMessage("green", "Query OK!\n\n"); break;
+		case 6: printf("STATE: %d", state2); colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 7: printf("STATE: %d", state2); colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
+		case 8: printf("STATE: %d", state2); colouredMessage("red", "Invalid data type passed!\n\n"); break;
 	}
 
 
