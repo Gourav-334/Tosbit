@@ -68,8 +68,10 @@ void clearEntity(char *str)
 
 /* Checks if the user requested database exists or not. */
 
-void checkDbExistence()
+int checkDbExistence()
 {
+	int existence = FALSE;
+
 	snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
 	fptr = fopen(directory, "r");
 
@@ -87,12 +89,16 @@ void checkDbExistence()
 
 	else
 	{
-		db_online = TRUE;
+		existence = TRUE;
 
 		green_console();
 		printf("Database %s online!\n\n", database);
 		white_console();
 	}
+
+
+
+	return exists;
 }
 
 
@@ -106,8 +112,10 @@ void checkDbExistence()
 
 /* Checks if a user requested table exists or not. */
 
-void checkTableExistence()
+int checkTableExistence()
 {
+	int existence = FALSE;
+
 	snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
 	fptr = fopen(directory, "r");
 
@@ -126,7 +134,11 @@ void checkTableExistence()
 	}
 
 
-	else {tableStructure(fptr, buffer);}
+	else {tableStructure(fptr, buffer); exists = TRUE;}
+
+
+
+	return existence;
 }
 
 
@@ -437,10 +449,46 @@ void allTables()
 
 void checkDataType()
 {
-	int valid = FALSE;
+	if ((!strcmp(dataType,"int"))||(!strcmp(dataType,"float"))||(!strcmp(dataType,"string"))||(!strcmp(dataType,"bool"))) {}
+	else {valid = FALSE; state2 = 8; brk2 = TRUE;}
+}
 
-	if ((dataType=='int')||(dataType=='string')||(dataType=='float')||(dataType=='bool')) {valid = TRUE;}
-	if (valid==FALSE) {state = 8; brk2 = TRUE;}
+
+
+
+
+
+
+
+
+
+/* Insert table attributes to JSON file. */
+
+void makeTable()
+{
+	char decision = ' ';
+	int write = TRUE;
+
+
+
+	if (checkDbExistence()==FALSE) {colouredMessage("red", "No database opened yet!\n\n"); write = FALSE;}
+
+
+	else if (checkTableExistence()==TRUE)
+	{
+		colouredMessage("red", "Table already exists!\n\n");
+		colouredMessage("yellow", "Overwrite data? (y/n): "); scanf("%c", &decision);
+
+		if (decision=='n') {write = FALSE;}
+	}
+
+
+	if (write==TRUE)
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data\\%s\\%s.json", database, table);
+		fptr = fprintf(directory, "a+");
+	}
 }
 
 

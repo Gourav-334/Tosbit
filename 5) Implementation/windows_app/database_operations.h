@@ -37,14 +37,13 @@ char buffer[BUFFER_MAX_LENGTH];
 char dataType[DATA_TYPE_MAX_LENGTH];
 char attribute[ATTRIBUTE_MAX_LENGTH];
 
-int db_online = FALSE;
-int state = 0;				// Main automaton
-int state2 = 0;				// Table attribute automaton
+int state = 0;							// Main automaton
+int state2 = 0;							// Table attribute automaton
 int zero_count = 0;
 
-int brk = FALSE;			// Set TRUE when the syntax goes wrong
+int brk = FALSE;						// Set TRUE when the syntax goes wrong.
 int brk2 = FALSE;
-int db_found = FALSE;
+int valid = TRUE;						// Syntax if found wrong, only then invalid.
 
 
 
@@ -55,12 +54,13 @@ int db_found = FALSE;
 void colouredMessage(char *colour, char *str);
 void clearEntity(char *str);
 
-void checkDbExistence();
-void checkTableExistence();
+int checkDbExistence();
+int checkTableExistence();
 void tableStructure();
 void allDatabases();
 void allTables();
 void checkDataType();
+void makeTable();
 
 
 

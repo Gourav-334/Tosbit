@@ -296,6 +296,8 @@ void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
+		printf("BUFFER: %s\tBUFFER[I]: %c\tSTATE2: %d\tBRK2: %d\n", buffer, buffer[i], state2, brk2);
+
 		/* Semantic analysis with DFA & Turing machine. */
 
 		switch (state2)
@@ -317,25 +319,30 @@ void attributeParser()
 
 
 
+
+
+
+
+
 	/* Final result, or action to be taken on last stage. */
 
 	switch (state2)
 	{
-		case 0: printf("STATE: %d", state2); colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 1: printf("STATE: %d", state2); colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
-		case 2: printf("STATE: %d", state2); colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 3: printf("STATE: %d", state2); colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
-		case 4: printf("STATE: %d", state2); colouredMessage("green", "Query OK!\n\n"); break;
-		case 5: printf("STATE: %d", state2); colouredMessage("green", "Query OK!\n\n"); break;
-		case 6: printf("STATE: %d", state2); colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 7: printf("STATE: %d", state2); colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
-		case 8: printf("STATE: %d", state2); colouredMessage("red", "Invalid data type passed!\n\n"); break;
+		case 0: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 1: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 2: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 3: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 4: colouredMessage("green", "Query OK!\n\n"); break;
+		case 5: colouredMessage("green", "Query OK!\n\n"); break;
+		case 6: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
+		case 7: colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
+		case 8: colouredMessage("red", "Invalid data type passed!\n\n"); break;
 	}
 
 
 	clearEntity("buffer"); clearEntity("dataType"); clearEntity("attribute");
 
-	state2 = 0;
+	state2 = 0; valid = TRUE;
 }
 
 

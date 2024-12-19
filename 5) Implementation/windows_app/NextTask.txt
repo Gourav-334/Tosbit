@@ -1,5 +1,3 @@
 MAKE TABLE PARSER:
 
--> Solve the accept state deadlock in attribute parser.
 -> Set automaton to check attribute semantics & execute command separately.
--> Add code to check if a database is opened & table duplicacy (to be done after semantic check).

@@ -2,7 +2,19 @@
 
 int main()
 {
-	printf("Learning POSIX!\n");
+	FILE *reader, *writer;
+	char c = '#';
+
+	writer = fopen("data\\db1\\tables.json", "r+");
+
+	while (c!='[')
+	{
+		c = fgetc(writer);
+		printf("FTELL: %d\tCHAR: %c\n", ftell(writer), c);
+	}
+
+	fputc('$', writer);
+	fclose(writer);
 
 	return 0;
 }
