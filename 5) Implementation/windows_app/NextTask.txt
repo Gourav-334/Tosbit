@@ -1,3 +1,12 @@
 MAKE TABLE PARSER:
 
--> Set automaton to check attribute semantics & execute command separately.
+-> Debug the write to file "tables.json" (reaching 1 byte backward - Issue in file probably).
+-> Write code to insert table attributes to respective "details.json".
+
+
+{
+	"tables": [
+		"table1",
+		"table2"
+	]
+}

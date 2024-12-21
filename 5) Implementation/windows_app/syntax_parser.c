@@ -30,6 +30,8 @@ Total acknowledgement types:	5+
 Total strange bugs:				5
 Total silly bugs:				4
 
+Search code: checkTableExistence
+FALSE
 */
 
 
@@ -198,8 +200,8 @@ void syntaxParser(char username[])
 			case 6: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
 			case 7: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
 			case 8: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 9: checkDbExistence(); break;
-			case 10: checkDbExistence(); break;
+			case 9: checkDbExistence(TRUE); break;
+			case 10: checkDbExistence(TRUE); break;
 			case 11: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
 			case 12: colouredMessage("red", "Did you meant open db db_name?\n\n"); break;
 			case 13: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
@@ -210,7 +212,7 @@ void syntaxParser(char username[])
 			case 18: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 19: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 20: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 21: checkTableExistence(); break;
+			case 21: checkTableExistence(TRUE); break;
 			case 22: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 23: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 24: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
@@ -218,7 +220,7 @@ void syntaxParser(char username[])
 			case 26: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 27: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 28: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 29: checkTableExistence(); break;
+			case 29: checkTableExistence(TRUE); break;
 			case 30: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
 			case 31: colouredMessage("red", "Try \"show all db\".\n\n"); break;
 			case 32: colouredMessage("red", "Try \"show all db\".\n\n"); break;
@@ -296,13 +298,13 @@ void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
-		printf("BUFFER: %s\tBUFFER[I]: %c\tSTATE2: %d\tBRK2: %d\n", buffer, buffer[i], state2, brk2);
+		//printf("BUFFER: %s\tCHAR: %c\tSTATE2: %d\n", buffer, buffer[i], state2);
 
 		/* Semantic analysis with DFA & Turing machine. */
 
 		switch (state2)
 		{
-			case 0: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
+			case 0: clearEntity("dataType"); clearEntity("attribute"); changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 1: changeState(buffer[i], " ,", "3,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 2: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 3: changeState(buffer[i], " ,", "3,6", &state2, 4); breakValue(&state2, 6, &brk2); checkDataType(); appendState(&state2, 4, attribute, buffer[i]); break;
@@ -332,8 +334,8 @@ void attributeParser()
 		case 1: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
 		case 2: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
 		case 3: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
-		case 4: colouredMessage("green", "Query OK!\n\n"); break;
-		case 5: colouredMessage("green", "Query OK!\n\n"); break;
+		case 4: makeTable(); break;
+		case 5: makeTable(); break;
 		case 6: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
 		case 7: colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
 		case 8: colouredMessage("red", "Invalid data type passed!\n\n"); break;

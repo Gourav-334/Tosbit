@@ -145,9 +145,10 @@ void attributeParser();
 ```
 
 - If there is no error in previous stage, proceed.
-- Open `data\\db_name\\tables.json` in read & append mode.
-- Keep parsing until a `\n` is encountered immediately after `]`.
-- When found, insert `\tTableName`.
+- Open `data\\db_name\\tables.json` in read & write mode.
+- Keep parsing until a `]` is encountered, with a count of encountered elements.
+- When found, seek the cursor 3 bytes backward.
+- Now write `,\n\t\"TableName\"\n\t]\n}` to the file.
 
 
 ### Storing configuration:

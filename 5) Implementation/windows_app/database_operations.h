@@ -36,6 +36,9 @@ char directory[DIRECTORY_MAX_LENGTH];
 char buffer[BUFFER_MAX_LENGTH];
 char dataType[DATA_TYPE_MAX_LENGTH];
 char attribute[ATTRIBUTE_MAX_LENGTH];
+char writer[BUFFER_MAX_LENGTH];
+
+char flusher;
 
 int state = 0;							// Main automaton
 int state2 = 0;							// Table attribute automaton
@@ -54,8 +57,8 @@ int valid = TRUE;						// Syntax if found wrong, only then invalid.
 void colouredMessage(char *colour, char *str);
 void clearEntity(char *str);
 
-int checkDbExistence();
-int checkTableExistence();
+int checkDbExistence(int msg);
+int checkTableExistence(int msg);
 void tableStructure();
 void allDatabases();
 void allTables();

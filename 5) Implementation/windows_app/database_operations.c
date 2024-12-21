@@ -55,6 +55,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"writer")) {memset(writer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -68,7 +69,7 @@ void clearEntity(char *str)
 
 /* Checks if the user requested database exists or not. */
 
-int checkDbExistence()
+int checkDbExistence(int msg)
 {
 	int existence = FALSE;
 
@@ -77,7 +78,7 @@ int checkDbExistence()
 
 
 
-	if (fptr==NULL)
+	if (fptr==NULL && msg==TRUE)
 	{
 		red_console();
 		printf("Error4: No database named \"%s\" exists!\n\n", database);
@@ -87,18 +88,22 @@ int checkDbExistence()
 	}
 
 
+
 	else
 	{
 		existence = TRUE;
 
-		green_console();
-		printf("Database %s online!\n\n", database);
-		white_console();
+		if (msg==TRUE)
+		{
+			green_console();
+			printf("Database %s online!\n\n", database);
+			white_console();
+		}
 	}
 
 
 
-	return exists;
+	return existence;
 }
 
 
@@ -112,7 +117,7 @@ int checkDbExistence()
 
 /* Checks if a user requested table exists or not. */
 
-int checkTableExistence()
+int checkTableExistence(int msg)
 {
 	int existence = FALSE;
 
@@ -121,10 +126,10 @@ int checkTableExistence()
 
 
 
-	if (strlen(database)==0) {colouredMessage("red", "No database opened yet!\n\n");}
+	if (strlen(database)==0 && msg==TRUE) {colouredMessage("red", "No database opened yet!\n\n");}
 
 
-	else if (fptr==NULL)
+	else if (fptr==NULL && msg==TRUE)
 	{
 		red_console();
 		printf("No table named \"%s\" exists!\n\n", table);
@@ -134,7 +139,8 @@ int checkTableExistence()
 	}
 
 
-	else {tableStructure(fptr, buffer); exists = TRUE;}
+	else if (fptr!=NULL && msg==TRUE) {tableStructure(fptr, buffer); existence = TRUE;}
+	else if (fptr!=NULL && msg==FALSE) {existence = TRUE;}
 
 
 
@@ -462,32 +468,87 @@ void checkDataType()
 
 
 
-/* Insert table attributes to JSON file. */
+/* Creates a table & configures many files. */
 
 void makeTable()
 {
-	char decision = ' ';
+	char decision, c='$', c2='$';
 	int write = TRUE;
+	int charCount = 0;
 
 
 
-	if (checkDbExistence()==FALSE) {colouredMessage("red", "No database opened yet!\n\n"); write = FALSE;}
-
-
-	else if (checkTableExistence()==TRUE)
+	if (checkDbExistence(FALSE)==FALSE)
 	{
-		colouredMessage("red", "Table already exists!\n\n");
-		colouredMessage("yellow", "Overwrite data? (y/n): "); scanf("%c", &decision);
-
-		if (decision=='n') {write = FALSE;}
+		colouredMessage("red", "No database opened yet!\n\n");
+		write = FALSE;
 	}
 
+
+
+	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
+	{
+		colouredMessage("red", "Table already exists!\n\n");
+		colouredMessage("yellow", "Overwrite data to disk? (y/n): "); decision = getchar();
+
+
+		if (decision=='n') {write = FALSE;}
+
+		else if (decision=='y')
+		{
+			clearEntity("directory");
+			snprintf(directory, sizeof(directory), "cd data\\%s && rmdir %s", database, table);
+
+			system(directory);
+		}
+	}
+
+
+
+	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==FALSE))
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+		fptr = fopen(directory, "r+");
+
+		while (c!=']') {c = fgetc(fptr); charCount++;}
+
+		fseek(fptr, charCount, SEEK_SET);
+
+		clearEntity("writer");
+		snprintf(writer, sizeof(writer), ",\n\t\t\"%s\"\n\t]\n}\n", table);
+		fputs(writer, fptr);
+		fflush(fptr);					// Forcefully write to file
+	}
+
+
+
+
+
+	/* If new table is made, or if an exisiting table is overwritten. */
 
 	if (write==TRUE)
 	{
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data\\%s\\%s.json", database, table);
-		fptr = fprintf(directory, "a+");
+		snprintf(directory, sizeof(directory), "cd data\\%s && mkdir %s", database, table);
+
+		system(directory);
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data\\%s\\%s\\rows.json", database, table);
+
+		fptr = fopen(directory, "w");
+		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
+		fflush(fptr);								// Forcefully write to file
+
+
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
+
+		fptr = fopen(directory, "w");
+
+		colouredMessage("green", "Table created successfully!\n\n");
 	}
 }
 

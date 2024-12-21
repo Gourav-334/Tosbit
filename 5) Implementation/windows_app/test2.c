@@ -2,19 +2,18 @@
 
 int main()
 {
-	FILE *reader, *writer;
-	char c = '#';
+	FILE *fptr;
+	int charCount = 0;
+	char c = '$';
 
-	writer = fopen("data\\db1\\tables.json", "r+");
+	fptr = fopen("data\\db1\\tables.json", "r+");
 
-	while (c!='[')
-	{
-		c = fgetc(writer);
-		printf("FTELL: %d\tCHAR: %c\n", ftell(writer), c);
-	}
+	while (c!=']') {c = fgetc(fptr); charCount++;}
 
-	fputc('$', writer);
-	fclose(writer);
+	fseek(fptr, charCount, SEEK_SET);
+	fputs(",\n\t\t\"TableName\"\n\t]\n}", fptr);
+	
+	//fclose(fptr);
 
 	return 0;
 }
