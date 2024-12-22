@@ -1,6 +1,7 @@
 MAKE TABLE PARSER:
 
--> Debug the write to file "tables.json" (reaching 1 byte backward - Issue in file probably).
+-> Write code for dynamic buffer read & write for all "write to file" tasks.
+-> Add console load tracker when loading files.
 -> Write code to insert table attributes to respective "details.json".
 
 

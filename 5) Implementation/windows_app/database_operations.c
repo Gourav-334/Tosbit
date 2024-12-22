@@ -103,6 +103,8 @@ int checkDbExistence(int msg)
 
 
 
+	fclose(fptr);
+
 	return existence;
 }
 
@@ -139,10 +141,11 @@ int checkTableExistence(int msg)
 	}
 
 
-	else if (fptr!=NULL && msg==TRUE) {tableStructure(fptr, buffer); existence = TRUE;}
+	else if (fptr!=NULL && msg==TRUE) {tableStructure(); existence = TRUE;}
 	else if (fptr!=NULL && msg==FALSE) {existence = TRUE;}
 
 
+	fclose(fptr);
 
 	return existence;
 }
@@ -262,6 +265,7 @@ void tableStructure()
 	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n\n");
 
 	clearEntity("buffer");
+	fclose(fptr);
 
 	white_console();
 }
@@ -345,6 +349,7 @@ void allDatabases()
 
 
 	clearEntity("buffer");
+	fclose(fptr);
 
 
 
@@ -435,6 +440,7 @@ void allTables()
 
 
 	clearEntity("buffer");
+	fclose(fptr);
 
 
 
@@ -451,7 +457,7 @@ void allTables()
 
 
 
-/* This funstion checks if a invalid data type was passed. */
+/* This funstion checks if a invalid data type was passed. (MAKE THEM CASE INSENSITIVE) */
 
 void checkDataType()
 {
@@ -473,8 +479,11 @@ void checkDataType()
 void makeTable()
 {
 	char decision, c='$', c2='$';
+
 	int write = TRUE;
 	int charCount = 0;
+
+	char *fileBuffer;
 
 
 
@@ -497,7 +506,7 @@ void makeTable()
 		else if (decision=='y')
 		{
 			clearEntity("directory");
-			snprintf(directory, sizeof(directory), "cd data\\%s && rmdir %s", database, table);
+			snprintf(directory, sizeof(directory), "cd data\\%s && rmdir /S /Q %s", database, table);
 
 			system(directory);
 		}
@@ -509,16 +518,31 @@ void makeTable()
 	{
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
-		fptr = fopen(directory, "r+");
+		fptr = fopen(directory, "r");
 
-		while (c!=']') {c = fgetc(fptr); charCount++;}
 
-		fseek(fptr, charCount, SEEK_SET);
 
-		clearEntity("writer");
-		snprintf(writer, sizeof(writer), ",\n\t\t\"%s\"\n\t]\n}\n", table);
-		fputs(writer, fptr);
-		fflush(fptr);					// Forcefully write to file
+		/* Dynamic memory allocation for R/W operations on file (safety mechanism). */
+
+		fileBuffer = malloc(TABLES_JSON_DEFAULT*sizeof(char));
+
+
+		while (c2=='\"' && c=='\n')
+		{
+			c2 = c; c = fgetc(fptr);
+
+			if (c==',') {realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));}
+
+			fileBuffer[strlen(fileBuffer)] = c;
+		}
+
+
+		realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));
+		// CONTINUE FROM HERE...
+
+
+		free(fileBuffer);
+		fclose(fptr);
 	}
 
 
@@ -541,12 +565,15 @@ void makeTable()
 		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
 		fflush(fptr);								// Forcefully write to file
 
+		fclose(fptr);
+
 
 
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
 
 		fptr = fopen(directory, "w");
+		fclose(fptr);
 
 		colouredMessage("green", "Table created successfully!\n\n");
 	}

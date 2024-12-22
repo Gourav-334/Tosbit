@@ -23,8 +23,7 @@ delete from table Desk where Sno=5;
 delete from table Desk where Sno=5 & name="Yuvraj"
 delete from table Desk where Sno=5 | name="Yuvraj"
 
-show all from table Desk
-show all tables in Office
+show all from Desk
 
 clear table Desk
 clear db Office
@@ -40,4 +39,4 @@ delete account
 ## Details
 
 $$ Total\;commands\;=\;18 $$
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{82}{13}\;=\;6\;days/command
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{76}{13}\;=\;5\;days/command

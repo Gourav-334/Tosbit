@@ -6,6 +6,7 @@
 #define TABLE_MAX_LENGTH 17
 #define DIRECTORY_MAX_LENGTH 129
 #define BUFFER_MAX_LENGTH 257
+
 #define DATA_TYPE_MAX_LENGTH 7
 #define ATTRIBUTE_MAX_LENGTH 17
 
@@ -14,6 +15,9 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "console_colour.h"
 
 
@@ -36,7 +40,6 @@ char directory[DIRECTORY_MAX_LENGTH];
 char buffer[BUFFER_MAX_LENGTH];
 char dataType[DATA_TYPE_MAX_LENGTH];
 char attribute[ATTRIBUTE_MAX_LENGTH];
-char writer[BUFFER_MAX_LENGTH];
 
 char flusher;
 
@@ -47,6 +50,9 @@ int zero_count = 0;
 int brk = FALSE;						// Set TRUE when the syntax goes wrong.
 int brk2 = FALSE;
 int valid = TRUE;						// Syntax if found wrong, only then invalid.
+
+size_t TABLES_JSON_DEFAULT = 48;
+size_t EXPANSION_SIZE = 22;
 
 
 
