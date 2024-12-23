@@ -1,7 +1,6 @@
 MAKE TABLE PARSER:
 
--> Write code for dynamic buffer read & write for all "write to file" tasks.
--> Add console load tracker when loading files.
+-> Debug the suspected issue in loop (leaking break after "\"table2\"").
 -> Write code to insert table attributes to respective "details.json".
 
 

@@ -55,7 +55,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"writer")) {memset(writer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
+	//else if (!strcmp(str,"writer")) {memset(writer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -481,9 +481,10 @@ void makeTable()
 	char decision, c='$', c2='$';
 
 	int write = TRUE;
-	int charCount = 0;
+	int charCount = 0, emptyBytes, load;
 
-	char *fileBuffer;
+	char *fileBuffer = {0};
+	char head[4] = ",\n\t\"", tail[6] = "\"\n\t]\n}";
 
 
 
@@ -525,20 +526,58 @@ void makeTable()
 		/* Dynamic memory allocation for R/W operations on file (safety mechanism). */
 
 		fileBuffer = malloc(TABLES_JSON_DEFAULT*sizeof(char));
+		emptyBytes = TABLES_JSON_DEFAULT;
+		memset((fileBuffer + strlen(fileBuffer)), 0, emptyBytes);
 
 
-		while (c2=='\"' && c=='\n')
+		while (!((c2=='\"')&&(c=='\n')))	// DEBUG REQUIRED PROBABLY HERE...
 		{
+			printf("1) FILEBUF: %s\tLEN: %d\n", fileBuffer, strlen(fileBuffer));///////////////////////
 			c2 = c; c = fgetc(fptr);
 
-			if (c==',') {realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));}
+			if (c==',')
+			{
+				realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));
+				emptyBytes += EXPANSION_SIZE;
+				memset((fileBuffer + emptyBytes), 0, EXPANSION_SIZE);
+			}
 
 			fileBuffer[strlen(fileBuffer)] = c;
 		}
 
+		fclose(fptr);
+		printf("2) FILEBUF: %s\tLEN: %d\n", fileBuffer, strlen(fileBuffer));///////////////////////
+
+
 
 		realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));
-		// CONTINUE FROM HERE...
+		emptyBytes += EXPANSION_SIZE;
+		memset((fileBuffer + emptyBytes), 0, EXPANSION_SIZE);
+		
+
+		/* Manually appending characters to string. */
+
+		for (int i=0; i<4; i++) {fileBuffer[strlen(fileBuffer)-1+i] = head[i];}
+		for (int i=0; i<strlen(table); i++) {fileBuffer[strlen(fileBuffer)+i] = table[i];}
+		for (int i=0; i<6; i++) {fileBuffer[strlen(fileBuffer)+i] = tail[i];}
+
+		printf("3) FILEBUF: %s\tLEN: %d\n", fileBuffer, strlen(fileBuffer));///////////////////////
+
+
+		fptr = fopen(directory, "w");
+
+		load = strlen(fileBuffer)/10;
+		colouredMessage("pink", "Writing contents in DRAM to disk...\n\n0% [");
+
+		for (int i=0; i<strlen(fileBuffer); i++)
+		{
+			fputc(fileBuffer[i], fptr);
+
+			if ((i!=0) && (i%load==0)) {colouredMessage("pink", "#");}
+		}
+
+		colouredMessage("pink", "] 100%\n\n");
+
 
 
 		free(fileBuffer);
