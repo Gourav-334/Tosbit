@@ -102,7 +102,7 @@ void syntaxParser(char username[])
 
 
 		if (illegalChars(command, "\"[]")==TRUE)
-			{colouredMessage("red", "Please don't use \", [ or ]\n\n"); continue;}
+			{printf("Error: Please don't use \", [ or ]\n\n"); continue;}
 
 
 
@@ -191,72 +191,72 @@ void syntaxParser(char username[])
 
 		switch (state)
 		{
-			case 0: Queue_queue(&script, command); colouredMessage("green", "No changes are made!\n\n"); break;
-			case 1: colouredMessage("red", "Comment brackets opened, but not closed!\n\n"); break;
-			case 2: colouredMessage("red", "Unknown command passed!\n\n"); break;
-			case 3: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 4: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 5: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 6: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 7: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 8: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
+			case 0: Queue_queue(&script, command); printf("OK: No changes are made!\n\n"); break;
+			case 1: printf("Error: Comment brackets opened, but not closed!\n\n"); break;
+			case 2: printf("Error: Unknown command passed!\n\n"); break;
+			case 3: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 4: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 5: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 6: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 7: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 8: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
 			case 9: checkDbExistence(TRUE); break;
 			case 10: checkDbExistence(TRUE); break;
-			case 11: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 12: colouredMessage("red", "Did you meant open db db_name?\n\n"); break;
-			case 13: colouredMessage("red", "Did you meant \"open db db_name\"?\n\n"); break;
-			case 14: colouredMessage("red", "No database name entered!\n\n"); break;
-			case 15: colouredMessage("red", "Name of database must be 32 characters long at max!\n\n"); break;
-			case 16: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 17: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 18: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 19: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 20: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 11: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 12: printf("Error: Did you meant open db db_name?\n\n"); break;
+			case 13: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 14: printf("Error: No database name entered!\n\n"); break;
+			case 15: printf("Error: Name of database must be 32 characters long at max!\n\n"); break;
+			case 16: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 17: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 18: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 19: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 20: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
 			case 21: checkTableExistence(TRUE); break;
-			case 22: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 23: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 24: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 25: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 26: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 27: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 28: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
+			case 22: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 23: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 24: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 25: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 26: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 27: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 28: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
 			case 29: checkTableExistence(TRUE); break;
-			case 30: colouredMessage("red", "Did you meant \"show struct table_name\"?\n\n"); break;
-			case 31: colouredMessage("red", "Try \"show all db\".\n\n"); break;
-			case 32: colouredMessage("red", "Try \"show all db\".\n\n"); break;
-			case 33: colouredMessage("red", "Try \"show all db\".\n\n"); break;
-			case 34: colouredMessage("red", "Try \"show all db\".\n\n"); break;
-			case 35: colouredMessage("red", "Try \"show all db\".\n\n"); break;
+			case 30: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 31: printf("Error: Try \"show all db\".\n\n"); break;
+			case 32: printf("Error: Try \"show all db\".\n\n"); break;
+			case 33: printf("Error: Try \"show all db\".\n\n"); break;
+			case 34: printf("Error: Try \"show all db\".\n\n"); break;
+			case 35: printf("Error: Try \"show all db\".\n\n"); break;
 			case 36: allDatabases(); break;
-			case 37: colouredMessage("red", "Try \"show all db\".\n\n"); break;
+			case 37: printf("Error: Try \"show all db\".\n\n"); break;
 			case 38: allDatabases(); break;
-			case 39: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
-			case 40: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
-			case 41: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
-			case 42: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
-			case 43: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
+			case 39: printf("Error: Try \"show all tables\".\n\n"); break;
+			case 40: printf("Error: Try \"show all tables\".\n\n"); break;
+			case 41: printf("Error: Try \"show all tables\".\n\n"); break;
+			case 42: printf("Error: Try \"show all tables\".\n\n"); break;
+			case 43: printf("Error: Try \"show all tables\".\n\n"); break;
 			case 44: allTables(); break;
 			case 45: allTables(); break;
-			case 46: colouredMessage("red", "Try \"show all tables\".\n\n"); break;
-			case 47: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 48: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 49: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 50: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 51: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 52: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 53: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 54: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 55: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 56: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 57: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 58: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 59: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 60: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 61: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 46: printf("Error: Try \"show all tables\".\n\n"); break;
+			case 47: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 48: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 49: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 50: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 51: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 52: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 53: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 54: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 55: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 56: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 57: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 58: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 59: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 60: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 61: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 62: attributeParser(); break;
-			case 63: colouredMessage("red", "Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 63: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 64: attributeParser(); break;
-			case 65: colouredMessage("red", "Table name can be of 16 characters max!\n\n"); break;
+			case 65: printf("Error: Table name can be of 16 characters max!\n\n"); break;
 		}
 
 
@@ -330,15 +330,15 @@ void attributeParser()
 
 	switch (state2)
 	{
-		case 0: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 1: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
-		case 2: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 3: colouredMessage("red", "Check if all attribute names are given for each data type.\n\n"); break;
+		case 0: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
+		case 1: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
+		case 2: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
+		case 3: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
 		case 4: makeTable(); break;
 		case 5: makeTable(); break;
-		case 6: colouredMessage("red", "Check if you passed any attributes & position of commas.\n\n"); break;
-		case 7: colouredMessage("red", "Add commas after data type & attribute name!\n\n"); break;
-		case 8: colouredMessage("red", "Invalid data type passed!\n\n"); break;
+		case 6: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
+		case 7: printf("Error: Add commas after data type & attribute name!\n\n"); break;
+		case 8: printf("Error: Invalid data type passed!\n\n"); break;
 	}
 
 

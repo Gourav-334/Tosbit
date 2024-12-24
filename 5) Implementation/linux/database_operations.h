@@ -56,6 +56,11 @@ size_t EXPANSION_SIZE = 22;
 
 
 
+
+
+
+
+
 /* Implementation of DB operations. */
 
 void clearEntity(char *str);

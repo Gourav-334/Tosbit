@@ -50,7 +50,7 @@ int checkDbExistence(int msg)
 {
 	int existence = FALSE;
 
-	snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 	fptr = fopen(directory, "r");
 
 
@@ -92,7 +92,7 @@ int checkTableExistence(int msg)
 {
 	int existence = FALSE;
 
-	snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
 	fptr = fopen(directory, "r");
 
 
@@ -246,7 +246,7 @@ void tableStructure()
 
 void allDatabases()
 {
-	fptr = fopen("data\\databases.json", "r");
+	fptr = fopen("data/databases.json", "r");
 	if (fptr==NULL) {printf("Error: databases.json file not found!\n\n", database);}
 
 	char c = '$';
@@ -324,7 +324,7 @@ void allDatabases()
 void allTables()
 {
 	clearEntity("directory");
-	snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 
 	fptr = fopen(directory, "r");
 
@@ -465,7 +465,7 @@ void makeTable()
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==FALSE))
 	{
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data\\%s\\tables.json", database);
+		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 		fptr = fopen(directory, "r");
 
 
@@ -520,7 +520,7 @@ void makeTable()
 		{
 			fputc(fileBuffer[i], fptr);
 
-			if ((i!=0) && (i%load==0)) {colouredMessage("pink", "#");}
+			if ((i!=0) && (i%load==0)) {printf("#");}
 		}
 
 		printf("] 100%\n\n");
@@ -540,12 +540,12 @@ void makeTable()
 	if (write==TRUE)
 	{
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "cd data\\%s && mkdir %s", database, table);
+		snprintf(directory, sizeof(directory), "cd data/%s && mkdir %s", database, table);
 
 		system(directory);
 
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data\\%s\\%s\\rows.json", database, table);
+		snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
 
 		fptr = fopen(directory, "w");
 		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
@@ -556,7 +556,7 @@ void makeTable()
 
 
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data\\%s\\%s\\details.json", database, table);
+		snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
 
 		fptr = fopen(directory, "w");
 		fclose(fptr);

@@ -18,7 +18,6 @@
 #include <string.h>
 
 #include "utility_box.c"
-#include "console_colour.c"
 #include "data_structures.c"
 #include "encrypter.c"
 #include "transition_tool.c"
