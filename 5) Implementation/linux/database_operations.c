@@ -111,8 +111,6 @@ int checkTableExistence(int msg)
 	else if (fptr!=NULL && msg==FALSE) {existence = TRUE;}
 
 
-	fclose(fptr);
-
 	return existence;
 }
 
@@ -247,7 +245,7 @@ void tableStructure()
 void allDatabases()
 {
 	fptr = fopen("data/databases.json", "r");
-	if (fptr==NULL) {printf("Error: databases.json file not found!\n\n", database);}
+	if (fptr==NULL) {printf("Error: databases.json file not found!\n\n");}
 
 	char c = '$';
 	int count = 0, reading = FALSE;
@@ -431,6 +429,7 @@ void makeTable()
 	int charCount = 0, emptyBytes, load;
 
 	char *fileBuffer = {0};
+	char insertStr[32] = {0};
 	char head[4] = ",\n\t\"", tail[6] = "\"\n\t]\n}";
 
 
@@ -466,68 +465,26 @@ void makeTable()
 	{
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
-		fptr = fopen(directory, "r");
+		fptr = fopen(directory, "r+");
 
 
 
-		/* Dynamic memory allocation for R/W operations on file (safety mechanism). */
-
-		fileBuffer = malloc(TABLES_JSON_DEFAULT*sizeof(char));
-		emptyBytes = TABLES_JSON_DEFAULT;
-		memset((fileBuffer + strlen(fileBuffer)), 0, emptyBytes);
-
-
-		while (!((c2=='\"')&&(c=='\n')))	// DEBUG REQUIRED PROBABLY HERE...
+		while (!(c2==']'&&c=='\n'))
 		{
-			printf("1) FILEBUF: %s\tLEN: %d\n", fileBuffer, strlen(fileBuffer));///////////////////////
+			charCount++;
 			c2 = c; c = fgetc(fptr);
-
-			if (c==',')
-			{
-				realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));
-				emptyBytes += EXPANSION_SIZE;
-				memset((fileBuffer + emptyBytes), 0, EXPANSION_SIZE);
-			}
-
-			fileBuffer[strlen(fileBuffer)] = c;
 		}
 
-		fclose(fptr);
-		printf("2) FILEBUF: %s\tLEN: %d\n", fileBuffer, strlen(fileBuffer));///////////////////////
+		fflush(fptr);
+
+
+		snprintf(insertStr, sizeof(insertStr), "\t\"%s\"\n\t]\n}", table);
+		fseek(fptr, (charCount-2), SEEK_SET);
+		fputs(insertStr, fptr);
+		fflush(fptr);
 
 
 
-		realloc(fileBuffer, EXPANSION_SIZE*sizeof(char));
-		emptyBytes += EXPANSION_SIZE;
-		memset((fileBuffer + emptyBytes), 0, EXPANSION_SIZE);
-
-
-		/* Manually appending characters to string. */
-
-		for (int i=0; i<4; i++) {fileBuffer[strlen(fileBuffer)-1+i] = head[i];}
-		for (int i=0; i<strlen(table); i++) {fileBuffer[strlen(fileBuffer)+i] = table[i];}
-		for (int i=0; i<6; i++) {fileBuffer[strlen(fileBuffer)+i] = tail[i];}
-
-		printf("3) FILEBUF: %s\tLEN: %d\n", fileBuffer, strlen(fileBuffer));///////////////////////
-
-
-		fptr = fopen(directory, "w");
-
-		load = strlen(fileBuffer)/10;
-		printf("Writing contents in DRAM to disk...\n\n0% [");
-
-		for (int i=0; i<strlen(fileBuffer); i++)
-		{
-			fputc(fileBuffer[i], fptr);
-
-			if ((i!=0) && (i%load==0)) {printf("#");}
-		}
-
-		printf("] 100%\n\n");
-
-
-
-		free(fileBuffer);
 		fclose(fptr);
 	}
 

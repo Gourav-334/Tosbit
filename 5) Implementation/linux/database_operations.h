@@ -10,6 +10,9 @@
 #define DATA_TYPE_MAX_LENGTH 7
 #define ATTRIBUTE_MAX_LENGTH 17
 
+#define TRUE 1
+#define FALSE 0
+
 
 
 
