@@ -5,7 +5,7 @@
 
 
 
-void run();
+extern void run();
 
 
 

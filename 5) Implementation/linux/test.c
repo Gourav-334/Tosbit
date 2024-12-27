@@ -1,4 +1,4 @@
-#include "syntax_parser.c"
+#include "syntax_parser.h"
 
 
 //Database Simulator?

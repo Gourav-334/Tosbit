@@ -2,13 +2,6 @@
 
 
 
-#ifndef DATA_STRUCTURES_C
-	#define DATA_STRUCTURES_C
-
-
-
-
-
 #include "data_structures.h"
 
 
@@ -220,24 +213,6 @@ void Queue_showAll(Queue *q)
 		q -> trav = q -> head;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
 
 
 

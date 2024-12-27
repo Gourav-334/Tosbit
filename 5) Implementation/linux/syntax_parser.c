@@ -2,11 +2,6 @@
 
 
 
-#ifndef SYNTAX_PARSER_C
-	#define SYNTAX_PARSER_C
-
-
-
 #include "syntax_parser.h"
 
 
@@ -89,7 +84,6 @@ vii) First check if it is being emptied properly or not & then bandage it if req
 
 void syntaxParser(char username[])
 {
-	struct Queue script = {.n=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
 
 
 
@@ -191,7 +185,7 @@ void syntaxParser(char username[])
 
 		switch (state)
 		{
-			case 0: Queue_queue(&script, command); printf("OK: No changes are made!\n\n"); break;
+			case 0: printf("OK: No changes are made!\n\n"); break;
 			case 1: printf("Error: Comment brackets opened, but not closed!\n\n"); break;
 			case 2: printf("Error: Unknown command passed!\n\n"); break;
 			case 3: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
@@ -265,12 +259,6 @@ void syntaxParser(char username[])
 
 		state = 0;
 	}
-
-
-
-
-
-	Queue_clear(&script);
 }
 
 
@@ -346,27 +334,6 @@ void attributeParser()
 
 	state2 = 0; valid = TRUE;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
 
 
 

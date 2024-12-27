@@ -28,10 +28,9 @@
 
 /* Header & source file inclusion */
 
-#include <stdio.h>
 #include <stdlib.h>
 
-#include "encrypter.c"
+#include "encrypter.h"
 
 
 
@@ -47,12 +46,12 @@
 extern char username[USERNAME_MAX_SIZE];
 extern char password[PASSWORD_MAX_SIZE];
 extern char re_password[PASSWORD_MAX_SIZE];
-extern char buffer[BUFFER_SIZE];
+extern char buff[BUFFER_SIZE];
 
-extern int functionID = 1;
-extern int exit_status = FALSE;
+extern int functionID;
+extern int exit_status;
 
-extern FILE *fptr;
+extern FILE *file;
 
 
 

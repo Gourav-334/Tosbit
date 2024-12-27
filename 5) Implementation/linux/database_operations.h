@@ -44,16 +44,15 @@ extern char attribute[ATTRIBUTE_MAX_LENGTH];
 
 extern char flusher;
 
-extern int state = 0;							// Main automaton
-extern int state2 = 0;							// Table attribute automaton
-extern int zero_count = 0;
+extern int state;							// Main automaton
+extern int state2;							// Table attribute automaton
+extern int zero_count;
 
-extern int brk = FALSE;							// Set TRUE when the syntax goes wrong.
-extern int brk2 = FALSE;
-extern int valid = TRUE;						// Syntax if found wrong, only then invalid.
-
-extern size_t TABLES_JSON_DEFAULT = 48;
-extern size_t EXPANSION_SIZE = 22;
+extern int brk;								// Set TRUE when the syntax goes wrong.
+extern int brk2;
+extern int valid;							// Syntax if found wrong, only then invalid.
+extern int TABLES_JSON_DEFAULT;
+extern int EXPANSION_SIZE;
 
 
 

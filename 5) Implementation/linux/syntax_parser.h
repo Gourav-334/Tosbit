@@ -14,14 +14,10 @@
 
 
 
-#include <stdio.h>
-#include <string.h>
-
-#include "utility_box.c"
-#include "data_structures.c"
-#include "encrypter.c"
-#include "transition_tool.c"
-#include "database_operations.c"
+#include "utility_box.h"
+#include "encrypter.h"
+#include "transition_tool.h"
+#include "database_operations.h"
 
 
 
