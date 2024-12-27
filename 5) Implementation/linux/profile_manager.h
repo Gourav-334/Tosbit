@@ -30,7 +30,7 @@
 
 #include <stdlib.h>
 
-#include "encrypter.c"
+#include "encrypter.h"
 
 
 
