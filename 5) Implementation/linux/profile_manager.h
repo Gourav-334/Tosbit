@@ -47,12 +47,12 @@
 extern char username[USERNAME_MAX_SIZE];
 extern char password[PASSWORD_MAX_SIZE];
 extern char re_password[PASSWORD_MAX_SIZE];
-extern char buffer[BUFFER_SIZE];
+extern char buff[BUFFER_SIZE];
 
 extern int functionID;
 extern int exit_status;
 
-extern FILE *fptr;
+extern FILE *file;
 
 
 

@@ -72,10 +72,17 @@ iv) The so called race condition can be simply solved by using memset() for fget
 
 
 
-/* Initializations */
+/* Variables */
 
-functionID = 1;
-exit_status = FALSE;
+char username[USERNAME_MAX_SIZE] = {0};
+char password[PASSWORD_MAX_SIZE] = {0};
+char re_password[PASSWORD_MAX_SIZE = {0}];
+char buff[BUFFER_SIZE] = {0};
+
+int functionID = -1;			// Might become troubling later on.
+int exit_status = -1;
+
+FILE *file = NULL;
 
 
 
@@ -106,12 +113,12 @@ void profile_manager()
 
 			case 1:
 
-				fptr = fopen("data/user.tosbit", "r");
+				file = fopen("data/user.tosbit", "r");
 
 
 				/* If compulsory user system file not found */
 
-				if (fptr==NULL)
+				if (file==NULL)
 				{
 					printf("Error: User file not found! Please try re-downloading the package!\n\n");
 				}
@@ -122,17 +129,17 @@ void profile_manager()
 
 				else
 				{
-					fgets(buffer, BUFFER_SIZE, fptr);
+					fgets(buff, BUFFER_SIZE, file);
 
 
 
 					/* No user profile set */
 
-					if (strlen(buffer)==0)
+					if (strlen(buff)==0)
 					{
 						/* Open file in write mode if it doesn't exist */
 
-						fptr = fopen("data/user.tosbit", "w");
+						file = fopen("data/user.tosbit", "w");
 						functionID = 2; continue;
 					}
 
@@ -165,16 +172,16 @@ void profile_manager()
 
 						else
 						{
-							if (!strcmp(password, decrypt(buffer)))
+							if (!strcmp(password, decrypt(buff)))
 							{
-								memset(buffer, 0 , strlen(buffer)*sizeof(char));
-								memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
+								memset(buff, 0 , strlen(buff)*sizeof(char));
+								memset(decrypt(buff), 0, strlen(decrypt(buff))*sizeof(char));
 
 								functionID = 4;
 							}
 
 
-							else if (strcmp(password, decrypt(buffer)))
+							else if (strcmp(password, decrypt(buff)))
 							{
 								printf("Error: Password doesn't match!\n\n");
 							}
@@ -182,8 +189,8 @@ void profile_manager()
 
 
 
-						memset(buffer, 0 , strlen(buffer)*sizeof(char));
-						memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
+						memset(buff, 0 , strlen(buff)*sizeof(char));
+						memset(decrypt(buff), 0, strlen(decrypt(buff))*sizeof(char));
 
 						continue;
 					}
@@ -277,10 +284,10 @@ void profile_manager()
 
 					if (!strcmp(password, re_password))
 					{
-						fputs(encrypt(password), fptr);
+						fputs(encrypt(password), file);
 						memset(encrypt(password), 0, strlen(password)*sizeof(char));
 
-						fputs(encrypt(username), fptr);
+						fputs(encrypt(username), file);
 						memset(encrypt(username), 0, strlen(username)*sizeof(char));
 
 						functionID = 4;

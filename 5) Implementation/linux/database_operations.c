@@ -24,16 +24,28 @@
 
 /* Initializations */
 
-state = 0;							// Main automaton
-state2 = 0;							// Table attribute automaton
-zero_count = 0;
+FILE *fptr = NULL;
 
-brk = FALSE;						// Set TRUE when the syntax goes wrong.
-brk2 = FALSE;
-valid = TRUE;						// Syntax if found wrong, only then invalid.
+char command[COMMAND_MAX_LENGTH] = {0};
+char database[DATABASE_MAX_LENGTH] = {0};
+char table[TABLE_MAX_LENGTH] = {0};
+char directory[DIRECTORY_MAX_LENGTH] = {0};
+char buffer[BUFFER_MAX_LENGTH] = {0};
+char dataType[DATA_TYPE_MAX_LENGTH] = {0};
+char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 
-TABLES_JSON_DEFAULT = 48;
-EXPANSION_SIZE = 22;
+char flusher = '$';
+
+int state = 0;							// Main automaton
+int state2 = 0;							// Table attribute automaton
+int zero_count = 0;
+
+int brk = FALSE;						// Set TRUE when the syntax goes wrong.
+int brk2 = FALSE;
+int valid = TRUE;						// Syntax if found wrong, only then invalid.
+
+int TABLES_JSON_DEFAULT = 48;
+int EXPANSION_SIZE = 22;
 
 
 
