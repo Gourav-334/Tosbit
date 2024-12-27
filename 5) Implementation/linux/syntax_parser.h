@@ -56,8 +56,8 @@
 
 /* Functions */
 
-void syntaxParser(char username[]);
-void attributeParser();
+extern void syntaxParser(char username[]);
+extern void attributeParser();
 
 
 

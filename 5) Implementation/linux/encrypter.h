@@ -22,7 +22,7 @@
 
 /* All possible inputs coming from STDOUT (keyboard) */
 
-const char keyboard_chars[TOTAL_CHARS] = {' ','`','~','1','!','2','@','3','#','4',		//10
+extern const char keyboard_chars[TOTAL_CHARS] = {' ','`','~','1','!','2','@','3','#','4',		//10
 	'$','5','%','6','^','7','&','8','*','9','(','0',')','-','_','=','+','q','Q','w',	//30
 	'W','e','E','r','R','t','T','y','Y','u','U','i','I','o','O','p','P','[','{',']',	//50
 	'}','a','A','s','S','d','D','f','F','g','G','h','H','j','J','k','K','l','L',';',	//70
@@ -34,7 +34,7 @@ const char keyboard_chars[TOTAL_CHARS] = {' ','`','~','1','!','2','@','3','#','4
 
 /* Equivalent encrypted prime codes for STDOUT symbols */
 
-const char *prime_codes[TOTAL_CHARS] = {
+extern const char *prime_codes[TOTAL_CHARS] = {
     "11", "13", "17", "19", "23", "29", "31", "37", "41", "43", "47", "53", "59",		//13
     "61", "67", "71", "73", "79", "83", "89", "97", "113", "127", "131", "137", 		//25
     "139", "149", "151", "157", "163", "167", "173", "179", "181", "191", "193", 		//36
@@ -57,9 +57,9 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 /* Encryption & decryption functions */
 
-char *encrypt(char *input);
-char *decrypt(char *input);
-char keymapped(char *input);
+extern char *encrypt(char *input);
+extern char *decrypt(char *input);
+extern char keymapped(char *input);
 
 
 #endif
