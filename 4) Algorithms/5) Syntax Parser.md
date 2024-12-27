@@ -145,13 +145,11 @@ void attributeParser();
 ```
 
 - If there is no error in previous stage, proceed.
-- Open `data\\db_name\\tables.json` in reading mode.
-- Allocate default space to dynamic string.
-- Keep reading & inserting file contents to dynamic string.
-- Expand string by required bytes whenever a `,` is encountered.
-- When a `\"` & then `\n` is encountered, remove `\n` & insert `,\n\t\"TableName\"\n\t]\n}` to the dyncamic string.
-- Now again open `data\\db_name\\tables.json` but in write mode.
-- Load whole dynamic string to the file. 
+- Open `data\\db_name\\tables.json` in read & write mode.
+- Keep reading with count of bytes until a `]` & `\n` are encountered consecutively.
+- Now move the pointer by the number of bytes counted minus 2.
+- And insert `\t\"Table_name\"\n\t]\n}`.
+- Exit & close the file.
 
 
 ### Storing configuration:

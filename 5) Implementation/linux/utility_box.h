@@ -18,20 +18,20 @@
 
 /* Funtions declarations (most are related to string manipulation) */
 
-void strappend(char str[], char *addition);
-void constrappend(char str[], const char *addition);
-void charappend(char str[], char addition);
-void const_charappend(char str[], const char addition);
+extern void strappend(char str[], char *addition);
+extern void constrappend(char str[], const char *addition);
+extern void charappend(char str[], char addition);
+extern void const_charappend(char str[], const char addition);
 
-void newline_remover(char str[]);
-void frontchar_remover(char str[]);
+extern void newline_remover(char str[]);
+extern void frontchar_remover(char str[]);
 
-void flush_stdin();
-void binary_print(char str[], int size);
-void remove_spaces(char str[]);
-void str_shift(char str[], int start, int end, int direction, int steps);
+extern void flush_stdin();
+extern void binary_print(char str[], int size);
+extern void remove_spaces(char str[]);
+extern void str_shift(char str[], int start, int end, int direction, int steps);
 
-int illegalChars(char arr[], char chars[]);
+extern int illegalChars(char arr[], char chars[]);
 
 
 
