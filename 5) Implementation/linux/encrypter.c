@@ -2,11 +2,6 @@
 
 
 
-#ifndef ENCRYPTER_C
-	#define ENCRYPTER_C
-
-
-
 #include "encrypter.h"
 
 
@@ -215,10 +210,6 @@ char keymapped(char *input)
 
 	return ' ';
 }
-
-
-
-#endif
 
 
 

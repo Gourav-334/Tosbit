@@ -1,6 +1,3 @@
-#ifndef TRANSITION_TOOL_C
-	#define TRANSITION_TOOL_C
-
 #include "transition_tool.h"
 
 
@@ -103,11 +100,3 @@ void limitChecker(char *target, int limit, int *state, int newState, int *brk)
 
 
 
-
-
-
-
-
-
-
-#endif

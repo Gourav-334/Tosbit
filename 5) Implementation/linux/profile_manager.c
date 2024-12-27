@@ -2,11 +2,6 @@
 
 
 
-#ifndef PROFILE_MANAGER_C
-	#define PROFILE_MANAGER_C
-
-
-
 #include "profile_manager.h"
 
 
@@ -340,17 +335,6 @@ void profile_manager()
 		if (exit_status==TRUE) {exit_status==FALSE; break;}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-#endif
 
 
 

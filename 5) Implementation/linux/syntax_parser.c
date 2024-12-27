@@ -2,11 +2,6 @@
 
 
 
-#ifndef SYNTAX_PARSER_C
-	#define SYNTAX_PARSER_C
-
-
-
 #include "syntax_parser.h"
 
 
@@ -339,27 +334,6 @@ void attributeParser()
 
 	state2 = 0; valid = TRUE;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
 
 
 
