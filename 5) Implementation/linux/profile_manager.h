@@ -28,7 +28,6 @@
 
 /* Header & source file inclusion */
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #include "encrypter.c"

@@ -14,9 +14,6 @@
 
 
 
-#include <stdio.h>
-#include <string.h>
-
 #include "utility_box.c"
 #include "encrypter.c"
 #include "transition_tool.c"
