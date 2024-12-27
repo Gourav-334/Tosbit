@@ -2,11 +2,6 @@
 
 
 
-#ifndef UTILITY_BOX_C
-	#define UTILITY_BOX_C
-
-
-
 #include "utility_box.h"
 
 
@@ -204,12 +199,6 @@ int illegalChars(char arr[], char chars[])
 
 	return FALSE;
 }
-
-
-
-
-
-#endif	//Drink mango juice after this code.
 
 
 

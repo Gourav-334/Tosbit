@@ -1,6 +1,3 @@
-#ifndef DATABASE_OPERATIONS_C
-	#define DATABASE_OPERATIONS_C
-
 #include "database_operations.h"
 
 
@@ -565,24 +562,3 @@ void makeTable()
 		printf("Table created successfully!\n\n");
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
