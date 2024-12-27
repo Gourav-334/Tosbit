@@ -76,7 +76,7 @@ iv) The so called race condition can be simply solved by using memset() for fget
 
 char username[USERNAME_MAX_SIZE] = {0};
 char password[PASSWORD_MAX_SIZE] = {0};
-char re_password[PASSWORD_MAX_SIZE = {0}];
+char re_password[PASSWORD_MAX_SIZE] = {0};
 char buff[BUFFER_SIZE] = {0};
 
 int functionID = -1;			// Might become troubling later on.

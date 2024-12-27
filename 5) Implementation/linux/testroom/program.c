@@ -1,4 +1,4 @@
-#include "example.c"
+#include "example.h"
 
 
 
