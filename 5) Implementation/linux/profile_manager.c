@@ -72,6 +72,20 @@ iv) The so called race condition can be simply solved by using memset() for fget
 
 
 
+/* Initializations */
+
+functionID = 1;
+exit_status = FALSE;
+
+
+
+
+
+
+
+
+
+
 void profile_manager()
 {
 	while (exit_status==FALSE)

@@ -22,6 +22,38 @@
 
 
 
+/* Initializations */
+
+state = 0;							// Main automaton
+state2 = 0;							// Table attribute automaton
+zero_count = 0;
+
+brk = FALSE;						// Set TRUE when the syntax goes wrong.
+brk2 = FALSE;
+valid = TRUE;						// Syntax if found wrong, only then invalid.
+
+TABLES_JSON_DEFAULT = 48;
+EXPANSION_SIZE = 22;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* This function clears a string, identified through entered value of string. */
 
 void clearEntity(char *str)

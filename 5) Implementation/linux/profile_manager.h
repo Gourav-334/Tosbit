@@ -49,8 +49,8 @@ extern char password[PASSWORD_MAX_SIZE];
 extern char re_password[PASSWORD_MAX_SIZE];
 extern char buffer[BUFFER_SIZE];
 
-extern int functionID = 1;
-extern int exit_status = FALSE;
+extern int functionID;
+extern int exit_status;
 
 extern FILE *fptr;
 
