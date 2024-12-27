@@ -21,3 +21,4 @@ gcc -g -c utility_box.c -o utility_box.o
 echo "Compiling TEST (.C)"
 gcc -g -c test.c -o test.o
 
+echo "All files compiled."
