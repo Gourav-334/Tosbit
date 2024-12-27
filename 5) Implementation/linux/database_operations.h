@@ -51,9 +51,8 @@ extern int zero_count;
 extern int brk;								// Set TRUE when the syntax goes wrong.
 extern int brk2;
 extern int valid;							// Syntax if found wrong, only then invalid.
-
-extern size_t TABLES_JSON_DEFAULT;
-extern size_t EXPANSION_SIZE;
+extern int TABLES_JSON_DEFAULT;
+extern int EXPANSION_SIZE;
 
 
 
