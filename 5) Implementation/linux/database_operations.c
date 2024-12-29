@@ -519,8 +519,8 @@ void makeTable()
 		fflush(fptr);
 
 
-		snprintf(insertStr, sizeof(insertStr), "\t\"%s\"\n\t]\n}", table);
-		fseek(fptr, (charCount-2), SEEK_SET);
+		snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);
+		fseek(fptr, (charCount-4), SEEK_SET);
 		fputs(insertStr, fptr);
 		fflush(fptr);
 
@@ -547,7 +547,7 @@ void makeTable()
 
 		fptr = fopen(directory, "w");
 		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
-		fflush(fptr);								// Forcefully write to file
+		fflush(fptr);						// Forcefully write to file
 
 		fclose(fptr);
 
