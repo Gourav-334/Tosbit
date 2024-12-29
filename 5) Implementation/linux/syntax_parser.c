@@ -26,7 +26,7 @@ Total strange bugs:				5
 Total silly bugs:				4
 
 Search code: checkTableExistence
-FALSE
+
 */
 
 
@@ -322,8 +322,8 @@ void attributeParser()
 		case 1: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
 		case 2: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 3: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
-		case 4: makeTable(); break;
-		case 5: makeTable(); break;
+		case 4: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
+		case 5: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
 		case 6: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 7: printf("Error: Add commas after data type & attribute name!\n\n"); break;
 		case 8: printf("Error: Invalid data type passed!\n\n"); break;
