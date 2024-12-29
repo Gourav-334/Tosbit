@@ -3,7 +3,6 @@ MAKE TABLE PARSER:
 -> Write code to insert table attributes to respective "details.json".
 
 
-
 {
 	"tables": [
 		"table1",

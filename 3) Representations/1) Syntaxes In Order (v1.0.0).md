@@ -16,7 +16,6 @@ show all tables
 make table Desk [int Sno, string name, string dep]
 make db Office
 
-
 insert into table Desk [1, Yuvraj, 25]
 
 delete from table Desk where Sno=5;
@@ -39,4 +38,4 @@ delete account
 ## Details
 
 $$ Total\;commands\;=\;18 $$
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{76}{13}\;=\;5\;days/command
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{69}{12}\;=\;5\;days/command
