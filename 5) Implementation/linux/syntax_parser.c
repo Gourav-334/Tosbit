@@ -168,7 +168,7 @@ void syntaxParser(char username[])
 				case 66: changeState(command[i], "bB", "67,67", &state, 71); breakValue(&state, 71, &brk); break;
 				case 67: changeState(command[i], " ", "68", &state, 71); breakValue(&state, 71, &brk); break;
 				case 68: changeState(command[i], " ", "68", &state, 69); appendState(&state, 69, database, command[i]); break;
-				case 69: changeState(command[i], " ", "70", &state, 69); appendState(&state, 69, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 71, &brk); break;
+				case 69: changeState(command[i], " ", "70", &state, 69); appendState(&state, 69, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 72, &brk); break;
 				case 70: changeState(command[i], " ", "70", &state, 71); breakValue(&state, 71, &brk); break;
 			}
 
@@ -259,8 +259,8 @@ void syntaxParser(char username[])
 			case 66: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
 			case 67: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
 			case 68: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
-			case 69: printf("Database created successfully!\n\n"); break;
-			case 70: printf("Database created successfully!\n\n"); break;
+			case 69: makeDb(); clearEntity("database"); break;
+			case 70: makeDb(); clearEntity("database"); break;
 			case 71: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
 			case 72: printf("Error: Database name length (%d) exceeded!\n\n", DATABASE_MAX_LENGTH); break;
 		}
@@ -298,8 +298,6 @@ void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
-		//printf("BUFFER: %s\tCHAR: %c\tSTATE2: %d\n", buffer, buffer[i], state2);
-
 		/* Semantic analysis with DFA & Turing machine. */
 
 		switch (state2)

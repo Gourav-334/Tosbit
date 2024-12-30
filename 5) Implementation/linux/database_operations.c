@@ -113,7 +113,7 @@ int checkDbExistence(int msg)
 
 
 
-	fclose(fptr);
+	fclose(fptr); // This thing is making the trouble.
 
 	return existence;
 }
@@ -467,11 +467,9 @@ void makeTable()
 	char decision, c='$', c2='$';
 
 	int write = TRUE;
-	int charCount = 0, emptyBytes, load;
+	int charCount = 0, invCount = 0;
 
-	char *fileBuffer = {0};
 	char insertStr[32] = {0};
-	char head[4] = ",\n\t\"", tail[6] = "\"\n\t]\n}";
 
 
 
@@ -514,12 +512,17 @@ void makeTable()
 		{
 			charCount++;
 			c2 = c; c = fgetc(fptr);
+
+			if (c=='\"') {invCount++;}
 		}
 
 		fflush(fptr);
 
 
-		snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);
+		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);}
+		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", table);}
+
+
 		fseek(fptr, (charCount-4), SEEK_SET);
 		fputs(insertStr, fptr);
 		fflush(fptr);
@@ -593,5 +596,109 @@ void makeTable()
 		clearEntity("buffer");
 
 		printf("Table created successfully!\n\n");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Make a database on user's request. */
+
+void makeDb()
+{
+	char decision, c='$', c2='$';
+
+	int write = TRUE;
+	int charCount = 0, invCount = 0;
+
+	char insertStr[32] = {0};
+
+
+	// Some problem with this line
+	if (checkDbExistence(FALSE)==TRUE)
+	{
+		printf("Database already exists!\n\n");
+		printf("Overwrite data to disk? (y/n)"); decision = getchar();
+
+
+		if (decision=='n') {write=FALSE;}
+
+		else if (decision=='y')
+		{
+			clearEntity("directory");
+			snprintf(directory, sizeof(directory), "cd data && rm -rf %s", database);
+
+			system(directory);
+		}
+	}
+
+
+
+	else
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/databases.json");
+		fptr = fopen(directory, "r+");
+
+
+
+		while (!(c2==']'&&c=='\n'))
+		{
+			charCount++;
+			c2 = c; c = fgetc(fptr);
+
+			if (c=='\"') {invCount++;}
+		}
+
+		fflush(fptr);
+
+
+		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\"%s\"\n\t]\n}", database);}
+		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\"%s\"\n\t]\n}", database);}
+
+		fseek(fptr, (charCount-4), SEEK_SET);
+		fputs(insertStr, fptr);
+		fflush(fptr);
+
+
+
+		fclose(fptr);
+	}
+
+
+
+
+
+	/* If new database is created, or if an existing one is overwritten. */
+
+	if (write==TRUE)
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "cd data && mkdir %s", database);
+
+		system(directory);
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+
+
+
+		/* tables.json */
+
+		fopen(directory, "w");
+		fputs("{\n\t\"%s\": [\n\t]\n}", fptr);
+		fflush(fptr);
+
+		fclose(fptr);
+
+		clearEntity("buffer");
+		
+		printf("Database created successfully!\n\n");
 	}
 }

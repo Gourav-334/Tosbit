@@ -1,11 +1,6 @@
 MAKE TABLE PARSER:
 
--> Write code to insert table attributes to respective "details.json".
-
-
-{
-	"tables": [
-		"table1",
-		"table2"
-	]
-}
+-> Debug the problem on "line 116" in "database_operations.c" (seg fault).
+-> Test the database creation command.
+-> Work on table deletion command.
+-> Work on database deletion command.
