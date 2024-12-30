@@ -163,9 +163,10 @@ void attributeParser();
 
 - Now open `data\\db_name\\tbl_name\\details.json` in write mode.
 - Append `{\n\t` to file.
-- Keep parsing & storing occuring string characters to buffer until a space occurs.
-- Continue parsing the string characters after space until `,` or `]` occurs.
-- Store the fetched string in another buffer.
+- Keep parsing until a non-space appears.
+- Then keep parsing & storing occuring string characters in dataType buffer until a space occurs.
+- Continue parsing the string characters after space until `,` or `)` occurs.
+- Store the fetched string in attribute buffer.
 - Append `"Attribute": ["DataType", "unique"]` to file.
 - If its a `,`, then append `,\n\t` & continue.
 - Else if its a `]`, then append `\n}`.
@@ -182,3 +183,18 @@ void attributeParser();
 
 - Open `data\\db_name\\tbl_name\\rows.json` in write & append mode.
 - Append `{\n\t"rows": [\n\t]\n}` to file.
+
+
+
+## make db Office
+
+```json
+{
+    "tables": [
+    ]
+}
+```
+
+1. Simply create a directory with name of database using `mkdir`.
+2. Then open the directory & make a file named `tables.json` there.
+3. Open `tables.json` in write mode & insert `{\n\t\"tables\": [\n\t]\n}` in it.

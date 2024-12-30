@@ -519,8 +519,8 @@ void makeTable()
 		fflush(fptr);
 
 
-		snprintf(insertStr, sizeof(insertStr), "\t\"%s\"\n\t]\n}", table);
-		fseek(fptr, (charCount-2), SEEK_SET);
+		snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);
+		fseek(fptr, (charCount-4), SEEK_SET);
 		fputs(insertStr, fptr);
 		fflush(fptr);
 
@@ -544,20 +544,53 @@ void makeTable()
 
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
+		
+
+		/* rows.json */
 
 		fptr = fopen(directory, "w");
 		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
-		fflush(fptr);								// Forcefully write to file
+		fflush(fptr);						// Forcefully write to file
 
 		fclose(fptr);
 
 
+
+		/* details.json */
 
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
 
 		fptr = fopen(directory, "w");
+
+
+		fputs("{\n\t", fptr);
+		fflush(fptr);
+
+
+		for (int i=0; i<strlen(buffer); i++)
+		{
+			while (buffer[i]==' ') {i++;}
+			while (buffer[i]!=' ') {dataType[strlen(dataType)] = buffer[i]; i++;}
+			while (buffer[i]==' ') {i++;}
+			while (buffer[i]!=',' && i!=strlen(buffer)) {attribute[strlen(attribute)] = buffer[i]; i++;}
+
+			clearEntity("directory");
+			snprintf(directory, sizeof(directory), "\"%s\": [\"%s\", \"regular\"]", attribute, dataType);
+			fputs(directory, fptr);
+			fflush(fptr);
+
+			if (buffer[i]==',') {fputs(",\n\t", fptr);}
+
+			clearEntity("dataType"); clearEntity("attribute");
+		}
+
+		fputs("\n}", fptr);
+		fflush(fptr);
+
+
 		fclose(fptr);
+		clearEntity("buffer");
 
 		printf("Table created successfully!\n\n");
 	}

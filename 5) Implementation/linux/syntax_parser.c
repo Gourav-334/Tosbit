@@ -26,7 +26,7 @@ Total strange bugs:				5
 Total silly bugs:				4
 
 Search code: checkTableExistence
-FALSE
+
 */
 
 
@@ -153,7 +153,7 @@ void syntaxParser(char username[])
 				case 48: changeState(command[i], "kK", "49,49", &state, 63); breakValue(&state, 63, &brk); break;
 				case 49: changeState(command[i], "eE", "50,50", &state, 63); breakValue(&state, 63, &brk); break;
 				case 50: changeState(command[i], " ", "51", &state, 63); breakValue(&state, 63, &brk); break;
-				case 51: changeState(command[i], " tT", "51,52,52", &state, 63); breakValue(&state, 63, &brk); break;
+				case 51: changeState(command[i], " tTdD", "51,52,52,66,66", &state, 63); breakValue(&state, 63, &brk); break;
 				case 52: changeState(command[i], "aA", "53,53", &state, 63); breakValue(&state, 63, &brk); break;
 				case 53: changeState(command[i], "bB", "54,54", &state, 63); breakValue(&state, 63, &brk); break;
 				case 54: changeState(command[i], "lL", "55,55", &state, 63); breakValue(&state, 63, &brk); break;
@@ -165,6 +165,11 @@ void syntaxParser(char username[])
 				case 60: clearEntity("buffer"); changeState(command[i], ")", "64", &state, 61); appendState(&state, 61, buffer, command[i]); break;
 				case 61: changeState(command[i], ")", "62", &state, 61); appendState(&state, 61, buffer, command[i]); break;
 				case 62: changeState(command[i], " ", "62", &state, 63); breakValue(&state, 63, &brk); break;
+				case 66: changeState(command[i], "bB", "67,67", &state, 71); breakValue(&state, 71, &brk); break;
+				case 67: changeState(command[i], " ", "68", &state, 71); breakValue(&state, 71, &brk); break;
+				case 68: changeState(command[i], " ", "68", &state, 69); appendState(&state, 69, database, command[i]); break;
+				case 69: changeState(command[i], " ", "70", &state, 69); appendState(&state, 69, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 71, &brk); break;
+				case 70: changeState(command[i], " ", "70", &state, 71); breakValue(&state, 71, &brk); break;
 			}
 
 
@@ -251,6 +256,13 @@ void syntaxParser(char username[])
 			case 63: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 64: attributeParser(); break;
 			case 65: printf("Error: Table name can be of 16 characters max!\n\n"); break;
+			case 66: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
+			case 67: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
+			case 68: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
+			case 69: printf("Database created successfully!\n\n"); break;
+			case 70: printf("Database created successfully!\n\n"); break;
+			case 71: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
+			case 72: printf("Error: Database name length (%d) exceeded!\n\n", DATABASE_MAX_LENGTH); break;
 		}
 
 
@@ -322,8 +334,8 @@ void attributeParser()
 		case 1: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
 		case 2: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 3: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
-		case 4: makeTable(); break;
-		case 5: makeTable(); break;
+		case 4: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
+		case 5: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
 		case 6: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 7: printf("Error: Add commas after data type & attribute name!\n\n"); break;
 		case 8: printf("Error: Invalid data type passed!\n\n"); break;

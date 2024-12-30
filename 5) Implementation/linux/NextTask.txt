@@ -1,6 +1,5 @@
 MAKE TABLE PARSER:
 
--> Debug the suspected issue in loop (leaking break after "\"table2\"").
 -> Write code to insert table attributes to respective "details.json".
 
 
