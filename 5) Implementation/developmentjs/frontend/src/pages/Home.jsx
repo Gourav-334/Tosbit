@@ -61,6 +61,7 @@ export default function Home() {
           <li><a href="#">Column 2</a></li>
           <li><a href="#">Column 3</a></li>
           <li><a href="#">Column 4</a></li>
+          <li><a href="#">Column 5</a></li>
         </ul>
       </li>
       
