@@ -1,11 +1,4 @@
 MAKE TABLE PARSER:
 
--> Write code to insert table attributes to respective "details.json".
-
-
-{
-	"tables": [
-		"table1",
-		"table2"
-	]
-}
+-> Debug 'stack smash' on table deletion command.
+-> Work on database deletion command.

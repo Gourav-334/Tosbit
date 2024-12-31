@@ -89,7 +89,7 @@ void clearEntity(char *str)
 
 int checkDbExistence(int msg)
 {
-	int existence = FALSE;
+	int existence;
 
 	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 	fptr = fopen(directory, "r");
@@ -98,22 +98,39 @@ int checkDbExistence(int msg)
 
 	if (fptr==NULL && msg==TRUE)
 	{
+		existence = FALSE;
+
 		printf("Error: No database named \"%s\" exists!\n\n", database);
 		clearEntity("database");
 	}
 
 
 
-	else
+	else if (fptr==NULL && msg==FALSE)
 	{
-		existence = TRUE;
-
-		if (msg==TRUE) {printf("Database %s online!\n\n", database);}
+		existence = FALSE;
 	}
 
 
 
-	fclose(fptr);
+	else if (fptr!=NULL && msg==TRUE)
+	{
+		existence = TRUE;
+		printf("Database %s online!\n\n", database);
+
+		fclose(fptr);
+	}
+
+
+
+	else if (fptr!=NULL && msg==FALSE)
+	{
+		existence = TRUE;
+
+		fclose(fptr);
+	}
+
+
 
 	return existence;
 }
@@ -373,9 +390,12 @@ void allTables()
 		return;
 	}
 
+
+
+
+
 	char c = '$';
 	int count = 0, reading = FALSE;
-
 
 
 	while (count!=3)
@@ -383,55 +403,62 @@ void allTables()
 		c = fgetc(fptr);
 
 		if (c=='\"') {count++;}
-		if (feof(fptr)) {printf("Error: No tables found!\n\n");}
+		if (feof(fptr)) {printf("STAT: Database is empty.\n\n"); break;}
 	}
 
 
 
-	reading = TRUE;
-	clearEntity("buffer");
-	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
 
 
+	/* Print tables only if atleast 1 table exists i.e. less than 3 (2) \" are read from tables.json */
 
-	printf("+----------------+\n");
-	printf("|    TABLES      |\n");
-	printf("+----------------+\n");
-
-	while (!feof(fptr))
+	if (count==3)
 	{
-		while (c!='\"') {buffer[strlen(buffer)] = c; c = fgetc(fptr);}
-
-		reading = FALSE;
-		c = '$';
-
-		printf("|%s", buffer);
-		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
-		printf("|\n");
-
+		reading = TRUE;
 		clearEntity("buffer");
+		c = fgetc(fptr);				// Advance reading byte after ("), to enter while loop. 
 
 
 
-		while (c!='\"')
+		printf("+----------------+\n");
+		printf("|    TABLES      |\n");
+		printf("+----------------+\n");
+
+		while (!feof(fptr))
 		{
-			c = fgetc(fptr);
-			if (feof(fptr)) {break;}
+			while (c!='\"') {buffer[strlen(buffer)] = c; c = fgetc(fptr);}
+
+			reading = FALSE;
+			c = '$';
+
+			printf("|%s", buffer);
+			for (int i=strlen(buffer); i<16; i++) {printf(" ");}
+			printf("|\n");
+
+			clearEntity("buffer");
+
+
+
+			while (c!='\"')
+			{
+				c = fgetc(fptr);
+				if (feof(fptr)) {break;}
+			}
+
+			reading = TRUE;
+
+			c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
 		}
 
-		reading = TRUE;
 
-		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
+
+		clearEntity("buffer");
+		fclose(fptr);
+
+
+
+		printf("+----------------+\n\n");
 	}
-
-
-
-	clearEntity("buffer");
-	fclose(fptr);
-
-
-
-	printf("+----------------+\n\n");
 }
 
 
@@ -467,11 +494,9 @@ void makeTable()
 	char decision, c='$', c2='$';
 
 	int write = TRUE;
-	int charCount = 0, emptyBytes, load;
+	int charCount = 0, invCount = 0;
 
-	char *fileBuffer = {0};
 	char insertStr[32] = {0};
-	char head[4] = ",\n\t\"", tail[6] = "\"\n\t]\n}";
 
 
 
@@ -514,12 +539,17 @@ void makeTable()
 		{
 			charCount++;
 			c2 = c; c = fgetc(fptr);
+
+			if (c=='\"') {invCount++;}
 		}
 
 		fflush(fptr);
 
 
-		snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);
+		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);}
+		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", table);}
+
+
 		fseek(fptr, (charCount-4), SEEK_SET);
 		fputs(insertStr, fptr);
 		fflush(fptr);
@@ -550,7 +580,7 @@ void makeTable()
 
 		fptr = fopen(directory, "w");
 		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
-		fflush(fptr);						// Forcefully write to file
+		fflush(fptr);
 
 		fclose(fptr);
 
@@ -593,5 +623,115 @@ void makeTable()
 		clearEntity("buffer");
 
 		printf("Table created successfully!\n\n");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Make a database on user's request. */
+
+void makeDb()
+{
+	char decision, c='$', c2='$';
+
+	int write = TRUE;
+	int charCount = 0, invCount = 0;
+
+	char insertStr[32] = {0};
+
+
+	
+	/* If database already exists. */
+
+	if (checkDbExistence(FALSE)==TRUE)
+	{
+		printf("Database already exists!\n\n");
+		printf("Overwrite data to disk? (y/n): "); decision = getchar();
+
+
+		if (decision=='n') {write=FALSE;}
+
+		else if (decision=='y')
+		{
+			clearEntity("directory");
+			snprintf(directory, sizeof(directory), "cd data && rm -rf %s", database);
+
+			system(directory);
+		}
+	}
+
+
+
+	/* If database doesn't exist. */
+
+	else
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/databases.json");
+		fptr = fopen(directory, "r+");
+
+
+
+		while (!(c2==']'&&c=='\n'))
+		{
+			charCount++;
+			c2 = c; c = fgetc(fptr);
+
+			if (c=='\"') {invCount++;}
+		}
+
+		fflush(fptr);
+
+
+		/* Insert into databases.json as per if any database exist or not. */
+
+		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\"%s\"\n\t]\n}", database);}
+		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", database);}
+
+		fseek(fptr, (charCount-4), SEEK_SET);
+		fputs(insertStr, fptr);
+		fflush(fptr);
+
+
+
+		fclose(fptr);
+	}
+
+
+
+
+
+	/* If new database is created, or if an existing one is overwritten. */
+
+	if (write==TRUE)
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "cd data && mkdir %s", database);
+
+		system(directory);
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+
+
+
+		/* tables.json */
+
+		fopen(directory, "w");
+		fputs("{\n\t\"tables\": [\n\t]\n}", fptr);
+		fflush(fptr);
+
+		fclose(fptr);
+
+		clearEntity("buffer");
+		
+		printf("Database created successfully!\n\n");
 	}
 }

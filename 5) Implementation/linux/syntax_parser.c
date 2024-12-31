@@ -96,7 +96,7 @@ void syntaxParser(char username[])
 
 
 		if (illegalChars(command, "\"[]")==TRUE)
-			{printf("Error: Please don't use \", [ or ]\n\n"); continue;}
+			{printf("ERROR: Please don't use \", [ or ]\n\n"); continue;}
 
 
 
@@ -108,7 +108,7 @@ void syntaxParser(char username[])
 		{
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsSmM", "0,1,3,3,16,16,47,47", &state, 2); break;
+				case 0: changeState(command[i], " @oOsSmMdD", "0,1,3,3,16,16,47,47,73", &state, 2); break;
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
 				case 2: brk = TRUE; break;
 				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
@@ -168,8 +168,23 @@ void syntaxParser(char username[])
 				case 66: changeState(command[i], "bB", "67,67", &state, 71); breakValue(&state, 71, &brk); break;
 				case 67: changeState(command[i], " ", "68", &state, 71); breakValue(&state, 71, &brk); break;
 				case 68: changeState(command[i], " ", "68", &state, 69); appendState(&state, 69, database, command[i]); break;
-				case 69: changeState(command[i], " ", "70", &state, 69); appendState(&state, 69, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 71, &brk); break;
+				case 69: changeState(command[i], " ", "70", &state, 69); appendState(&state, 69, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 72, &brk); break;
 				case 70: changeState(command[i], " ", "70", &state, 71); breakValue(&state, 71, &brk); break;
+				case 73: changeState(command[i], "eE", "74.74", &state, 88); breakValue(&state, 88, &brk); break;
+				case 74: changeState(command[i], "lL", "75,75", &state, 88); breakValue(&state, 88, &brk); break;
+				case 75: changeState(command[i], "eE", "76,76", &state, 88); breakValue(&state, 88, &brk); break;
+				case 76: changeState(command[i], "tT", "77,77", &state, 88); breakValue(&state, 88, &brk); break;
+				case 77: changeState(command[i], "eE", "78,78", &state, 88); breakValue(&state, 88, &brk); break;
+				case 78: changeState(command[i], " ", "79", &state, 88); breakValue(&state, 88, &brk); break;
+				case 79: changeState(command[i], " tT", "79,80,80", &state, 88); breakValue(&state, 88, &brk); break;
+				case 80: changeState(command[i], "aA", "81,81", &state, 88); breakValue(&state, 88, &brk); break;
+				case 81: changeState(command[i], "bB", "82,82", &state, 88); breakValue(&state, 88, &brk); break;
+				case 82: changeState(command[i], "lL", "83,83", &state, 88); breakValue(&state, 88, &brk); break;
+				case 83: changeState(command[i], "eE", "84,84", &state, 88); breakValue(&state, 88, &brk); break;
+				case 84: changeState(command[i], " ", "85", &state, 88); breakValue(&state, 88, &brk); break;
+				case 85: clearEntity("table"); changeState(command[i], " ", "85", &state, 86); appendState(&state, 86, table, command[i]); break;
+				case 86: changeState(command[i], " ", "87,87", &state, 86); appendState(&state, 86, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 72, &brk); break;
+				case 87: changeState(command[i], " ", "87", &state, 88); breakValue(&state, 88, &brk); break;
 			}
 
 
@@ -191,78 +206,94 @@ void syntaxParser(char username[])
 		switch (state)
 		{
 			case 0: printf("OK: No changes are made!\n\n"); break;
-			case 1: printf("Error: Comment brackets opened, but not closed!\n\n"); break;
-			case 2: printf("Error: Unknown command passed!\n\n"); break;
-			case 3: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 4: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 5: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 6: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 7: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 8: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
+			case 1: printf("ERROR: Comment brackets opened, but not closed!\n\n"); break;
+			case 2: printf("ERROR: Unknown command passed!\n\n"); break;
+			case 3: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 4: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 5: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 6: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 7: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 8: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
 			case 9: checkDbExistence(TRUE); break;
 			case 10: checkDbExistence(TRUE); break;
-			case 11: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 12: printf("Error: Did you meant open db db_name?\n\n"); break;
-			case 13: printf("Error: Did you meant \"open db db_name\"?\n\n"); break;
-			case 14: printf("Error: No database name entered!\n\n"); break;
-			case 15: printf("Error: Name of database must be 32 characters long at max!\n\n"); break;
-			case 16: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 17: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 18: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 19: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 20: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 11: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 12: printf("ERROR: Did you meant open db db_name?\n\n"); break;
+			case 13: printf("ERROR: Did you meant \"open db db_name\"?\n\n"); break;
+			case 14: printf("ERROR: No database name entered!\n\n"); break;
+			case 15: printf("ERROR: Name of database must be 32 characters long at max!\n\n"); break;
+			case 16: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 17: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 18: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 19: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 20: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
 			case 21: checkTableExistence(TRUE); break;
-			case 22: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 23: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 24: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 25: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 26: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 27: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 28: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 22: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 23: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 24: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 25: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 26: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 27: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 28: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
 			case 29: checkTableExistence(TRUE); break;
-			case 30: printf("Error: Did you meant \"show struct table_name\"?\n\n"); break;
-			case 31: printf("Error: Try \"show all db\".\n\n"); break;
-			case 32: printf("Error: Try \"show all db\".\n\n"); break;
-			case 33: printf("Error: Try \"show all db\".\n\n"); break;
-			case 34: printf("Error: Try \"show all db\".\n\n"); break;
-			case 35: printf("Error: Try \"show all db\".\n\n"); break;
+			case 30: printf("ERROR: Did you meant \"show struct table_name\"?\n\n"); break;
+			case 31: printf("ERROR: Try \"show all db\".\n\n"); break;
+			case 32: printf("ERROR: Try \"show all db\".\n\n"); break;
+			case 33: printf("ERROR: Try \"show all db\".\n\n"); break;
+			case 34: printf("ERROR: Try \"show all db\".\n\n"); break;
+			case 35: printf("ERROR: Try \"show all db\".\n\n"); break;
 			case 36: allDatabases(); break;
-			case 37: printf("Error: Try \"show all db\".\n\n"); break;
+			case 37: printf("ERROR: Try \"show all db\".\n\n"); break;
 			case 38: allDatabases(); break;
-			case 39: printf("Error: Try \"show all tables\".\n\n"); break;
-			case 40: printf("Error: Try \"show all tables\".\n\n"); break;
-			case 41: printf("Error: Try \"show all tables\".\n\n"); break;
-			case 42: printf("Error: Try \"show all tables\".\n\n"); break;
-			case 43: printf("Error: Try \"show all tables\".\n\n"); break;
+			case 39: printf("ERROR: Try \"show all tables\".\n\n"); break;
+			case 40: printf("ERROR: Try \"show all tables\".\n\n"); break;
+			case 41: printf("ERROR: Try \"show all tables\".\n\n"); break;
+			case 42: printf("ERROR: Try \"show all tables\".\n\n"); break;
+			case 43: printf("ERROR: Try \"show all tables\".\n\n"); break;
 			case 44: allTables(); break;
 			case 45: allTables(); break;
-			case 46: printf("Error: Try \"show all tables\".\n\n"); break;
-			case 47: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 48: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 49: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 50: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 51: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 52: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 53: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 54: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 55: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 56: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 57: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 58: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 59: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 60: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
-			case 61: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 46: printf("ERROR: Try \"show all tables\".\n\n"); break;
+			case 47: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 48: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 49: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 50: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 51: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 52: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 53: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 54: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 55: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 56: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 57: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 58: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 59: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 60: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 61: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 62: attributeParser(); break;
-			case 63: printf("Error: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
+			case 63: printf("ERROR: Did you meant \"make table tbl_name (...)\"?\n\n"); break;
 			case 64: attributeParser(); break;
-			case 65: printf("Error: Table name can be of 16 characters max!\n\n"); break;
-			case 66: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
-			case 67: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
-			case 68: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
-			case 69: printf("Database created successfully!\n\n"); break;
-			case 70: printf("Database created successfully!\n\n"); break;
-			case 71: printf("Error: Did you meant \"make db db_name\"?\n\n"); break;
-			case 72: printf("Error: Database name length (%d) exceeded!\n\n", DATABASE_MAX_LENGTH); break;
+			case 65: printf("ERROR: Table name can be of 16 characters max!\n\n"); break;
+			case 66: printf("ERROR: Did you meant \"make db db_name\"?\n\n"); break;
+			case 67: printf("ERROR: Did you meant \"make db db_name\"?\n\n"); break;
+			case 68: printf("ERROR: Did you meant \"make db db_name\"?\n\n"); break;
+			case 69: makeDb(); clearEntity("database"); break;
+			case 70: makeDb(); clearEntity("database"); break;
+			case 71: printf("ERROR: Did you meant \"make db db_name\"?\n\n"); break;
+			case 72: printf("ERROR: Database name length (%d) exceeded!\n\n", DATABASE_MAX_LENGTH); break;
+			case 73: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 74: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 75: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 76: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 77: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 78: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 79: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 80: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 81: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 82: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 83: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 84: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 85: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
+			case 86: printf("OK: Table cleared!\n\n"); break;
+			case 87: printf("OK: Table cleared!\n\n"); break;
+			case 88: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
 		}
 
 
@@ -298,8 +329,6 @@ void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
-		//printf("BUFFER: %s\tCHAR: %c\tSTATE2: %d\n", buffer, buffer[i], state2);
-
 		/* Semantic analysis with DFA & Turing machine. */
 
 		switch (state2)
@@ -330,15 +359,15 @@ void attributeParser()
 
 	switch (state2)
 	{
-		case 0: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
-		case 1: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
-		case 2: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
-		case 3: printf("Error: Check if all attribute names are given for each data type.\n\n"); break;
+		case 0: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
+		case 1: printf("ERROR: Check if all attribute names are given for each data type.\n\n"); break;
+		case 2: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
+		case 3: printf("ERROR: Check if all attribute names are given for each data type.\n\n"); break;
 		case 4: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
 		case 5: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
-		case 6: printf("Error: Check if you passed any attributes & position of commas.\n\n"); break;
-		case 7: printf("Error: Add commas after data type & attribute name!\n\n"); break;
-		case 8: printf("Error: Invalid data type passed!\n\n"); break;
+		case 6: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
+		case 7: printf("ERROR: Add commas after data type & attribute name!\n\n"); break;
+		case 8: printf("ERROR: Invalid data type passed!\n\n"); break;
 	}
 
 

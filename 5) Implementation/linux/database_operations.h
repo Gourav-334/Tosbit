@@ -73,6 +73,7 @@ extern void allDatabases();
 extern void allTables();
 extern void checkDataType();
 extern void makeTable();
+extern void makeDb();
 
 
 
