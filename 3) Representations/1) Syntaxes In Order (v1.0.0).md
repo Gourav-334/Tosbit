@@ -1,41 +1,60 @@
 # SYNTAXES IN ORDER (v1.0.0)
 
 
+
 ## Commands
 
-```
-@ This is a comment @
 
-open db Office
+### All commands:
 
-show struct Desk
+1. `@ This is a comment @`
+2. `open db Office`
+3. `show struct Desk`
+4. `show all db`
+5. `show all tables`
+6. `make table Desk [int Sno, string name, string dep]`
+7. `make db Office`
+8. `delete table Desk`
+9. `delete db Office`
+10. `clear table Desk`
+11. `clear db Office`
+12. `insert into Desk [1, Yuvraj, 25]`
+13. `show all from Desk`
+14. `delete from Desk where Sno=5;`
+15. `delete from Desk where Sno=5 & name="Yuvraj"`
+16. `delete from Desk where Sno=5 | name="Yuvraj"`
+17. `change account password`
+18. `delete account`
 
-show all db
-show all tables
 
-make table Desk [int Sno, string name, string dep]
-make db Office
+### Completed commands:
 
-insert into table Desk [1, Yuvraj, 25]
+1. `@ This is a comment @`
+2. `open db Office`
+3. `show struct Desk`
+4. `show all db`
+5. `show all tables`
+6. `make table Desk [int Sno, string name, string dep]`
+7. `make db Office`
 
-delete from table Desk where Sno=5;
-delete from table Desk where Sno=5 & name="Yuvraj"
-delete from table Desk where Sno=5 | name="Yuvraj"
 
-show all from Desk
+### Remaining Commands:
 
-clear table Desk
-clear db Office
+1. `delete table Desk`
+2. `delete db Office`
+3. `clear table Desk`
+4. `clear db Office`
+5. `insert into Desk [1, Yuvraj, 25]`
+6. `show all from Desk`
+7. `delete from Desk where Sno=5;`
+8. `delete from Desk where Sno=5 & name="Yuvraj"`
+9. `delete from Desk where Sno=5 | name="Yuvraj"`
+10. `change account password`
+11. `delete account`
 
-delete table Desk
-delete db Office
-
-change account password
-delete account
-```
 
 
 ## Details
 
 $$ Total\;commands\;=\;18 $$
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{69}{12}\;=\;5\;days/command
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{69}{12}\;=\;5\;days/command $$

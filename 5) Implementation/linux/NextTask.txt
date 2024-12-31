@@ -1,6 +1,4 @@
 MAKE TABLE PARSER:
 
--> Debug the problem on "line 116" in "database_operations.c" (seg fault).
--> Test the database creation command.
--> Work on table deletion command.
+-> Debug 'stack smash' on table deletion command.
 -> Work on database deletion command.
