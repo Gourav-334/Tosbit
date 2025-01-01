@@ -216,3 +216,41 @@ void attributeParser();
 3. Now move the pointer by the number of bytes counted minus 4.
 4. If number of `\"` is more than 2, insert `,\n\t\"Table_name\"\n\t]\n}`. Else insert `\n\t\"Table_name\"\n\t]\n}`.
 5. Exit & close the file.
+
+
+
+## delete table Desk
+
+```json
+{
+	"tables": [
+		"tintin",
+		"polar",
+		"conductor",
+		"rambo"
+	]
+}
+```
+
+
+### File removal:
+
+1. Remove directory `data/db_name/tbl_name`.
+
+
+### Name removal:
+
+1. Open the file `data/db_name/tables.json` in read & write mode.
+2. Start reading & storing character to `data/cache.tosbit` in disk.
+3. After reading the second `\"`, reading mode gets ON.
+4. Only if reading mode is ON, follow the following algorithms.
+5. When two `\t` are encountered consecutively, mark first `\t`'s position as `head`.
+6. Find for a `\"`.
+7. When found, store everything in buffer until another `\"` appears.
+8. When it appears, check if the characters in buffer match the requested table name.
+9. If it matches, search for two consecutive `\t` again & mark second one as `tail` & load everything until `head` into the cache. Then store everything from `tail` to the EOF.
+10. Else if not found, repeat the loop.
+11. After all this has been done, open `data/db_name/tables.json` in write mode.
+12. Now copy all bytes from `data/cache.tosbit` to `data/db_name/tables.json`.
+13. Now remove `data/cache.tosbit`.
+

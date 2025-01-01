@@ -692,7 +692,7 @@ void makeDb()
 
 		/* Insert into databases.json as per if any database exist or not. */
 
-		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\"%s\"\n\t]\n}", database);}
+		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", database);}
 		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", database);}
 
 		fseek(fptr, (charCount-4), SEEK_SET);
