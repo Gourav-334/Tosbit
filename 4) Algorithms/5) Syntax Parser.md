@@ -147,8 +147,8 @@ void attributeParser();
 - If there is no error in previous stage, proceed.
 - Open `data\\db_name\\tables.json` in read & write mode.
 - Keep reading with count of bytes until a `]` & `\n` are encountered consecutively.
-- Now move the pointer by the number of bytes counted minus 2.
-- And insert `\t\"Table_name\"\n\t]\n}`.
+- Now move the pointer by the number of bytes counted minus 4.
+- And insert `,\n\t\"Table_name\"\n\t]\n}`.
 - Exit & close the file.
 
 
@@ -188,6 +188,8 @@ void attributeParser();
 
 ## make db Office
 
+### Basic:
+
 ```json
 {
     "tables": [
@@ -198,3 +200,19 @@ void attributeParser();
 1. Simply create a directory with name of database using `mkdir`.
 2. Then open the directory & make a file named `tables.json` there.
 3. Open `tables.json` in write mode & insert `{\n\t\"tables\": [\n\t]\n}` in it.
+
+
+### Listing database name:
+
+```json
+{
+    "databases": [
+    ]
+}
+```
+
+1. Open `data\\databases.json` in read & write mode.
+2. Keep reading with count of bytes until a `]` & `\n` are encountered consecutively.
+3. Now move the pointer by the number of bytes counted minus 4.
+4. If number of `\"` is more than 2, insert `,\n\t\"Table_name\"\n\t]\n}`. Else insert `\n\t\"Table_name\"\n\t]\n}`.
+5. Exit & close the file.
