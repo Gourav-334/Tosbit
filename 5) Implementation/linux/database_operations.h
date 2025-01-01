@@ -33,6 +33,7 @@
 /* Major buffer string & other variables. */
 
 extern FILE *fptr;
+extern FILE *cache;
 
 extern char command[COMMAND_MAX_LENGTH];
 extern char database[DATABASE_MAX_LENGTH];
@@ -74,6 +75,7 @@ extern void allTables();
 extern void checkDataType();
 extern void makeTable();
 extern void makeDb();
+extern void deleteTable();
 
 
 

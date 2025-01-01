@@ -22,6 +22,7 @@
 /* Initializations */
 
 FILE *fptr = NULL;
+FILE *cache = NULL;
 
 char command[COMMAND_MAX_LENGTH] = {0};
 char database[DATABASE_MAX_LENGTH] = {0};
@@ -148,7 +149,7 @@ int checkDbExistence(int msg)
 
 int checkTableExistence(int msg)
 {
-	int existence = FALSE;
+	int existence;
 
 	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
 	fptr = fopen(directory, "r");
@@ -156,17 +157,20 @@ int checkTableExistence(int msg)
 
 
 	if (strlen(database)==0 && msg==TRUE) {printf("No database opened yet!\n\n");}
+	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 
 
 	else if (fptr==NULL && msg==TRUE)
 	{
 		printf("Error: No table named \"%s\" exists!\n\n", table);
 		clearEntity("table");
+
+		existence = FALSE;
 	}
 
 
-	else if (fptr!=NULL && msg==TRUE) {tableStructure(); existence = TRUE;}
 	else if (fptr!=NULL && msg==FALSE) {existence = TRUE;}
+	else if (fptr!=NULL && msg==TRUE) {tableStructure(); existence = TRUE;}
 
 
 	return existence;
@@ -546,8 +550,8 @@ void makeTable()
 		fflush(fptr);
 
 
-		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);}
-		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", table);}
+		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", table);}
+		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);}
 
 
 		fseek(fptr, (charCount-4), SEEK_SET);
@@ -733,5 +737,149 @@ void makeDb()
 		clearEntity("buffer");
 		
 		printf("Database created successfully!\n\n");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Deleting a table. */
+
+void deleteTable()
+{
+	char c = '$', c2 = '$';
+	int charCount = 0, invCount = 0;
+	int head, tail;
+
+
+
+
+
+	/* Removing the table related directory. */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
+
+	system(directory);
+
+
+
+
+
+	/* Erasing name from list of all available tables. */
+
+	if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table);}
+
+	else if (checkTableExistence(FALSE)==TRUE)
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+
+		fptr = fopen(directory, "r");
+
+
+
+		while (invCount!=2)
+		{
+			c2 = c; c = fgetc(fptr); charCount++;
+			if (c=='\"') {invCount++;}
+		}
+
+
+
+
+		/* Searching for two consecutive tab-spaces. */
+
+		while (!feof(fptr))
+		{	
+			while (c!='\"')
+			{
+				c2 = c; c = fgetc(fptr); charCount++;
+
+				if (c2=='\t' && c=='\t') {invCount++; head = charCount - 1;}
+			}
+
+
+
+			/* Storing characters to buffer. */
+
+			clearEntity("buffer");
+
+			while (c!='\"')
+			{
+				c2 = c; c = fgetc(fptr); charCount++;
+
+				if (c!='\"') {buffer[strlen(buffer)] = c;}
+			}
+
+
+
+			if (!strcmp(table,buffer))
+			{
+				/* Searching for two consecutive tab-spaces. */
+
+				while (c!='\"')
+				{
+					c2 = c; c = fgetc(fptr); charCount++;
+
+					if (c2=='\t' && c=='\t') {invCount++; tail = charCount;}
+				}
+
+
+				/* Pasting required content to 'chache.tosbit' file. */
+
+				cache = fopen("data/cache.tosbit", "w");
+				fseek(fptr, 0, SEEK_SET); charCount = 0;
+
+				while (charCount!=head)
+				{
+					c2 = c; c = fgetc(fptr); charCount++;
+
+					fputc(c, cache);
+				}
+
+
+				fseek(fptr, tail, SEEK_SET);
+
+				while (!feof(fptr))
+				{
+					c2 = c; c = fgetc(fptr); charCount++;
+
+					fputc(c, cache);
+				}
+
+
+				fclose(fptr); fclose(cache);
+
+
+				/* Write content in cache.tosbit to respective tables.json */
+
+				fptr = fopen(directory, "w");
+				cache = fopen("data/cache.tosbit", "r");
+
+				while (!feof(cache))
+				{
+					c2 = c; c = fgetc(cache);
+
+					fputc(c, fptr);
+				}
+
+				system("rm -rf data/cache.tosbit");
+
+
+
+				printf("OK: Table has been successfully deleted!\n\n");
+			}
+
+
+
+			else if (strcmp(table,buffer)) {continue;}
+		}
 	}
 }

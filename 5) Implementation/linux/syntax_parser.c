@@ -170,7 +170,7 @@ void syntaxParser(char username[])
 				case 68: changeState(command[i], " ", "68", &state, 69); appendState(&state, 69, database, command[i]); break;
 				case 69: changeState(command[i], " ", "70", &state, 69); appendState(&state, 69, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 72, &brk); break;
 				case 70: changeState(command[i], " ", "70", &state, 71); breakValue(&state, 71, &brk); break;
-				case 73: changeState(command[i], "eE", "74.74", &state, 88); breakValue(&state, 88, &brk); break;
+				case 73: changeState(command[i], "eE", "74,74", &state, 88); breakValue(&state, 88, &brk); break;
 				case 74: changeState(command[i], "lL", "75,75", &state, 88); breakValue(&state, 88, &brk); break;
 				case 75: changeState(command[i], "eE", "76,76", &state, 88); breakValue(&state, 88, &brk); break;
 				case 76: changeState(command[i], "tT", "77,77", &state, 88); breakValue(&state, 88, &brk); break;
@@ -186,6 +186,7 @@ void syntaxParser(char username[])
 				case 86: changeState(command[i], " ", "87,87", &state, 86); appendState(&state, 86, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 72, &brk); break;
 				case 87: changeState(command[i], " ", "87", &state, 88); breakValue(&state, 88, &brk); break;
 			}
+
 
 
 			if (brk==TRUE) {brk = FALSE; break;}
@@ -291,8 +292,8 @@ void syntaxParser(char username[])
 			case 83: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
 			case 84: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
 			case 85: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
-			case 86: printf("OK: Table cleared!\n\n"); break;
-			case 87: printf("OK: Table cleared!\n\n"); break;
+			case 86: deleteTable(); break;
+			case 87: deleteTable(); break;
 			case 88: printf("ERROR: Attempting deletion with \"delete table tbl_name\"?\n\n"); break;
 		}
 
