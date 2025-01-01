@@ -1,4 +1,4 @@
 MAKE TABLE PARSER:
 
--> Debug 'stack smash' on table deletion command.
--> Work on database deletion command.
+-> Debug file handling (deleting folder but not writing to tables.json).
+-> Work on table deletion command.
