@@ -1,4 +1,0 @@
-{
-	"age": ["int", "regular"],
-	"name": ["string", "regular"]
-}

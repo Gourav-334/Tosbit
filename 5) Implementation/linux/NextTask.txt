@@ -1,4 +1,7 @@
 MAKE TABLE PARSER:
 
--> Debug file handling (deleting folder but not writing to tables.json).
--> Work on table deletion command.
+-> Extend automaton for "database deletion" command.
+-> Modify copied algorithm from "deleteTable()" (if required).
+-> Write code for the same.
+-> Add loader for disk writing.
+

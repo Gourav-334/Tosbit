@@ -1,0 +1,4 @@
+{
+	"bodycount": ["float", "regular"],
+	"ppSize": ["float", "regular"]
+}
