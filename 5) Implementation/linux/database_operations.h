@@ -21,6 +21,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "utility_box.h"
+
 
 
 
@@ -76,6 +78,7 @@ extern void checkDataType();
 extern void makeTable();
 extern void makeDb();
 extern void deleteTable();
+extern void deleteDb();
 
 
 

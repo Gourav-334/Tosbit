@@ -202,4 +202,18 @@ int illegalChars(char arr[], char chars[])
 
 
 
+
+
+/* Makes use of 'feof()' function safer. */
+
+int reachedEOF(FILE *fptr)
+{
+	int c = fgetc(fptr);
+
+	if (feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return TRUE;}
+	else if (!feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return FALSE;}
+}
+
+
+
 /* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

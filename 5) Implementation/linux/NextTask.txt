@@ -1,4 +1,3 @@
 MAKE TABLE PARSER:
 
--> Debug file handling (deleting folder but not writing to tables.json).
--> Work on table deletion command.
+-> Add loader for disk writing.

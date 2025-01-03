@@ -101,7 +101,7 @@ int checkDbExistence(int msg)
 	{
 		existence = FALSE;
 
-		printf("Error: No database named \"%s\" exists!\n\n", database);
+		printf("ERROR: No database named \"%s\" exists!\n\n", database);
 		clearEntity("database");
 	}
 
@@ -117,7 +117,7 @@ int checkDbExistence(int msg)
 	else if (fptr!=NULL && msg==TRUE)
 	{
 		existence = TRUE;
-		printf("Database %s online!\n\n", database);
+		printf("STAT: Database %s online!\n\n", database);
 
 		fclose(fptr);
 	}
@@ -156,13 +156,13 @@ int checkTableExistence(int msg)
 
 
 
-	if (strlen(database)==0 && msg==TRUE) {printf("No database opened yet!\n\n");}
+	if (strlen(database)==0 && msg==TRUE) {printf("ERROR: No database opened yet!\n\n");}
 	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 
 
 	else if (fptr==NULL && msg==TRUE)
 	{
-		printf("Error: No table named \"%s\" exists!\n\n", table);
+		printf("ERROR: No table named \"%s\" exists!\n\n", table);
 		clearEntity("table");
 
 		existence = FALSE;
@@ -307,7 +307,7 @@ void tableStructure()
 void allDatabases()
 {
 	fptr = fopen("data/databases.json", "r");
-	if (fptr==NULL) {printf("Error: databases.json file not found!\n\n");}
+	if (fptr==NULL) {printf("ERROR: databases.json file not found!\n\n");}
 
 	char c = '$';
 	int count = 0, reading = FALSE;
@@ -319,7 +319,7 @@ void allDatabases()
 		c = fgetc(fptr);
 
 		if (c=='\"') {count++;}
-		if (feof(fptr)) {printf("Error: No databases found!\n\n");}
+		if (feof(fptr)) {printf("ERROR: No databases found!\n\n");}
 	}
 
 
@@ -390,7 +390,7 @@ void allTables()
 
 	if (fptr==NULL)
 	{
-		printf("Error: No database named \"%s\" exists.\n\n", database);
+		printf("ERROR: No database opened yet!\n\n");
 		return;
 	}
 
@@ -506,7 +506,7 @@ void makeTable()
 
 	if (checkDbExistence(FALSE)==FALSE)
 	{
-		printf("Error: No database opened yet!\n\n");
+		printf("ERROR: No database opened yet!\n\n");
 		write = FALSE;
 	}
 
@@ -626,7 +626,7 @@ void makeTable()
 		fclose(fptr);
 		clearEntity("buffer");
 
-		printf("Table created successfully!\n\n");
+		printf("OK: Table created successfully!\n\n");
 	}
 }
 
@@ -736,7 +736,7 @@ void makeDb()
 
 		clearEntity("buffer");
 		
-		printf("Database created successfully!\n\n");
+		printf("OK: Database created successfully!\n\n");
 	}
 }
 
@@ -761,23 +761,30 @@ void deleteTable()
 
 
 
-	/* Removing the table related directory. */
-
-	clearEntity("directory");
-	snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
-
-	system(directory);
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n");}
 
 
 
-
-
-	/* Erasing name from list of all available tables. */
-
-	if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table);}
-
-	else if (checkTableExistence(FALSE)==TRUE)
+	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
 	{
+		printf("ERROR: No table named \"%s\" exists!\n\n", table);
+	}
+
+
+	
+	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
+	{
+		/* Removing the table related directory. */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
+
+		system(directory);
+
+
+
+		/* Erasing name from list of all available tables. */
+
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 
@@ -794,16 +801,18 @@ void deleteTable()
 
 
 
+
 		/* Searching for two consecutive tab-spaces. */
 
-		while (!feof(fptr))
+		while (!reachedEOF(fptr))
 		{	
-			while (c!='\"')
-			{
+			do {
 				c2 = c; c = fgetc(fptr); charCount++;
 
 				if (c2=='\t' && c=='\t') {invCount++; head = charCount - 1;}
-			}
+
+			} while (c!='\"');
+
 
 
 
@@ -811,12 +820,12 @@ void deleteTable()
 
 			clearEntity("buffer");
 
-			while (c!='\"')
-			{
+			do {
 				c2 = c; c = fgetc(fptr); charCount++;
 
 				if (c!='\"') {buffer[strlen(buffer)] = c;}
-			}
+
+			} while (c!='\"');
 
 
 
@@ -824,11 +833,11 @@ void deleteTable()
 			{
 				/* Searching for two consecutive tab-spaces. */
 
-				while (c!='\"')
+				while (!((c2=='\t' && c=='\t')||(c2=='\t' && c==']')))
 				{
 					c2 = c; c = fgetc(fptr); charCount++;
 
-					if (c2=='\t' && c=='\t') {invCount++; tail = charCount;}
+					if ((c2=='\t' && c=='\t')||(c2=='\t' && c==']')) {invCount++; tail = charCount - 1;}
 				}
 
 
@@ -844,37 +853,240 @@ void deleteTable()
 					fputc(c, cache);
 				}
 
+				fflush(cache);
+
 
 				fseek(fptr, tail, SEEK_SET);
 
-				while (!feof(fptr))
+
+				/* WARNING: Beware! FEOF in any WHILE loop always reads an extra garbage value. */
+
+				while (!reachedEOF(fptr))
 				{
 					c2 = c; c = fgetc(fptr); charCount++;
 
 					fputc(c, cache);
 				}
 
+				fflush(cache);
 
 				fclose(fptr); fclose(cache);
 
 
-				/* Write content in cache.tosbit to respective tables.json */
+
+				/* Write content in cache.tosbit to respective 'tables.json' */
 
 				fptr = fopen(directory, "w");
 				cache = fopen("data/cache.tosbit", "r");
 
-				while (!feof(cache))
+				while (!reachedEOF(cache))
 				{
-					c2 = c; c = fgetc(cache);
+					c2 = c; c = fgetc(cache); charCount++;
 
 					fputc(c, fptr);
 				}
+
+				fflush(fptr);
+
+				fclose(fptr); fclose(cache);
 
 				system("rm -rf data/cache.tosbit");
 
 
 
-				printf("OK: Table has been successfully deleted!\n\n");
+				/* Removing ',' if last entry was read. ,\n\t]\n} */
+
+				fptr = fopen(directory, "r+");
+				fseek(fptr, -6, SEEK_END);
+
+				if (fgetc(fptr)==',')
+				{
+					fseek(fptr, -1, SEEK_CUR);
+					fputs("\n\t]\n} ", fptr);
+
+					fflush(fptr);
+				}
+
+				fclose(fptr);
+
+
+
+				printf("OK: Table deleted successfully!\n\n");
+				break; // Why does this overwrites entire file if files not closed?
+			}
+
+
+
+			else if (strcmp(table,buffer)) {continue;}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Deleting a database. */
+
+void deleteDb()
+{
+	char c = '$', c2 = '$';
+	int charCount = 0, invCount = 0;
+	int head, tail;
+
+
+
+
+
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database named \"%s\" exists!\n\n", database);}
+
+
+
+	else if (checkDbExistence(FALSE)==TRUE)
+	{
+		/* Removing the database related directory. */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "rm -rf data/%s", database);
+
+		system(directory);
+
+
+
+		/* Erasing name from list of all available databases. */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/databases.json");
+
+		fptr = fopen(directory, "r");
+
+
+
+		while (invCount!=2)
+		{
+			c2 = c; c = fgetc(fptr); charCount++;
+			if (c=='\"') {invCount++;}
+		}
+
+
+
+
+
+		/* Searching for two consecutive tab-spaces. */
+
+		while (!reachedEOF(fptr))
+		{	
+			do {
+				c2 = c; c = fgetc(fptr); charCount++;
+
+				if (c2=='\t' && c=='\t') {invCount++; head = charCount - 1;}
+
+			} while (c!='\"');
+
+
+
+
+			/* Storing characters to buffer. */
+
+			clearEntity("buffer");
+
+			do {
+				c2 = c; c = fgetc(fptr); charCount++;
+
+				if (c!='\"') {buffer[strlen(buffer)] = c;}
+
+			} while (c!='\"');
+
+
+
+			if (!strcmp(database,buffer))
+			{
+				/* Searching for two consecutive tab-spaces. */
+
+				while (!((c2=='\t' && c=='\t')||(c2=='\t' && c==']')))
+				{
+					c2 = c; c = fgetc(fptr); charCount++;
+
+					if ((c2=='\t' && c=='\t')||(c2=='\t' && c==']')) {invCount++; tail = charCount - 1;}
+				}
+
+
+				/* Pasting required content to 'chache.tosbit' file. */
+
+				cache = fopen("data/cache.tosbit", "w");
+				fseek(fptr, 0, SEEK_SET); charCount = 0;
+
+				while (charCount!=head)
+				{
+					c2 = c; c = fgetc(fptr); charCount++;
+
+					fputc(c, cache);
+				}
+
+				fflush(cache);
+
+				fseek(fptr, tail, SEEK_SET);
+
+
+				/* WARNING: Beware! FEOF in any WHILE loop always reads an extra garbage value. */
+
+				while (!reachedEOF(fptr))
+				{
+					c2 = c; c = fgetc(fptr); charCount++;
+
+					fputc(c, cache);
+				}
+
+				fflush(cache);
+
+				fclose(fptr); fclose(cache);
+
+
+
+				/* Write content in cache.tosbit to respective 'tables.json' */
+
+				fptr = fopen(directory, "w");
+				cache = fopen("data/cache.tosbit", "r");
+
+				while (!reachedEOF(cache))
+				{
+					c2 = c; c = fgetc(cache); charCount++;
+
+					fputc(c, fptr);
+				}
+
+				fflush(fptr);
+
+				fclose(fptr); fclose(cache);
+
+				system("rm -rf data/cache.tosbit");
+
+
+
+				/* Removing ',' if last entry was read. ,\n\t]\n} */
+
+				fptr = fopen(directory, "r+");
+				fseek(fptr, -6, SEEK_END);
+
+				if (fgetc(fptr)==',')
+				{
+					fseek(fptr, -1, SEEK_CUR);
+					fputs("\n\t]\n} ", fptr);
+
+					fflush(fptr);
+				}
+
+				fclose(fptr);
+
+
+
+				printf("OK: Database deleted successfully!\n\n");
+				break; // Why does this overwrites entire file if files not closed?
 			}
 
 
