@@ -1,13 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 
 
 int main()
 {
-	printf("Hello, World!");
-	printf("\rOverwritten");
+	int x = 0;
+
+	while (1) {printf("\rBYTES: %d", x); x++;}
 
 	return 0;
 }
