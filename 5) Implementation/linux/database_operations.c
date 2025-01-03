@@ -1095,3 +1095,75 @@ void deleteDb()
 		}
 	}
 }
+
+
+
+
+
+/* Clears any requested table (clears of all data it holds). */
+
+void clearTable()
+{
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n");}
+
+
+	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
+	{
+		printf("ERROR: No table named \"%s\" exists!\n\n", table);
+	}
+
+
+	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
+
+		fptr = fopen(directory, "w");
+
+		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
+		fflush(fptr);
+
+		fclose(fptr);
+
+
+		printf("OK: Table cleared successfully!\n\n");
+	}
+}
+
+
+
+
+
+/* Clear all the tables present in a database. */
+
+void clearDb()
+{
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database named \"%s\" exists!\n\n", database);}
+
+
+	else if (checkDbExistence(FALSE)==TRUE)
+	{
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "rm -rf data/%s", database);
+		system(directory);
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "cd data && mkdir %s", database);
+		system(directory);
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+
+
+		/* tables.json */
+
+		fopen(directory, "w");
+		fputs("{\n\t\"tables\": [\n\t]\n}", fptr);
+		fflush(fptr);
+
+		fclose(fptr);
+
+
+		printf("OK: Database cleared successfully!\n\n");
+	}
+}
