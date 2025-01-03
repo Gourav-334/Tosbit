@@ -78,6 +78,7 @@ extern void checkDataType();
 extern void makeTable();
 extern void makeDb();
 extern void deleteTable();
+extern void deleteDb();
 
 
 

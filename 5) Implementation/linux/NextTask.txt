@@ -1,7 +1,3 @@
 MAKE TABLE PARSER:
 
--> Extend automaton for "database deletion" command.
--> Modify copied algorithm from "deleteTable()" (if required).
--> Write code for the same.
 -> Add loader for disk writing.
-
