@@ -79,6 +79,8 @@ extern void makeTable();
 extern void makeDb();
 extern void deleteTable();
 extern void deleteDb();
+extern void clearTable();
+extern void clearDb();
 
 
 

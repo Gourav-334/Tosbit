@@ -108,7 +108,7 @@ void syntaxParser(char username[])
 		{
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsSmMdD", "0,1,3,3,16,16,47,47,73", &state, 2); break;
+				case 0: changeState(command[i], " @oOsSmMdDcC", "0,1,3,3,16,16,47,47,73,95,95", &state, 2); break;
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
 				case 2: brk = TRUE; break;
 				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
@@ -190,6 +190,24 @@ void syntaxParser(char username[])
 				case 91: clearEntity("database"); changeState(command[i], " ", "91", &state, 92); appendState(&state, 92, database, command[i]); break;
 				case 92: changeState(command[i], " ", "93", &state, 92); appendState(&state, 92, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 72, &brk); break;
 				case 93: changeState(command[i], " ", "93", &state, 94); breakValue(&state, 94, &brk); break;
+				case 95: changeState(command[i], "lL", "96,96", &state, 109); breakValue(&state, 109, &brk); break;
+				case 96: changeState(command[i], "eE", "97,97", &state, 109); breakValue(&state, 109, &brk); break;
+				case 97: changeState(command[i], "aA", "98,98", &state, 109); breakValue(&state, 109, &brk); break;
+				case 98: changeState(command[i], "rR", "99,99", &state, 109); breakValue(&state, 109, &brk); break;
+				case 99: changeState(command[i], " ", "100", &state, 109); breakValue(&state, 109, &brk); break;
+				case 100: changeState(command[i], "tTdD", "101,101,110,100", &state, 109); breakValue(&state, 109, &brk); break;
+				case 101: changeState(command[i], "aA", "102,102", &state, 109); breakValue(&state, 109, &brk); break;
+				case 102: changeState(command[i], "bB", "103,103", &state, 109); breakValue(&state, 109, &brk); break;
+				case 103: changeState(command[i], "lL", "104,104", &state, 109); breakValue(&state, 109, &brk); break;
+				case 104: changeState(command[i], "eE", "105,105", &state, 109); breakValue(&state, 109, &brk); break;
+				case 105: changeState(command[i], " ", "106", &state, 109); breakValue(&state, 109, &brk); break;
+				case 106: clearEntity("table"); changeState(command[i], " ", "106", &state, 107); appendState(&state, 107, table, command[i]); break;
+				case 107: changeState(command[i], " ", "108", &state, 107); appendState(&state, 107, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 63, &brk); break;
+				case 108: changeState(command[i], " ", "108", &state, 109); breakValue(&state, 109, &brk); break;
+				case 110: changeState(command[i], "bB", "111,111", &state, 115); breakValue(&state, 115, &brk); break;
+				case 111: changeState(command[i], " ", "112", &state, 115); breakValue(&state, 115, &brk); break;
+				case 112: clearEntity("database"); changeState(command[i], " ", "112", &state, 113); appendState(&state, 113, database, command[i]); break;
+				case 113: changeState(command[i], " ", "114", &state, 113); appendState(&state, 113, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 72, &brk); break;
 			}
 
 
@@ -306,6 +324,27 @@ void syntaxParser(char username[])
 			case 92: deleteDb(); break;
 			case 93: deleteDb(); break;
 			case 94: printf("ERROR: Attempting deletion with \"delete db db_name\"?\n\n"); break;
+			case 95: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 96: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 97: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 98: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 99: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 100: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 101: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 102: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 103: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 104: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 105: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 106: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 107: clearTable(); break;
+			case 108: clearTable(); break;
+			case 109: printf("ERROR: Try \"clear table tbl_name\".\n\n"); break;
+			case 110: printf("ERROR: Try \"clear db db_name.\n\n"); break;
+			case 111: printf("ERROR: Try \"clear db db_name.\n\n"); break;
+			case 112: printf("ERROR: Try \"clear db db_name.\n\n"); break;
+			case 113: clearDb(); break;
+			case 114: clearDb(); break;
+			case 115: printf("ERROR: Try \"clear db db_name.\n\n"); break;
 		}
 
 
