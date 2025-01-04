@@ -183,7 +183,7 @@ void syntaxParser(char username[])
 				case 83: changeState(command[i], "eE", "84,84", &state, 88); breakValue(&state, 88, &brk); break;
 				case 84: changeState(command[i], " ", "85", &state, 88); breakValue(&state, 88, &brk); break;
 				case 85: clearEntity("table"); changeState(command[i], " ", "85", &state, 86); appendState(&state, 86, table, command[i]); break;
-				case 86: changeState(command[i], " ", "87,87", &state, 86); appendState(&state, 86, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 63, &brk); break;
+				case 86: changeState(command[i], " ", "87,87", &state, 86); appendState(&state, 86, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 65, &brk); break;
 				case 87: changeState(command[i], " ", "87", &state, 88); breakValue(&state, 88, &brk); break;
 				case 89: changeState(command[i], "bB", "90,90", &state, 94); breakValue(&state, 94, &brk); break;
 				case 90: changeState(command[i], " ", "91", &state, 94); breakValue(&state, 94, &brk); break;
@@ -202,7 +202,7 @@ void syntaxParser(char username[])
 				case 104: changeState(command[i], "eE", "105,105", &state, 109); breakValue(&state, 109, &brk); break;
 				case 105: changeState(command[i], " ", "106", &state, 109); breakValue(&state, 109, &brk); break;
 				case 106: clearEntity("table"); changeState(command[i], " ", "106", &state, 107); appendState(&state, 107, table, command[i]); break;
-				case 107: changeState(command[i], " ", "108", &state, 107); appendState(&state, 107, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 63, &brk); break;
+				case 107: changeState(command[i], " ", "108", &state, 107); appendState(&state, 107, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 65, &brk); break;
 				case 108: changeState(command[i], " ", "108", &state, 109); breakValue(&state, 109, &brk); break;
 				case 110: changeState(command[i], "bB", "111,111", &state, 115); breakValue(&state, 115, &brk); break;
 				case 111: changeState(command[i], " ", "112", &state, 115); breakValue(&state, 115, &brk); break;

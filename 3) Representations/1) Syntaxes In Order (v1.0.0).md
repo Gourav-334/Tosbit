@@ -34,7 +34,7 @@
 3. `show struct Desk`
 4. `show all db`
 5. `show all tables`
-6. `make table Desk [int Sno, string name, string dep]`
+6. `make table Desk(int Sno, string name, string dep)`
 7. `make db Office`
 8. `delete table Desk`
 9. `delete db Office`
@@ -44,7 +44,7 @@
 
 ### Remaining Commands:
 
-1. `insert into Desk [1, Yuvraj, 25]`
+1. `insert into Desk(1, Yuvraj, 25)`
 2. `show all from Desk`
 3. `delete from Desk where Sno=5;`
 4. `delete from Desk where Sno=5 & name="Yuvraj"`
