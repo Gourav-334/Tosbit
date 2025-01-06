@@ -28,11 +28,9 @@
 
 /* Header & source file inclusion */
 
-#include <stdio.h>
 #include <stdlib.h>
 
-#include "encrypter.c"
-#include "console_colour.c"
+#include "encrypter.h"
 
 
 
@@ -45,15 +43,15 @@
 
 /* Variables */
 
-char username[USERNAME_MAX_SIZE];
-char password[PASSWORD_MAX_SIZE];
-char re_password[PASSWORD_MAX_SIZE];
-char buffer[BUFFER_SIZE];
+extern char username[USERNAME_MAX_SIZE];
+extern char password[PASSWORD_MAX_SIZE];
+extern char re_password[PASSWORD_MAX_SIZE];
+extern char buff[BUFFER_SIZE];
 
-int functionID = 1;
-int exit_status = FALSE;
+extern int functionID;
+extern int exit_status;
 
-FILE *fptr;
+extern FILE *file;
 
 
 
@@ -65,7 +63,7 @@ FILE *fptr;
 
 /* Functions */
 
-void profile_manager();
+extern void profile_manager();
 
 
 

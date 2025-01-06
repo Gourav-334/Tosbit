@@ -2,11 +2,6 @@
 
 
 
-#ifndef PROFILE_MANAGER_C
-	#define PROFILE_MANAGER_C
-
-
-
 #include "profile_manager.h"
 
 
@@ -72,6 +67,27 @@ iv) The so called race condition can be simply solved by using memset() for fget
 
 
 
+/* Variables */
+
+char username[USERNAME_MAX_SIZE] = {0};
+char password[PASSWORD_MAX_SIZE] = {0};
+char re_password[PASSWORD_MAX_SIZE] = {0};
+char buff[BUFFER_SIZE] = {0};
+
+int functionID = -1;			// Might become troubling later on.
+int exit_status = -1;
+
+FILE *file = NULL;
+
+
+
+
+
+
+
+
+
+
 void profile_manager()
 {
 	while (exit_status==FALSE)
@@ -92,16 +108,14 @@ void profile_manager()
 
 			case 1:
 
-				fptr = fopen("data\\user.tosbit", "r");
+				file = fopen("data/user.tosbit", "r");
 
 
 				/* If compulsory user system file not found */
 
-				if (fptr==NULL)
+				if (file==NULL)
 				{
-					red_console();
-					printf("User file not found! Please try re-downloading the package!\n\n");
-					white_console();
+					printf("Error: User file not found! Please try re-downloading the package!\n\n");
 				}
 
 
@@ -110,17 +124,17 @@ void profile_manager()
 
 				else
 				{
-					fgets(buffer, BUFFER_SIZE, fptr);
+					fgets(buff, BUFFER_SIZE, file);
 
 
 
 					/* No user profile set */
 
-					if (strlen(buffer)==0)
+					if (strlen(buff)==0)
 					{
 						/* Open file in write mode if it doesn't exist */
 
-						fptr = fopen("data\\user.tosbit", "w");
+						file = fopen("data/user.tosbit", "w");
 						functionID = 2; continue;
 					}
 
@@ -130,49 +144,48 @@ void profile_manager()
 
 					else
 					{
-						yellow_console(); printf("Enter password: "); white_console();
+						printf("Enter password: ");
 						fgets(password, PASSWORD_MAX_SIZE, stdin); newline_remover(password);
+
 
 
 						if (strlen(password)>(PASSWORD_MAX_SIZE-2))
 						{
-							red_console();
-							printf("Password size must not exceed %d characters!\n\n", PASSWORD_MAX_SIZE);
+							printf("Error: Password size must not exceed %d characters!\n\n", PASSWORD_MAX_SIZE);
 							
 							memset(fgets(password, PASSWORD_MAX_SIZE, stdin), 0, strlen(password)*sizeof(char));
 						}
 
 
+
 						else if (strlen(password)<PASSWORD_MIN_SIZE)
 						{
-							red_console();
-							printf("Password size must be more than %d characters!\n\n", PASSWORD_MIN_SIZE);
+							printf("Error: Password size must be more than %d characters!\n\n", PASSWORD_MIN_SIZE);
 						}
+
 
 
 						else
 						{
-							if (!strcmp(password, decrypt(buffer)))
+							if (!strcmp(password, decrypt(buff)))
 							{
-								memset(buffer, 0 , strlen(buffer)*sizeof(char));
-								memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
+								memset(buff, 0 , strlen(buff)*sizeof(char));
+								memset(decrypt(buff), 0, strlen(decrypt(buff))*sizeof(char));
 
 								functionID = 4;
 							}
 
 
-							else if (strcmp(password, decrypt(buffer)))
+							else if (strcmp(password, decrypt(buff)))
 							{
-								red_console();
-								printf("Password doesn't match!\n\n");
-								yellow_console();
+								printf("Error: Password doesn't match!\n\n");
 							}
 						}
 
 
 
-						memset(buffer, 0 , strlen(buffer)*sizeof(char));
-						memset(decrypt(buffer), 0, strlen(decrypt(buffer))*sizeof(char));
+						memset(buff, 0 , strlen(buff)*sizeof(char));
+						memset(decrypt(buff), 0, strlen(decrypt(buff))*sizeof(char));
 
 						continue;
 					}
@@ -195,33 +208,27 @@ void profile_manager()
 
 			case 2:
 
-				yellow_console();
 				printf("New username: "); fgets(username, USERNAME_MAX_SIZE, stdin);
+
 
 
 				if (strlen(username)>(USERNAME_MAX_SIZE-2))
 				{
 					memset(username, 0, strlen(username)*sizeof(char));
-					red_console();
 					printf("Username must be of %d characters max!\n\n", USERNAME_MAX_SIZE);
-
 					memset(fgets(username, USERNAME_MAX_SIZE, stdin), 0, strlen(username)*sizeof(char));
 				}
+
 
 
 				else if (strlen(username)<(USERNAME_MIN_SIZE+1))
 				{
 					memset(username, 0, strlen(username)*sizeof(char));
-					red_console();
-					printf("Username must be of minimum %d characters!\n\n", USERNAME_MIN_SIZE);
+					printf("Error: Username must be of minimum %d characters!\n\n", USERNAME_MIN_SIZE);
 				}
 
 
-				else
-				{
-					green_console(); printf("Alright!\n\n");
-					functionID = 3;
-				}
+				else {printf("OK: Alright!\n\n"); functionID = 3;}
 
 
 				continue;
@@ -245,17 +252,14 @@ void profile_manager()
 				memset(password, 0, strlen(password)*sizeof(char));
 				memset(re_password, 0, strlen(re_password)*sizeof(char));
 
-				yellow_console();
-				printf("Enter password: "); white_console();
+				printf("Enter password: ");
 				fgets(password, PASSWORD_MAX_SIZE, stdin);
 
 
 
 				if (strlen(password)>(PASSWORD_MAX_SIZE-2))
 				{
-					red_console();
-					printf("Password size must not exceed %d characters!\n\n", PASSWORD_MAX_SIZE);
-
+					printf("Error: Password size must not exceed %d characters!\n\n", PASSWORD_MAX_SIZE);
 					memset(fgets(password, PASSWORD_MAX_SIZE, stdin), 0, strlen(password)*sizeof(char));
 				}
 
@@ -263,24 +267,22 @@ void profile_manager()
 
 				else if (strlen(password)<PASSWORD_MIN_SIZE)
 				{
-					red_console();
-					printf("Password size must be more than %d characters!\n\n", PASSWORD_MIN_SIZE);
+					printf("Error: Password size must be more than %d characters!\n\n", PASSWORD_MIN_SIZE);
 				}
 
 
 
 				else
 				{
-					yellow_console();
-					printf("Re-enter password: "); white_console();
+					printf("Re-enter password: ");
 					fgets(re_password, PASSWORD_MAX_SIZE, stdin);
 
 					if (!strcmp(password, re_password))
 					{
-						fputs(encrypt(password), fptr);
+						fputs(encrypt(password), file);
 						memset(encrypt(password), 0, strlen(password)*sizeof(char));
 
-						fputs(encrypt(username), fptr);
+						fputs(encrypt(username), file);
 						memset(encrypt(username), 0, strlen(username)*sizeof(char));
 
 						functionID = 4;
@@ -289,8 +291,7 @@ void profile_manager()
 
 					else if (strcmp(password, re_password))
 					{
-						red_console();
-						printf("Passwords don't match, try again!\n\n");
+						printf("Error: Passwords don't match, try again!\n\n");
 					}
 				}
 
@@ -318,13 +319,9 @@ void profile_manager()
 
 			case 4:
 
-				green_console();
-
 				printf("\n\nHello %s! Welcome to Data-Godown v1.0.0!\n", username);
 				printf("Copyright (C) under Apache 2.0 license, ");
 				printf("read documentation for more information.\n\n");
-
-				white_console();
 
 				exit_status = TRUE;
 
@@ -338,17 +335,6 @@ void profile_manager()
 		if (exit_status==TRUE) {exit_status==FALSE; break;}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-#endif
 
 
 

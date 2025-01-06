@@ -2,11 +2,6 @@
 
 
 
-#ifndef UTILITY_BOX_C
-	#define UTILITY_BOX_C
-
-
-
 #include "utility_box.h"
 
 
@@ -209,7 +204,15 @@ int illegalChars(char arr[], char chars[])
 
 
 
-#endif	//Drink mango juice after this code.
+/* Makes use of 'feof()' function safer. */
+
+int reachedEOF(FILE *fptr)
+{
+	int c = fgetc(fptr);
+
+	if (feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return TRUE;}
+	else if (!feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return FALSE;}
+}
 
 
 

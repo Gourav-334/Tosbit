@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-#include "utility_box.c"
+#include "utility_box.h"
 
 
 
@@ -25,19 +25,19 @@
 
 /* Variables */
 
-char node_value[257];
+extern char node_value[257];
 
 
 
 /* The structure containing Queue node's instructions */
 
-typedef struct node {char name[257]; struct node *next;} node;
+extern typedef struct node {char name[257]; struct node *next;} node;
 
 
 
 /* Queue class with all related functions */
 
-typedef struct Queue
+extern typedef struct Queue
 {
 	int n, pos;
 	struct node *m, *head, *temp, *trav;
@@ -58,14 +58,14 @@ typedef struct Queue
 
 /* Queue class methods */
 
-void Queue_queue(Queue *q, char str[]);
-void Queue_clear(Queue *q);
+extern void Queue_queue(Queue *q, char str[]);
+extern void Queue_clear(Queue *q);
 
-int Queue_getIndex(Queue *q, char str[]);
-char *Queue_getValue(Queue *q, int index);
+extern int Queue_getIndex(Queue *q, char str[]);
+extern char *Queue_getValue(Queue *q, int index);
 
-void Queue_peek(Queue *q);
-void Queue_showAll(Queue *q);
+extern void Queue_peek(Queue *q);
+extern void Queue_showAll(Queue *q);
 
 
 
