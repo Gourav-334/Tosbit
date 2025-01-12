@@ -12,17 +12,15 @@
 3. `show struct Desk`
 4. `show all db`
 5. `show all tables`
-6. `make table Desk [int Sno, string name, string dep]`
+6. `make table Desk (int Sno, string name, string dep)`
 7. `make db Office`
 8. `delete table Desk`
 9. `delete db Office`
 10. `clear table Desk`
 11. `clear db Office`
-12. `insert into Desk [1, Yuvraj, 25]`
+12. `push to Desk (1, Yuvraj, 25)`
 13. `show all from Desk`
 14. `delete from Desk where Sno=5;`
-15. `delete from Desk where Sno=5 & name="Yuvraj"`
-16. `delete from Desk where Sno=5 | name="Yuvraj"`
 17. `change account password`
 18. `delete account`
 
@@ -44,13 +42,12 @@
 
 ### Remaining Commands:
 
-1. `insert into Desk(1, Yuvraj, 25)`
+1. `push to Desk (1, Yuvraj, 25)`
 2. `show all from Desk`
-3. `delete from Desk where Sno=5;`
-4. `delete from Desk where Sno=5 & name="Yuvraj"`
-5. `delete from Desk where Sno=5 | name="Yuvraj"`
-6. `change account password`
-7. `delete account`
+3. `rename Name in Desk to Names`
+4. `delete from Desk where Sno=5`
+5. `change account password`
+6. `delete account`
 
 
 

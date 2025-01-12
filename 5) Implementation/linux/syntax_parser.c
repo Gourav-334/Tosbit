@@ -108,7 +108,7 @@ void syntaxParser(char username[])
 		{
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsSmMdDcC", "0,1,3,3,16,16,47,47,73,95,95", &state, 2); break;
+				case 0: changeState(command[i], " @oOsSmMdDcCpP", "0,1,3,3,16,16,47,47,73,95,95,116,116", &state, 2); break;
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
 				case 2: brk = TRUE; break;
 				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
@@ -208,6 +208,14 @@ void syntaxParser(char username[])
 				case 111: changeState(command[i], " ", "112", &state, 115); breakValue(&state, 115, &brk); break;
 				case 112: clearEntity("database"); changeState(command[i], " ", "112", &state, 113); appendState(&state, 113, database, command[i]); break;
 				case 113: changeState(command[i], " ", "114", &state, 113); appendState(&state, 113, database, command[i]); limitChecker(database, (DATABASE_MAX_LENGTH-1), &state, 72, &brk); break;
+				case 116: changeState(command[i], "uU", "117", &state, 132); breakValue(&state, 132, &brk); break;
+				case 117: changeState(command[i], "sS", "118", &state, 132); breakValue(&state, 132, &brk); break;
+				case 118: changeState(command[i], "hH", "119", &state, 132); breakValue(&state, 132, &brk); break;
+				case 119: changeState(command[i], " ", "120", &state, 132); breakValue(&state, 132, &brk); break;
+				case 120: changeState(command[i], " tT", "120,121,121", &state, 132); breakValue(&state, 132, &brk); break;
+				case 121: changeState(command[i], "oO", "122,122", &state, 132); breakValue(&state, 132, &brk); break;
+				case 122: changeState(command[i], " ", "123", &state, 132); breakValue(&state, 132, &brk); break;
+				case 123: changeState(command[i], " ", "123", &state, 124); breakValue(&state, 124, &brk); break;
 			}
 
 
