@@ -254,3 +254,80 @@ void attributeParser();
 12. Now copy all bytes from `data/cache.tosbit` to `data/db_name/tables.json`.
 13. Now remove `data/cache.tosbit`.
 
+
+
+## Push Parser
+
+
+### Involved files:
+
+- `data/db_name/tbl_name/details.json` (Read)
+- `data/db_name/tbl_name/rows.json` (Write)
+
+
+### details.json (Read)
+
+```json
+{
+	"name": ["string", "unique"],
+	"age": ["int", "regular"]
+}
+```
+
+
+### rows.json (Write)
+
+```json
+{
+	"rows": [
+		{
+			"name": "name7",
+			"age": "7"
+		},
+
+		{
+			"name": "name8",
+			"age": "8"
+		}
+	]
+}
+```
+
+
+### Buffer parsing objectives:
+
+1. Check if exact number of  passed.
+2. Check if correct data types are passed.
+3. Check proper spacing & grammar.
+4. For successful checks, insert data to table.
+
+
+### Buffer parsing:
+
+#### CHECKING NUMBER OF ARGUMENTS
+5. Now open `data/db_name/tbl_name/details.json` in read mode.
+6. Also open `data/db_name/tbl_name/rows.json` in read & write mode.
+6. Keep reading characters from buffer.
+7. On each appearance of `,`, increament the value of `commaCount`.
+8. Keep reading each byte from `details.json` one-by-one.
+9. On each appearance of `"`, increament value of `invCount`.
+10. Compare  of `commaCount` & `invCount/6`, then print appropriate feedback on error.
+11. Set value of `invCount` back to `0`.
+
+#### DATA TYPE CHECKING
+12. Set fd of `data/db_name/tbl_name/details.json` to start of file.
+13. Keep reading until the 3rd `"` has been read (keep increasing value of `invCount`).
+14. Now, keep adding upcoming bytes to `dataType` until a `"` appears.
+15. Set value of `invCount` back to `0`.
+16. Now read, but not append anything from `details.json` until `invCount` becomes `5`.
+17. Set value of `invCount` back to `0` again.
+18. From `buffer`, keep reading characters & inserting them to `value` until `,` appears or last character has been read before that.
+19. Now as per the `dataType`, pass the `value` to appropriate automaton for checking Data type, with check for the limit.
+
+> **<u>NOTE</u>:** Include keeping or discarding white spaces as per the data type.
+
+#### WRITE DATA
+20. If automaton doesn't stops on accept state for the given `dataType`, display appropriate message.
+21. Else if it stops on accept state, modify the `value`.
+22. Then reach `5` bytes before the EOF in `rows.json`.
+23. Insert `,\n\n\t\t{\n\t\t\t"ATTRIBUTE": "VALUE"` for first value.
