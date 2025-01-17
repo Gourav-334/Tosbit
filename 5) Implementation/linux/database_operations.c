@@ -1167,3 +1167,53 @@ void clearDb()
 		printf("OK: Database cleared successfully!\n\n");
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Pushing row into a table. */
+
+void pushRow()
+{
+	char c='$', c2='$';
+	int commaCount=0, invCount=0;
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
+	fptr = fopen(directory, "r");
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
+	fptr = fopen(directory, "r+");
+
+
+
+	/* Checking number of argument (less or more or enough). */
+
+	for (int i=0; i<strlen(buffer); i++) {if(buffer[i]==',') {commaCount++;}}
+
+	while (!reachedEOF(fptr))
+	{
+		c2 = c; c = fgetc(fptr);
+
+		if (c=='\"') {invCount++;}
+
+		// CONTINUE FROM HERE...
+	}
+}

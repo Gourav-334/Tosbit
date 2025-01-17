@@ -215,7 +215,7 @@ void syntaxParser(char username[])
 				case 120: changeState(command[i], " tT", "120,121,121", &state, 129); breakValue(&state, 129, &brk); break;
 				case 121: changeState(command[i], "oO", "122,122", &state, 129); breakValue(&state, 129, &brk); break;
 				case 122: changeState(command[i], " ", "123", &state, 129); breakValue(&state, 129, &brk); break;
-				case 123: clearEntity("table"); changeState(command[i], " ", "123", &state, 124); appendState(&state, 124, database, command[i]); break;
+				case 123: clearEntity("table"); changeState(command[i], " ", "123", &state, 124); appendState(&state, 124, table, command[i]); break;
 				case 124: changeState(command[i], " (", "125,126", &state, 124); appendState(&state, 124, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 65, &brk); break;
 				case 125: changeState(command[i], " (", "125,126", &state, 129); breakValue(&state, 129, &brk); break;
 				case 126: clearEntity("buffer"); changeState(command[i], ")", "128", &state, 127); appendState(&state, 127, buffer, command[i]); break;
@@ -370,7 +370,7 @@ void syntaxParser(char username[])
 			case 125: printf("ERROR: Did you meant \"push to tbl_name (...)\"\n\n"); break;
 			case 126: printf("ERROR: Did you meant \"push to tbl_name (...)\"\n\n"); break;
 			case 127: printf("ERROR: Did you meant \"push to tbl_name (...)\"\n\n"); break;
-			case 128: printf("OK: Data inserted successfully!\n\n"); break;
+			case 128: pushRow(); break;
 			case 129: printf("ERROR: Did you meant \"push to tbl_name (...)\"\n\n"); break;
 			case 130: printf("ERROR: Buffer limit exceeded (command too long)!\n\n"); break;
 			case 131: printf("ERROR: Did you meant \"push to tbl_name (...)\"\n\n"); break;

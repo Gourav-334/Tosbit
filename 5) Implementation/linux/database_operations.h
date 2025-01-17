@@ -34,7 +34,7 @@
 
 /* Major buffer string & other variables. */
 
-extern FILE *fptr;
+extern FILE *fptr, *fptr2;
 extern FILE *cache;
 
 extern char command[COMMAND_MAX_LENGTH];
@@ -81,6 +81,7 @@ extern void deleteTable();
 extern void deleteDb();
 extern void clearTable();
 extern void clearDb();
+extern void pushRow();
 
 
 

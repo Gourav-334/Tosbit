@@ -1,0 +1,4 @@
+{
+	"name": ["string", "unique"],
+	"age": ["int", "regular"]
+}
