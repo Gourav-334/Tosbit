@@ -20,6 +20,8 @@
 14. `join Sno,Name from Desk & Name from Class`
 15. `upload to server`
 16. `retrieve from server`
+17. `switch to disk`
+18. `switch to ram`
 
 
 ## Details

@@ -1,5 +1,4 @@
 MAKE TABLE PARSER:
 
--> Separate algorithms for "data type checking" & "row data insertion".
--> Re-read buffer from start for safety reasons.
--> Check the algorithm flow again & make modifications accordingly.
+-> Make automata for data types validation.
+-> Code the automata.

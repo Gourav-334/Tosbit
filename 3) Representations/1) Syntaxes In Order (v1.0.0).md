@@ -53,4 +53,4 @@
 
 ## Details
 
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{64}{7}\;=\;9\;days/command $$
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{50}{6}\;=\;8\;days/command $$

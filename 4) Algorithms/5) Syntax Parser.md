@@ -296,38 +296,56 @@ void attributeParser();
 
 ### Buffer parsing objectives:
 
-1. Check if exact number of  passed.
-2. Check if correct data types are passed.
-3. Check proper spacing & grammar.
-4. For successful checks, insert data to table.
+- Check if exact number of  passed.
+- Check if correct data types are passed.
+- Check proper spacing & grammar.
+- For successful checks, insert data to table.
+
+
+### Check Unique Value:
+
+- *COMING SOON*
 
 
 ### Buffer parsing:
 
 #### CHECKING NUMBER OF ARGUMENTS
-5. Now open `data/db_name/tbl_name/details.json` in read mode.
-6. Also open `data/db_name/tbl_name/rows.json` in read & write mode.
-6. Keep reading characters from buffer.
-7. On each appearance of `,`, increament the value of `commaCount`.
-8. Keep reading each byte from `details.json` one-by-one.
-9. On each appearance of `"`, increament value of `invCount`.
-10. Compare  of `commaCount` & `invCount/6`, then print appropriate feedback on error.
-11. Set value of `invCount` back to `0`.
+1. Open `data/db_name/tbl_name/details.json` in read mode.
+2. Also open `data/db_name/tbl_name/rows.json` in read & write mode.
+3. Keep reading characters from buffer.
+4. On each appearance of `,` in `buffer`, increament the value of `commaCount`.
+5. Keep reading each byte from `details.json` one-by-one.
+6. On each appearance of `"`, increament value of `invCount`.
+7. Compare `commaCount` & `invCount/6`, then print appropriate feedback on error.
+8. Set value of `invCount` back to `0`.
 
 #### DATA TYPE CHECKING
-12. Set fd of `data/db_name/tbl_name/details.json` to start of file.
-13. Keep reading until the 3rd `"` has been read (keep increasing value of `invCount`).
-14. Now, keep adding upcoming bytes to `dataType` until a `"` appears.
-15. Set value of `invCount` back to `0`.
-16. Now read, but not append anything from `details.json` until `invCount` becomes `5`.
-17. Set value of `invCount` back to `0` again.
-18. From `buffer`, keep reading characters & inserting them to `value` until `,` appears or last character has been read before that.
-19. Now as per the `dataType`, pass the `value` to appropriate automaton for checking Data type, with check for the limit.
-
-> **<u>NOTE</u>:** Include keeping or discarding white spaces as per the data type.
+9. Set fd of `data/db_name/tbl_name/details.json` to start of file.
+10. Keep reading until the 3rd `"` has been read (keep increasing value of `invCount`).
+11. Empty `dataType`, `key` & `value`.
+12. Now, keep adding upcoming bytes to `dataType` until a `"` appears.
+13. Set value of `invCount` back to `0`.
+14. Keep reading until next `"` is encountered.
+15. Now, keep adding upcoming bytes to `key` until a `"` appears.
+16. Keep reading & appending bytes from `buffer` to `value` until a `,` appears (don't include `,`).
+17. Check if the `key` value is valid.
+18. For `unique` `key`, check if duplicate value exists or not (`checkUnique()`).
+19. If not, pass the value for being checked by automaton as per its `dataType`.
 
 #### WRITE DATA
-20. If automaton doesn't stops on accept state for the given `dataType`, display appropriate message.
-21. Else if it stops on accept state, modify the `value`.
-22. Then reach `5` bytes before the EOF in `rows.json`.
-23. Insert `,\n\n\t\t{\n\t\t\t"ATTRIBUTE": "VALUE"` for first value.
+20. Else if it stops on accept state, modify the `value` removing whitespaces.
+21. Then reach `6` bytes before the EOF in `rows.json`.
+22. If next character is `}`, insert `,`.
+- Then insert `\n\n\t\t{\n\t\t\t"ATTRIBUTE": "VALUE"` for first value.
+23. Move `3` bytes forward in `details.json`.
+24. Keep reading until `}` or `"` appears.
+25. For `}`, add `\n\t\t}\n\t]\n}` in `rows.json`.
+26. Else for `[`, add `,\n\t\t\t` in `rows.json`.
+27. If next character `"`, repeat the process for next attribute.
+
+### Algorithmic challenges:
+
+- Challenging file operations
+- Multiple automata
+- Extreme looping & flow control
+- Multiple counters
