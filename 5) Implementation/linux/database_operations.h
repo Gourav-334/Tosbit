@@ -1,6 +1,13 @@
 #ifndef DATABASE_OPERATIONS_H
 	#define DATABASE_OPERATIONS_H
 
+#define TRUE 1
+#define FALSE 0
+
+
+
+
+
 #define COMMAND_MAX_LENGTH 257
 #define DATABASE_MAX_LENGTH 17
 #define TABLE_MAX_LENGTH 17
@@ -9,9 +16,8 @@
 
 #define DATA_TYPE_MAX_LENGTH 7
 #define ATTRIBUTE_MAX_LENGTH 17
-
-#define TRUE 1
-#define FALSE 0
+#define KEY_MAX_LENGTH 8
+#define VALUE_MAX_LENGTH 33
 
 
 
@@ -44,6 +50,8 @@ extern char directory[DIRECTORY_MAX_LENGTH];
 extern char buffer[BUFFER_MAX_LENGTH];
 extern char dataType[DATA_TYPE_MAX_LENGTH];
 extern char attribute[ATTRIBUTE_MAX_LENGTH];
+extern char key[KEY_MAX_LENGTH];
+extern char value[VALUE_MAX_LENGTH];
 
 extern char flusher;
 

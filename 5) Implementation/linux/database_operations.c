@@ -22,6 +22,7 @@
 /* Initializations */
 
 FILE *fptr = NULL;
+FILE *fptr2 = NULL;
 FILE *cache = NULL;
 
 char command[COMMAND_MAX_LENGTH] = {0};
@@ -31,6 +32,8 @@ char directory[DIRECTORY_MAX_LENGTH] = {0};
 char buffer[BUFFER_MAX_LENGTH] = {0};
 char dataType[DATA_TYPE_MAX_LENGTH] = {0};
 char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
+char key[KEY_MAX_LENGTH] = {0};
+char value[VALUE_MAX_LENGTH] = {0};
 
 char flusher = '$';
 
@@ -75,6 +78,8 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -1187,12 +1192,14 @@ void clearDb()
 
 
 
-/* Pushing row into a table. */
+/* Pushing row into a table. {push to programmer(1, Gourav, 97.2)} */
 
 void pushRow()
 {
+	/* Declarations */
+
 	char c='$', c2='$';
-	int commaCount=0, invCount=0;
+	int commaCount=0, invCount=0, buffIndex=0;
 
 	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
@@ -1200,7 +1207,14 @@ void pushRow()
 
 	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
-	fptr = fopen(directory, "r+");
+	fptr2 = fopen(directory, "r+");
+
+
+
+	/* Safety checks */
+
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); return;}
+	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); return;}
 
 
 
@@ -1213,7 +1227,50 @@ void pushRow()
 		c2 = c; c = fgetc(fptr);
 
 		if (c=='\"') {invCount++;}
-
-		// CONTINUE FROM HERE...
 	}
+
+
+	if ((commaCount+1)<(invCount/6)) {printf("ERROR: Very few values passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	else if ((commaCount+1)>(invCount/6)) {printf("ERROR: Too many arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+
+	invCount = 0;
+	fseek(fptr, 0, SEEK_SET);
+
+
+
+	/* Verifying data types of passed arguments. */
+
+	while (!reachedEOF(fptr))
+	{
+		clearEntity("attribute"); clearEntity("dataType"); clearEntity("key"); clearEntity("value");
+
+
+		do {c2 = c; c = fgetc(fptr);} while (c!='\"');
+		do {c2 = c; c = fgetc(fptr); if(c!='\"') {attribute[strlen(attribute)] = c;}} while (c!='\"');
+
+		fseek(fptr, 4, SEEK_CUR);	// Saving search computation time.
+		do {c2 = c; c = fgetc(fptr); if(c!='\"') {dataType[strlen(dataType)] = c;}} while (c!='\"');
+
+		fseek(fptr, 3, SEEK_CUR);	// Saving search computation time.
+		do {c2 = c; c = fgetc(fptr); if(c!='\"') {key[strlen(key)] = c;}} while (c!='\"');
+
+		for (int i=buffIndex; i<strlen(buffer); i++)
+		{
+			if (buffer[i]==',') {buffIndex = i + 1; break;}
+			else {value[strlen(value)] = buffer[i];}
+		}
+
+
+		fseek(fptr, 3, SEEK_CUR);	// For checking if EOF reached afterwards.
+
+		//printf("ATTR: %s, DT: %s, KEY: %s, VAL: %s\n", attribute, dataType, key, value);
+
+		// CONTINUE FROM HERE... (17/29 steps done!)
+	}
+
+
+
+	/* Closing file descriptors safely. */
+
+	fclose(fptr); fclose(fptr2);
 }
