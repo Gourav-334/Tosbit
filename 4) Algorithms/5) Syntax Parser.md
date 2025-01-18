@@ -332,7 +332,7 @@ $$ totalVars\;=\;commaCount $$
 #### **DATA TYPE CHECKING**
 9. Set fd of `data/db_name/tbl_name/details.json` to start of file.
 10. Empty `attribute`, `dataType`, `key` & `value`.
-11. Keep reading until a `"` has been read.
+11. Keep reading `details.json` until a `"` has been read.
 12. Add upcoming bytes to `attribute` until another `"` appears.
 13. Start reading again until a `"` is received.
 14. Now, keep adding upcoming bytes to `dataType` until a `"` appears.
