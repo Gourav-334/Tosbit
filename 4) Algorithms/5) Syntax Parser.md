@@ -304,12 +304,22 @@ void attributeParser();
 
 ### Check Unique Value:
 
-- *COMING SOON*
+$$ totalVars\;=\;commaCount $$
+
+- Set `invCount` to `0`.
+- Use fd of `rows.json` to read until `invCount` is `2`.
+- Do the following until EOF not reached.
+- Again set value of `invCount` to `0`.
+- Now keep reading bytes until `(2*(commaCount+1))-1` `"` has appeared.
+- Now start filling upcoming bytes to `value2` until next `"` appears.
+- Compare both the values & break with error if they match.
+- Else set `invCount` to `0` & continue.
+- Now set the file pointer to the starting again.
 
 
 ### Buffer parsing:
 
-#### CHECKING NUMBER OF ARGUMENTS
+#### **CHECKING NUMBER OF ARGUMENTS**
 1. Open `data/db_name/tbl_name/details.json` in read mode.
 2. Also open `data/db_name/tbl_name/rows.json` in read & write mode.
 3. Keep reading characters from buffer.
@@ -319,33 +329,34 @@ void attributeParser();
 7. Compare `commaCount` & `invCount/6`, then print appropriate feedback on error.
 8. Set value of `invCount` back to `0`.
 
-#### DATA TYPE CHECKING
+#### **DATA TYPE CHECKING**
 9. Set fd of `data/db_name/tbl_name/details.json` to start of file.
-10. Keep reading until the 3rd `"` has been read (keep increasing value of `invCount`).
-11. Empty `dataType`, `key` & `value`.
-12. Now, keep adding upcoming bytes to `dataType` until a `"` appears.
-13. Set value of `invCount` back to `0`.
-14. Keep reading until next `"` is encountered.
-15. Now, keep adding upcoming bytes to `key` until a `"` appears.
-16. Keep reading & appending bytes from `buffer` to `value` until a `,` appears (don't include `,`).
-17. Check if the `key` value is valid.
+10. Empty `attribute`, `dataType`, `key` & `value`.
+11. Keep reading `details.json` until a `"` has been read.
+12. Add upcoming bytes to `attribute` until another `"` appears.
+13. Start reading again until a `"` is received.
+14. Now, keep adding upcoming bytes to `dataType` until a `"` appears.
+15. Keep reading until next `"` is encountered.
+16. Now, keep adding upcoming bytes to `key` until a `"` appears.
+17. Keep reading & appending bytes from `buffer` to `value` until a `,` appears (don't include `,`).
 18. For `unique` `key`, check if duplicate value exists or not (`checkUnique()`).
 19. If not, pass the value for being checked by automaton as per its `dataType`.
 
-#### WRITE DATA
+#### **WRITE DATA**
 20. Else if it stops on accept state, modify the `value` removing whitespaces.
 21. Then reach `6` bytes before the EOF in `rows.json`.
 22. If next character is `}`, insert `,`.
-- Then insert `\n\n\t\t{\n\t\t\t"ATTRIBUTE": "VALUE"` for first value.
-23. Move `3` bytes forward in `details.json`.
-24. Keep reading until `}` or `"` appears.
-25. For `}`, add `\n\t\t}\n\t]\n}` in `rows.json`.
-26. Else for `[`, add `,\n\t\t\t` in `rows.json`.
-27. If next character `"`, repeat the process for next attribute.
+23. Then insert `\n\n\t\t{\n\t\t\t"ATTRIBUTE": "VALUE"` for first value.
+24. Move `3` bytes forward in `details.json`.
+25. Keep reading until `}` or `"` appears.
+26. For `}`, add `\n\t\t}\n\t]\n}` in `rows.json`.
+27. Else for `[`, add `,\n\t\t\t` in `rows.json`.
+28. If next character `"`, repeat the process for next attribute.
+29. Close both the file pointers.
 
 ### Algorithmic challenges:
 
-- Challenging file operations
+- Complex file operations
 - Multiple automata
 - Extreme looping & flow control
 - Multiple counters
