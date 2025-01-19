@@ -22,6 +22,7 @@
 /* Initializations */
 
 FILE *fptr = NULL;
+FILE *fptr2 = NULL;
 FILE *cache = NULL;
 
 char command[COMMAND_MAX_LENGTH] = {0};
@@ -31,6 +32,8 @@ char directory[DIRECTORY_MAX_LENGTH] = {0};
 char buffer[BUFFER_MAX_LENGTH] = {0};
 char dataType[DATA_TYPE_MAX_LENGTH] = {0};
 char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
+char key[KEY_MAX_LENGTH] = {0};
+char value[VALUE_MAX_LENGTH] = {0};
 
 char flusher = '$';
 
@@ -41,9 +44,6 @@ int zero_count = 0;
 int brk = FALSE;						// Set TRUE when the syntax goes wrong.
 int brk2 = FALSE;
 int valid = TRUE;						// Syntax if found wrong, only then invalid.
-
-int TABLES_JSON_DEFAULT = 48;
-int EXPANSION_SIZE = 22;
 
 
 
@@ -75,6 +75,8 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -474,11 +476,11 @@ void allTables()
 
 
 
-/* This funstion checks if a invalid data type was passed. (MAKE THEM CASE INSENSITIVE) */
+/* This funstion checks if a invalid data type was passed. (NOT "CASE INSENSITIVE") */
 
 void checkDataType()
 {
-	if ((!strcmp(dataType,"int"))||(!strcmp(dataType,"float"))||(!strcmp(dataType,"string"))||(!strcmp(dataType,"bool"))) {}
+	if ((!strcmp(dataType,"int"))||(!strcmp(dataType,"float"))||(!strcmp(dataType,"string"))||(!strcmp(dataType,"bool"))||(!strcmp(dataType,"media"))) {}
 	else {valid = FALSE; state2 = 8; brk2 = TRUE;}
 }
 
@@ -600,7 +602,7 @@ void makeTable()
 
 		fputs("{\n\t", fptr);
 		fflush(fptr);
-
+// float
 
 		for (int i=0; i<strlen(buffer); i++)
 		{
@@ -1177,6 +1179,42 @@ void clearDb()
 
 
 
+/* Checking if unique value exists or not. (UNTESTED ON UNIQUE KEYS) */
+
+int checkUnique(char value[], int currArg, int totalArg)
+{
+	int invCount=0;
+	char value2[strlen(value)];
+	char c='$', c2='$';
+
+
+	fseek(fptr2, 14, SEEK_SET);
+
+	while (!reachedEOF(fptr2))
+	{
+		memset(value2, 0, strlen(value)*sizeof(char));
+		invCount = 0;
+
+		fseek(fptr2, 1, SEEK_CUR);
+
+		while (invCount!=((currArg-1)*4)+3) {c2 = c; c = fgetc(fptr2); if(c=='\"') {invCount++;}}
+		do {c2 = c; c = fgetc(fptr2); value2[strlen(c)] = c;} while (c!='\"');
+
+		if (!strcmp(value,value2)) {return FALSE;}
+
+		while (invCount!=totalArgs*4) {c2 = c; c = fgetc(fptr2);}
+		invCount = 0;
+		fseek(fptr2, 4, SEEK_CUR);
+
+		c2 = c; c = fgetc(fptr2);
+
+		if (c==',') {fseek(fptr2, 4, SEEK_CUR); continue;}
+		else if (c=='\n') {return TRUE;}
+		else {printf("ERROR: rows.json file for current table is corrupted!\n\n"); return TRUE;}
+
+		// If having problem with "return", keep the "return TRUE;" line outside loop & break there.
+	}
+}
 
 
 
@@ -1187,12 +1225,60 @@ void clearDb()
 
 
 
-/* Pushing row into a table. */
+/* Data type parsing & validating automaton. */
+
+void typeParser()
+{
+	if (!strcmp(dataType,"int"))
+	{
+		for (int i=0; i<strlen(buffer); i++)
+		{
+			/* Parsing with DFA & Turing machine. */
+
+			switch (state2)
+			{
+				// Write switch cases...
+			}
+
+
+			if (brk2==TRUE) {brk2 = FALSE; break;}
+		}
+
+
+
+
+
+		/* Final result, or action to be taken on last stage. */
+
+		switch (state2)
+		{
+			// Write switch cases...
+		}
+
+
+		// Clear required entities...
+
+		state2 = 0; valid = TRUE;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* Pushing row into a table. {push to programmer(1, Gourav, 97.2)} */
 
 void pushRow()
 {
+	/* Declarations */
+
 	char c='$', c2='$';
-	int commaCount=0, invCount=0;
+	int commaCount=0, invCount=0, buffIndex=0, totalArg, currArg=0;
 
 	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
@@ -1200,20 +1286,83 @@ void pushRow()
 
 	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
-	fptr = fopen(directory, "r+");
+	fptr2 = fopen(directory, "r+");
+
+
+
+	/* Safety checks */
+
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); fclose(fptr); fclose(fptr2); return;}
 
 
 
 	/* Checking number of argument (less or more or enough). */
 
 	for (int i=0; i<strlen(buffer); i++) {if(buffer[i]==',') {commaCount++;}}
+	totalArg = commaCount + 1;
 
 	while (!reachedEOF(fptr))
 	{
 		c2 = c; c = fgetc(fptr);
 
 		if (c=='\"') {invCount++;}
-
-		// CONTINUE FROM HERE...
 	}
+
+
+	if ((totalArg)<(invCount/6)) {printf("ERROR: Very few values passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	else if ((totalArg)>(invCount/6)) {printf("ERROR: Too many arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+
+	invCount = 0;
+	fseek(fptr, 0, SEEK_SET);
+
+
+
+	/* Verifying data types of passed arguments. */
+
+	while (!reachedEOF(fptr))
+	{
+		clearEntity("attribute"); clearEntity("dataType"); clearEntity("key"); clearEntity("value");
+
+		currArg++;
+
+
+		do {c2 = c; c = fgetc(fptr);} while (c!='\"');
+		do {c2 = c; c = fgetc(fptr); if(c!='\"') {attribute[strlen(attribute)] = c;}} while (c!='\"');
+
+		fseek(fptr, 4, SEEK_CUR);	// Saving search computation time.
+		do {c2 = c; c = fgetc(fptr); if(c!='\"') {dataType[strlen(dataType)] = c;}} while (c!='\"');
+
+		fseek(fptr, 3, SEEK_CUR);	// Saving search computation time.
+		do {c2 = c; c = fgetc(fptr); if(c!='\"') {key[strlen(key)] = c;}} while (c!='\"');
+
+		for (int i=buffIndex; i<strlen(buffer); i++)
+		{
+			if (buffer[i]==',') {buffIndex = i + 1; break;}
+			else {value[strlen(value)] = buffer[i];}
+		}
+
+
+		fseek(fptr, 3, SEEK_CUR);	// For checking if EOF reached afterwards.
+
+
+		//printf("ATTR: %s, DT: %s, KEY: %s, VAL: %s\n", attribute, dataType, key, value);
+
+		if (!strcmp(key,"unique"))
+		{
+			if (checkUnique(value, currArg, totalArg)==FALSE)
+			{
+				printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute);
+			}
+		}
+
+
+		typeParser();
+	}
+
+
+
+	/* Closing file descriptors safely. */
+
+	fclose(fptr); fclose(fptr2);
 }

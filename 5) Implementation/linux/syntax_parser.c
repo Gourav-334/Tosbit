@@ -409,7 +409,7 @@ void attributeParser()
 {
 	for (int i=0; i<strlen(buffer); i++)
 	{
-		/* Semantic analysis with DFA & Turing machine. */
+		/* Parsing with DFA & Turing machine. */
 
 		switch (state2)
 		{
