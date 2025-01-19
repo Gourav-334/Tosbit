@@ -1,6 +1,12 @@
 # SYNTAXES IN ORDER (v2.0.0)
 
 
+## Features
+
+1. Accurate error feedbacks
+2. Better suggestion engine
+
+
 ## Commands
 
 1. `show column Name from Desk`

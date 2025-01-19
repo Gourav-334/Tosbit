@@ -304,17 +304,25 @@ void attributeParser();
 
 ### Check Unique Value:
 
-$$ totalVars\;=\;commaCount $$
+$$ totalVars\;=\;commaCount\;+\;1 $$
 
-- Set `invCount` to `0`.
-- Use fd of `rows.json` to read until `invCount` is `2`.
-- Do the following until EOF not reached.
-- Again set value of `invCount` to `0`.
-- Now keep reading bytes until `(2*(commaCount+1))-1` `"` has appeared.
-- Now start filling upcoming bytes to `value2` until next `"` appears.
-- Compare both the values & break with error if they match.
-- Else set `invCount` to `0` & continue.
-- Now set the file pointer to the starting again.
+1. Move `14` bytes from start of the `rows.json` file.
+2. Do the following until EOF not reached or duplicate value not found.
+3. Empty `value2`.
+4. Set value of `invCount` to `0`.
+5. Go `1` byte forward.
+6. Break if EOF reached.
+7. Else, move `3` bytes forward.
+8. Move until `invCount` is not equal to `((currArg-1)*4)+3`.
+9. Now start adding the upcoming bytes to `value2` until a `"` appears.
+10. If `value` & `value2` are equal, show appropriate error.
+11. Else, continue with following.
+12. Keep reading until its not equal to `totalArg*4`.
+13. Set `invCount` to `0`.
+14. Move fd forward by `4` bytes.
+15. If next character is `,`, move forward by `4` bytes & repeat the process.
+16. Else if its `\n`, stop the process.
+17. Otherwise show appropriate message for file corruption & stop the process.
 
 
 ### Buffer parsing:
