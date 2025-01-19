@@ -1,4 +1,5 @@
 MAKE TABLE PARSER:
 
--> Make automata for data types validation.
--> Code the automata.
+-> Write parser data types validation.
+-> Write a string purifier function.
+-> Work on media file compressor.

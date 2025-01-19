@@ -56,14 +56,12 @@ extern char value[VALUE_MAX_LENGTH];
 extern char flusher;
 
 extern int state;							// Main automaton
-extern int state2;							// Table attribute automaton
+extern int state2;							// Used for "table attribute" & "data types"
 extern int zero_count;
 
 extern int brk;								// Set TRUE when the syntax goes wrong.
 extern int brk2;
 extern int valid;							// Syntax if found wrong, only then invalid.
-extern int TABLES_JSON_DEFAULT;
-extern int EXPANSION_SIZE;
 
 
 
@@ -89,6 +87,8 @@ extern void deleteTable();
 extern void deleteDb();
 extern void clearTable();
 extern void clearDb();
+extern int checkUnique(char value[], int currArg, int totalArg);
+extern int typeParser();
 extern void pushRow();
 
 
