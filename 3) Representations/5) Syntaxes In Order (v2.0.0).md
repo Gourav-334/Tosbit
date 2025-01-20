@@ -5,31 +5,27 @@
 
 1. Accurate error feedbacks
 2. Better suggestion engine
+3. Aggregate functions
+4. Online storage socket
 
 
 ## Commands
 
-1. `show column Name from Desk`
-2. `show column Name,Dep from Desk`
-3. `show column Name from Desk where age<45`
-3. `show rows from Desk where age<25 & Name=Gourav`
-4. `show rows from Desk where age=25`
-5. `show rows from Desk where age>25`
-6. `rename table Desk as room`
-7. `rename db as Classroom`
-8. `update Name in Desk where its Dipayan to Arindam`
-9. `delete from Desk where Sno=5 & name=Yuvraj`
-10. `delete from Desk where Sno=5 | name=Yuvraj`
-11. `set Sno in Desk as unique_key`
-12. `set Sno in Desk as regular_key`
-13. `join Sno from Desk & Name from Class`
-14. `join Sno,Name from Desk & Name from Class`
-15. `upload to server`
-16. `retrieve from server`
-17. `switch to disk`
-18. `switch to ram`
+1. `rename table Desk as room`
+2. `rename db as Classroom`
+3. `change Name in Desk where its Dipayan to Arindam`
+4. `delete from Desk where Sno=5 & name=Yuvraj`
+5. `delete from Desk where Sno=5 | name=Yuvraj`
+6. `set Sno in Desk as unique_key`
+7. `set Sno in Desk as regular_key`
+8. `join Sno from Desk & Name from Class`
+9. `join Sno,Name from Desk & Name from Class`
+10. `upload to server`
+11. `retrieve from server`
+12. `switch to disk`
+13. `switch to ram`
 
 
 ## Details
 
-$$ Total\;commands\;=\;14 $$
+$$ Total\;commands\;=\;13 $$

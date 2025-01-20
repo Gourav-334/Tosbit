@@ -1,5 +1,4 @@
 MAKE TABLE PARSER:
 
--> Write parser data types validation.
--> Write a string purifier function.
 -> Work on media file compressor.
+-> Continue working on PUSH command.

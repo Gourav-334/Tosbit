@@ -2,6 +2,15 @@
 
 
 
+## Features
+
+1. Error feedbacks
+2. JSON-based storage
+3. Media file compression
+4. Secured encryption
+
+
+
 ## Commands
 
 
@@ -20,9 +29,10 @@
 11. `clear db Office`
 12. `push to Desk (1, Yuvraj, 25)`
 13. `show all from Desk`
-14. `delete from Desk where Sno=5;`
-17. `change account password`
-18. `delete account`
+14. `show from Desk where ?` (ALL POSSIBILITIES)
+15. `delete from Desk where ?` (ALL POSSIBILITIES)
+16. `change account password`
+17. `delete account`
 
 
 ### Completed commands:
@@ -43,9 +53,9 @@
 ### Remaining Commands:
 
 1. `push to Desk (1, Yuvraj, 25)`
-2. `show all from Desk`
-3. `rename Name in Desk to Names`
-4. `delete from Desk where Sno=5`
+2. `show all from Desk where ?` (ALL POSSIBILITIES)
+3. `show Name,Dep from Desk where ?` (ALL POSSIBILITIES)
+4. `delete from Desk where ?` (ALL POSSIBILITIES)
 5. `change account password`
 6. `delete account`
 
@@ -53,4 +63,4 @@
 
 ## Details
 
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{50}{6}\;=\;8\;days/command $$
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{47}{6}\;=\;7\;days/command\;+\;5\;days $$

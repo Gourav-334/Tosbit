@@ -31,7 +31,7 @@ CMakeFiles/program.dir/syntax_parser.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/strings.h \
  /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/encrypter.h \
- /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
+ /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.h \
  /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/sys/types.h \
@@ -57,4 +57,4 @@ CMakeFiles/program.dir/syntax_parser.c.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.h
+ /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h

@@ -34,6 +34,7 @@ char dataType[DATA_TYPE_MAX_LENGTH] = {0};
 char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
+char pureValue[VALUE_MAX_LENGTH] = {0};
 
 char flusher = '$';
 
@@ -77,6 +78,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -1198,11 +1200,11 @@ int checkUnique(char value[], int currArg, int totalArg)
 		fseek(fptr2, 1, SEEK_CUR);
 
 		while (invCount!=((currArg-1)*4)+3) {c2 = c; c = fgetc(fptr2); if(c=='\"') {invCount++;}}
-		do {c2 = c; c = fgetc(fptr2); value2[strlen(c)] = c;} while (c!='\"');
+		do {c2 = c; c = fgetc(fptr2); value2[strlen(value2)] = c;} while (c!='\"');
 
 		if (!strcmp(value,value2)) {return FALSE;}
 
-		while (invCount!=totalArgs*4) {c2 = c; c = fgetc(fptr2);}
+		while (invCount!=totalArg*4) {c2 = c; c = fgetc(fptr2);}
 		invCount = 0;
 		fseek(fptr2, 4, SEEK_CUR);
 
@@ -1227,17 +1229,24 @@ int checkUnique(char value[], int currArg, int totalArg)
 
 /* Data type parsing & validating automaton. */
 
-void typeParser()
+int typeParser()
 {
+	int start, end;
+	FILE *media;
+
+
+
+	/* int: Integers */
+
 	if (!strcmp(dataType,"int"))
 	{
-		for (int i=0; i<strlen(buffer); i++)
+		for (int i=0; i<strlen(value); i++)
 		{
-			/* Parsing with DFA & Turing machine. */
-
 			switch (state2)
 			{
-				// Write switch cases...
+				case 0: clearEntity("pureValue"); changeState(value[i], " 0123456789", "0,1,1,1,1,1,1,1,1,1,1", &state2, 3); breakValue(&state2, 3, &brk2); appendState(&state2, 1, pureValue, value[i]); break;
+				case 1: changeState(value[i], "0123456789 ", "1,1,1,1,1,1,1,1,1,1,2", &state2, 3); breakValue(&state2, 3, &brk2); appendState(&state2, 1, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 4, &brk2); break;
+				case 2: changeState(value[i], " ", "2", &state2, 3); breakValue(&state2, 3, &brk2); break;
 			}
 
 
@@ -1252,13 +1261,161 @@ void typeParser()
 
 		switch (state2)
 		{
-			// Write switch cases...
+			case 0: printf("ERROR: (%s) Argument passed as integer is blank!\n\n", value); return FALSE; break;
+			case 1: state2 = 0; return TRUE; break;
+			case 2: state2 = 0; return TRUE; break;
+			case 3: printf("ERROR: (%s) An integer argument is expected!\n\n", value); return FALSE; break;
+			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!\n\n", value); return FALSE; break;
 		}
 
 
-		// Clear required entities...
+		state2 = 0; valid = TRUE;
+	}
+
+
+
+
+
+	/* string: String */
+
+	else if (!strcmp(dataType,"string"))
+	{
+		clearEntity("pureValue");
+
+
+		/* Removing whitespaces from path. */
+
+		for (int i=0; i<strlen(value); i++) {if (value[i]!=' ') {start = i; break;}}
+		for (int i=strlen(value)-1; i>=0; i--) {if (value[i]!=' ') {end = i; break;}}
+		for (int i=start; i<=end; i++) {pureValue[strlen(pureValue)] = value[i];}
+
+		printf("OK: (%s) String value looks fine!\n\n", pureValue);
+	}
+
+
+
+
+
+	/* float: Floating point decimals */
+
+	else if (!strcmp(dataType,"float"))
+	{
+		for (int i=0; i<strlen(value); i++)
+		{
+			switch (state2)
+			{
+				case 0: clearEntity("pureValue"); changeState(value[i], " 0123456789", "0,1,1,1,1,1,1,1,1,1,1", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 1, pureValue, value[i]); break; // Debug this headache, man...
+				case 1: changeState(value[i], "0123456789.", "1,1,1,1,1,1,1,1,1,1,2", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 1, pureValue, value[i]); appendState(&state2, 2, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &brk2); break;
+				case 2: changeState(value[i], "0123456789", "3,3,3,3,3,3,3,3,3,3", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 3, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &brk2); break;
+				case 3: changeState(value[i], "0123456789", "3,3,3,3,3,3,3,3,3,3", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 3, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &brk2); break;
+				case 4: changeState(value[i], " ", "4", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 1, pureValue, value[i]); break;
+			}
+
+
+			if (brk2==TRUE) {brk2 = FALSE; break;}
+		}
+
+
+
+
+
+		/* Final result, or action to be taken on last stage. */
+
+		switch (state2)
+		{
+			case 0: printf("ERROR: (%s) Argument passed as float is blank!\n\n", value); return FALSE; break;
+			case 1: printf("ERROR: (%s) Float has no decimal point!\n\n", value); return FALSE; break;
+			case 2: printf("ERROR: (%s) No number written after decimal point!\n\n", value); return FALSE; break;
+			case 3: state2 = 0; return TRUE; break;
+			case 4: state2 = 0; return TRUE; break;
+			case 5: printf("ERROR: (%s) Supposed float argument is not float!\n\n", value); return FALSE; break;
+			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", value); return FALSE; break;
+		}
+
 
 		state2 = 0; valid = TRUE;
+	}
+
+
+
+
+
+	/* bool: Boolean */
+
+	else if (!strcmp(dataType,"bool"))
+	{
+		for (int i=0; i<strlen(value); i++)
+		{
+			switch (state2)
+			{
+				case 0: clearEntity("pureValue"); changeState(value[i], " ft", "0,1,6", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 1, pureValue, value[i]); break;
+				case 1: changeState(value[i], "a", "2", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 2, pureValue, value[i]); break;
+				case 2: changeState(value[i], "l", "3", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 3, pureValue, value[i]); break;
+				case 3: changeState(value[i], "s", "4", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 4, pureValue, value[i]); break;
+				case 4: changeState(value[i], "e", "5", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 5, pureValue, value[i]); break;
+				case 5: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
+				case 6: changeState(value[i], "r", "7", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 7, pureValue, value[i]); break;
+				case 7: changeState(value[i], "u", "8", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 8, pureValue, value[i]); break;
+				case 8: changeState(value[i], "e", "9", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 9, pureValue, value[i]); break;
+				case 9: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
+				case 10: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
+			}
+
+
+			if (brk2==TRUE) {brk2 = FALSE; break;}
+		}
+
+
+
+
+
+		/* Final result, or action to be taken on last stage. */
+
+		switch (state2)
+		{
+			case 0: printf("ERROR: (%s) Argument passed as boolean is blank!\n\n", value); return FALSE; break;
+			case 1: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
+			case 2: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
+			case 3: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
+			case 4: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
+			case 5: state2 = 0; return TRUE; break;
+			case 6: printf("ERROR: (%s) Did you meant \"true\"!\n\n", value); return FALSE; break;
+			case 7: printf("ERROR: (%s) Did you meant \"true\"!\n\n", value); return FALSE; break;
+			case 8: printf("ERROR: (%s) Did you meant \"true\"!\n\n", value); return FALSE; break;
+			case 9: state2 = 0; return TRUE; break;
+			case 10: state2 = 0; return TRUE; break;
+			case 11: printf("ERROR: (%s) Argument is neither \"true\" or \"false\"!\n\n", value); return FALSE; break;
+		}
+
+
+		state2 = 0; valid = TRUE;
+	}
+
+
+
+
+
+	/* media: Media files */
+
+	else if (!strcmp(dataType,"media"))
+	{
+		clearEntity("pureValue");
+
+
+		/* Removing whitespaces from path. */
+
+		for (int i=0; i<strlen(value); i++) {if (value[i]!=' ') {start = i; break;}}
+		for (int i=strlen(value)-1; i>=0; i--) {if (value[i]!=' ') {end = i; break;}}
+		for (int i=start; i<=end; i++) {pureValue[strlen(pureValue)] = value[i];}
+
+		
+
+		/* Checking existence of media file. */
+
+		media = fopen(pureValue, "r");
+
+		if (media==NULL) {printf("ERROR: (%s) No such provided path exists!\n\n", pureValue); return FALSE;}
+		else {printf("OK: File is being compressed...\n\n"); return TRUE;}
 	}
 }
 
@@ -1292,8 +1449,8 @@ void pushRow()
 
 	/* Safety checks */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); fclose(fptr); fclose(fptr2); return;}
-	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); fclose(fptr); fclose(fptr2); return;}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); return;}
+	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); return;}
 
 
 

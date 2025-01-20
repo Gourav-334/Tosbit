@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include "utility_box.h"
+#include "transition_tool.h"
 
 
 
@@ -52,6 +53,7 @@ extern char dataType[DATA_TYPE_MAX_LENGTH];
 extern char attribute[ATTRIBUTE_MAX_LENGTH];
 extern char key[KEY_MAX_LENGTH];
 extern char value[VALUE_MAX_LENGTH];
+extern char pureValue[VALUE_MAX_LENGTH];
 
 extern char flusher;
 

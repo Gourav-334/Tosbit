@@ -3,6 +3,7 @@
 
 CMakeFiles/program.dir/database_operations.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.c \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.h \
+  /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.h \
   /usr/include/alloca.h \
   /usr/include/endian.h \
@@ -403,11 +404,7 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+/usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
@@ -426,6 +423,14 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
@@ -446,8 +451,6 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
@@ -471,10 +474,6 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/features.h:
@@ -496,6 +495,8 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
