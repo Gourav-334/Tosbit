@@ -349,18 +349,23 @@ $$ totalVars\;=\;commaCount\;+\;1 $$
 17. Keep reading & appending bytes from `buffer` to `value` until a `,` appears (don't include `,`).
 18. For `unique` `key`, check if duplicate value exists or not (`checkUnique()`).
 19. If not, pass the value for being checked by automaton as per its `dataType`.
+20. Else if it stops on accept state, modify the `value` removing whitespaces.
+21. And then save `attribute`, `dataType` & `pureValue` to their respective queues.
 
 #### **WRITE DATA**
-20. Else if it stops on accept state, modify the `value` removing whitespaces.
-21. Then reach `6` bytes before the EOF in `rows.json`.
-22. If next character is `}`, insert `,`.
-23. Then insert `\n\n\t\t{\n\t\t\t"ATTRIBUTE": "VALUE"` for first value.
-24. Move `3` bytes forward in `details.json`.
-25. Keep reading until `}` or `"` appears.
-26. For `}`, add `\n\t\t}\n\t]\n}` in `rows.json`.
-27. Else for `[`, add `,\n\t\t\t` in `rows.json`.
-28. If next character `"`, repeat the process for next attribute.
-29. Close both the file pointers.
+22. Close `details.json` file pointer.
+23. Move `6` bytes back from EOF in `rows.json`.
+24. If next byte is `[`, do nothing.
+25. Else for `}`, insert `,`.
+26. Now insert `\n\n\t\t{`.
+27. Move each queue to the its head.
+28. For each argument, insert `\n\t\t\t"ATTRIBUTE": `.
+29. If the current data type is `string` or `media`, insert `"PURE_VALUE"`
+30. Else insert `PURE_VALUE`.
+31. If any of the queue is NOT pointing to `next` as `NULL`, insert `,` & repeat the loop.
+32. After this all, insert `\n\t\t}\n\t]\n}`.
+33. Close `rows.json` file pointer.
+
 
 ### Algorithmic challenges:
 
