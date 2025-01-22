@@ -57,4 +57,5 @@ CMakeFiles/program.dir/syntax_parser.c.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h
+ /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
+ /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/queue.h

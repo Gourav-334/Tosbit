@@ -2,8 +2,8 @@
 
 
 
-#ifndef DATA_STRUCTURES_H
-	#define DATA_STRUCTURES_H
+#ifndef QUEUE_H
+	#define QUEUE_H
 
 
 
@@ -25,19 +25,19 @@
 
 /* Variables */
 
-extern char node_value[257];
+extern char node_value[33];
 
 
 
 /* The structure containing Queue node's instructions */
 
-extern typedef struct node {char name[257]; struct node *next;} node;
+typedef struct node {char name[33]; struct node *next;} node;
 
 
 
 /* Queue class with all related functions */
 
-extern typedef struct Queue
+typedef struct Queue
 {
 	int n, pos;
 	struct node *m, *head, *temp, *trav;

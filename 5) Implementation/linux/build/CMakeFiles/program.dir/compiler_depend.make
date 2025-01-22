@@ -3,6 +3,7 @@
 
 CMakeFiles/program.dir/database_operations.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.c \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.h \
+  /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/queue.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.h \
   /usr/include/alloca.h \
@@ -164,6 +165,7 @@ CMakeFiles/program.dir/profile_manager.c.o: /home/gouraarav/myCodes/Tosbit/5)\ I
 CMakeFiles/program.dir/syntax_parser.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/syntax_parser.c \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/encrypter.h \
+  /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/queue.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/syntax_parser.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.h \
@@ -229,6 +231,7 @@ CMakeFiles/program.dir/syntax_parser.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imp
 CMakeFiles/program.dir/test.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/test.c \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/database_operations.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/encrypter.h \
+  /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/queue.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/syntax_parser.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
   /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.h \
@@ -406,6 +409,8 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
@@ -428,10 +433,6 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/endian.h:
@@ -443,6 +444,14 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 /usr/include/alloca.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/strings.h:
+
+/home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.c:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/queue.h:
 
 /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h:
 
@@ -480,12 +489,6 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
-/home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.c:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/usr/include/strings.h:
-
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
 /usr/include/string.h:
@@ -495,6 +498,10 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
@@ -525,5 +532,3 @@ CMakeFiles/program.dir/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/5)\ Imple
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
-
-/usr/include/x86_64-linux-gnu/sys/select.h:
