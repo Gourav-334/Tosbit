@@ -4,9 +4,14 @@
 
 int main()
 {
-	int x = 0;
+	FILE *fptr;
 
-	while (1) {printf("\rBYTES: %d", x); x++;}
+	fptr = fopen("subject.pdf", "rb");
+
+	for (int i=0; i<100; i++)
+	{
+		printf("%c", fgetc(fptr));
+	}
 
 	return 0;
 }

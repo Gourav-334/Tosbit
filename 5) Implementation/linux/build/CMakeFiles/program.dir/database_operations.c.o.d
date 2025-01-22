@@ -55,4 +55,5 @@ CMakeFiles/program.dir/database_operations.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/strings.h \
  /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/utility_box.h \
- /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h
+ /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/transition_tool.h \
+ /home/gouraarav/myCodes/Tosbit/5)\ Implementation/linux/queue.h

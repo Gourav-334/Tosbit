@@ -2,7 +2,7 @@
 
 
 
-#include "data_structures.h"
+#include "queue.h"
 
 
 
@@ -89,7 +89,7 @@ void Queue_queue(Queue *q, char str[])
 	/* Filling input value to node (with \0), incrementing counter & acknowledging */
 
 	strcpy(q -> m -> name, str);
-	q -> m -> name[strlen(q -> m -> name)] = '\0';
+	//q -> m -> name[strlen(q -> m -> name)] = '\0';
 
 	(q -> n)++;
 }

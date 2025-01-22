@@ -1289,7 +1289,7 @@ int typeParser()
 		for (int i=strlen(value)-1; i>=0; i--) {if (value[i]!=' ') {end = i; break;}}
 		for (int i=start; i<=end; i++) {pureValue[strlen(pureValue)] = value[i];}
 
-		printf("OK: (%s) String value looks fine!\n\n", pureValue);
+		if (strlen(pureValue)>KEY_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!\n\n", pureValue); return FALSE;}
 	}
 
 
@@ -1323,13 +1323,13 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as float is blank!\n\n", value); return FALSE; break;
-			case 1: printf("ERROR: (%s) Float has no decimal point!\n\n", value); return FALSE; break;
-			case 2: printf("ERROR: (%s) No number written after decimal point!\n\n", value); return FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as float is blank!\n\n", pureValue); return FALSE; break;
+			case 1: printf("ERROR: (%s) Float has no decimal point!\n\n", pureValue); return FALSE; break;
+			case 2: printf("ERROR: (%s) No number written after decimal point!\n\n", pureValue); return FALSE; break;
 			case 3: state2 = 0; return TRUE; break;
 			case 4: state2 = 0; return TRUE; break;
-			case 5: printf("ERROR: (%s) Supposed float argument is not float!\n\n", value); return FALSE; break;
-			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", value); return FALSE; break;
+			case 5: printf("ERROR: (%s) Supposed float argument is not float!\n\n", pureValue); return FALSE; break;
+			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", pureValue); return FALSE; break;
 		}
 
 
@@ -1437,6 +1437,13 @@ void pushRow()
 	char c='$', c2='$';
 	int commaCount=0, invCount=0, buffIndex=0, totalArg, currArg=0;
 
+	struct Queue attributeQueue = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+	struct Queue dataTypeQueue = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+	struct Queue valueQueue = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
+
+	char currAttribute[33]={0}, currDataType[33]={0}, currValue[33]={0};
+
+
 	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
 	fptr = fopen(directory, "r");
@@ -1514,12 +1521,78 @@ void pushRow()
 		}
 
 
-		typeParser();
+		if (typeParser()==FALSE) {return;}
+
+
+		attributeQueue.Queue_queue(&attributeQueue, attribute);	// UNDER REPAIR! (seg fault)
+		dataTypeQueue.Queue_queue(&dataTypeQueue, dataType);	// UNDER REPAIR! (seg fault)
+		valueQueue.Queue_queue(&valueQueue, pureValue);			// UNDER REPAIR! (seg fault)
+	}
+
+	fclose(fptr);		// For "details.json"
+
+
+
+	/* Inserting values. */
+
+	fseek(fptr2, -6, SEEK_END);
+	c2 = c; c = fgetc(fptr2);
+
+	if (c=='}') {fputc(',', fptr2);}
+
+	fputs("\n\n\t\t{", fptr2);
+
+
+	for (int i=0; i<totalArg; i++)
+	{
+		/* Clearing strings & pasting the required value (for shorter string names). */
+
+		memset(currAttribute, 0, sizeof(currAttribute));
+		memset(currDataType, 0, sizeof(currDataType));
+		memset(currValue, 0, sizeof(currValue));
+
+		strcpy(currAttribute, attributeQueue.Queue_getValue(&attributeQueue,i));
+		strcpy(currDataType, dataTypeQueue.Queue_getValue(&dataTypeQueue,i));
+		strcpy(currValue, valueQueue.Queue_getValue(&valueQueue,i));
+
+
+
+		/* Inserting arguments to JSON document. */
+
+		clearEntity("buffer");
+		snprintf(buffer, sizeof(buffer), "\n\t\t\t\"%s\": ", currAttribute);
+		fputs(buffer, fptr2);
+
+		clearEntity("buffer");
+
+		if ((!strcmp(currDataType,"string"))||(!strcmp(currDataType,"media")))
+		{
+			snprintf(buffer, sizeof(buffer), "\"%s\"", currDataType);
+		}
+
+		else
+		{
+			snprintf(buffer, sizeof(buffer), "%s", currDataType);
+		}
+
+		fputs(buffer, fptr2);
+
+
+
+		/* For non-last value, inserting comma. */
+
+		if (i!=totalArg-1) {fputc(',', fptr2);}
 	}
 
 
 
-	/* Closing file descriptors safely. */
+	/* Final insertions. */
 
-	fclose(fptr); fclose(fptr2);
+	fputs("\n\t\t}\n\t]\n}", fptr2);
+
+
+
+	/* Closing file descriptor safely. */
+
+	fclose(fptr2);
 }
