@@ -1523,7 +1523,7 @@ void pushRow()
 
 		if (typeParser()==FALSE) {return;}
 
-
+printf("%s, %s, %s\n", attribute, dataType, pureValue);/////////////////////////////////////////////
 		attributeQueue.Queue_queue(&attributeQueue, attribute);	// UNDER REPAIR! (seg fault)
 		dataTypeQueue.Queue_queue(&dataTypeQueue, dataType);	// UNDER REPAIR! (seg fault)
 		valueQueue.Queue_queue(&valueQueue, pureValue);			// UNDER REPAIR! (seg fault)

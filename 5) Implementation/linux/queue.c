@@ -53,6 +53,14 @@ Queue behaviour:
 
 
 
+/* Variables declaration. */
+
+char node_value[33] = {0};
+
+
+
+
+
 /* Queue the given token/string to our queue. */
 
 void Queue_queue(Queue *q, char str[])
@@ -181,7 +189,7 @@ void Queue_peek(Queue *q)
 	else
 	{
 		printf("\n----------------------------------\n");
-		printf("Name: %s\nNext: %x", q->temp->name, q->temp->next);
+		printf("Name: %s\nNext: %p", q->temp->name, q->temp->next);
 		printf("\n----------------------------------\n");
 	}
 }
@@ -202,11 +210,11 @@ void Queue_showAll(Queue *q)
 
 		while (q->trav->next!=NULL)
 		{
-			printf("Name: %s\nNext: %x", q->trav->name, q->trav->next);
+			printf("Name: %s\nNext: %p", q->trav->name, q->trav->next);
 			q -> trav = q -> trav -> next;
 
 			printf("\n----------------------------------\n");
-		} printf("Name: %s\nNext: %x", q->trav->name, q->trav->next);
+		} printf("Name: %s\nNext: %p", q->trav->name, q->trav->next);
 
 		printf("\n----------------------------------\n");
 

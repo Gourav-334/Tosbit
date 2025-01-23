@@ -18,7 +18,11 @@ gcc -g -c transition_tool.c -o transition_tool.o
 echo "Compiling UTILITY BOX (.C)..."
 gcc -g -c utility_box.c -o utility_box.o
 
+echo "Compiling QUEUE (.C)..."
+gcc -g -c queue.c -o queue.o
+
 echo "Compiling TEST (.C)"
 gcc -g -c test.c -o test.o
+
 
 echo "All files compiled."

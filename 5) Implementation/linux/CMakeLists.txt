@@ -11,5 +11,6 @@ add_executable(program
 	syntax_parser.c
 	transition_tool.c
 	utility_box.c
+	queue.c
 )
 

@@ -201,6 +201,30 @@ profile_manager.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/profile_manager.c.s
 .PHONY : profile_manager.c.s
 
+queue.o: queue.c.o
+.PHONY : queue.o
+
+# target to build an object file
+queue.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/queue.c.o
+.PHONY : queue.c.o
+
+queue.i: queue.c.i
+.PHONY : queue.i
+
+# target to preprocess a source file
+queue.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/queue.c.i
+.PHONY : queue.c.i
+
+queue.s: queue.c.s
+.PHONY : queue.s
+
+# target to generate assembly for a file
+queue.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/queue.c.s
+.PHONY : queue.c.s
+
 syntax_parser.o: syntax_parser.c.o
 .PHONY : syntax_parser.o
 
@@ -315,6 +339,9 @@ help:
 	@echo "... profile_manager.o"
 	@echo "... profile_manager.i"
 	@echo "... profile_manager.s"
+	@echo "... queue.o"
+	@echo "... queue.i"
+	@echo "... queue.s"
 	@echo "... syntax_parser.o"
 	@echo "... syntax_parser.i"
 	@echo "... syntax_parser.s"
