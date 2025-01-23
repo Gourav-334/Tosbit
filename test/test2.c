@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "queue.c"
+#include "../src/queue.c"
 
 
 

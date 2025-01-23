@@ -1,3 +1,0 @@
-/home/gouraarav/myCodes/Tosbit/5) Implementation/linux/build/CMakeFiles/program.dir
-/home/gouraarav/myCodes/Tosbit/5) Implementation/linux/build/CMakeFiles/edit_cache.dir
-/home/gouraarav/myCodes/Tosbit/5) Implementation/linux/build/CMakeFiles/rebuild_cache.dir
