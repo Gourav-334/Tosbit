@@ -1231,7 +1231,7 @@ int checkUnique(char value[], int currArg, int totalArg)
 
 int typeParser()
 {
-	int start, end;
+	int status;
 	FILE *media;
 
 
@@ -1257,15 +1257,24 @@ int typeParser()
 
 
 
+		/* Re-removal of whitespaces in case value was dumped beforehand. */
+
+		clearEntity("pureValue");
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+
+
+
+
+
 		/* Final result, or action to be taken on last stage. */
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as integer is blank!\n\n", value); return FALSE; break;
-			case 1: state2 = 0; return TRUE; break;
-			case 2: state2 = 0; return TRUE; break;
-			case 3: printf("ERROR: (%s) An integer argument is expected!\n\n", value); return FALSE; break;
-			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!\n\n", value); return FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as integer is blank!\n\n", pureValue); status = FALSE; break;
+			case 1: state2 = 0; status = TRUE; break;
+			case 2: state2 = 0; status = TRUE; break;
+			case 3: printf("ERROR: (%s) An integer argument is expected!\n\n", pureValue); status = FALSE; break;
+			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!\n\n", pureValue); status = FALSE; break;
 		}
 
 
@@ -1280,16 +1289,12 @@ int typeParser()
 
 	else if (!strcmp(dataType,"string"))
 	{
+		/* Re-removal of whitespaces in case value was dumped beforehand. */
+
 		clearEntity("pureValue");
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
 
-
-		/* Removing whitespaces from path. */
-
-		for (int i=0; i<strlen(value); i++) {if (value[i]!=' ') {start = i; break;}}
-		for (int i=strlen(value)-1; i>=0; i--) {if (value[i]!=' ') {end = i; break;}}
-		for (int i=start; i<=end; i++) {pureValue[strlen(pureValue)] = value[i];}
-
-		if (strlen(pureValue)>VALUE_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!\n\n", pureValue); return FALSE;}
+		if (strlen(pureValue)>VALUE_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!\n\n", pureValue); status = FALSE;}
 	}
 
 
@@ -1319,17 +1324,26 @@ int typeParser()
 
 
 
+		/* Re-removal of whitespaces in case value was dumped beforehand. */
+
+		clearEntity("pureValue");
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+
+
+
+
+
 		/* Final result, or action to be taken on last stage. */
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as float is blank!\n\n", pureValue); return FALSE; break;
-			case 1: printf("ERROR: (%s) Float has no decimal point!\n\n", pureValue); return FALSE; break;
-			case 2: printf("ERROR: (%s) No number written after decimal point!\n\n", pureValue); return FALSE; break;
-			case 3: state2 = 0; return TRUE; break;
-			case 4: state2 = 0; return TRUE; break;
-			case 5: printf("ERROR: (%s) Supposed float argument is not float!\n\n", pureValue); return FALSE; break;
-			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", pureValue); return FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as float is blank!\n\n", pureValue); status = FALSE; break;
+			case 1: printf("ERROR: (%s) Float has no decimal point!\n\n", pureValue); status = FALSE; break;
+			case 2: printf("ERROR: (%s) No number written after decimal point!\n\n", pureValue); status = FALSE; break;
+			case 3: state2 = 0; status = TRUE; break;
+			case 4: state2 = 0; status = TRUE; break;
+			case 5: printf("ERROR: (%s) Supposed float argument is not float!\n\n", pureValue); status = FALSE; break;
+			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", pureValue); status = FALSE; break;
 		}
 
 
@@ -1369,22 +1383,31 @@ int typeParser()
 
 
 
+		/* Re-removal of whitespaces in case value was dumped beforehand. */
+
+		clearEntity("pureValue");
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+
+
+
+
+
 		/* Final result, or action to be taken on last stage. */
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as boolean is blank!\n\n", value); return FALSE; break;
-			case 1: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
-			case 2: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
-			case 3: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
-			case 4: printf("ERROR: (%s) Did you meant \"false\"!\n\n", value); return FALSE; break;
-			case 5: state2 = 0; return TRUE; break;
-			case 6: printf("ERROR: (%s) Did you meant \"true\"!\n\n", value); return FALSE; break;
-			case 7: printf("ERROR: (%s) Did you meant \"true\"!\n\n", value); return FALSE; break;
-			case 8: printf("ERROR: (%s) Did you meant \"true\"!\n\n", value); return FALSE; break;
-			case 9: state2 = 0; return TRUE; break;
-			case 10: state2 = 0; return TRUE; break;
-			case 11: printf("ERROR: (%s) Argument is neither \"true\" or \"false\"!\n\n", value); return FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as boolean is blank!\n\n", pureValue); status = FALSE; break;
+			case 1: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
+			case 2: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
+			case 3: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
+			case 4: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
+			case 5: state2 = 0; status = TRUE; break;
+			case 6: printf("ERROR: (%s) Did you meant \"true\"!\n\n", pureValue); status = FALSE; break;
+			case 7: printf("ERROR: (%s) Did you meant \"true\"!\n\n", pureValue); status = FALSE; break;
+			case 8: printf("ERROR: (%s) Did you meant \"true\"!\n\n", pureValue); status = FALSE; break;
+			case 9: state2 = 0; status = TRUE; break;
+			case 10: state2 = 0; status = TRUE; break;
+			case 11: printf("ERROR: (%s) Argument is neither \"true\" or \"false\"!\n\n", pureValue); status = FALSE; break;
 		}
 
 
@@ -1399,14 +1422,10 @@ int typeParser()
 
 	else if (!strcmp(dataType,"media"))
 	{
+		/* Removing whitespaces. */
+
 		clearEntity("pureValue");
-
-
-		/* Removing whitespaces from path. */
-
-		for (int i=0; i<strlen(value); i++) {if (value[i]!=' ') {start = i; break;}}
-		for (int i=strlen(value)-1; i>=0; i--) {if (value[i]!=' ') {end = i; break;}}
-		for (int i=start; i<=end; i++) {pureValue[strlen(pureValue)] = value[i];}
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
 
 		
 
@@ -1414,9 +1433,13 @@ int typeParser()
 
 		media = fopen(pureValue, "r");
 
-		if (media==NULL) {printf("ERROR: (%s) No such provided path exists!\n\n", pureValue); return FALSE;}
-		else {printf("OK: File is being compressed...\n\n"); return TRUE;}
+		if (media==NULL) {printf("ERROR: (%s) No such provided path exists!\n\n", pureValue); status = FALSE;}
+		else {printf("OK: File is being compressed...\n\n"); status = TRUE;}
 	}
+
+
+
+	return status;
 }
 
 
@@ -1567,9 +1590,9 @@ void pushRow()
 		if (typeParser()==FALSE) {return;}
 
 
-		attributeQueue.queue(&attributeQueue, attribute);		// UNDER REPAIR! (seg fault)
-		dataTypeQueue.queue(&dataTypeQueue, dataType);			// UNDER REPAIR! (seg fault)
-		valueQueue.queue(&valueQueue, pureValue);				// UNDER REPAIR! (seg fault)
+		attributeQueue.queue(&attributeQueue, attribute);
+		dataTypeQueue.queue(&dataTypeQueue, dataType);
+		valueQueue.queue(&valueQueue, pureValue);	
 	}
 
 	fclose(fptr);		// For "details.json"
@@ -1635,9 +1658,15 @@ void pushRow()
 
 
 
-	/* Closing file descriptor safely. */
+	/* Closing file descriptor & clear queues. */
 
 	fclose(fptr2);
+	
+	attributeQueue.clear(&attributeQueue);
+	dataTypeQueue.clear(&dataTypeQueue);
+	valueQueue.clear(&dataTypeQueue);
+
+
 
 	printf("OK: Row pushed successfully!\n\n");
 }

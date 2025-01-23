@@ -2,20 +2,44 @@
 	"rows": [
 		{
 			"sno": 1,
-			"name": "Rikhish",
-			"hours": 6.5
-		},
-
-		{
-			"sno": 1,
-			"name": "Gourav Mallick",
-			"hours": 7.23
+			"name": "Gourav",
+			"special": "System Programming"
 		},
 
 		{
 			"sno": 2,
-			"name": "Rishab Hirwe",
-			"hours": 8.9
+			"name": "Rikhish",
+			"special": "Web Development"
+		},
+
+		{
+			"sno": 3,
+			"name": "Anirudh",
+			"special": "Embedded Systems"
+		},
+
+		{
+			"sno": 4,
+			"name": "Dipayan",
+			"special": "Big Data Analytics"
+		},
+
+		{
+			"sno": 5,
+			"name": "Arindam",
+			"special": "Machine Learning"
+		},
+
+		{
+			"sno": 6,
+			"name": "Divyang",
+			"special": "Data Science"
+		},
+
+		{
+			"sno": 7,
+			"name": "Ali",
+			"special": "Cyber Security"
 		}
 	]
 }

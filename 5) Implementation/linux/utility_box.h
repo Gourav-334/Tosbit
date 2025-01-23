@@ -28,11 +28,11 @@ extern void frontchar_remover(char str[]);
 
 extern void flush_stdin();
 extern void binary_print(char str[], int size);
-extern void remove_spaces(char str[]);
 extern void str_shift(char str[], int start, int end, int direction, int steps);
 
 extern int illegalChars(char arr[], char chars[]);
 extern int reachedEOF(FILE *fptr);
+extern void spaceRemover(char str[], char result[], int size);
 
 
 

@@ -1,5 +1,5 @@
 {
 	"sno": ["int", "regular"],
 	"name": ["string", "regular"],
-	"hours": ["float", "regular"]
+	"special": ["string", "regular"]
 }

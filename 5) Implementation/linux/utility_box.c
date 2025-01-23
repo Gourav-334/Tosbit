@@ -117,48 +117,6 @@ void binary_print(char str[], int size)
 
 
 
-/* Remove spaces from the input string */
-
-void remove_spaces(char str[])
-{
-	int fill_mode = FALSE, index;
-
-	for (int i=0; i<strlen(str); i++)	//i, index, fill_mode, str[i], str
-	{
-		if (fill_mode==FALSE)
-		{
-			if (str[i]==' ')
-			{
-				index = i; fill_mode = TRUE;
-			}
-		}
-
-
-		else if (fill_mode==TRUE)
-		{
-			if (str[i]!=' ')
-			{
-				str[index] = str[i]; str[i] = ' ';
-				i = index; fill_mode = FALSE;
-			}
-		}
-	}
-
-
-	index = strlen(str) - 1;
-
-
-	while (str[index]==' ')
-	{
-		memset((str + index), 0, sizeof(char));
-		index--;
-	}
-}
-
-
-
-
-
 /* Shift characters of a string in a particular direction by some steps */
 
 void str_shift(char str[], int start, int end, int direction, int steps)
@@ -213,6 +171,23 @@ int reachedEOF(FILE *fptr)
 	if (feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return TRUE;}
 	else if (!feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return FALSE;}
 }
+
+
+
+
+
+/* Removes whitespaces from a string from both the sides. (provide a buffer too.) */
+
+extern void spaceRemover(char str[], char result[], int size)
+{
+	int start, end;
+
+	for (int i=0; i<strlen(str); i++) {if (str[i]!=' ') {start = i; break;}}
+	for (int i=strlen(str)-1; i>=0; i--) {if (str[i]!=' ') {end = i; break;}}
+	for (int i=start; i<=end; i++) {result[strlen(result)] = str[i];}
+}
+
+
 
 
 
