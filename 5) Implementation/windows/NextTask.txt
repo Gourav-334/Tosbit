@@ -1,5 +1,0 @@
-MAKE TABLE PARSER:
-
--> Add loader for disk writing.
--> Code for clearing a table.
--> Code for clearing a database.
