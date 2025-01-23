@@ -1,0 +1,4 @@
+{
+	"sno": ["int", "regular"],
+	"file": ["media", "regular"]
+}

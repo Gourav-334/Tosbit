@@ -1,0 +1,5 @@
+{
+	"sno": ["int", "regular"],
+	"name": ["string", "regular"],
+	"special": ["string", "regular"]
+}
