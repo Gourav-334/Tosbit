@@ -52,6 +52,12 @@
 			"sno": 9,
 			"name": "Abhay Kumar",
 			"special": "UI/UX"
+		},
+
+		{
+			"sno": 10,
+			"name": "Edward Norton",
+			"special": "Actor"
 		}
 	]
 }

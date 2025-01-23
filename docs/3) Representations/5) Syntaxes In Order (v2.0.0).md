@@ -7,6 +7,7 @@
 2. Better suggestion engine
 3. Aggregate functions
 4. Online storage socket
+5. File inspector
 
 
 ## Commands

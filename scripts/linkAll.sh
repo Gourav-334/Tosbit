@@ -1,5 +1,5 @@
 echo "Linking in process..."
 
-gcc -g database_operations.o encrypter.o profile_manager.o syntax_parser.o transition_tool.o utility_box.o queue.o test.c -o program
+gcc -g ../dist/database_operations.o ../dist/encrypter.o ../dist/profile_manager.o ../dist/queue.o ../dist/syntax_parser.o ../dist/transition_tool.o ../dist/utility_box.o ../test/test.c -o ../exec/build/program
 
-echo "Linked all files."
+echo "All files linked."
