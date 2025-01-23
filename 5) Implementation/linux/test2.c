@@ -1,17 +1,17 @@
 #include <stdio.h>
+#include "queue.c"
 
 
 
 int main()
 {
-	FILE *fptr;
+	Queue q = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL, .queue=Queue_queue, .peek=Queue_peek};
 
-	fptr = fopen("subject.pdf", "rb");
+	printf("%p\n", &q);
 
-	for (int i=0; i<100; i++)
-	{
-		printf("%c", fgetc(fptr));
-	}
+	q.queue(&q, "Gourav");
+	q.peek(&q);
+
 
 	return 0;
 }

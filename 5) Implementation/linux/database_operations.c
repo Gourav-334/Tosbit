@@ -1289,7 +1289,7 @@ int typeParser()
 		for (int i=strlen(value)-1; i>=0; i--) {if (value[i]!=' ') {end = i; break;}}
 		for (int i=start; i<=end; i++) {pureValue[strlen(pureValue)] = value[i];}
 
-		if (strlen(pureValue)>KEY_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!\n\n", pureValue); return FALSE;}
+		if (strlen(pureValue)>VALUE_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!\n\n", pureValue); return FALSE;}
 	}
 
 
@@ -1436,12 +1436,57 @@ void pushRow()
 
 	char c='$', c2='$';
 	int commaCount=0, invCount=0, buffIndex=0, totalArg, currArg=0;
-
-	struct Queue attributeQueue = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
-	struct Queue dataTypeQueue = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
-	struct Queue valueQueue = {.n=0, .pos=0, .m=NULL, .head=NULL, .temp=NULL, .trav=NULL};
-
 	char currAttribute[33]={0}, currDataType[33]={0}, currValue[33]={0};
+
+
+
+	/* Queue objects (structures). */
+
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+	Queue dataTypeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+	Queue valueQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
 
 
 	clearEntity("directory");
@@ -1510,8 +1555,6 @@ void pushRow()
 		fseek(fptr, 3, SEEK_CUR);	// For checking if EOF reached afterwards.
 
 
-		//printf("ATTR: %s, DT: %s, KEY: %s, VAL: %s\n", attribute, dataType, key, value);
-
 		if (!strcmp(key,"unique"))
 		{
 			if (checkUnique(value, currArg, totalArg)==FALSE)
@@ -1523,10 +1566,10 @@ void pushRow()
 
 		if (typeParser()==FALSE) {return;}
 
-printf("%s, %s, %s\n", attribute, dataType, pureValue);/////////////////////////////////////////////
-		attributeQueue.Queue_queue(&attributeQueue, attribute);	// UNDER REPAIR! (seg fault)
-		dataTypeQueue.Queue_queue(&dataTypeQueue, dataType);	// UNDER REPAIR! (seg fault)
-		valueQueue.Queue_queue(&valueQueue, pureValue);			// UNDER REPAIR! (seg fault)
+
+		attributeQueue.queue(&attributeQueue, attribute);		// UNDER REPAIR! (seg fault)
+		dataTypeQueue.queue(&dataTypeQueue, dataType);			// UNDER REPAIR! (seg fault)
+		valueQueue.queue(&valueQueue, pureValue);				// UNDER REPAIR! (seg fault)
 	}
 
 	fclose(fptr);		// For "details.json"
@@ -1538,9 +1581,9 @@ printf("%s, %s, %s\n", attribute, dataType, pureValue);/////////////////////////
 	fseek(fptr2, -6, SEEK_END);
 	c2 = c; c = fgetc(fptr2);
 
-	if (c=='}') {fputc(',', fptr2);}
+	if (c=='}') {fputs(",\n", fptr2);}
 
-	fputs("\n\n\t\t{", fptr2);
+	fputs("\n\t\t{", fptr2);
 
 
 	for (int i=0; i<totalArg; i++)
@@ -1551,9 +1594,9 @@ printf("%s, %s, %s\n", attribute, dataType, pureValue);/////////////////////////
 		memset(currDataType, 0, sizeof(currDataType));
 		memset(currValue, 0, sizeof(currValue));
 
-		strcpy(currAttribute, attributeQueue.Queue_getValue(&attributeQueue,i));
-		strcpy(currDataType, dataTypeQueue.Queue_getValue(&dataTypeQueue,i));
-		strcpy(currValue, valueQueue.Queue_getValue(&valueQueue,i));
+		strcpy(currAttribute, attributeQueue.getValue(&attributeQueue,i));
+		strcpy(currDataType, dataTypeQueue.getValue(&dataTypeQueue,i));
+		strcpy(currValue, valueQueue.getValue(&valueQueue,i));
 
 
 
@@ -1567,12 +1610,12 @@ printf("%s, %s, %s\n", attribute, dataType, pureValue);/////////////////////////
 
 		if ((!strcmp(currDataType,"string"))||(!strcmp(currDataType,"media")))
 		{
-			snprintf(buffer, sizeof(buffer), "\"%s\"", currDataType);
+			snprintf(buffer, sizeof(buffer), "\"%s\"", currValue);
 		}
 
 		else
 		{
-			snprintf(buffer, sizeof(buffer), "%s", currDataType);
+			snprintf(buffer, sizeof(buffer), "%s", currValue);
 		}
 
 		fputs(buffer, fptr2);
@@ -1595,4 +1638,6 @@ printf("%s, %s, %s\n", attribute, dataType, pureValue);/////////////////////////
 	/* Closing file descriptor safely. */
 
 	fclose(fptr2);
+
+	printf("OK: Row pushed successfully!\n\n");
 }

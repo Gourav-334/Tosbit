@@ -67,7 +67,7 @@ void Queue_queue(Queue *q, char str[])
 {
 	/* Creating a node */ 
 
-	q -> m = (node*)malloc(sizeof(node));
+	q -> m = (node*)malloc(sizeof(node)); //printf("SIGNAL");
 
 
 

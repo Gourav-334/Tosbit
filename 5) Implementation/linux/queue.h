@@ -43,12 +43,12 @@ typedef struct Queue
 	struct node *m, *head, *temp, *trav;
 
 
-	void (*Queue_queue)(struct Queue *q, char str[]);
-	void (*Queue_clear)(struct Queue *q);
-	int (*Queue_getIndex)(struct Queue *q, char str[]);
-	char *(*Queue_getValue)(struct Queue *q, int index);
-	void (*Queue_peek)(struct Queue *q);
-	void (*Queue_showAll)(struct Queue *q);
+	void (*queue)(struct Queue *q, char str[]);
+	void (*clear)(struct Queue *q);
+	int (*getIndex)(struct Queue *q, char str[]);
+	char *(*getValue)(struct Queue *q, int index);
+	void (*peek)(struct Queue *q);
+	void (*showAll)(struct Queue *q);
 
 } Queue;
 
