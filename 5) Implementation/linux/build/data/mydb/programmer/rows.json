@@ -40,6 +40,18 @@
 			"sno": 7,
 			"name": "Ali",
 			"special": "Cyber Security"
+		},
+
+		{
+			"sno": 8,
+			"name": "Deepanjan",
+			"special": "Game Development"
+		},
+
+		{
+			"sno": 9,
+			"name": "Abhay Kumar",
+			"special": "UI/UX"
 		}
 	]
 }

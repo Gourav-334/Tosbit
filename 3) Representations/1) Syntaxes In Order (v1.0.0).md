@@ -28,7 +28,7 @@
 10. `clear table Desk`
 11. `clear db Office`
 12. `push to Desk (1, Yuvraj, 25)`
-13. `show all from Desk`
+13. `show all from Desk where ?` (ALL POSSIBILITIES)
 14. `show from Desk where ?` (ALL POSSIBILITIES)
 15. `delete from Desk where ?` (ALL POSSIBILITIES)
 16. `change account password`
@@ -63,4 +63,4 @@
 
 ## Details
 
-$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{44}{5}\;=\;8\;days/command\;+\;5\;days $$
+$$ Remaining\;=\;\frac{Days}{Commands}\;=\;\frac{44}{5}\;=\;8\;days/command\;+\;4\;days $$
