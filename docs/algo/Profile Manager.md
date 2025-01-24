@@ -9,7 +9,7 @@
 
 ## 1. Profile Manager:
 
-```
+```c
 void profile_manager();
 ```
 
@@ -21,3 +21,5 @@ void profile_manager();
 - If account exists, prompt asking password.
 - If password matches, then welcome.
 - Else keep asking until it doesn't match.
+
+---

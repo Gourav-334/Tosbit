@@ -1,4 +1,4 @@
-# SOLVING METHOD
+# COMMAND MAKING CYCLE
 
 $$\fbox{Write examples for problem}$$
 $$\downarrow$$

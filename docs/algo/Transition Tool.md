@@ -10,7 +10,7 @@
 
 ## 1. Change State:
 
-```
+```c
 int changeState(char input, char symbols[], char transition[], int *state);
 ```
 
@@ -21,3 +21,5 @@ int changeState(char input, char symbols[], char transition[], int *state);
 - Count the coma when they appear & keep reading until the number of commas is same as the index number of `input` in `symbols`.
 - When they are equal, keep storing each character in another array `str` until another coma appears.
 - When coma appears, set value of `state` as that.
+
+---

@@ -10,7 +10,7 @@
 
 ## 1. String Encryption:
 
-```
+```c
 char *encrypt(char *input);
 ```
 
@@ -23,7 +23,7 @@ char *encrypt(char *input);
 
 ## 2. String Decryption:
 
-```
+```c
 char *decrypt(char *input);
 ```
 
@@ -36,7 +36,7 @@ char *decrypt(char *input);
 
 ## 3. Finding Mapped Key:
 
-```
+```c
 char keymapped(char *input);
 ```
 
@@ -44,3 +44,5 @@ char keymapped(char *input);
 - Match it one-by-one with with element in code array.
 - Keep increasing value of variable `i` if it doesn't match.
 - Return element at index `i` to the function.
+
+---
