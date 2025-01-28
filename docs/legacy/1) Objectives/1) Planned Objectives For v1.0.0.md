@@ -29,7 +29,7 @@
 
 ## 4) Data Models:
 
-- Primary key
+- Unique key
 - Regular key
 
 

@@ -9,7 +9,7 @@
 
 ## 1. Queueing:
 
-```
+```c
 void Queue_queue(Queue *q, char str[]);
 ```
 
@@ -26,7 +26,7 @@ void Queue_queue(Queue *q, char str[]);
 
 ## 2. Dequeueing:
 
-```
+```c
 void Queue_clear(Queue *q);
 ```
 
@@ -42,7 +42,7 @@ void Queue_clear(Queue *q);
 
 ## 3. Getting Index:
 
-```
+```c
 int Queue_getIndex(Queue *q, char str[]);
 ```
 
@@ -57,7 +57,7 @@ int Queue_getIndex(Queue *q, char str[]);
 
 ## 4. Getting Value:
 
-```
+```c
 char *Queue_getValue(Queue *q, int index);
 ```
 
@@ -70,7 +70,7 @@ char *Queue_getValue(Queue *q, int index);
 
 ## 5. Peek Element:
 
-```
+```c
 void Queue_peek(Queue *q);
 ```
 
@@ -82,7 +82,7 @@ void Queue_peek(Queue *q);
 
 ## 6. Print All Elements
 
-```
+```c
 void Queue_showAll(Queue *q);
 ```
 
@@ -92,3 +92,5 @@ void Queue_showAll(Queue *q);
     - Until last node is not reached:
         - Print current node details.
         - Move to next node.
+
+---

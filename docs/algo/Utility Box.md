@@ -8,7 +8,7 @@
 
 ## 1. String Append:
 
-```
+```c
 void strappend(char str[], char *addition);
 ```
 
@@ -19,7 +19,7 @@ void strappend(char str[], char *addition);
 
 ## 2. Constant String Append:
 
-```
+```c
 void constrappend(char str[], const char *addition);
 ```
 
@@ -30,7 +30,7 @@ void constrappend(char str[], const char *addition);
 
 ## 3. Character Append:
 
-```
+```c
 void charappend(char str[], char addition);
 ```
 
@@ -41,7 +41,7 @@ void charappend(char str[], char addition);
 
 ## 4. Constant Character Append:
 
-```
+```c
 void const_charappend(char str[], const char addition);
 ```
 
@@ -52,7 +52,7 @@ void const_charappend(char str[], const char addition);
 
 ## 5. Newline Remover:
 
-```
+```c
 void newline_remover(char str[]);
 ```
 
@@ -63,7 +63,7 @@ void newline_remover(char str[]);
 
 ## 6. Front Character Remover:
 
-```
+```c
 void frontchar_remover(char str[]);
 ```
 
@@ -74,7 +74,7 @@ void frontchar_remover(char str[]);
 
 ## 7. FLush Standard Input:
 
-```
+```c
 void flush_stdin();
 ```
 
@@ -83,7 +83,7 @@ void flush_stdin();
 
 ## 8. Binary Print:
 
-```
+```c
 void binary_print(char str[], int size);
 ```
 
@@ -93,21 +93,9 @@ void binary_print(char str[], int size);
 - Print `$` for each newline character.
 
 
-## 9. Space Remover:
+## 9. String Shifter:
 
-```
-void remove_spaces(char str[]);
-```
-
-- Read each character of a string.
-- If a space is encountered, mark its index & move until any character isn't encountered.
-- When character is found, fill the marked space with this character & set that character's place as 0.
-- If the array ends finding a character, keep nulling each space with 0, moving backward until a character is found.
-
-
-## 10. String Shifter:
-
-```
+```c
 void str_shift(char str[], int start, int end, int direction, int steps);
 ```
 
@@ -119,12 +107,27 @@ void str_shift(char str[], int start, int end, int direction, int steps);
 - As per the direction, fill the characters upto start/end with `0`.
 
 
-## 11. Illegal Characters
+## 10. Illegal Characters
 
-```
+```c
 int illegalChars(char arr[], char chars[]);
 ```
 
 - Uses brute force approach to check if any illegal character is present in array.
 - **<u>Brute force algorithm</u>:** Using two nested `for` loops for matching purposes.
 - **<u>Illegal character</u>:** Character which must not be present in a string as per program maker's rule.
+
+
+## 11. Space Remover:
+
+```c
+void spaceRemover(char str[]);
+```
+
+- Start reading from 0th index of string until the pointer reaches a symbol (not a whitespace).
+- Mark this index as `start`.
+- Now start reading from end of the string until it reaches a symbol too.
+- When encountered, mark this index as `end`.
+- Now copy character between `start` & `end` to the target variable.
+
+---

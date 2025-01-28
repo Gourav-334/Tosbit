@@ -14,12 +14,10 @@ void syntaxParser(char username[]);
 
 ## 1. General:
 
-- Wait for user to input.
-- Analyze
-- If problem found:
-    - Return error with cause.
-- Else:
-    - Execute
+- The syntax parser uses automata for processing commands.
+- Errors thus generated are as per on what state the automata stopped.
+- All safety has been implemented to ensure best user experience without bugs.
+
 
 
 ## @ Comment @
@@ -40,7 +38,7 @@ void syntaxParser(char username[]);
 - If EOF reached & match not found yet, DB doesn't exist.
 
 
-## show struct table_name
+## show struct tbl_name
 
 - First of all, ban using `"`, `[`, `]` for users in Tosbit.
 
@@ -89,37 +87,29 @@ void syntaxParser(char username[]);
     - When `"` appears again, turn `reading` OFF, print buffer & keep walking until another `"` appears.
 
 
-## make table Desk [string name, int age, float score, bool status]
+## make table Desk (string name, int age, float score, bool status)
 
 ### Syntax:
 
-```
-make table Desk[]
-
-make table Desk[int]
-
-make table Desk[int num]
-
-make table Desk[int num, string]
-
-make table Desk[int num, string code]
-
-make table Desk[int num, int num]
+```tos
+make table Desk[int sno]
+make table Desk[int sno, string name]
+make table Desk[int sno, string name, float score]
 ```
 
 
 
-## Attribute Parser
+### Attribute Parser:
 
 
-### Function:
+#### **FUNCTION**
 
 ```c
 void attributeParser();
 ```
 
 
-### Semantic checking:
+#### **SEMANTIC FUNCTION**
 
 ```
 [string age, int age]
@@ -135,7 +125,7 @@ void attributeParser();
 - Stop at `)`.
 
 
-### Creating table:
+#### **CREATING TABLE**
 
 ```json
 {
@@ -152,7 +142,7 @@ void attributeParser();
 - Exit & close the file.
 
 
-### Storing configuration:
+#### **STORING CONFIGURATION**
 
 ```json
 {
@@ -172,7 +162,7 @@ void attributeParser();
 - Else if its a `]`, then append `\n}`.
 
 
-### Setting up row environment:
+#### **SETTING UP ENVIRONMENT**
 
 ```json
 {
@@ -256,7 +246,7 @@ void attributeParser();
 
 
 
-## Push Parser
+## push to tbl_name(1, Gourav, 7.23)
 
 
 ### Involved files:
