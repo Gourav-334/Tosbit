@@ -5,7 +5,7 @@
 
 int main()
 {
-	syntaxParser("Gourav");
+	syntaxParser("Gourav Kumar Mallick");
 
 	return 0;
 }

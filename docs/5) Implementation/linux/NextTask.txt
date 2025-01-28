@@ -1,5 +1,5 @@
 MAKE TABLE PARSER:
 
--> Make changes in "docs" directory ordering.
--> "No databases are there" for 0 databases problem.
--> Work on media file compressor.
+-> Total attributes on "show struct ..."
+-> File compression loading screen.
+-> Log management system.

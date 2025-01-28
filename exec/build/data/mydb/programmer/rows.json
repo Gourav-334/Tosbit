@@ -58,6 +58,12 @@
 			"sno": 10,
 			"name": "Edward Norton",
 			"special": "Actor"
+		},
+
+		{
+			"sno": 11,
+			"name": "Bethoven",
+			"special": "Symphony 40"
 		}
 	]
 }

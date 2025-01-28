@@ -11,13 +11,14 @@
 #define COMMAND_MAX_LENGTH 257
 #define DATABASE_MAX_LENGTH 17
 #define TABLE_MAX_LENGTH 17
-#define DIRECTORY_MAX_LENGTH 129
+#define DIRECTORY_MAX_LENGTH 257
 #define BUFFER_MAX_LENGTH 257
 
 #define DATA_TYPE_MAX_LENGTH 7
 #define ATTRIBUTE_MAX_LENGTH 17
 #define KEY_MAX_LENGTH 8
 #define VALUE_MAX_LENGTH 33
+#define PATH_MAX_LENGTH 257			// Not being used currently...
 
 
 
@@ -55,6 +56,7 @@ extern char attribute[ATTRIBUTE_MAX_LENGTH];
 extern char key[KEY_MAX_LENGTH];
 extern char value[VALUE_MAX_LENGTH];
 extern char pureValue[VALUE_MAX_LENGTH];
+extern char pathBuff[PATH_MAX_LENGTH];		// Not being used currently...
 
 extern char flusher;
 

@@ -35,6 +35,7 @@ char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
+char pathBuff[PATH_MAX_LENGTH] = {0};	// Not being used currently...
 
 char flusher = '$';
 
@@ -79,6 +80,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"pathBuff")) {memset(pathBuff, 0, PATH_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -305,16 +307,15 @@ void tableStructure()
 
 
 
-
 /* Shows all the available databases. */
 
 void allDatabases()
 {
 	fptr = fopen("data/databases.json", "r");
-	if (fptr==NULL) {printf("ERROR: databases.json file not found!\n\n");}
+	if (fptr==NULL) {printf("ERROR: databases.json file not found!\n\n"); return;}
 
 	char c = '$';
-	int count = 0, reading = FALSE;
+	int count = 0, total = 0, reading = FALSE;
 
 
 
@@ -323,7 +324,7 @@ void allDatabases()
 		c = fgetc(fptr);
 
 		if (c=='\"') {count++;}
-		if (feof(fptr)) {printf("ERROR: No databases found!\n\n");}
+		if (feof(fptr)) {printf("STAT: No databases found.\n\n"); return;}
 	}
 
 
@@ -345,7 +346,7 @@ void allDatabases()
 		reading = FALSE;
 		c = '$';
 
-		printf("|%s", buffer);
+		printf("|%s", buffer); total++;		// Counting databases.
 		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
 		printf("|\n");
 
@@ -361,7 +362,7 @@ void allDatabases()
 
 		reading = TRUE;
 
-		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
+		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop.
 	}
 
 
@@ -371,7 +372,8 @@ void allDatabases()
 
 
 
-	printf("+----------------+\n\n");
+	printf("+----------------+\n");
+	printf("STAT: %d databases found.\n\n", total);
 }
 
 
@@ -387,6 +389,9 @@ void allDatabases()
 
 void allTables()
 {
+	int total = 0;
+
+
 	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 
@@ -439,7 +444,7 @@ void allTables()
 			reading = FALSE;
 			c = '$';
 
-			printf("|%s", buffer);
+			printf("|%s", buffer); total++;		// Counting total tables.
 			for (int i=strlen(buffer); i<16; i++) {printf(" ");}
 			printf("|\n");
 
@@ -465,7 +470,8 @@ void allTables()
 
 
 
-		printf("+----------------+\n\n");
+		printf("+----------------+\n");
+		printf("STAT: %d tables found.\n\n", total);
 	}
 }
 
@@ -604,7 +610,7 @@ void makeTable()
 
 		fputs("{\n\t", fptr);
 		fflush(fptr);
-// float
+
 
 		for (int i=0; i<strlen(buffer); i++)
 		{
@@ -1232,7 +1238,10 @@ int checkUnique(char value[], int currArg, int totalArg)
 int typeParser()
 {
 	int status;
-	FILE *media;
+	char c3 = '$';
+	char pipedBuff[257] = {0}, shell_cmd[513] = {0};// size[9] = {0};
+
+	FILE *media=NULL;
 
 
 
@@ -1418,7 +1427,7 @@ int typeParser()
 
 
 
-	/* media: Media files */
+	/* media: Media files (WARNING - To be put with file extension.) */
 
 	else if (!strcmp(dataType,"media"))
 	{
@@ -1427,14 +1436,80 @@ int typeParser()
 		clearEntity("pureValue");
 		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
 
+		printf("Enter path for \"%s\": ", attribute);
+		clearEntity("directory"); fgets(directory, sizeof(directory), stdin);
+		newline_remover(directory);
+
+		printf("\n");
+
 		
 
-		/* Checking existence of media file. */
+		/*
 
-		media = fopen(pureValue, "r");
+		Checking existence of media file:
 
-		if (media==NULL) {printf("ERROR: (%s) No such provided path exists!\n\n", pureValue); status = FALSE;}
-		else {printf("OK: File is being compressed...\n\n"); status = TRUE;}
+		media -> FD to check media file's existence.
+		directory -> Path to media file.
+		shell_cmd -> Complete shell command to copy target file.
+
+		Path: /home/gouraarav/myCodes/trainers-crud-operation/client/index.html
+
+		*/
+
+		media = fopen(directory, "r");
+
+
+		if (media==NULL) {printf("ERROR: (%s) No such file exists!\n\n", directory); status = FALSE;}
+		
+		else
+		{
+			fclose(media);
+			printf("STAT: File is being compressed...\n");
+
+
+			/* Compressing the file. */
+
+			snprintf(shell_cmd, sizeof(shell_cmd), "xz -k %s", directory);
+			system(shell_cmd);
+
+
+			/* Copying the zip file. */
+
+			memset(shell_cmd, 0, sizeof(shell_cmd));
+			snprintf(shell_cmd, sizeof(shell_cmd), "cp %s.xz data/%s/%s/%s.xz", directory, database, table, pureValue);
+			system(shell_cmd);
+
+
+			/* Deleting the zip copy at user's directory. */
+
+			memset(shell_cmd, 0, sizeof(shell_cmd));
+			snprintf(shell_cmd, sizeof(shell_cmd), "rm %s.xz", directory);
+			system(shell_cmd);
+
+
+			/* Comparing actual size with compression rate. */
+
+			memset(shell_cmd, 0, sizeof(shell_cmd));
+			snprintf(shell_cmd, sizeof(shell_cmd), "du -h %s", directory);
+
+			media = popen(shell_cmd, "r");
+			do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf(" ->\t");
+
+			pclose(media);
+
+
+			memset(shell_cmd, 0, sizeof(shell_cmd));
+			snprintf(shell_cmd, sizeof(shell_cmd), "du -h data/%s/%s/%s.xz", database, table, pureValue);
+
+			media = popen(shell_cmd, "r");
+			do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf("\n");
+			
+			pclose(media);
+
+
+
+			status = TRUE;
+		}
 	}
 
 
