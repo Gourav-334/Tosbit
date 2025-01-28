@@ -1,5 +1,6 @@
 MAKE TABLE PARSER:
 
+-> Modify "clear command" to clean media files etc.
 -> Total attributes on "show struct ..."
 -> File compression loading screen.
 -> Log management system.
