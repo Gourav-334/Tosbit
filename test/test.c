@@ -1,7 +1,6 @@
 #include "../include/syntax_parser.h"
 
 
-//Database Simulator?
 
 int main()
 {

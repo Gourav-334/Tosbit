@@ -24,6 +24,7 @@
 FILE *fptr = NULL;
 FILE *fptr2 = NULL;
 FILE *cache = NULL;
+FILE *logger = NULL;
 
 char command[COMMAND_MAX_LENGTH] = {0};
 char database[DATABASE_MAX_LENGTH] = {0};
@@ -35,17 +36,18 @@ char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
-char pathBuff[PATH_MAX_LENGTH] = {0};	// Not being used currently...
+char pathBuff[PATH_MAX_LENGTH] = {0};		// Not being used currently...
+char loc[LOC_MAX_LENGTH] = {0};
 
 char flusher = '$';
 
-int state = 0;							// Main automaton
-int state2 = 0;							// Table attribute automaton
+int state = 0;								// Main automaton
+int state2 = 0;								// Table attribute automaton
 int zero_count = 0;
 
-int brk = FALSE;						// Set TRUE when the syntax goes wrong.
+int brk = FALSE;							// Set TRUE when the syntax goes wrong.
 int brk2 = FALSE;
-int valid = TRUE;						// Syntax if found wrong, only then invalid.
+int valid = TRUE;							// Syntax if found wrong, only then invalid.
 
 
 
@@ -195,6 +197,10 @@ int checkTableExistence(int msg)
 
 void tableStructure()
 {
+	int count = 0;
+
+
+
 	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
 	printf("|         ATTRIBUTE NAME         | DATA TYPE | KEY TYPE |\n");
 	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
@@ -208,7 +214,7 @@ void tableStructure()
 	while (!(c2==']' && c=='\n'))
 	{
 
-		// Printing the attribute name.
+		/* Printing the attribute name. */
 
 		printf("|");
 
@@ -235,7 +241,7 @@ void tableStructure()
 
 
 
-		// Printing the attribute data type.
+		/* Printing the attribute data type. */
 
 		printf("|");
 
@@ -259,7 +265,7 @@ void tableStructure()
 
 
 
-		// Printing the key type of attribute.
+		/* Printing the key type of attribute. */
 
 		printf("|");
 
@@ -276,13 +282,13 @@ void tableStructure()
 
 
 
-		// Resetting is done at top to avoid detecting end of attribute in JSON file.
+		/* Resetting is done at top to avoid detecting end of attribute in JSON file. */
 
 
 
 		printf("%s", buffer);
 		for (int i=strlen(buffer); i<10; i++) {printf(" ");}
-		printf("|\n");
+		printf("|\n"); count++;		// Counting number of attributes.
 
 		c = fgetc(fptr); c2 = c; c = fgetc(fptr);
 	}
@@ -292,9 +298,9 @@ void tableStructure()
 
 
 	c = '$'; c2 = '$';
-	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n\n");
-
-	clearEntity("buffer");
+	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
+	printf("STAT: Table contains %d attributes.\n\n", count);
+	
 	fclose(fptr);
 }
 
@@ -331,7 +337,7 @@ void allDatabases()
 
 	reading = TRUE;
 	clearEntity("buffer");
-	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
+	c = fgetc(fptr);				// Advance reading byte after ("), to enter while loop. 
 
 
 
@@ -1125,6 +1131,8 @@ void clearTable()
 
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
 	{
+		/* CLearing rows. */
+
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
 
@@ -1134,6 +1142,14 @@ void clearTable()
 		fflush(fptr);
 
 		fclose(fptr);
+
+
+		/* Removing all zip files. */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "rm data/%s/%s/*.xz", database, table);
+
+		system(directory);
 
 
 		printf("OK: Table cleared successfully!\n\n");
@@ -1667,7 +1683,7 @@ void pushRow()
 
 		attributeQueue.queue(&attributeQueue, attribute);
 		dataTypeQueue.queue(&dataTypeQueue, dataType);
-		valueQueue.queue(&valueQueue, pureValue);	
+		valueQueue.queue(&valueQueue, pureValue);
 	}
 
 	fclose(fptr);		// For "details.json"
@@ -1744,4 +1760,60 @@ void pushRow()
 
 
 	printf("OK: Row pushed successfully!\n\n");
+}
+
+
+
+
+
+
+
+
+
+
+void recordLog(char username[])
+{
+	/* Declarations. */
+
+	FILE *logger = NULL;
+
+	char c = '$';
+	char time[30] = {0}, tempBuff[1025] = {0};
+
+
+
+	/* Storing time */
+
+	logger = popen("date -u", "r");
+	fgets(time, sizeof(time), logger); newline_remover(time);
+	pclose(logger);
+
+
+
+	/* Modifying logs.json file. */
+
+	logger = fopen("data/logs.json", "r+");
+
+	if (logger==NULL) {printf("ERROR: logs.json file not found!\n\n"); return;}
+
+	fseek(logger, -6, SEEK_END);
+	c = fgetc(logger);
+
+	if (c=='[') {fputs("\n\t\t", logger);}
+	else if (c=='}') {fputs(",\n\n\t\t", logger);}
+	else {printf("ERROR: logs.json is corrupted!\n\n"); return;}
+
+
+	newline_remover(command);
+
+	snprintf(
+		tempBuff, sizeof(tempBuff),
+		"{\n\t\t\t\"time\": \"%s\",\n\t\t\t\"location\": \"%s\",\n\t\t\t\"author\": \"%s\",\n\t\t\t\"command\": \"%s\"\n\t\t}\n\t]\n}",
+		time, loc, username, command
+	);
+
+	fputs(tempBuff, logger);
+
+
+	fclose(logger);
 }

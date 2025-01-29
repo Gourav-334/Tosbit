@@ -87,6 +87,20 @@ void syntaxParser(char username[])
 
 
 
+	/* Stores longitude & latitude. */
+
+	printf("STAT: Fetching location...");			// Why is it not displayed before fetch?
+
+	cache = popen("curl -s ipinfo.io/loc", "r");			// -s stands for "silent mode".
+	fgets(loc, sizeof(loc), cache); newline_remover(loc);
+	pclose(cache);
+
+	printf("(FETCHED)\n\n");
+
+
+
+	/* Syntax parsing & feedback loop. */
+
 	while (TRUE)
 	{
 		printf("TOS> ");
@@ -378,6 +392,7 @@ void syntaxParser(char username[])
 
 
 
+		recordLog(username);
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 
 		state = 0;
