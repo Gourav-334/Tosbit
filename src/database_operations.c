@@ -24,7 +24,6 @@
 FILE *fptr = NULL;
 FILE *fptr2 = NULL;
 FILE *cache = NULL;
-FILE *logger = NULL;
 
 char command[COMMAND_MAX_LENGTH] = {0};
 char database[DATABASE_MAX_LENGTH] = {0};
@@ -36,10 +35,7 @@ char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
-char pathBuff[PATH_MAX_LENGTH] = {0};		// Not being used currently...
 char loc[LOC_MAX_LENGTH] = {0};
-
-char flusher = '$';
 
 int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
@@ -82,7 +78,6 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"pathBuff")) {memset(pathBuff, 0, PATH_MAX_LENGTH*sizeof(char));}
 }
 
 

@@ -1,6 +1,23 @@
 MAKE TABLE PARSER:
 
+-> Keep media type keys to be unique.
 -> File compression loading screen.
--> Repair location fetch concurrency issues.
 -> Make multiple log documenting function.
--> Work of paging.
+-> Work on paging rows.
+-> Make data types case-insensitive.
+
+-----------------------------------------------------------
+
+UPCOMING CHALLENGES:
+
+-> Tosbit server
+-> Encryption
+
+-----------------------------------------------------------
+
+PRE-DEPLOYMENT:
+
+-> Proper commenting
+-> Copyright taggings
+-> Ubuntu packaging
+-> Documentation
