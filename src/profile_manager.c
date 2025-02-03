@@ -36,37 +36,6 @@ Welcome note = 4
 
 
 
-/*
-
-BUGS:
-
-i) An endline character is added at the end of any string that has used fgets() function.
-ii) Using decrypt() prints the decrypted string twice despite there being no printf() function
-used in decrypt().
-iii) Same decrypt issue continues, appending everything.
-iv) When input string exceeds its buffer size, the string is read in sets of strings. For example,
-if entered string is of 74 chars & buffer size is 32 chars, then it will be read in set {32, 32, 10}.
-
-
-
-FIXES:
-
-i) That's how it works. If wanting to get rid of it, use newline_remover() function.
-ii) Re-check for presence of printf() function, note that strlen() still returns the right value.
-iii) decrypt() & encrypt() work as saved strings, flush them with memset to null it.
-iv) The so called race condition can be simply solved by using memset() for fgets().
-
-*/
-
-
-
-
-
-
-
-
-
-
 /* Variables */
 
 char username[USERNAME_MAX_SIZE] = {0};
@@ -74,8 +43,8 @@ char password[PASSWORD_MAX_SIZE] = {0};
 char re_password[PASSWORD_MAX_SIZE] = {0};
 char buff[BUFFER_SIZE] = {0};
 
-int functionID = -1;			// Might become troubling later on.
-int exit_status = -1;
+int functionID = 1;
+int exit_status = FALSE;
 
 FILE *file = NULL;
 
@@ -88,7 +57,7 @@ FILE *file = NULL;
 
 
 
-void profile_manager()
+void profileManager()
 {
 	while (exit_status==FALSE)
 	{

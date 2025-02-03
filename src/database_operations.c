@@ -35,17 +35,14 @@ char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
-char pathBuff[PATH_MAX_LENGTH] = {0};	// Not being used currently...
 
-char flusher = '$';
-
-int state = 0;							// Main automaton
-int state2 = 0;							// Table attribute automaton
+int state = 0;								// Main automaton
+int state2 = 0;								// Table attribute automaton
 int zero_count = 0;
 
-int brk = FALSE;						// Set TRUE when the syntax goes wrong.
+int brk = FALSE;							// Set TRUE when the syntax goes wrong.
 int brk2 = FALSE;
-int valid = TRUE;						// Syntax if found wrong, only then invalid.
+int valid = TRUE;							// Syntax if found wrong, only then invalid.
 
 
 
@@ -80,7 +77,6 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"pathBuff")) {memset(pathBuff, 0, PATH_MAX_LENGTH*sizeof(char));}
 }
 
 
@@ -195,6 +191,10 @@ int checkTableExistence(int msg)
 
 void tableStructure()
 {
+	int count = 0;
+
+
+
 	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
 	printf("|         ATTRIBUTE NAME         | DATA TYPE | KEY TYPE |\n");
 	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
@@ -208,7 +208,7 @@ void tableStructure()
 	while (!(c2==']' && c=='\n'))
 	{
 
-		// Printing the attribute name.
+		/* Printing the attribute name. */
 
 		printf("|");
 
@@ -235,7 +235,7 @@ void tableStructure()
 
 
 
-		// Printing the attribute data type.
+		/* Printing the attribute data type. */
 
 		printf("|");
 
@@ -259,7 +259,7 @@ void tableStructure()
 
 
 
-		// Printing the key type of attribute.
+		/* Printing the key type of attribute. */
 
 		printf("|");
 
@@ -276,13 +276,13 @@ void tableStructure()
 
 
 
-		// Resetting is done at top to avoid detecting end of attribute in JSON file.
+		/* Resetting is done at top to avoid detecting end of attribute in JSON file. */
 
 
 
 		printf("%s", buffer);
 		for (int i=strlen(buffer); i<10; i++) {printf(" ");}
-		printf("|\n");
+		printf("|\n"); count++;		// Counting number of attributes.
 
 		c = fgetc(fptr); c2 = c; c = fgetc(fptr);
 	}
@@ -292,9 +292,9 @@ void tableStructure()
 
 
 	c = '$'; c2 = '$';
-	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n\n");
-
-	clearEntity("buffer");
+	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
+	printf("STAT: Table contains %d attributes.\n\n", count);
+	
 	fclose(fptr);
 }
 
@@ -331,7 +331,7 @@ void allDatabases()
 
 	reading = TRUE;
 	clearEntity("buffer");
-	c = fgetc(fptr);						// Advance reading byte after ("), to enter while loop. 
+	c = fgetc(fptr);				// Advance reading byte after ("), to enter while loop. 
 
 
 
@@ -1125,6 +1125,8 @@ void clearTable()
 
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
 	{
+		/* CLearing rows. */
+
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
 
@@ -1134,6 +1136,14 @@ void clearTable()
 		fflush(fptr);
 
 		fclose(fptr);
+
+
+		/* Removing all zip files. */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "rm data/%s/%s/*.xz", database, table);
+
+		system(directory);
 
 
 		printf("OK: Table cleared successfully!\n\n");
@@ -1203,14 +1213,12 @@ int checkUnique(char value[], int currArg, int totalArg)
 		memset(value2, 0, strlen(value)*sizeof(char));
 		invCount = 0;
 
-		fseek(fptr2, 1, SEEK_CUR);
-
 		while (invCount!=((currArg-1)*4)+3) {c2 = c; c = fgetc(fptr2); if(c=='\"') {invCount++;}}
 		do {c2 = c; c = fgetc(fptr2); value2[strlen(value2)] = c;} while (c!='\"');
 
 		if (!strcmp(value,value2)) {return FALSE;}
 
-		while (invCount!=totalArg*4) {c2 = c; c = fgetc(fptr2);}
+		while (invCount!=totalArg*4) {c2 = c; c = fgetc(fptr2); if(c=='\"') {invCount++;}}
 		invCount = 0;
 		fseek(fptr2, 4, SEEK_CUR);
 
@@ -1650,14 +1658,14 @@ void pushRow()
 		}
 
 
-		fseek(fptr, 3, SEEK_CUR);	// For checking if EOF reached afterwards.
+		fseek(fptr, 3, SEEK_CUR);		// For checking if EOF reached afterwards.
 
 
 		if (!strcmp(key,"unique"))
 		{
 			if (checkUnique(value, currArg, totalArg)==FALSE)
 			{
-				printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute);
+				printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute); return;
 			}
 		}
 
@@ -1667,7 +1675,7 @@ void pushRow()
 
 		attributeQueue.queue(&attributeQueue, attribute);
 		dataTypeQueue.queue(&dataTypeQueue, dataType);
-		valueQueue.queue(&valueQueue, pureValue);	
+		valueQueue.queue(&valueQueue, pureValue);
 	}
 
 	fclose(fptr);		// For "details.json"

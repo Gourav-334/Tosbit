@@ -13,63 +13,6 @@
 
 
 
-/*
-
-STATISTICS:
-
-Total DFA states: 				100+
-
-Total error types: 				10+
-Total acknowledgement types:	5+
-
-Total strange bugs:				5
-Total silly bugs:				4
-
-Search code: checkTableExistence
-
-*/
-
-
-
-
-
-
-
-
-
-
-/*
-
-TO DEBUG:
-
-i) For some reason, an extra character is getting read, leaving a blank or '\n'.
-ii) The state remains the last one for some reason.
-iii) Even if user passes a blank command, the stdin takes an invisible character.
-iv) If a database is found to exist, the same database can't be found the next time.
-v) memset() functions are getting skipped for unknown reason.
-vi) Not only string formatting functions but my own strappend() is recursively adding the varaible
-(if mentioned), not the directly passed strings. It has to do something with strappend() only, encrypter
-is derived from it.
-vii) Case 9, buffer has first character as space after emptying or maybe doesn't empty properly.
-
-
-
-SOLUTION:
-
-i) We terminate the loop after reading the 2nd last character of entered string (excluding the
-unexpected character).
-ii) Change the state to 0 after line analysis is complete, bloody fool!
-iii) Bandage the program by assuming having read a character (continue from 2nd character).
-iv) Check the formatted string function & state transitions.
-v) It isn't skipped! You are trying to print the string after emptying it, idiot!
-vi) Something is wrong with either variable "database" or the functions, or even variable "directory".
-vii) First check if it is being emptied properly or not & then bandage it if required.
-
-*/
-
-
-
-
 
 
 
@@ -82,16 +25,20 @@ vii) First check if it is being emptied properly or not & then bandage it if req
 
 /* The automaton, each state has to be defined for all situations. */
 
-void syntaxParser(char username[])
+void syntaxParser(char username[], char *user_cmd)
 {
 
 
 
+	/* Syntax parsing & feedback loop. */
+
 	while (TRUE)
 	{
+		memset(command, 0, sizeof(command));
 		printf("TOS> ");
-		fgets(command, COMMAND_MAX_LENGTH, stdin);
-		memset((command + strlen(command)), 0, (COMMAND_MAX_LENGTH-strlen(command))*sizeof(char));
+
+		if (user_cmd==NULL) {fgets(command, COMMAND_MAX_LENGTH, stdin);}
+		else {strcpy(command, user_cmd); printf("%s\n", command);}
 
 
 
@@ -226,7 +173,8 @@ void syntaxParser(char username[])
 
 
 			if (brk==TRUE) {brk = FALSE; break;}
-			if (i==strlen(command)-2) {break;}
+			
+			newline_remover(command);
 		}
 
 
@@ -378,9 +326,17 @@ void syntaxParser(char username[])
 
 
 
+		recordLog(username, command);
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 
 		state = 0;
+
+
+
+		/* To break if only a single command was requested. */
+
+		if (user_cmd==NULL) {continue;}
+		else {break;}
 	}
 }
 

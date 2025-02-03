@@ -1,5 +1,23 @@
 MAKE TABLE PARSER:
 
--> Total attributes on "show struct ..."
--> File compression loading screen.
--> Log management system.
+-> Default commands.
+-> Keep media type keys to be unique.
+-> Make multiple log documenting function.
+-> Work on paging rows.
+-> Make data types case-insensitive.
+
+-----------------------------------------------------------
+
+UPCOMING CHALLENGES:
+
+-> Tosbit server
+-> Encryption
+
+-----------------------------------------------------------
+
+PRE-DEPLOYMENT:
+
+-> Proper commenting
+-> Copyright taggings
+-> Ubuntu packaging
+-> Documentation

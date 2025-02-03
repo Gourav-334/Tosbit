@@ -1,0 +1,68 @@
+#include "../include/driver_manager.h"
+
+
+
+
+
+
+
+
+
+
+/* Variables */
+
+char *hostIP = "@#$";
+char hostName[HOSTNAME_MAX_LENGTH] = {0};
+char hostPassword[HOSTPASSWORD_MAX_LENGTH] = {0};
+
+
+
+
+
+
+
+
+
+
+/* Connects to the database. */
+
+void setConnection(char *hostIP, char username[], char password[])
+{
+	FILE *fd;
+
+
+
+	// hostIP part will be added soon with sockets.
+
+
+
+	/* Checking if the username exists. */
+
+	snprintf(directory, sizeof(directory), "data/%s.tosbit", username);
+	fd = fopen(directory, "r");
+
+	if (fd==NULL) {printf("ERROR: No host named %s found!\n", username); return;}
+	else {strcpy(hostName,username); printf("STAT: Checking password for host %s...\n", hostName);}
+
+
+
+	/* Checking if password is right. */
+
+	fread(buffer, sizeof(char), sizeof(buffer), fd);
+	newline_remover(buffer);
+
+	if (strcmp(password,buffer)) {printf("ERROR: Host %s's password doesn't match!\n", hostName); return;}
+	else if (!strcmp(password,buffer)) {strcpy(hostPassword,password); printf("OK: Connected to host %s successfully!\n\n", hostName);}
+}
+
+
+
+
+
+/* Interprets a passed command. */
+
+void interpret(char *user_cmd)
+{
+	if (strlen(hostName)==0 || strlen(hostPassword)==0) {printf("ERROR: No host connected!\n");}
+	else {syntaxParser(hostName, user_cmd);}
+}

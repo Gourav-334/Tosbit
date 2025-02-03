@@ -29,7 +29,6 @@
 /* Header & source file inclusion */
 
 #include <stdlib.h>
-
 #include "encrypter.h"
 
 
@@ -63,7 +62,7 @@ extern FILE *file;
 
 /* Functions */
 
-extern void profile_manager();
+extern void profileManager();
 
 
 

@@ -1,6 +1,6 @@
 {
 	"tables": [
-		"programmer",
-		"booleans"
+		"testMedia",
+		"unix"
 	]
 }
