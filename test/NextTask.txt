@@ -1,7 +1,7 @@
 MAKE TABLE PARSER:
 
+-> Default commands.
 -> Keep media type keys to be unique.
--> File compression loading screen.
 -> Make multiple log documenting function.
 -> Work on paging rows.
 -> Make data types case-insensitive.

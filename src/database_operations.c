@@ -35,7 +35,6 @@ char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
-char loc[LOC_MAX_LENGTH] = {0};
 
 int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
@@ -1214,14 +1213,12 @@ int checkUnique(char value[], int currArg, int totalArg)
 		memset(value2, 0, strlen(value)*sizeof(char));
 		invCount = 0;
 
-		fseek(fptr2, 1, SEEK_CUR);
-
 		while (invCount!=((currArg-1)*4)+3) {c2 = c; c = fgetc(fptr2); if(c=='\"') {invCount++;}}
 		do {c2 = c; c = fgetc(fptr2); value2[strlen(value2)] = c;} while (c!='\"');
 
 		if (!strcmp(value,value2)) {return FALSE;}
 
-		while (invCount!=totalArg*4) {c2 = c; c = fgetc(fptr2);}
+		while (invCount!=totalArg*4) {c2 = c; c = fgetc(fptr2); if(c=='\"') {invCount++;}}
 		invCount = 0;
 		fseek(fptr2, 4, SEEK_CUR);
 
@@ -1661,14 +1658,14 @@ void pushRow()
 		}
 
 
-		fseek(fptr, 3, SEEK_CUR);	// For checking if EOF reached afterwards.
+		fseek(fptr, 3, SEEK_CUR);		// For checking if EOF reached afterwards.
 
 
 		if (!strcmp(key,"unique"))
 		{
 			if (checkUnique(value, currArg, totalArg)==FALSE)
 			{
-				printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute);
+				printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute); return;
 			}
 		}
 
@@ -1755,60 +1752,4 @@ void pushRow()
 
 
 	printf("OK: Row pushed successfully!\n\n");
-}
-
-
-
-
-
-
-
-
-
-
-void recordLog(char username[])
-{
-	/* Declarations. */
-
-	FILE *logger = NULL;
-
-	char c = '$';
-	char time[30] = {0}, tempBuff[1025] = {0};
-
-
-
-	/* Storing time */
-
-	logger = popen("date -u", "r");
-	fgets(time, sizeof(time), logger); newline_remover(time);
-	pclose(logger);
-
-
-
-	/* Modifying logs.json file. */
-
-	logger = fopen("data/logs.json", "r+");
-
-	if (logger==NULL) {printf("ERROR: logs.json file not found!\n\n"); return;}
-
-	fseek(logger, -6, SEEK_END);
-	c = fgetc(logger);
-
-	if (c=='[') {fputs("\n\t\t", logger);}
-	else if (c=='}') {fputs(",\n\n\t\t", logger);}
-	else {printf("ERROR: logs.json is corrupted!\n\n"); return;}
-
-
-	newline_remover(command);
-
-	snprintf(
-		tempBuff, sizeof(tempBuff),
-		"{\n\t\t\t\"time\": \"%s\",\n\t\t\t\"location\": \"%s\",\n\t\t\t\"author\": \"%s\",\n\t\t\t\"command\": \"%s\"\n\t\t}\n\t]\n}",
-		time, loc, username, command
-	);
-
-	fputs(tempBuff, logger);
-
-
-	fclose(logger);
 }

@@ -8,7 +8,7 @@
 
 
 
-#define COMMAND_MAX_LENGTH 257
+#define COMMAND_MAX_LENGTH 512
 #define DATABASE_MAX_LENGTH 17
 #define TABLE_MAX_LENGTH 17
 #define DIRECTORY_MAX_LENGTH 257
@@ -19,7 +19,6 @@
 #define KEY_MAX_LENGTH 8
 #define VALUE_MAX_LENGTH 33
 #define PATH_MAX_LENGTH 257
-#define LOC_MAX_LENGTH 17
 
 
 
@@ -57,7 +56,6 @@ extern char attribute[ATTRIBUTE_MAX_LENGTH];
 extern char key[KEY_MAX_LENGTH];
 extern char value[VALUE_MAX_LENGTH];
 extern char pureValue[VALUE_MAX_LENGTH];
-extern char loc[LOC_MAX_LENGTH];
 
 extern int state;							// Main automaton
 extern int state2;							// Used for "table attribute" & "data types"
@@ -94,7 +92,6 @@ extern void clearDb();
 extern int checkUnique(char value[], int currArg, int totalArg);
 extern int typeParser();
 extern void pushRow();
-extern void recordLog(char username[]);
 
 
 

@@ -153,6 +153,30 @@ home/gouraarav/myCodes/Tosbit/src/database_operations.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/database_operations.c.s
 
+home/gouraarav/myCodes/Tosbit/src/driver_manager.o: home/gouraarav/myCodes/Tosbit/src/driver_manager.c.o
+.PHONY : home/gouraarav/myCodes/Tosbit/src/driver_manager.o
+
+# target to build an object file
+home/gouraarav/myCodes/Tosbit/src/driver_manager.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/driver_manager.c.o
+.PHONY : home/gouraarav/myCodes/Tosbit/src/driver_manager.c.o
+
+home/gouraarav/myCodes/Tosbit/src/driver_manager.i: home/gouraarav/myCodes/Tosbit/src/driver_manager.c.i
+.PHONY : home/gouraarav/myCodes/Tosbit/src/driver_manager.i
+
+# target to preprocess a source file
+home/gouraarav/myCodes/Tosbit/src/driver_manager.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/driver_manager.c.i
+.PHONY : home/gouraarav/myCodes/Tosbit/src/driver_manager.c.i
+
+home/gouraarav/myCodes/Tosbit/src/driver_manager.s: home/gouraarav/myCodes/Tosbit/src/driver_manager.c.s
+.PHONY : home/gouraarav/myCodes/Tosbit/src/driver_manager.s
+
+# target to generate assembly for a file
+home/gouraarav/myCodes/Tosbit/src/driver_manager.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/driver_manager.c.s
+.PHONY : home/gouraarav/myCodes/Tosbit/src/driver_manager.c.s
+
 home/gouraarav/myCodes/Tosbit/src/encrypter.o: home/gouraarav/myCodes/Tosbit/src/encrypter.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/encrypter.o
 
@@ -176,6 +200,30 @@ home/gouraarav/myCodes/Tosbit/src/encrypter.s: home/gouraarav/myCodes/Tosbit/src
 home/gouraarav/myCodes/Tosbit/src/encrypter.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
+
+home/gouraarav/myCodes/Tosbit/src/engine.o: home/gouraarav/myCodes/Tosbit/src/engine.c.o
+.PHONY : home/gouraarav/myCodes/Tosbit/src/engine.o
+
+# target to build an object file
+home/gouraarav/myCodes/Tosbit/src/engine.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/engine.c.o
+.PHONY : home/gouraarav/myCodes/Tosbit/src/engine.c.o
+
+home/gouraarav/myCodes/Tosbit/src/engine.i: home/gouraarav/myCodes/Tosbit/src/engine.c.i
+.PHONY : home/gouraarav/myCodes/Tosbit/src/engine.i
+
+# target to preprocess a source file
+home/gouraarav/myCodes/Tosbit/src/engine.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/engine.c.i
+.PHONY : home/gouraarav/myCodes/Tosbit/src/engine.c.i
+
+home/gouraarav/myCodes/Tosbit/src/engine.s: home/gouraarav/myCodes/Tosbit/src/engine.c.s
+.PHONY : home/gouraarav/myCodes/Tosbit/src/engine.s
+
+# target to generate assembly for a file
+home/gouraarav/myCodes/Tosbit/src/engine.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/engine.c.s
+.PHONY : home/gouraarav/myCodes/Tosbit/src/engine.c.s
 
 home/gouraarav/myCodes/Tosbit/src/profile_manager.o: home/gouraarav/myCodes/Tosbit/src/profile_manager.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/profile_manager.o
@@ -224,6 +272,30 @@ home/gouraarav/myCodes/Tosbit/src/queue.s: home/gouraarav/myCodes/Tosbit/src/que
 home/gouraarav/myCodes/Tosbit/src/queue.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/queue.c.s
+
+home/gouraarav/myCodes/Tosbit/src/shell_piping.o: home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o
+.PHONY : home/gouraarav/myCodes/Tosbit/src/shell_piping.o
+
+# target to build an object file
+home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o
+.PHONY : home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o
+
+home/gouraarav/myCodes/Tosbit/src/shell_piping.i: home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i
+.PHONY : home/gouraarav/myCodes/Tosbit/src/shell_piping.i
+
+# target to preprocess a source file
+home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i
+.PHONY : home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i
+
+home/gouraarav/myCodes/Tosbit/src/shell_piping.s: home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s
+.PHONY : home/gouraarav/myCodes/Tosbit/src/shell_piping.s
+
+# target to generate assembly for a file
+home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s
+.PHONY : home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s
 
 home/gouraarav/myCodes/Tosbit/src/syntax_parser.o: home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/syntax_parser.o
@@ -297,30 +369,6 @@ home/gouraarav/myCodes/Tosbit/src/utility_box.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/utility_box.c.s
 
-home/gouraarav/myCodes/Tosbit/test/test.o: home/gouraarav/myCodes/Tosbit/test/test.c.o
-.PHONY : home/gouraarav/myCodes/Tosbit/test/test.o
-
-# target to build an object file
-home/gouraarav/myCodes/Tosbit/test/test.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/test/test.c.o
-.PHONY : home/gouraarav/myCodes/Tosbit/test/test.c.o
-
-home/gouraarav/myCodes/Tosbit/test/test.i: home/gouraarav/myCodes/Tosbit/test/test.c.i
-.PHONY : home/gouraarav/myCodes/Tosbit/test/test.i
-
-# target to preprocess a source file
-home/gouraarav/myCodes/Tosbit/test/test.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/test/test.c.i
-.PHONY : home/gouraarav/myCodes/Tosbit/test/test.c.i
-
-home/gouraarav/myCodes/Tosbit/test/test.s: home/gouraarav/myCodes/Tosbit/test/test.c.s
-.PHONY : home/gouraarav/myCodes/Tosbit/test/test.s
-
-# target to generate assembly for a file
-home/gouraarav/myCodes/Tosbit/test/test.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/test/test.c.s
-.PHONY : home/gouraarav/myCodes/Tosbit/test/test.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -333,15 +381,24 @@ help:
 	@echo "... home/gouraarav/myCodes/Tosbit/src/database_operations.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/database_operations.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/database_operations.s"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/driver_manager.o"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/driver_manager.i"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/driver_manager.s"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/encrypter.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/encrypter.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/encrypter.s"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/engine.o"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/engine.i"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/engine.s"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/profile_manager.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/profile_manager.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/profile_manager.s"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/queue.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/queue.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/queue.s"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/shell_piping.o"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/shell_piping.i"
+	@echo "... home/gouraarav/myCodes/Tosbit/src/shell_piping.s"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/syntax_parser.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/syntax_parser.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/syntax_parser.s"
@@ -351,9 +408,6 @@ help:
 	@echo "... home/gouraarav/myCodes/Tosbit/src/utility_box.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/utility_box.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/utility_box.s"
-	@echo "... home/gouraarav/myCodes/Tosbit/test/test.o"
-	@echo "... home/gouraarav/myCodes/Tosbit/test/test.i"
-	@echo "... home/gouraarav/myCodes/Tosbit/test/test.s"
 .PHONY : help
 
 

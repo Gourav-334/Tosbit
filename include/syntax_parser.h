@@ -17,6 +17,7 @@
 #include "utility_box.h"
 #include "encrypter.h"
 #include "database_operations.h"
+#include "shell_piping.h"
 
 
 
@@ -51,7 +52,7 @@
 
 /* Functions */
 
-extern void syntaxParser(char username[]);
+extern void syntaxParser(char username[], char *user_cmd);
 extern void attributeParser();
 
 

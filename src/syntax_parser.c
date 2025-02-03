@@ -25,20 +25,8 @@
 
 /* The automaton, each state has to be defined for all situations. */
 
-void syntaxParser(char username[])
+void syntaxParser(char username[], char *user_cmd)
 {
-
-
-
-	/* Stores longitude & latitude information. */
-
-	printf("STAT: Fetching location...");					// Why is it not displayed before fetch?
-
-	cache = popen("curl -s ipinfo.io/loc", "r");			// -s stands for "silent mode".
-	fgets(loc, sizeof(loc), cache); newline_remover(loc);
-	pclose(cache);
-
-	printf("(FETCHED)\n\n");
 
 
 
@@ -46,9 +34,11 @@ void syntaxParser(char username[])
 
 	while (TRUE)
 	{
+		memset(command, 0, sizeof(command));
 		printf("TOS> ");
-		fgets(command, COMMAND_MAX_LENGTH, stdin);
-		memset((command + strlen(command)), 0, (COMMAND_MAX_LENGTH-strlen(command))*sizeof(char));
+
+		if (user_cmd==NULL) {fgets(command, COMMAND_MAX_LENGTH, stdin);}
+		else {strcpy(command, user_cmd); printf("%s\n", command);}
 
 
 
@@ -183,7 +173,8 @@ void syntaxParser(char username[])
 
 
 			if (brk==TRUE) {brk = FALSE; break;}
-			if (i==strlen(command)-2) {break;}
+			
+			newline_remover(command);
 		}
 
 
@@ -335,10 +326,17 @@ void syntaxParser(char username[])
 
 
 
-		recordLog(username);
+		recordLog(username, command);
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 
 		state = 0;
+
+
+
+		/* To break if only a single command was requested. */
+
+		if (user_cmd==NULL) {continue;}
+		else {break;}
 	}
 }
 
