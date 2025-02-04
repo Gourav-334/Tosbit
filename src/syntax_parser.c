@@ -379,7 +379,6 @@ void attributeParser()
 
 
 		if (brk2==TRUE) {brk2 = FALSE; break;}
-		//if (i==strlen(buffer)-2) {break;}			// Will it work?
 	}
 
 
@@ -399,11 +398,10 @@ void attributeParser()
 		case 1: printf("ERROR: Check if all attribute names are given for each data type.\n\n"); break;
 		case 2: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 3: printf("ERROR: Check if all attribute names are given for each data type.\n\n"); break;
-		case 4: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
-		case 5: clearEntity("dataType"); clearEntity("attribute"); makeTable(); break;
+		case 4: clearEntity("attribute"); makeTable(); break;
+		case 5: clearEntity("attribute"); makeTable(); break;
 		case 6: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 7: printf("ERROR: Add commas after data type & attribute name!\n\n"); break;
-		case 8: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
 	}
 
 

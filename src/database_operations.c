@@ -489,8 +489,73 @@ void allTables()
 
 void checkDataType()
 {
-	if ((!strcmp(dataType,"int"))||(!strcmp(dataType,"float"))||(!strcmp(dataType,"string"))||(!strcmp(dataType,"bool"))||(!strcmp(dataType,"media"))) {}
-	else {valid = FALSE; state2 = 8; brk2 = TRUE;}
+	int state3 = 0, brk3 = 0;
+
+
+
+	for (int i=0; i<strlen(dataType); i++)
+	{
+		/* Parsing with DFA & Turing machine. */
+
+		switch (state3)
+		{
+			case 0: changeState(dataType[i], "iIsSfFbBmM", "1,1,4,4,10,10,16,16,20,20", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 1: changeState(dataType[i], "nN", "2,2", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 2: changeState(dataType[i], "tT", "3,3", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 3: changeState(dataType[i], " ", "3", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 4: changeState(dataType[i], "tT", "5,5", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 5: changeState(dataType[i], "rR", "6,6", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 6: changeState(dataType[i], "iI", "7,7", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 7: changeState(dataType[i], "nN", "8,8", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 8: changeState(dataType[i], "gG", "9,9", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 9: changeState(dataType[i], " ", "9", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 10: changeState(dataType[i], "lL", "11,11", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 11: changeState(dataType[i], "oO", "12,12", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 12: changeState(dataType[i], "aA", "13,13", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 13: changeState(dataType[i], "tT", "14,14", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 14: changeState(dataType[i], " ", "14", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 16: changeState(dataType[i], "oO", "17,17", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 17: changeState(dataType[i], "oO", "18,18", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 18: changeState(dataType[i], "lL", "19,19", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 19: changeState(dataType[i], " ", "19", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 20: changeState(dataType[i], "eE", "21,21", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 21: changeState(dataType[i], "dD", "22,22", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 22: changeState(dataType[i], "iI", "23,23", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 23: changeState(dataType[i], "aA", "24,24", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 24: changeState(dataType[i], " ", "24", &state3, 25); breakValue(&state3, 25, &brk3); break;
+		}
+
+
+		if (brk3==TRUE) {brk3 = FALSE; break;}
+	}
+
+
+
+
+
+	switch (state3)
+	{
+		case 0: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
+		case 1: printf("ERROR: Did you meant INT?\n\n"); break;
+		case 2: printf("ERROR: Did you meant INT?\n\n"); break;
+		case 4: printf("ERROR: Did you meant STRING?\n\n"); break;
+		case 5: printf("ERROR: Did you meant STRING?\n\n"); break;
+		case 6: printf("ERROR: Did you meant STRING?\n\n"); break;
+		case 7: printf("ERROR: Did you meant STRING?\n\n"); break;
+		case 8: printf("ERROR: Did you meant STRING?\n\n"); break;
+		case 10: printf("ERROR: Did you meant FLOAT?\n\n"); break;
+		case 11: printf("ERROR: Did you meant FLOAT?\n\n"); break;
+		case 12: printf("ERROR: Did you meant FLOAT?\n\n"); break;
+		case 13: printf("ERROR: Did you meant FLOAT?\n\n"); break;
+		case 16: printf("ERROR: Did you meant BOOL?\n\n"); break;
+		case 17: printf("ERROR: Did you meant BOOL?\n\n"); break;
+		case 18: printf("ERROR: Did you meant BOOL?\n\n"); break;
+		case 20: printf("ERROR: Did you meant MEDIA?\n\n"); break;
+		case 21: printf("ERROR: Did you meant MEDIA?\n\n"); break;
+		case 22: printf("ERROR: Did you meant MEDIA?\n\n"); break;
+		case 23: printf("ERROR: Did you meant MEDIA?\n\n"); break;
+		case 25: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
+	}
 }
 
 
@@ -615,9 +680,31 @@ void makeTable()
 
 		for (int i=0; i<strlen(buffer); i++)
 		{
-			while (buffer[i]==' ') {i++;}
+			/* Purifying data type. */
+
+			while (buffer[i]==' ') {i++;} clearEntity("dataType");
 			while (buffer[i]!=' ') {dataType[strlen(dataType)] = buffer[i]; i++;}
-			while (buffer[i]==' ') {i++;}
+
+			if (dataType[0]=='i' || dataType[0]=='I')
+				{clearEntity("dataType"); strcpy(dataType,"int"); newline_remover(dataType);}
+
+			else if (dataType[0]=='s' || dataType[0]=='S')
+				{clearEntity("dataType"); strcpy(dataType,"string"); newline_remover(dataType);}
+
+			else if (dataType[0]=='f' || dataType[0]=='F')
+				{clearEntity("dataType"); strcpy(dataType,"float"); newline_remover(dataType);}
+
+			else if (dataType[0]=='b' || dataType[0]=='B')
+				{clearEntity("dataType"); strcpy(dataType,"bool"); newline_remover(dataType);}
+
+			else if (dataType[0]=='m' || dataType[0]=='M')
+				{clearEntity("dataType"); strcpy(dataType,"media"); newline_remover(dataType);}
+
+
+
+			/* Traversing rest of the buffer for R/W ops. */
+
+			while (buffer[i]==' ') {i++;} clearEntity("attribute");
 			while (buffer[i]!=',' && i!=strlen(buffer)) {attribute[strlen(attribute)] = buffer[i]; i++;}
 
 			clearEntity("directory");
@@ -626,8 +713,6 @@ void makeTable()
 			fflush(fptr);
 
 			if (buffer[i]==',') {fputs(",\n\t", fptr);}
-
-			clearEntity("dataType"); clearEntity("attribute");
 		}
 
 		fputs("\n}", fptr);

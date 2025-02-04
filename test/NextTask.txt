@@ -1,7 +1,6 @@
 MAKE TABLE PARSER:
 
--> Make data types case-insensitive.
--> Repair unique key.
+-> Repair unique key?
 -> Keep media type keys to be unique.
 -> Work on paging rows.
 
