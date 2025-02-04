@@ -1,4 +1,73 @@
 {
 	"logs": [
+		{
+			"time": "Tue Feb  4 04:37:04 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"time": "Tue Feb  4 04:45:21 UTC 2025",
+			"location": "23.0258,72.5873",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"time": "Tue Feb  4 04:45:21 UTC 2025",
+			"location": "23.0258,72.5873",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"time": "Tue Feb  4 04:45:21 UTC 2025",
+			"location": "23.0258,72.5873",
+			"author": "Gourav",
+			"command": "make table testing(int sno, string name)"
+		},
+
+		{
+			"time": "Tue Feb  4 04:46:09 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"time": "Tue Feb  4 04:46:09 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"time": "Tue Feb  4 04:46:14 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "make table testing(int sno, string name)"
+		},
+
+		{
+			"time": "Tue Feb  4 04:48:04 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"time": "Tue Feb  4 04:48:04 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"time": "Tue Feb  4 04:48:04 UTC 2025",
+			"location": "18.5196,73.8554",
+			"author": "Gourav",
+			"command": "show struct testing"
+		}
 	]
 }

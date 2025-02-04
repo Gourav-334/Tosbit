@@ -9,6 +9,7 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "utility_box.h"
 
 

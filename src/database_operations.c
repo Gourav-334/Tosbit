@@ -94,6 +94,7 @@ int checkDbExistence(int msg)
 {
 	int existence;
 
+	clearEntity("directory");
 	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
 	fptr = fopen(directory, "r");
 
@@ -524,7 +525,7 @@ void makeTable()
 
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
 	{
-		printf("Table already exists!\n\n");
+		printf("STAT: Table already exists!\n\n");
 		printf("Overwrite data to disk? (y/n): "); decision = getchar();
 
 
@@ -666,7 +667,7 @@ void makeDb()
 
 	if (checkDbExistence(FALSE)==TRUE)
 	{
-		printf("Database already exists!\n\n");
+		printf("STAT: Database already exists!\n\n");
 		printf("Overwrite data to disk? (y/n): "); decision = getchar();
 
 

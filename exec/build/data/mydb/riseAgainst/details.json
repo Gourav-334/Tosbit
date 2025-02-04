@@ -1,4 +1,4 @@
 {
 	"sno": ["int", "regular"],
-	"name": ["string", "unique"]
+	"name": ["string", "regular"]
 }

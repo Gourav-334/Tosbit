@@ -1,10 +1,9 @@
 MAKE TABLE PARSER:
 
--> Default commands.
--> Keep media type keys to be unique.
--> Make multiple log documenting function.
--> Work on paging rows.
 -> Make data types case-insensitive.
+-> Repair unique key.
+-> Keep media type keys to be unique.
+-> Work on paging rows.
 
 -----------------------------------------------------------
 
