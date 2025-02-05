@@ -1654,6 +1654,822 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 208,
+			"time": "Tue Feb  4 19:17:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 209,
+			"time": "Tue Feb  4 19:17:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 210,
+			"time": "Tue Feb  4 19:17:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, FLOAT ego)"
+		},
+
+		{
+			"serial": 211,
+			"time": "Tue Feb  4 19:17:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 212,
+			"time": "Wed Feb  5 09:44:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 213,
+			"time": "Wed Feb  5 09:44:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 214,
+			"time": "Wed Feb  5 09:44:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, FLOAT ego)"
+		},
+
+		{
+			"serial": 215,
+			"time": "Wed Feb  5 09:44:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 216,
+			"time": "Wed Feb  5 13:26:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 217,
+			"time": "Wed Feb  5 13:26:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 218,
+			"time": "Wed Feb  5 13:26:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, FLOAT ego)"
+		},
+
+		{
+			"serial": 219,
+			"time": "Wed Feb  5 13:26:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 220,
+			"time": "Wed Feb  5 13:27:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 221,
+			"time": "Wed Feb  5 13:27:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 222,
+			"time": "Wed Feb  5 13:27:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 223,
+			"time": "Wed Feb  5 13:27:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 224,
+			"time": "Wed Feb  5 13:39:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 225,
+			"time": "Wed Feb  5 13:39:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 226,
+			"time": "Wed Feb  5 13:39:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 227,
+			"time": "Wed Feb  5 13:39:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 228,
+			"time": "Wed Feb  5 13:42:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 229,
+			"time": "Wed Feb  5 13:42:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 230,
+			"time": "Wed Feb  5 13:42:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 231,
+			"time": "Wed Feb  5 13:42:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 232,
+			"time": "Wed Feb  5 13:42:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 233,
+			"time": "Wed Feb  5 13:42:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 234,
+			"time": "Wed Feb  5 13:42:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 235,
+			"time": "Wed Feb  5 13:42:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 236,
+			"time": "Wed Feb  5 13:43:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 237,
+			"time": "Wed Feb  5 13:43:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 238,
+			"time": "Wed Feb  5 13:44:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 239,
+			"time": "Wed Feb  5 13:44:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 240,
+			"time": "Wed Feb  5 13:44:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 241,
+			"time": "Wed Feb  5 13:44:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 242,
+			"time": "Wed Feb  5 13:47:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 243,
+			"time": "Wed Feb  5 13:47:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 244,
+			"time": "Wed Feb  5 13:47:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 245,
+			"time": "Wed Feb  5 13:47:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 246,
+			"time": "Wed Feb  5 13:47:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 247,
+			"time": "Wed Feb  5 13:47:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 248,
+			"time": "Wed Feb  5 13:51:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 249,
+			"time": "Wed Feb  5 13:51:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 250,
+			"time": "Wed Feb  5 13:51:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 251,
+			"time": "Wed Feb  5 13:51:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 252,
+			"time": "Wed Feb  5 13:51:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 253,
+			"time": "Wed Feb  5 13:51:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 254,
+			"time": "Wed Feb  5 13:51:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT $ego)"
+		},
+
+		{
+			"serial": 255,
+			"time": "Wed Feb  5 13:56:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 256,
+			"time": "Wed Feb  5 13:56:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 257,
+			"time": "Wed Feb  5 13:56:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT $ego)"
+		},
+
+		{
+			"serial": 258,
+			"time": "Wed Feb  5 13:57:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 259,
+			"time": "Wed Feb  5 13:57:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 260,
+			"time": "Wed Feb  5 13:57:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING $name, FLOAT $ego)"
+		},
+
+		{
+			"serial": 261,
+			"time": "Wed Feb  5 13:57:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 262,
+			"time": "Wed Feb  5 13:57:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 263,
+			"time": "Wed Feb  5 13:57:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 264,
+			"time": "Wed Feb  5 13:57:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING #name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 265,
+			"time": "Wed Feb  5 13:57:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 266,
+			"time": "Wed Feb  5 13:57:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 267,
+			"time": "Wed Feb  5 13:57:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 268,
+			"time": "Wed Feb  5 13:57:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 269,
+			"time": "Wed Feb  5 13:57:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 270,
+			"time": "Wed Feb  5 14:09:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 271,
+			"time": "Wed Feb  5 14:09:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 272,
+			"time": "Wed Feb  5 14:09:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, FLOAT #ego)"
+		},
+
+		{
+			"serial": 273,
+			"time": "Wed Feb  5 14:09:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 274,
+			"time": "Wed Feb  5 14:10:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 275,
+			"time": "Wed Feb  5 14:10:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 276,
+			"time": "Wed Feb  5 14:10:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 277,
+			"time": "Wed Feb  5 14:10:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 278,
+			"time": "Wed Feb  5 14:11:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 279,
+			"time": "Wed Feb  5 14:11:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 280,
+			"time": "Wed Feb  5 14:11:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 281,
+			"time": "Wed Feb  5 14:11:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 282,
+			"time": "Wed Feb  5 14:12:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 283,
+			"time": "Wed Feb  5 14:12:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 284,
+			"time": "Wed Feb  5 14:12:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 285,
+			"time": "Wed Feb  5 14:12:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 286,
+			"time": "Wed Feb  5 14:12:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 287,
+			"time": "Wed Feb  5 14:12:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 288,
+			"time": "Wed Feb  5 14:12:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 289,
+			"time": "Wed Feb  5 14:12:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 290,
+			"time": "Wed Feb  5 14:17:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 291,
+			"time": "Wed Feb  5 14:17:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 292,
+			"time": "Wed Feb  5 14:17:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 293,
+			"time": "Wed Feb  5 14:17:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 294,
+			"time": "Wed Feb  5 14:20:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 295,
+			"time": "Wed Feb  5 14:20:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 296,
+			"time": "Wed Feb  5 14:20:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 297,
+			"time": "Wed Feb  5 14:20:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 298,
+			"time": "Wed Feb  5 14:21:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 299,
+			"time": "Wed Feb  5 14:21:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 300,
+			"time": "Wed Feb  5 14:21:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 301,
+			"time": "Wed Feb  5 14:21:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 302,
+			"time": "Wed Feb  5 14:21:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 303,
+			"time": "Wed Feb  5 14:21:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 304,
+			"time": "Wed Feb  5 14:21:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA #ego)"
+		},
+
+		{
+			"serial": 305,
+			"time": "Wed Feb  5 14:21:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 306,
+			"time": "Wed Feb  5 14:21:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 307,
+			"time": "Wed Feb  5 14:21:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 308,
+			"time": "Wed Feb  5 14:21:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA ego)"
+		},
+
+		{
+			"serial": 309,
+			"time": "Wed Feb  5 14:21:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
 		}
 	]
 }

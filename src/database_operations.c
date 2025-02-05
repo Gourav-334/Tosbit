@@ -573,7 +573,7 @@ void makeTable()
 {
 	char decision, c='$', c2='$';
 
-	int write = TRUE;
+	int write = TRUE, uniqueKey = FALSE;
 	int charCount = 0, invCount = 0;
 
 	char insertStr[32] = {0};
@@ -685,6 +685,7 @@ void makeTable()
 			while (buffer[i]==' ') {i++;} clearEntity("dataType");
 			while (buffer[i]!=' ') {dataType[strlen(dataType)] = buffer[i]; i++;}
 
+
 			if (dataType[0]=='i' || dataType[0]=='I')
 				{clearEntity("dataType"); strcpy(dataType,"int"); newline_remover(dataType);}
 
@@ -707,8 +708,38 @@ void makeTable()
 			while (buffer[i]==' ') {i++;} clearEntity("attribute");
 			while (buffer[i]!=',' && i!=strlen(buffer)) {attribute[strlen(attribute)] = buffer[i]; i++;}
 
-			clearEntity("directory");
-			snprintf(directory, sizeof(directory), "\"%s\": [\"%s\", \"regular\"]", attribute, dataType);
+
+
+			/* Writing metadata to data/details.json with key constraints. */
+
+			clearEntity("directory"); clearEntity("key");
+
+
+			if ((dataType[0]=='m' || dataType[0]=='M') && !(attribute[0]=='$' || attribute[0]=='#')) {strcpy(key,"file");}
+			else if ((dataType[0]=='m' || dataType[0]=='M') && (attribute[0]=='$' || attribute[0]=='#'))
+			{
+				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
+				system(directory);
+				printf("ERROR: Media attributes are hardwired to file keys!\n\n");
+
+				return;
+			}
+			else if (attribute[0]=='$' && uniqueKey==FALSE) {strcpy(key,"unique"); uniqueKey = TRUE;}
+			else if (attribute[0]=='$' && uniqueKey==TRUE)
+			{
+				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
+				system(directory);
+				printf("ERROR: A table can't have multiple unique keys!\n\n");
+
+				return;
+			}
+			else if (attribute[0]=='#') {strcpy(key,"foreign");}
+			else {strcpy(key,"regular");}
+
+
+			newline_remover(key);
+
+			snprintf(directory, sizeof(directory), "\"%s\": [\"%s\", \"%s\"]", attribute, dataType, key);
 			fputs(directory, fptr);
 			fflush(fptr);
 

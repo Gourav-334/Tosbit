@@ -3,7 +3,7 @@
 git status
 git add --all
 git status
-git commit $0
+git commit -m $0
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

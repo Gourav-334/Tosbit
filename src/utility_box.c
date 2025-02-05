@@ -191,4 +191,21 @@ extern void spaceRemover(char str[], char result[], int size)
 
 
 
+/* Makes an attribute name independent of its key symbol. */
+
+void removeKeySymbol(char *attribute)
+{
+	for (int i=0; i<strlen(attribute)-1; i++)
+	{
+		attribute[i] = attribute[i+1];
+	}
+
+
+	memset((attribute + strlen(attribute) - 1) , 0, sizeof(char));
+}
+
+
+
+
+
 /* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

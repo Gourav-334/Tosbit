@@ -17,7 +17,7 @@ int main(int argc, char **argv[])
 	
 	interpret("OPEN DB mydb");
 	interpret("DELETE TABLE destiny");
-	interpret("MAKE TABLE destiny(STRING name, FLOAT ego)");
+	interpret("MAKE TABLE destiny(STRING name, MEDiA ego)");
 	interpret("SHOW STRUCT destiny");
 
 	return 0;
