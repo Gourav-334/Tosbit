@@ -195,13 +195,15 @@ extern void spaceRemover(char str[], char result[], int size)
 
 void removeKeySymbol(char *attribute)
 {
-	for (int i=0; i<strlen(attribute)-1; i++)
+	if (attribute[0]=='$' || attribute[0]=='#')
 	{
-		attribute[i] = attribute[i+1];
+		for (int i=0; i<strlen(attribute)-1; i++)
+		{
+			attribute[i] = attribute[i+1];
+		}
+
+		memset((attribute + strlen(attribute) - 1) , 0, sizeof(char));
 	}
-
-
-	memset((attribute + strlen(attribute) - 1) , 0, sizeof(char));
 }
 
 

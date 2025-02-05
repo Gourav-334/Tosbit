@@ -2470,6 +2470,134 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 310,
+			"time": "Wed Feb  5 18:59:35 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 311,
+			"time": "Wed Feb  5 18:59:35 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 312,
+			"time": "Wed Feb  5 18:59:35 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA ego)"
+		},
+
+		{
+			"serial": 313,
+			"time": "Wed Feb  5 18:59:35 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 314,
+			"time": "Wed Feb  5 19:00:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 315,
+			"time": "Wed Feb  5 19:00:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 316,
+			"time": "Wed Feb  5 19:00:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(STRING name, MEDiA ego)"
+		},
+
+		{
+			"serial": 317,
+			"time": "Wed Feb  5 19:00:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 318,
+			"time": "Wed Feb  5 19:04:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 319,
+			"time": "Wed Feb  5 19:04:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 320,
+			"time": "Wed Feb  5 19:04:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(INT $enrollment, STRING #name)"
+		},
+
+		{
+			"serial": 321,
+			"time": "Wed Feb  5 19:04:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 322,
+			"time": "Wed Feb  5 19:05:20 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 323,
+			"time": "Wed Feb  5 19:05:20 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 324,
+			"time": "Wed Feb  5 19:05:20 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(INT $enrollment, STRING #name, InT cgpa)"
+		},
+
+		{
+			"serial": 325,
+			"time": "Wed Feb  5 19:05:20 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
 		}
 	]
 }

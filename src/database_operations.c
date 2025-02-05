@@ -229,7 +229,7 @@ void tableStructure()
 
 		c = '$'; c2 = '$';
 
-		printf("%s", buffer);
+		removeKeySymbol(buffer); printf("%s", buffer);
 		for (int i=strlen(buffer); i<32; i++) {printf(" ");}
 
 
@@ -1315,7 +1315,7 @@ void clearDb()
 
 
 /* Checking if unique value exists or not. (UNTESTED ON UNIQUE KEYS) */
-
+// ULTIMATE THING TO REPAIR/DEBUG
 int checkUnique(char value[], int currArg, int totalArg)
 {
 	int invCount=0;
@@ -1778,7 +1778,7 @@ void pushRow()
 		fseek(fptr, 3, SEEK_CUR);		// For checking if EOF reached afterwards.
 
 
-		if (!strcmp(key,"unique"))
+		if (!strcmp(key,"unique"))		// ULTIMATE THING TO REPAIR/DEBUG
 		{
 			if (checkUnique(value, currArg, totalArg)==FALSE)
 			{

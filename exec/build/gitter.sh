@@ -1,9 +1,7 @@
 #!/bin/bash
 
-git status
 git add --all
-git status
-git commit -m "Now attributes can be assigned a key."
+git commit -m "Table structure printing avoids printing attribute key symbol (due to modified removeKeySymbol)."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

@@ -1,4 +1,5 @@
 {
-	"name": ["string", "regular"],
-	"ego": ["media", "file"]
+	"$enrollment": ["int", "unique"],
+	"#name": ["string", "foreign"],
+	"cgpa": ["int", "regular"]
 }
