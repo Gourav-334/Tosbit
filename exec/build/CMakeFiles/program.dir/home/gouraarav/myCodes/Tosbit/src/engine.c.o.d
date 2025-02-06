@@ -57,6 +57,9 @@ CMakeFiles/program.dir/home/gouraarav/myCodes/Tosbit/src/engine.c.o: \
  /usr/include/strings.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/driver_manager.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/syntax_parser.h \
+ /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/database_operations.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/transition_tool.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/queue.h \

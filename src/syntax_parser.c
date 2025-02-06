@@ -27,7 +27,12 @@
 
 void syntaxParser(char username[], char *user_cmd)
 {
+	/* Measuring performance with CPU clock. */
 
+	clock_t start, end;
+	double elapsed_time;
+
+	start = clock();
 
 
 	/* Syntax parsing & feedback loop. */
@@ -330,6 +335,14 @@ void syntaxParser(char username[], char *user_cmd)
 		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
 
 		state = 0;
+
+
+
+		/* Completing performance calculation. */
+
+		end = clock();
+		elapsed_time = ((double)(end - start)) / CLOCKS_PER_SEC;
+		printf("ELAPSED TIME: %f\n", elapsed_time);
 
 
 

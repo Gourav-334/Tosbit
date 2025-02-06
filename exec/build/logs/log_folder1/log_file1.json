@@ -2694,6 +2694,70 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 338,
+			"time": "Thu Feb  6 19:30:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 339,
+			"time": "Thu Feb  6 19:30:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 340,
+			"time": "Thu Feb  6 19:30:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(IT $enrollment, SWRONG #name, GNU cgpa)"
+		},
+
+		{
+			"serial": 341,
+			"time": "Thu Feb  6 19:30:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 342,
+			"time": "Thu Feb  6 19:33:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 343,
+			"time": "Thu Feb  6 19:33:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 344,
+			"time": "Thu Feb  6 19:33:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 345,
+			"time": "Thu Feb  6 19:33:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
 		}
 	]
 }
