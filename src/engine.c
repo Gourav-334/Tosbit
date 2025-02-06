@@ -14,11 +14,11 @@ int main(int argc, char **argv[])
 	//profileManager();
 	//getLocation();
 	setConnection("123.141.138.013", "Gourav", "tangible%troops88");
-	
-	interpret("OPEN DB mydb");
-	interpret("DELETE TABLE destiny");
-	interpret("MAKE TABLE destiny(IT $enrollment, SWRONG #name, GNU cgpa)");
-	interpret("SHOW STRUCT destiny");
+
+	interpret("SHOW ALL DB");
+	interpret("OPEN DB db1");
+	interpret("SHOW ALL TABLES");
+	interpret("SHOW STRUCT table1");
 
 	return 0;
 }

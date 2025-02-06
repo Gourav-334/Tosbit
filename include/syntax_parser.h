@@ -14,6 +14,8 @@
 
 
 
+#include <time.h>
+
 #include "utility_box.h"
 #include "encrypter.h"
 #include "database_operations.h"

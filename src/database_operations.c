@@ -19,7 +19,7 @@
 
 
 
-/* Initializations */
+/* Global initializations */
 
 FILE *fptr = NULL;
 FILE *fptr2 = NULL;
@@ -92,13 +92,19 @@ void clearEntity(char *str)
 
 int checkDbExistence(int msg)
 {
+	/* Initializations */
+
 	int existence;
 
+
+	/* Formatting 'directory' to path for tables.tosbit */
+
 	clearEntity("directory");
-	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+	snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
 	fptr = fopen(directory, "r");
 
 
+	/* Checking existence of database through existence of tables.tosbit */
 
 	if (fptr==NULL && msg==TRUE)
 	{
@@ -107,16 +113,7 @@ int checkDbExistence(int msg)
 		printf("ERROR: No database named \"%s\" exists!\n\n", database);
 		clearEntity("database");
 	}
-
-
-
-	else if (fptr==NULL && msg==FALSE)
-	{
-		existence = FALSE;
-	}
-
-
-
+	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 	else if (fptr!=NULL && msg==TRUE)
 	{
 		existence = TRUE;
@@ -124,17 +121,10 @@ int checkDbExistence(int msg)
 
 		fclose(fptr);
 	}
+	else if (fptr!=NULL && msg==FALSE) {existence = TRUE; fclose(fptr);}
 
 
-
-	else if (fptr!=NULL && msg==FALSE)
-	{
-		existence = TRUE;
-
-		fclose(fptr);
-	}
-
-
+	/* Returning 'true' if database exists, else 'false'. */
 
 	return existence;
 }
@@ -152,17 +142,21 @@ int checkDbExistence(int msg)
 
 int checkTableExistence(int msg)
 {
+	/* Initializations */
+
 	int existence;
 
-	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
+
+	/* Formatting 'directory' to path for details.tosbit */
+
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
 	fptr = fopen(directory, "r");
 
 
+	/* Checking if a database is opened or not & existence of details.tosbit */
 
 	if (strlen(database)==0 && msg==TRUE) {printf("ERROR: No database opened yet!\n\n");}
 	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
-
-
 	else if (fptr==NULL && msg==TRUE)
 	{
 		printf("ERROR: No table named \"%s\" exists!\n\n", table);
@@ -170,11 +164,11 @@ int checkTableExistence(int msg)
 
 		existence = FALSE;
 	}
-
-
-	else if (fptr!=NULL && msg==FALSE) {existence = TRUE;}
+	else if (fptr!=NULL && msg==FALSE) {existence = TRUE; fclose(fptr);}
 	else if (fptr!=NULL && msg==TRUE) {tableStructure(); existence = TRUE;}
 
+
+	/* Returning 'true' if table exists, else 'false'. */
 
 	return existence;
 }
@@ -192,110 +186,125 @@ int checkTableExistence(int msg)
 
 void tableStructure()
 {
-	int count = 0;
+	/* Initializations */
+
+	char c;
+	char metaBuff[2] = {0};
+	int largestAttribute, largestDataType, largestKey;
+	int charsPrinted = 0, totalAttributes = 0;
 
 
+	/* Opening metadata.tosbit & giving safety against NULL file descriptor. */
 
-	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
-	printf("|         ATTRIBUTE NAME         | DATA TYPE | KEY TYPE |\n");
-	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/metadata.tosbit", database, table);
+	fptr = fopen(directory, "r");
+
+	if (fptr==NULL) {printf("ERROR: Metadata for table \"%s\" not found!\n\n", table); return;}
 
 
+	/* Reading & storing maximum attribute name, data type name or key name length. */
 
+	for (int i=0; i<2; i++) {metaBuff[i] = fgetc(fptr);} largestAttribute = atoi(metaBuff);
+	fseek(fptr, 1, SEEK_CUR);
 
+	memset(metaBuff, 0, sizeof(metaBuff));
+	for (int i=0; i<2; i++) {metaBuff[i] = fgetc(fptr);} largestDataType = atoi(metaBuff);
+	fseek(fptr, 1, SEEK_CUR);
 
-	char c = '$', c2 = '$';
-
-	while (!(c2==']' && c=='\n'))
+	memset(metaBuff, 0, sizeof(metaBuff));
+	for (int i=0; i<2; i++)
 	{
+		c = fgetc(fptr);
+		if (c==' ') {break;}
 
-		/* Printing the attribute name. */
-
-		printf("|");
-
-		c = '$'; c2 = '$';
-
-
-		while (c!='\"') {c2 = c; c = fgetc(fptr);}
-		c = '$'; c2 = '$';
-
-		clearEntity("buffer");
-
-		while(c!='\"')
-		{
-			c2 = c; c = fgetc(fptr);
-			if (c!='\"'){buffer[strlen(buffer)] = c;}
-		}
-
-		c = '$'; c2 = '$';
-
-		removeKeySymbol(buffer); printf("%s", buffer);
-		for (int i=strlen(buffer); i<32; i++) {printf(" ");}
+		metaBuff[i] = c;
+	}
+	largestKey = atoi(metaBuff);
 
 
+	/* Safely closing file descriptor. */
+
+	fclose(fptr);
 
 
+	/* Opening details.json & giving safety against NULL file descriptor. */
 
-		/* Printing the attribute data type. */
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
+	fptr = fopen(directory, "r");
 
-		printf("|");
-
-		while (c!='\"') {c2 = c; c = fgetc(fptr);}
-		c = '$'; c2 = '$';
-
-		clearEntity("buffer");
-
-		while(c!='\"')
-		{
-			c2 = c; c = fgetc(fptr);
-			if (c!='\"'){buffer[strlen(buffer)] = c;}
-		}
-
-		c = '$'; c2 = '$';
-
-		printf("%s", buffer);
-		for (int i=strlen(buffer); i<11; i++) {printf(" ");}
+	if (fptr==NULL) {printf("ERROR: Details for \"%s\" not found!\n\n", table); return;}
 
 
+	/* Printing upper part of the console-table (the header of the table). */
+
+	printf("+"); for (int i=0; i<largestAttribute; i++) {printf("-");}
+	printf("+"); for (int i=0; i<largestDataType; i++) {printf("-");}
+	printf("+"); for (int i=0; i<largestKey; i++) {printf("-");} printf("+\n");
+
+	printf("|Attributes"); for (int i=0; i<largestAttribute-strlen("Attributes"); i++) {printf(" ");}
+	printf("|Data Types"); for (int i=0; i<largestDataType-strlen("Data Types"); i++) {printf(" ");}
+	printf("|Keys"); for (int i=0; i<largestKey-strlen("Keys"); i++) {printf(" ");} printf("|\n");
+
+	printf("+"); for (int i=0; i<largestAttribute; i++) {printf("-");}
+	printf("+"); for (int i=0; i<largestDataType; i++) {printf("-");}
+	printf("+"); for (int i=0; i<largestKey; i++) {printf("-");} printf("+\n");
 
 
+	/* Printing Lower part of console-table (about all attributes & their properties). */
 
-		/* Printing the key type of attribute. */
+	while (!reachedEOF(fptr))
+	{
+		/* Attributes */
 
-		printf("|");
+		charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		do {printf("%c", c); charsPrinted++; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		for (int i=0; i<largestAttribute-charsPrinted; i++) {printf(" ");}
+		if (c==' ') {fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-charsPrinted, SEEK_CUR);}
+		
 
-		while (c!='\"') {c2 = c; c = fgetc(fptr);}
-		c = '$'; c2 = '$';
+		/* Data Type */
 
-		clearEntity("buffer");
-
-		while(c!='\"')
-		{
-			c2 = c; c = fgetc(fptr);
-			if (c!='\"'){buffer[strlen(buffer)] = c;}
-		}
-
-
-
-		/* Resetting is done at top to avoid detecting end of attribute in JSON file. */
-
+		charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		do {printf("%c", c); charsPrinted++; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		for (int i=0; i<largestDataType-charsPrinted; i++) {printf(" ");}
+		if (c==' ') {fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-charsPrinted, SEEK_CUR);}
 
 
-		printf("%s", buffer);
-		for (int i=strlen(buffer); i<10; i++) {printf(" ");}
-		printf("|\n"); count++;		// Counting number of attributes.
+		/* Key Type */
 
-		c = fgetc(fptr); c2 = c; c = fgetc(fptr);
+		charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		do {printf("%c", c); charsPrinted++; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		for (int i=0; i<largestKey-charsPrinted; i++) {printf(" ");}
+		if (c==' ') {fseek(fptr, ((KEY_MAX_LENGTH-1)-charsPrinted)+2, SEEK_CUR);}
+		else if (c==',') {fseek(fptr, 2, SEEK_CUR);} printf("|\n");
+
+
+		/* Counting each encountered attribute for stats. */
+
+		totalAttributes++;
+
+
+		/* Safety mechanism to avoid reading garbage after EOF & then running in infinite loop. */
+
+		c = fgetc(fptr);
+		if (c!='\n') {break;}
+		else if (c=='\n') {continue;}
 	}
 
+	printf("+"); for (int i=0; i<largestAttribute; i++) {printf("-");}
+	printf("+"); for (int i=0; i<largestDataType; i++) {printf("-");}
+	printf("+"); for (int i=0; i<largestKey; i++) {printf("-");} printf("+\n");
 
 
+	/* Showing total attributes encountered so far. */
+
+	printf("STAT: Table contains %d attributes.\n\n", totalAttributes);
 
 
-	c = '$'; c2 = '$';
-	printf("+"); for (int i=0; i<(32+11+10+2); i++) {printf("-");} printf("+\n");
-	printf("STAT: Table contains %d attributes.\n\n", count);
-	
+	/* Safely closing file descriptor. */
+
 	fclose(fptr);
 }
 
@@ -312,69 +321,86 @@ void tableStructure()
 
 void allDatabases()
 {
-	fptr = fopen("data/databases.json", "r");
-	if (fptr==NULL) {printf("ERROR: databases.json file not found!\n\n"); return;}
+	/* Initializations */
 
-	char c = '$';
-	int count = 0, total = 0, reading = FALSE;
-
-
-
-	while (count!=3)
-	{
-		c = fgetc(fptr);
-
-		if (c=='\"') {count++;}
-		if (feof(fptr)) {printf("STAT: No databases found.\n\n"); return;}
-	}
+	char c;
+	char metaBuff[2] = {0};
+	int largestDb;
+	int charsPrinted = 0, totalDb = 0;
 
 
+	/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
-	reading = TRUE;
-	clearEntity("buffer");
-	c = fgetc(fptr);				// Advance reading byte after ("), to enter while loop. 
-
-
-
-	printf("+----------------+\n");
-	printf("|   DATABASES    |\n");
-	printf("+----------------+\n");
-
-	while (!feof(fptr))
-	{
-		while (c!='\"') {buffer[strlen(buffer)] = c; c = fgetc(fptr);}
-
-		reading = FALSE;
-		c = '$';
-
-		printf("|%s", buffer); total++;		// Counting databases.
-		for (int i=strlen(buffer); i<16; i++) {printf(" ");}
-		printf("|\n");
-
-		clearEntity("buffer");
+	fptr = fopen("data/metadata.tosbit", "r");
+	if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
 
 
+	/* Reading length of largest database name. */
 
-		while (c!='\"')
-		{
-			c = fgetc(fptr);
-			if (feof(fptr)) {break;}
-		}
-
-		reading = TRUE;
-
-		c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop.
-	}
-
-
-
-	clearEntity("buffer");
+	for (int i=0; i<2; i++) {metaBuff[i] = fgetc(fptr);} largestDb = atoi(metaBuff);
 	fclose(fptr);
+	
+
+	/* Opening databases.tosbit with safety for NULL file descriptor. */
+
+	fptr = fopen("data/databases.tosbit", "r");
+	if (fptr==NULL) {printf("ERROR: Information for databases not found!\n\n"); return;}
 
 
+	/* Printing header of the console-table (header of table). */
 
-	printf("+----------------+\n");
-	printf("STAT: %d databases found.\n\n", total);
+	printf("+"); for (int i=0; i<largestDb; i++) {printf("-");} printf("+\n");
+	printf("|Databases"); for (int i=0; i<largestDb-strlen("Databases"); i++) {printf(" ");} printf("|\n");
+	printf("+"); for (int i=0; i<largestDb; i++) {printf("-");} printf("+\n");
+
+
+	/* Printing the lower part of the console-table (names of all databases). */
+
+	while (!reachedEOF(fptr))
+	{
+		/* Printing a row on console for a database. */
+
+		charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		do {printf("%c", c); charsPrinted++; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		for (int i=0; i<largestDb-charsPrinted; i++) {printf(" ");} printf("|\n");
+
+
+		/* Counting each encountered database for stats. */
+
+		totalDb++;
+
+
+		/* Taking action depending on the position of FD cursor (space, \n or EOF). */
+
+		if (c==' ')
+		{
+			fseek(fptr, ((DATABASE_MAX_LENGTH-1)-charsPrinted)-1, SEEK_CUR);
+
+
+			/* Checking next byte & chossing action accordingly. */
+
+			c = fgetc(fptr);
+			if (c=='\n') {continue;}
+			else if (reachedEOF(fptr)) {break;}
+		}
+		else if (c=='\n') {continue;}
+		else if (reachedEOF(fptr)) {break;}
+	}
+
+
+	/* Printing tail of the console-table (the last line). */
+
+	printf("+"); for (int i=0; i<largestDb; i++) {printf("-");} printf("+\n");
+
+
+	/* Printing total number of databases as stats. */
+
+	printf("STAT: %d databases found.\n\n", totalDb);
+
+
+	/* Safely closing the file descriptor. */
+
+	fclose(fptr);
 }
 
 
@@ -390,90 +416,95 @@ void allDatabases()
 
 void allTables()
 {
-	int total = 0;
+	/* Initializations */
 
+	char c;
+	char metaBuff[2] = {0};
+	int largestTable;
+	int charsPrinted = 0, totalTable = 0;
+
+
+	/*  from database.tosbit */
 
 	clearEntity("directory");
-	snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+	snprintf(directory, sizeof(directory), "data/%s/metadata.tosbit", database);
+
+
+	/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 	fptr = fopen(directory, "r");
+	if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
 
-	if (fptr==NULL)
+
+	/* Reading length of largest table name. */
+
+	for (int i=0; i<2; i++) {metaBuff[i] = fgetc(fptr);} largestTable = atoi(metaBuff);
+	fclose(fptr);
+	
+
+	/* Opening tables.tosbit with safety for NULL file descriptor. */
+	
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
+
+	fptr = fopen(directory, "r");
+	if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!\n\n", database); return;}
+
+
+	/* Printing header of the console-table (header of table). */
+
+	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
+	printf("|Tables"); for (int i=0; i<largestTable-strlen("Tables"); i++) {printf(" ");} printf("|\n");
+	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
+
+
+	/* Printing the lower part of the console-table (names of all databases). */
+
+	while (!reachedEOF(fptr))
 	{
-		printf("ERROR: No database opened yet!\n\n");
-		return;
-	}
+		/* Printing a row on console for a database. */
+
+		charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		do {printf("%c", c); charsPrinted++; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		for (int i=0; i<largestTable-charsPrinted; i++) {printf(" ");} printf("|\n");
 
 
+		/* Counting each encountered database for stats. */
+
+		totalTable++;
 
 
+		/* Taking action depending on the position of FD cursor (space, \n or EOF). */
 
-	char c = '$';
-	int count = 0, reading = FALSE;
-
-
-	while (count!=3)
-	{
-		c = fgetc(fptr);
-
-		if (c=='\"') {count++;}
-		if (feof(fptr)) {printf("STAT: Database is empty.\n\n"); break;}
-	}
-
-
-
-
-
-	/* Print tables only if atleast 1 table exists i.e. less than 3 (2) \" are read from tables.json */
-
-	if (count==3)
-	{
-		reading = TRUE;
-		clearEntity("buffer");
-		c = fgetc(fptr);				// Advance reading byte after ("), to enter while loop. 
-
-
-
-		printf("+----------------+\n");
-		printf("|    TABLES      |\n");
-		printf("+----------------+\n");
-
-		while (!feof(fptr))
+		if (c==' ')
 		{
-			while (c!='\"') {buffer[strlen(buffer)] = c; c = fgetc(fptr);}
-
-			reading = FALSE;
-			c = '$';
-
-			printf("|%s", buffer); total++;		// Counting total tables.
-			for (int i=strlen(buffer); i<16; i++) {printf(" ");}
-			printf("|\n");
-
-			clearEntity("buffer");
+			fseek(fptr, ((TABLE_MAX_LENGTH-1)-charsPrinted)-1, SEEK_CUR);
 
 
+			/* Checking next byte & chossing action accordingly. */
 
-			while (c!='\"')
-			{
-				c = fgetc(fptr);
-				if (feof(fptr)) {break;}
-			}
-
-			reading = TRUE;
-
-			c = fgetc(fptr);			// Advance reading byte after ("), to enter while loop. 
+			c = fgetc(fptr);
+			if (c=='\n') {continue;}
+			else if (reachedEOF(fptr)) {break;}
 		}
-
-
-
-		clearEntity("buffer");
-		fclose(fptr);
-
-
-
-		printf("+----------------+\n");
-		printf("STAT: %d tables found.\n\n", total);
+		else if (c=='\n') {continue;}
+		else if (reachedEOF(fptr)) {break;}
 	}
+
+
+	/* Printing tail of the console-table (the last line). */
+
+	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
+
+
+	/* Printing total number of databases as stats. */
+
+	printf("STAT: %d tables found.\n\n", totalTable);
+
+
+	/* Safely closing the file descriptor. */
+
+	fclose(fptr);
 }
 
 
@@ -489,14 +520,16 @@ void allTables()
 
 void checkDataType()
 {
+	/* Initializations */
+
 	int state3 = 0, brk3 = 0, error = FALSE;
 
 
 
+	/* Parsing data type syntax with Deterministic Finite Automata (DFA). */
+
 	for (int i=0; i<strlen(dataType); i++)
 	{
-		/* Parsing with DFA & Turing machine. */
-
 		switch (state3)
 		{
 			case 0: changeState(dataType[i], "iIsSfFbBmM", "1,1,4,4,10,10,16,16,20,20", &state3, 25); breakValue(&state3, 25, &brk3); break;
@@ -526,12 +559,16 @@ void checkDataType()
 		}
 
 
+		/* Breaking from loop early if DFA reaches dump state (error). */
+
 		if (brk3==TRUE) {brk3 = FALSE; break;}
 	}
 
 
 
 
+
+	/* Taking decision or giving feedback as per DFA's stop state. */
 
 	switch (state3)
 	{
@@ -555,7 +592,6 @@ void checkDataType()
 		case 22: printf("ERROR: Did you meant MEDIA?\n\n"); break;
 		case 23: printf("ERROR: Did you meant MEDIA?\n\n"); break;
 		case 25: state2 = 8; error = TRUE; break;
-		// Changes 'state2' to 8 for printing error there.
 	}
 }
 
@@ -577,7 +613,7 @@ void makeTable()
 	int write = TRUE, uniqueKey = FALSE;
 	int charCount = 0, invCount = 0;
 
-	char insertStr[32] = {0};
+	char insertStr[64] = {0};
 
 
 
@@ -776,7 +812,7 @@ void makeDb()
 	int write = TRUE;
 	int charCount = 0, invCount = 0;
 
-	char insertStr[32] = {0};
+	char insertStr[64] = {0};
 
 
 	
