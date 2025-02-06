@@ -1,5 +1,0 @@
-{
-	"$enrollment": ["int", "unique"],
-	"#name": ["string", "foreign"],
-	"cgpa": ["int", "regular"]
-}

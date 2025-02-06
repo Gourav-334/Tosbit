@@ -2598,6 +2598,102 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 326,
+			"time": "Thu Feb  6 05:16:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 327,
+			"time": "Thu Feb  6 05:16:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 328,
+			"time": "Thu Feb  6 05:16:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(INT $enrollment, STRING #name, InT cgpa)"
+		},
+
+		{
+			"serial": 329,
+			"time": "Thu Feb  6 05:16:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 330,
+			"time": "Thu Feb  6 06:17:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 331,
+			"time": "Thu Feb  6 06:17:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 332,
+			"time": "Thu Feb  6 06:17:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(IT $enrollment, SWRONG #name, GNU cgpa)"
+		},
+
+		{
+			"serial": 333,
+			"time": "Thu Feb  6 06:17:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
+		},
+
+		{
+			"serial": 334,
+			"time": "Thu Feb  6 06:36:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB mydb"
+		},
+
+		{
+			"serial": 335,
+			"time": "Thu Feb  6 06:36:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "DELETE TABLE destiny"
+		},
+
+		{
+			"serial": 336,
+			"time": "Thu Feb  6 06:36:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE destiny(IT $enrollment, SWRONG #name, GNU cgpa)"
+		},
+
+		{
+			"serial": 337,
+			"time": "Thu Feb  6 06:36:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT destiny"
 		}
 	]
 }

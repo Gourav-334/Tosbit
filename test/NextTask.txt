@@ -1,6 +1,5 @@
 MAKE TABLE PARSER:
 
--> Keep media type keys to be unique.
 -> Work on paging rows.
 
 -----------------------------------------------------------

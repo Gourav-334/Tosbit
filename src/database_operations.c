@@ -489,7 +489,7 @@ void allTables()
 
 void checkDataType()
 {
-	int state3 = 0, brk3 = 0;
+	int state3 = 0, brk3 = 0, error = FALSE;
 
 
 
@@ -554,7 +554,8 @@ void checkDataType()
 		case 21: printf("ERROR: Did you meant MEDIA?\n\n"); break;
 		case 22: printf("ERROR: Did you meant MEDIA?\n\n"); break;
 		case 23: printf("ERROR: Did you meant MEDIA?\n\n"); break;
-		case 25: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
+		case 25: state2 = 8; error = TRUE; break;
+		// Changes 'state2' to 8 for printing error there.
 	}
 }
 

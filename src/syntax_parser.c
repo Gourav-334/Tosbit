@@ -387,7 +387,7 @@ void attributeParser()
 
 
 
-
+//checkDataType
 
 
 	/* Final result, or action to be taken on last stage. */
@@ -402,6 +402,7 @@ void attributeParser()
 		case 5: clearEntity("attribute"); makeTable(); break;
 		case 6: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 7: printf("ERROR: Add commas after data type & attribute name!\n\n"); break;
+		case 8: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
 	}
 
 
