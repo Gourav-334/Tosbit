@@ -176,6 +176,22 @@ int reachedEOF(FILE *fptr)
 
 
 
+/* Checks if a file is new (0 bytes) or already in use. */
+
+int newFile(FILE *fptr)
+{
+	int position = ftell(fptr);
+
+	fseek(fptr, 0, SEEK_SET);
+
+	if (reachedEOF(fptr)) {fseek(fptr, position, SEEK_SET); return TRUE;}
+	else if (!reachedEOF(fptr)) {fseek(fptr, position, SEEK_SET); return FALSE;}
+}
+
+
+
+
+
 /* Removes whitespaces from a string from both the sides. (provide a buffer too.) */
 
 extern void spaceRemover(char str[], char result[], int size)

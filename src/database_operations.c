@@ -336,6 +336,11 @@ void allDatabases()
 	if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
 
 
+	/* Informing user incase no databases exist. */
+
+	if (newFile(fptr)) {printf("STAT: No databases found.\n\n"); return;}
+
+
 	/* Reading length of largest database name. */
 
 	for (int i=0; i<2; i++) {metaBuff[i] = fgetc(fptr);} largestDb = atoi(metaBuff);
@@ -435,6 +440,11 @@ void allTables()
 
 	fptr = fopen(directory, "r");
 	if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
+
+
+	/* Informing user incase no tables exist. */
+
+	if (newFile(fptr)) {printf("STAT: Database is empty.\n\n"); return;}
 
 
 	/* Reading length of largest table name. */
@@ -611,7 +621,7 @@ void makeTable()
 {
 	/* Initialization */
 
-	char decision, c='$', c2='$';
+	char decision, c;
 	char metaBuff[2] = {0};
 	int write = TRUE, uniqueKey = FALSE;
 	int largestAttribute = 10, largestDataType = 10, largestKey = 6;
@@ -620,7 +630,7 @@ void makeTable()
 
 	/* Checking if database & table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); write = FALSE;}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); write = FALSE; return;}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
 	{
 		/* Asking users if they want to overwrite data to disk (for existing table). */
@@ -841,7 +851,8 @@ void makeTable()
 		/* Writing name of table in tables.tosbit, if a new table is made (no overwriting). */
 
 		fseek(fptr, 0, SEEK_END);
-		fputc('\n', fptr); fputs(table, fptr);
+		if (!newFile(fptr)) {fputc('\n', fptr);}
+		fputs(table, fptr);
 		for (int i=0; i<(TABLE_MAX_LENGTH-1)-strlen(table); i++) {fputc(' ', fptr);}
 
 
@@ -870,99 +881,117 @@ void makeTable()
 
 void makeDb()
 {
-	char decision, c='$', c2='$';
+	/* Initialization */
 
-	int write = TRUE;
-	int charCount = 0, invCount = 0;
+	char decision, c;
+	char metaBuff[2] = {0};
+	int write = TRUE, uniqueKey = FALSE;
 
-	char insertStr[64] = {0};
 
 
-	
-	/* If database already exists. */
+	/* Checking if database & database exists or not. */
 
 	if (checkDbExistence(FALSE)==TRUE)
 	{
+		/* Asking users if they want to overwrite data to disk (for existing database). */
+
 		printf("STAT: Database already exists!\n\n");
 		printf("Overwrite data to disk? (y/n): "); decision = getchar();
 
-
-		if (decision=='n') {write=FALSE;}
-
+		if (decision=='n') {write = FALSE;}
 		else if (decision=='y')
 		{
 			clearEntity("directory");
-			snprintf(directory, sizeof(directory), "cd data && rm -rf %s", database);
-
+			snprintf(directory, sizeof(directory), "rm -rf data/%s", database);
 			system(directory);
 		}
 	}
-
-
-
-	/* If database doesn't exist. */
-
-	else
+	else if (checkDbExistence(FALSE)==FALSE)
 	{
-		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data/databases.json");
-		fptr = fopen(directory, "r+");
+		/* Opening metadata.tosbit with safety for NULL file descriptor. */
+
+		fptr = fopen("data/metadata.tosbit", "r+");
+		if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
 
 
+		/* Checking if database's name if larger than existing tables/header. */
 
-		while (!(c2==']'&&c=='\n'))
-		{
-			charCount++;
-			c2 = c; c = fgetc(fptr);
+		for (int i=0; i<2; i++) {c = fgetc(fptr); if (c!=' ') {metaBuff[i] = c;}}
 
-			if (c=='\"') {invCount++;}
-		}
-
-		fflush(fptr);
+		if ((int)strlen(database)>atoi(metaBuff))
+			{fseek(fptr, 0, SEEK_SET); fputs(itoa((int)strlen(database), ascii), fptr);}
 
 
-		/* Insert into databases.json as per if any database exist or not. */
-
-		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", database);}
-		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", database);}
-
-		fseek(fptr, (charCount-4), SEEK_SET);
-		fputs(insertStr, fptr);
-		fflush(fptr);
-
-
+		/* Safely closing the file descriptor. */
 
 		fclose(fptr);
 	}
 
 
 
-
-
-	/* If new database is created, or if an existing one is overwritten. */
+	/* If new database is made, or if an exisiting database is overwritten. */
 
 	if (write==TRUE)
 	{
-		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "cd data && mkdir %s", database);
+		/* Making table's folder directory. */
 
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "mkdir data/%s", database);
 		system(directory);
 
+
+		/* Creating tables.tosbit */
+
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+		snprintf(directory, sizeof(directory), "touch data/%s/tables.tosbit", database);
+		system(directory);
 
 
+		/* Opening db_name/metadata.tosbit in write & read mode. */
 
-		/* tables.json */
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/metadata.tosbit", database);
 
-		fopen(directory, "w");
-		fputs("{\n\t\"tables\": [\n\t]\n}", fptr);
-		fflush(fptr);
+
+		/* Having safety for NULL file descriptor. */
+
+		fptr = fopen(directory, "w+");
+		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s!\n\n", database); return;}
+
+
+		/* Writing default configurations to metadata.tosbit (required further too) */
+
+		fputs("6 ", fptr);
+
+
+		/* Safely closing both the file descriptors. */
 
 		fclose(fptr);
 
-		clearEntity("buffer");
-		
+
+
+		/* Opening table.tosbit with safety for NULL file descriptor. */
+
+		fptr = fopen("data/databases.tosbit", "r+");
+		if (fptr==NULL) {printf("ERROR: Database information for \"%s\" not found!\n\n", database); return;}
+
+
+		/* Writing name of database in tables.tosbit, if a new table is made (no overwriting). */
+
+		fseek(fptr, 0, SEEK_END);
+		if (!newFile(fptr)) {fputc('\n', fptr);}
+		fputs(database, fptr);
+		for (int i=0; i<(DATABASE_MAX_LENGTH-1)-strlen(database); i++) {fputc(' ', fptr);}
+
+
+		/* Safely closing the file descriptor. */
+
+		fclose(fptr);
+
+
+
+		/* Displaying message for successful database creation. */
+
 		printf("OK: Database created successfully!\n\n");
 	}
 }
