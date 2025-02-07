@@ -20,6 +20,8 @@
 #define VALUE_MAX_LENGTH 33
 #define PATH_MAX_LENGTH 257
 
+#define INT_TO_ASCII_LIMIT 8
+
 
 
 
@@ -56,6 +58,7 @@ extern char attribute[ATTRIBUTE_MAX_LENGTH];
 extern char key[KEY_MAX_LENGTH];
 extern char value[VALUE_MAX_LENGTH];
 extern char pureValue[VALUE_MAX_LENGTH];
+extern char ascii[INT_TO_ASCII_LIMIT];
 
 extern int state;							// Main automaton
 extern int state2;							// Used for "table attribute" & "data types"

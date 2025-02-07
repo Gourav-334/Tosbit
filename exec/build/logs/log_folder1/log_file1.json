@@ -5078,6 +5078,1046 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 636,
+			"time": "Fri Feb  7 05:58:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 637,
+			"time": "Fri Feb  7 05:58:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 638,
+			"time": "Fri Feb  7 05:58:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 639,
+			"time": "Fri Feb  7 05:58:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 640,
+			"time": "Fri Feb  7 06:59:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 641,
+			"time": "Fri Feb  7 06:59:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 642,
+			"time": "Fri Feb  7 06:59:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 643,
+			"time": "Fri Feb  7 06:59:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 644,
+			"time": "Fri Feb  7 06:59:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 645,
+			"time": "Fri Feb  7 06:59:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 646,
+			"time": "Fri Feb  7 06:59:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 647,
+			"time": "Fri Feb  7 06:59:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 648,
+			"time": "Fri Feb  7 06:59:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 649,
+			"time": "Fri Feb  7 06:59:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 650,
+			"time": "Fri Feb  7 06:59:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 651,
+			"time": "Fri Feb  7 06:59:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 652,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 653,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 654,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 655,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 656,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 657,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 658,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 659,
+			"time": "Fri Feb  7 06:59:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 660,
+			"time": "Fri Feb  7 06:59:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 661,
+			"time": "Fri Feb  7 06:59:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 662,
+			"time": "Fri Feb  7 06:59:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 663,
+			"time": "Fri Feb  7 06:59:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 664,
+			"time": "Fri Feb  7 09:49:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL DB"
+		},
+
+		{
+			"serial": 665,
+			"time": "Fri Feb  7 09:49:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 666,
+			"time": "Fri Feb  7 09:49:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 667,
+			"time": "Fri Feb  7 09:49:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT table1"
+		},
+
+		{
+			"serial": 668,
+			"time": "Fri Feb  7 10:49:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 669,
+			"time": "Fri Feb  7 10:49:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 670,
+			"time": "Fri Feb  7 10:49:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE test(int $enrollment, string name"
+		},
+
+		{
+			"serial": 671,
+			"time": "Fri Feb  7 10:49:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT test"
+		},
+
+		{
+			"serial": 672,
+			"time": "Fri Feb  7 10:49:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 673,
+			"time": "Fri Feb  7 10:49:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 674,
+			"time": "Fri Feb  7 10:50:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 675,
+			"time": "Fri Feb  7 10:50:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 676,
+			"time": "Fri Feb  7 11:05:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 677,
+			"time": "Fri Feb  7 11:05:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 678,
+			"time": "Fri Feb  7 11:06:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 679,
+			"time": "Fri Feb  7 11:06:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 680,
+			"time": "Fri Feb  7 11:08:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 681,
+			"time": "Fri Feb  7 11:08:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 682,
+			"time": "Fri Feb  7 11:09:04 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 683,
+			"time": "Fri Feb  7 11:09:04 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 684,
+			"time": "Fri Feb  7 11:09:56 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 685,
+			"time": "Fri Feb  7 11:09:56 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 686,
+			"time": "Fri Feb  7 11:11:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 687,
+			"time": "Fri Feb  7 11:11:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 688,
+			"time": "Fri Feb  7 11:11:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 689,
+			"time": "Fri Feb  7 11:11:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 690,
+			"time": "Fri Feb  7 11:12:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 691,
+			"time": "Fri Feb  7 11:12:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 692,
+			"time": "Fri Feb  7 11:12:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 693,
+			"time": "Fri Feb  7 11:12:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 694,
+			"time": "Fri Feb  7 11:13:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 695,
+			"time": "Fri Feb  7 11:13:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 696,
+			"time": "Fri Feb  7 11:14:18 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 697,
+			"time": "Fri Feb  7 11:14:18 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 698,
+			"time": "Fri Feb  7 11:15:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 699,
+			"time": "Fri Feb  7 11:15:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 700,
+			"time": "Fri Feb  7 11:24:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 701,
+			"time": "Fri Feb  7 11:24:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 702,
+			"time": "Fri Feb  7 11:24:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE test(int $enrollment, string name)"
+		},
+
+		{
+			"serial": 703,
+			"time": "Fri Feb  7 11:24:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 704,
+			"time": "Fri Feb  7 11:24:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT test"
+		},
+
+		{
+			"serial": 705,
+			"time": "Fri Feb  7 11:25:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 706,
+			"time": "Fri Feb  7 11:25:40 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 707,
+			"time": "Fri Feb  7 11:25:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE test(int $enrollment, string name)"
+		},
+
+		{
+			"serial": 708,
+			"time": "Fri Feb  7 11:25:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 709,
+			"time": "Fri Feb  7 11:25:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT test"
+		},
+
+		{
+			"serial": 710,
+			"time": "Fri Feb  7 11:25:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "OPEN DB db1"
+		},
+
+		{
+			"serial": 711,
+			"time": "Fri Feb  7 11:25:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 712,
+			"time": "Fri Feb  7 11:25:50 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "MAKE TABLE test(int $enrollment, string name)"
+		},
+
+		{
+			"serial": 713,
+			"time": "Fri Feb  7 11:25:50 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW ALL TABLES"
+		},
+
+		{
+			"serial": 714,
+			"time": "Fri Feb  7 11:25:50 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "SHOW STRUCT test"
+		},
+
+		{
+			"serial": 715,
+			"time": "Fri Feb  7 11:32:25 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 716,
+			"time": "Fri Feb  7 11:32:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 717,
+			"time": "Fri Feb  7 11:32:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 718,
+			"time": "Fri Feb  7 11:38:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 719,
+			"time": "Fri Feb  7 11:38:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 720,
+			"time": "Fri Feb  7 11:38:25 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 721,
+			"time": "Fri Feb  7 11:38:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db db1"
+		},
+
+		{
+			"serial": 722,
+			"time": "Fri Feb  7 11:38:34 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 723,
+			"time": "Fri Feb  7 11:38:38 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 724,
+			"time": "Fri Feb  7 11:38:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct table1"
+		},
+
+		{
+			"serial": 725,
+			"time": "Fri Feb  7 11:38:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct table2"
+		},
+
+		{
+			"serial": 726,
+			"time": "Fri Feb  7 11:39:06 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct test"
+		},
+
+		{
+			"serial": 727,
+			"time": "Fri Feb  7 11:39:38 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table"
+		},
+
+		{
+			"serial": 728,
+			"time": "Fri Feb  7 11:40:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table myTable(int sno, string $name, float $cgpa)"
+		},
+
+		{
+			"serial": 729,
+			"time": "Fri Feb  7 11:40:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table myTable(int sno, string $name, float cgpa)"
+		},
+
+		{
+			"serial": 730,
+			"time": "Fri Feb  7 11:40:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct test"
+		},
+
+		{
+			"serial": 731,
+			"time": "Fri Feb  7 11:41:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table myTable(int sno, string $name, float computation cost)"
+		},
+
+		{
+			"serial": 732,
+			"time": "Fri Feb  7 11:41:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table myTable(int sno, string $name, float computation_cost)"
+		},
+
+		{
+			"serial": 733,
+			"time": "Fri Feb  7 11:41:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": ""
+		},
+
+		{
+			"serial": 734,
+			"time": "Fri Feb  7 11:41:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct test"
+		},
+
+		{
+			"serial": 735,
+			"time": "Fri Feb  7 11:41:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct myTable"
+		},
+
+		{
+			"serial": 736,
+			"time": "Fri Feb  7 11:43:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 737,
+			"time": "Fri Feb  7 11:44:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table myTable(int age, string name)"
+		},
+
+		{
+			"serial": 738,
+			"time": "Fri Feb  7 11:44:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": ""
+		},
+
+		{
+			"serial": 739,
+			"time": "Fri Feb  7 11:44:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 740,
+			"time": "Fri Feb  7 11:44:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table myTable(int $age, string $name)"
+		},
+
+		{
+			"serial": 741,
+			"time": "Fri Feb  7 11:44:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": ""
+		},
+
+		{
+			"serial": 742,
+			"time": "Fri Feb  7 11:44:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 743,
+			"time": "Fri Feb  7 11:46:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 744,
+			"time": "Fri Feb  7 11:46:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 745,
+			"time": "Fri Feb  7 11:46:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 746,
+			"time": "Fri Feb  7 11:47:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db test"
+		},
+
+		{
+			"serial": 747,
+			"time": "Fri Feb  7 11:47:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db db1"
+		},
+
+		{
+			"serial": 748,
+			"time": "Fri Feb  7 11:47:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 749,
+			"time": "Fri Feb  7 11:47:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 750,
+			"time": "Fri Feb  7 11:48:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table one(int $age, string $name)"
+		},
+
+		{
+			"serial": 751,
+			"time": "Fri Feb  7 11:48:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 752,
+			"time": "Fri Feb  7 11:59:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 753,
+			"time": "Fri Feb  7 11:59:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 754,
+			"time": "Fri Feb  7 11:59:18 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db db1"
+		},
+
+		{
+			"serial": 755,
+			"time": "Fri Feb  7 11:59:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 756,
+			"time": "Fri Feb  7 12:00:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table two(int $age, string $name)"
+		},
+
+		{
+			"serial": 757,
+			"time": "Fri Feb  7 12:00:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 758,
+			"time": "Fri Feb  7 12:00:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table two(int $age, string name)"
+		},
+
+		{
+			"serial": 759,
+			"time": "Fri Feb  7 12:00:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 760,
+			"time": "Fri Feb  7 12:00:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db db1"
+		},
+
+		{
+			"serial": 761,
+			"time": "Fri Feb  7 12:00:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 762,
+			"time": "Fri Feb  7 12:01:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table bigDaddyV(int age, string name)"
+		},
+
+		{
+			"serial": 763,
+			"time": "Fri Feb  7 12:01:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 764,
+			"time": "Fri Feb  7 12:01:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct two"
+		},
+
+		{
+			"serial": 765,
+			"time": "Fri Feb  7 12:01:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct bigDaddyV"
 		}
 	]
 }

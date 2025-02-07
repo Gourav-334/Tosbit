@@ -86,3 +86,7 @@ mydb............................
 13. Else if EOF is reached, stop the process.
 14. After the process is done, follow the instructions below.
 15. Print `+`, then `-` for the largest database length, then print `+\n`.
+
+
+## `makeTable()`
+

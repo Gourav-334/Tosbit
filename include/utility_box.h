@@ -36,6 +36,8 @@ extern void spaceRemover(char str[], char result[], int size);
 
 extern void removeKeySymbol(char *attribute);
 
+extern char *itoa(int x, char *ascii);
+
 
 
 #endif

@@ -35,6 +35,7 @@ char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
+char ascii[INT_TO_ASCII_LIMIT] = {0};
 
 int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
@@ -448,7 +449,7 @@ void allTables()
 	snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
 
 	fptr = fopen(directory, "r");
-	if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!\n\n", database); return;}
+	if (fptr==NULL) {printf("ERROR: No database opened yet!\n\n"); return;}
 
 
 	/* Printing header of the console-table (header of table). */
@@ -608,75 +609,59 @@ void checkDataType()
 
 void makeTable()
 {
+	/* Initialization */
+
 	char decision, c='$', c2='$';
-
+	char metaBuff[2] = {0};
 	int write = TRUE, uniqueKey = FALSE;
-	int charCount = 0, invCount = 0;
-
-	char insertStr[64] = {0};
+	int largestAttribute = 10, largestDataType = 10, largestKey = 6;
 
 
 
-	if (checkDbExistence(FALSE)==FALSE)
-	{
-		printf("ERROR: No database opened yet!\n\n");
-		write = FALSE;
-	}
+	/* Checking if database & table exists or not. */
 
-
-
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); write = FALSE;}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
 	{
+		/* Asking users if they want to overwrite data to disk (for existing table). */
+
 		printf("STAT: Table already exists!\n\n");
 		printf("Overwrite data to disk? (y/n): "); decision = getchar();
 
-
 		if (decision=='n') {write = FALSE;}
-
 		else if (decision=='y')
 		{
 			clearEntity("directory");
-			snprintf(directory, sizeof(directory), "cd data/%s && rm -rf %s", database, table);
-
+			snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 			system(directory);
 		}
 	}
-
-
-
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==FALSE))
 	{
+		/* Checking if table's name if larger than existing tables/header. */
+
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data/%s/tables.json", database);
+		snprintf(directory, sizeof(directory), "data/%s/metadata.tosbit", database);
+
+
+		/* Opening metadata.tosbit with safety for NULL file descriptor. */
+
 		fptr = fopen(directory, "r+");
+		if (fptr==NULL) {printf("ERROR: Database metadata not found!\n\n"); return;}
 
 
+		/* The check & action as per that. */
 
-		while (!(c2==']'&&c=='\n'))
-		{
-			charCount++;
-			c2 = c; c = fgetc(fptr);
+		for (int i=0; i<2; i++) {c = fgetc(fptr); if (c!=' ') {metaBuff[i] = c;}}
 
-			if (c=='\"') {invCount++;}
-		}
-
-		fflush(fptr);
+		if ((int)strlen(table)>atoi(metaBuff))
+			{fseek(fptr, 0, SEEK_SET); fputs(itoa((int)strlen(table), ascii), fptr);}
 
 
-		if (invCount==2) {snprintf(insertStr, sizeof(insertStr), "\n\t\t\"%s\"\n\t]\n}", table);}
-		else if (invCount>2) {snprintf(insertStr, sizeof(insertStr), ",\n\t\t\"%s\"\n\t]\n}", table);}
-
-
-		fseek(fptr, (charCount-4), SEEK_SET);
-		fputs(insertStr, fptr);
-		fflush(fptr);
-
-
+		/* Safely closing the file descriptor. */
 
 		fclose(fptr);
 	}
-
-
 
 
 
@@ -684,77 +669,99 @@ void makeTable()
 
 	if (write==TRUE)
 	{
-		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "cd data/%s && mkdir %s", database, table);
+		/* Making table's folder directory. */
 
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "mkdir data/%s/%s", database, table);
 		system(directory);
 
-		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
-		
 
-		/* rows.json */
-
-		fptr = fopen(directory, "w");
-		fputs("{\n\t\"rows\": [\n\t]\n}", fptr);
-		fflush(fptr);
-
-		fclose(fptr);
-
-
-
-		/* details.json */
+		/* Creating rows.json */
 
 		clearEntity("directory");
-		snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
+		snprintf(directory, sizeof(directory), "touch data/%s/%s/rows.tosbit", database, table);
+		system(directory);
 
-		fptr = fopen(directory, "w");
+
+		/* Opening tbl_name/metadata.tosbit in write mode (creating it). */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/%s/metadata.tosbit", database, table);
 
 
-		fputs("{\n\t", fptr);
-		fflush(fptr);
+		/* Having safety for NULL file descriptor. */
 
+		fptr = fopen(directory, "w+");
+		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s/%s!\n\n", database, table); return;}
+
+
+		/* Writing default configurations to metadata.tosbit (required further too) */
+
+		fputs("10,10,6 ", fptr);
+
+
+
+		/* Creating rows.tosbit */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/%s/rows.tosbit", database, table);
+
+
+		/* Checking file descriptor with NULL safety. */
+
+		fptr2 = fopen(directory, "w");
+		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!\n\n", database, table); return;}
+
+
+		/* Creating details.tosbit */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
+
+
+		/* Checking file descriptor with NULL safety. */
+
+		fptr2 = fopen(directory, "w+");
+		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!\n\n", database, table); return;}
+
+
+		/* 'buffer' contains everything within () that user passed with MAKE TABLE command. */
 
 		for (int i=0; i<strlen(buffer); i++)
 		{
-			/* Purifying data type. */
+			/* Fetching data type by user in series. */
 
 			while (buffer[i]==' ') {i++;} clearEntity("dataType");
 			while (buffer[i]!=' ') {dataType[strlen(dataType)] = buffer[i]; i++;}
 
 
-			if (dataType[0]=='i' || dataType[0]=='I')
-				{clearEntity("dataType"); strcpy(dataType,"int"); newline_remover(dataType);}
+			/* Knowing the data type by its initials (already verified by DFA). */
 
-			else if (dataType[0]=='s' || dataType[0]=='S')
-				{clearEntity("dataType"); strcpy(dataType,"string"); newline_remover(dataType);}
-
-			else if (dataType[0]=='f' || dataType[0]=='F')
-				{clearEntity("dataType"); strcpy(dataType,"float"); newline_remover(dataType);}
-
-			else if (dataType[0]=='b' || dataType[0]=='B')
-				{clearEntity("dataType"); strcpy(dataType,"bool"); newline_remover(dataType);}
-
-			else if (dataType[0]=='m' || dataType[0]=='M')
-				{clearEntity("dataType"); strcpy(dataType,"media"); newline_remover(dataType);}
+			if (dataType[0]=='i' || dataType[0]=='I') {clearEntity("dataType"); strcpy(dataType,"int");}
+			else if (dataType[0]=='s' || dataType[0]=='S') {clearEntity("dataType"); strcpy(dataType,"string");}
+			else if (dataType[0]=='f' || dataType[0]=='F') {clearEntity("dataType"); strcpy(dataType,"float");}
+			else if (dataType[0]=='b' || dataType[0]=='B') {clearEntity("dataType"); strcpy(dataType,"bool");}
+			else if (dataType[0]=='m' || dataType[0]=='M') {clearEntity("dataType"); strcpy(dataType,"media");}
+			newline_remover(dataType);
 
 
-
-			/* Traversing rest of the buffer for R/W ops. */
+			/* Fetching attribute's name by user in series. */
 
 			while (buffer[i]==' ') {i++;} clearEntity("attribute");
 			while (buffer[i]!=',' && i!=strlen(buffer)) {attribute[strlen(attribute)] = buffer[i]; i++;}
 
 
+			/* Writing metadata to details.json with key constraints. */
 
-			/* Writing metadata to data/details.json with key constraints. */
-
-			clearEntity("directory"); clearEntity("key");
+			clearEntity("key");
 
 
-			if ((dataType[0]=='m' || dataType[0]=='M') && !(attribute[0]=='$' || attribute[0]=='#')) {strcpy(key,"file");}
-			else if ((dataType[0]=='m' || dataType[0]=='M') && (attribute[0]=='$' || attribute[0]=='#'))
+			/* Assigning keys, avoiding multiple unique keys & hardwiring file keys to media types. */
+
+			if ((dataType[0]=='m' || dataType[0]=='M') && !(attribute[0]=='$')) {strcpy(key,"file");}
+			else if ((dataType[0]=='m' || dataType[0]=='M') && (attribute[0]=='$'))
 			{
+				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
 				printf("ERROR: Media attributes are hardwired to file keys!\n\n");
@@ -764,31 +771,87 @@ void makeTable()
 			else if (attribute[0]=='$' && uniqueKey==FALSE) {strcpy(key,"unique"); uniqueKey = TRUE;}
 			else if (attribute[0]=='$' && uniqueKey==TRUE)
 			{
+				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
 				printf("ERROR: A table can't have multiple unique keys!\n\n");
 
 				return;
 			}
-			else if (attribute[0]=='#') {strcpy(key,"foreign");}
 			else {strcpy(key,"regular");}
-
-
 			newline_remover(key);
 
-			snprintf(directory, sizeof(directory), "\"%s\": [\"%s\", \"%s\"]", attribute, dataType, key);
-			fputs(directory, fptr);
-			fflush(fptr);
 
-			if (buffer[i]==',') {fputs(",\n\t", fptr);}
+
+			/* Writing default configurations to details.tosbit */
+
+			fputs(attribute, fptr2);
+			for (int i=0; i<(ATTRIBUTE_MAX_LENGTH-1)-strlen(attribute); i++) {fputc(' ', fptr2);}
+			fputc(',', fptr2);
+
+			fputs(dataType, fptr2);
+			for (int i=0; i<(DATA_TYPE_MAX_LENGTH-1)-strlen(dataType); i++) {fputc(' ', fptr2);}
+			fputc(',', fptr2);
+
+			fputs(key, fptr2);
+			for (int i=0; i<(KEY_MAX_LENGTH-1)-strlen(key); i++) {fputc(' ', fptr2);}
+			fputc(',', fptr2);
+
+			fputs("0 ", fptr2);
+
+
+			/* Modifying tbl_name/metadata.tosbit as per recent fetches. */
+
+			if ((int)strlen(attribute)>largestAttribute)
+				{fseek(fptr, 0, SEEK_SET); fputs(itoa((int)strlen(attribute), ascii), fptr);}
+
+			if ((int)strlen(dataType)>largestDataType)
+				{fseek(fptr, 3, SEEK_SET); fputs(itoa((int)strlen(dataType), ascii), fptr);}
+
+			if ((int)strlen(key)>largestKey)
+				{fseek(fptr, 6, SEEK_SET); fputs(itoa((int)strlen(key), ascii), fptr);}
+
+
+
+			/* Putting an '\n' if there are are attributes further. */
+
+			if (buffer[i]==',') {fputc('\n', fptr2);}
 		}
 
-		fputs("\n}", fptr);
-		fflush(fptr);
 
+
+		/* Safely closing both the file descriptors. */
+
+		fclose(fptr); fclose(fptr2);
+
+
+
+		/* Formatting 'directory' to open tables.tosbit. */
+
+		clearEntity("directory");
+		snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
+
+
+		/* Opening table.tosbit with safety for NULL file descriptor. */
+
+		fptr = fopen(directory, "r+");
+		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!\n\n", database); return;}
+
+
+		/* Writing name of table in tables.tosbit, if a new table is made (no overwriting). */
+
+		fseek(fptr, 0, SEEK_END);
+		fputc('\n', fptr); fputs(table, fptr);
+		for (int i=0; i<(TABLE_MAX_LENGTH-1)-strlen(table); i++) {fputc(' ', fptr);}
+
+
+		/* Safely closing the file descriptor. */
 
 		fclose(fptr);
-		clearEntity("buffer");
+
+
+
+		/* Displaying message for successful table creation. */
 
 		printf("OK: Table created successfully!\n\n");
 	}

@@ -210,4 +210,17 @@ void removeKeySymbol(char *attribute)
 
 
 
+/* Integer to ASCII conversion. */
+
+char *itoa(int x, char *ascii)
+{
+	snprintf(ascii, sizeof(ascii), "%d", x);
+
+	return ascii;
+}
+
+
+
+
+
 /* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

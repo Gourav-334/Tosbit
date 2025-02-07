@@ -1,16 +1,23 @@
 # FILE SYSTEM
 
 
-## metadata.tosbit (Table)
 
-```tosbit
-10,10,6.
-```
+## File System Hierarchy
 
-1. Length of largest attribute name (larger than 10)
-2. Length of largest data type name (larger than 10)
-3. Length of largest key type (larger than 6)
+- data/
+	- db_name/
+		- tbl_name/
+			- details.tosbit
+			- rows.tosbit
+			- metadata.tosbit
+		- tables.tosbit
+		- metadata.tosbit
+	- databases.tosbit
+	- metadata.tosbit
 
+
+
+### tbl_name/
 
 ## details.tosbit
 
@@ -25,16 +32,21 @@ age.............................,int...,regular,4.
 4. Length of largest value in an attribute.
 
 
-## metadata.tosbit (Data)
+### metadata.tosbit
 
 ```tosbit
-10
+10,10,6.
 ```
 
-1. Length of largest database name (larger than 10).
+1. Length of largest attribute name (larger than 10)
+2. Length of largest data type name (larger than 10)
+3. Length of largest key type (larger than 6)
 
 
-## tables.tosbit
+
+## db_name/
+
+### tables.tosbit
 
 ```tosbit
 table1..........................\n
@@ -44,22 +56,34 @@ table2..........................
 1. Table's name
 
 
-## database.tosbit
-
-```tosbit
-db1.............................,6.\n
-db2.............................,6.\n
-mydb............................,11
-```
-
-1. Name of database
-2. Name of its largest tables.
-
-
-## metadata.tosbit (Database)
+### metadata.tosbit (Database)
 
 ```tosbit
 6 
 ```
 
 1. Length of largest table.
+
+
+
+## data/
+
+### database.tosbit
+
+```tosbit
+db1.............................\n
+db2.............................\n
+mydb............................
+```
+
+1. Name of database
+2. Name of its largest tables.
+
+
+## metadata.tosbit (Data)
+
+```tosbit
+10
+```
+
+1. Length of largest database name (larger than 10).
