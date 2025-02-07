@@ -14,11 +14,10 @@ int main(int argc, char **argv[])
 	//profileManager();
 	//getLocation();
 	setConnection("123.141.138.013", "Gourav", "tangible%troops88");
-	syntaxParser("Gourav", NULL);
+	//syntaxParser("Gourav", NULL);
 
-	// interpret("SHOW ALL DB");
-	// interpret("MAKE DB mydb");
-	// interpret("SHOW ALL DB");
+	interpret("OPEN DB db1");
+	interpret("SHOW STRUCT table1");
 
 	return 0;
 }

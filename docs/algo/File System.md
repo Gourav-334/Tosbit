@@ -5,21 +5,24 @@
 ## File System Hierarchy
 
 - data/
-	- db_name/
-		- tbl_name/
-			- details.tosbit
-			- rows.tosbit
-			- metadata.tosbit
-		- tables.tosbit
-		- metadata.tosbit
-	- databases.tosbit
-	- metadata.tosbit
+- db_name/
+
+- tbl_name/
+- details.tosbit	{checkTableExistence(), tableStructure(), makeTable(), deleteTable(), clearTable(), pushRow()}
+- rows.tosbit		{makeTable(), deleteTable(), clearTable(), pushRow()}
+- metadata.tosbit	{tableStructure(), makeTable(), deleteTable()}
+
+- tables.tosbit		{checkDbExistence(), allTables(), makeTable(), makeDb(), deleteDb(), clearDb()}
+- metadata.tosbit	{allTables(), makeTable(), makeDb(), deleteDb(), clearDb()}
+
+- databases.tosbit	{allDatabases(), makeDb()}
+- metadata.tosbit	{allDatabases(), makeDb()}
 
 
 
-### tbl_name/
+## tbl_name/
 
-## details.tosbit
+### details.tosbit
 
 ```tosbit
 name............................,string,unique.,5.\n
