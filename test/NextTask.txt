@@ -1,7 +1,6 @@
 MAKE TABLE PARSER:
 
--> Adopt new storage architecture.
--> Work on paging rows.
+-> Optimize reachedEOF().
 
 -----------------------------------------------------------
 

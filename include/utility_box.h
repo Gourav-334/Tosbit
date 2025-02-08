@@ -30,7 +30,8 @@ extern void flush_stdin();
 extern void binary_print(char str[], int size);
 extern void str_shift(char str[], int start, int end, int direction, int steps);
 
-extern int illegalChars(char arr[], char chars[]);
+extern int illegalChars(char str[], char chars[]);
+extern int illegalChar(char character, char chars[]);
 extern int reachedEOF(FILE *fptr);
 extern int newFile(FILE *fptr);
 extern void spaceRemover(char str[], char result[], int size);

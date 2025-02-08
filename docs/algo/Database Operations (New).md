@@ -88,5 +88,11 @@ mydb............................
 15. Print `+`, then `-` for the largest database length, then print `+\n`.
 
 
-## `makeTable()`
+## `deleteTable()`
 
+1. Open `tables.tosbit` in `r+` mode.
+2. Match each character of `table` to each character read from `tables.tosbit`.
+3. If all matches until a space or `\n` appears or EOF is reached, go to the start of line & write `\t`.
+4. Else if any mismatch is found inbetween, move by `tableLength - currLineCharsRead`.
+5. If EOF reached, stop the process & return appropriate error message.
+6. Else if its `\n`, continue the process iteration.

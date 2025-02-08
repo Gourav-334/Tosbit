@@ -386,8 +386,10 @@ void attributeParser()
 			case 0: clearEntity("dataType"); clearEntity("attribute"); changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 1: changeState(buffer[i], " ,", "3,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
 			case 2: changeState(buffer[i], " ,", "2,6", &state2, 1); breakValue(&state2, 6, &brk2); appendState(&state2, 1, dataType, buffer[i]); break;
-			case 3: changeState(buffer[i], " ,", "3,6", &state2, 4); breakValue(&state2, 6, &brk2); checkDataType(); appendState(&state2, 4, attribute, buffer[i]); break;
-			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, attribute, buffer[i]); break;
+			case 3: changeState(buffer[i], " ,", "3,6", &state2, 4); breakValue(&state2, 6, &brk2); checkDataType(); appendState(&state2, 4, attribute, buffer[i]);
+				if (illegalChar(buffer[i], "+-*/%!=&|")==TRUE) {state2 = 9; brk2 = TRUE;} break;	// I DISCOURAGE WRITING DFA STATES LIKE THIS & THUS KEEP IT MINIMUM.
+			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, attribute, buffer[i]);
+				if (illegalChar(buffer[i], "+-*/%!=&|")==TRUE) {state2 = 9; brk2 = TRUE;} break;	// I DISCOURAGE WRITING DFA STATES LIKE THIS & THUS KEEP IT MINIMUM.
 			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state2, 7, &brk2); break;
 		}
 
@@ -401,7 +403,7 @@ void attributeParser()
 
 
 
-//checkDataType
+
 
 
 	/* Final result, or action to be taken on last stage. */
@@ -417,6 +419,7 @@ void attributeParser()
 		case 6: printf("ERROR: Check if you passed any attributes & position of commas.\n\n"); break;
 		case 7: printf("ERROR: Add commas after data type & attribute name!\n\n"); break;
 		case 8: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
+		case 9: printf("ERROR: Please don't use operators (+, -, *, /, %%, !, =, &, |) in name of attribute.\n\n"); break;
 	}
 
 
