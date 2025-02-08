@@ -255,7 +255,9 @@ void tableStructure()
 	{
 		/* Attributes */
 
-		charsPrinted = 0; printf("|"); c = fgetc(fptr2);
+		charsPrinted = 0;
+
+		printf("|"); c = fgetc(fptr2);
 		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
 		for (int i=0; i<largestAttribute-charsPrinted; i++) {printf(" ");}
 		if (c==' ') {fseek(fptr2, (ATTRIBUTE_MAX_LENGTH-1)-charsPrinted, SEEK_CUR);}
@@ -392,7 +394,11 @@ void allDatabases()
 	{
 		/* Printing a row on console for a database. */
 
-		charsPrinted = 0; printf("|"); c = fgetc(fptr2);
+		charsPrinted = 0;
+
+		printf("|"); c = fgetc(fptr2);
+		if (c=='\t') {printf("\b"); fseek(fptr2, DATABASE_MAX_LENGTH-1, SEEK_CUR); continue;}
+
 		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
 		for (int i=0; i<largestDb-charsPrinted; i++) {printf(" ");} printf("|\n");
 
@@ -505,19 +511,23 @@ void allTables()
 	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
 
 
-	/* Printing the lower part of the console-table (names of all databases). */
+	/* Printing the lower part of the console-table (names of all tables). */
 
 	while (!reachedEOF(fptr2))
 	{
-		/* Printing a row on console for a database. */
+		/* Printing a row on console for a table & skipping '\t' rows. */
 
-		charsPrinted = 0; printf("|"); c = fgetc(fptr2);
+		charsPrinted = 0;
+
+		printf("|"); c = fgetc(fptr2);
+		if (c=='\t') {printf("\b"); fseek(fptr2, TABLE_MAX_LENGTH-1, SEEK_CUR); continue;}
+
 		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
 		for (int i=0; i<largestTable-charsPrinted; i++) {printf(" ");} printf("|\n");
 		if (charsPrinted > largestTableN) {largestTableN = charsPrinted;}
 
 
-		/* Counting each encountered database for stats. */
+		/* Counting each encountered table for stats. */
 
 		totalTable++;
 
@@ -694,6 +704,18 @@ void makeTable()
 	}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==FALSE))
 	{
+		/* Checking table's name for safety. */
+
+		if (illegalChars(table, "+-*/%!=&|")==TRUE)
+		{
+			printf(
+				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, &, |) in name of table.\n\n"
+			);
+
+			return;
+		}
+
+
 		/* Checking if table's name if larger than existing tables/header. */
 
 		clearEntity("directory");
@@ -805,6 +827,18 @@ void makeTable()
 
 			while (buffer[i]==' ') {i++;} clearEntity("attribute");
 			while (buffer[i]!=',' && i!=strlen(buffer)) {attribute[strlen(attribute)] = buffer[i]; i++;}
+
+
+			/* Checking attribute's name for safety. */
+
+			if (illegalChars(attribute, "+-*/%!=&|")==TRUE)
+			{
+				printf(
+					"ERROR: Please don't use operators (+, -, *, /, %%, !, =, &, |) in name of attribute.\n\n"
+				);
+
+				return;
+			}
 
 
 			/* Writing metadata to details.json with key constraints. */
@@ -953,6 +987,18 @@ void makeDb()
 	}
 	else if (checkDbExistence(FALSE)==FALSE)
 	{
+		/* Checking database's name for safety. */
+
+		if (illegalChars(database, "+-*/%!=&|")==TRUE)
+		{
+			printf(
+				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, =, &, |) in name of database.\n\n"
+			);
+
+			return;
+		}
+
+
 		/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen("data/metadata.tosbit", "r+");
