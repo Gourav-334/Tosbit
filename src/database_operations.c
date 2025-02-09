@@ -1394,12 +1394,13 @@ int checkUnique(char value[], int currArg, int totalArg)
 
 int typeParser()
 {
+	/* Initializations */
+
 	int status;
 	char c3 = '$';
-	char pipedBuff[257] = {0}, shell_cmd[513] = {0};// size[9] = {0};
+	char pipedBuff[257] = {0}, shell_cmd[513] = {0};
 
 	FILE *media=NULL;
-
 
 
 	/* int: Integers */
@@ -1416,10 +1417,10 @@ int typeParser()
 			}
 
 
+			/* Breaking prematurely from parsing rest of 'value' if reaching dump state. */
+
 			if (brk2==TRUE) {brk2 = FALSE; break;}
 		}
-
-
 
 
 
@@ -1427,8 +1428,6 @@ int typeParser()
 
 		clearEntity("pureValue");
 		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
-
-
 
 
 
@@ -1443,6 +1442,8 @@ int typeParser()
 			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!\n\n", pureValue); status = FALSE; break;
 		}
 
+
+		/* Resetting global variables to avoid errors. */
 
 		state2 = 0; valid = TRUE;
 	}
@@ -1483,10 +1484,10 @@ int typeParser()
 			}
 
 
+			/* Breaking prematurely from parsing rest of 'value' if reaching dump state. */
+
 			if (brk2==TRUE) {brk2 = FALSE; break;}
 		}
-
-
 
 
 
@@ -1494,8 +1495,6 @@ int typeParser()
 
 		clearEntity("pureValue");
 		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
-
-
 
 
 
@@ -1512,6 +1511,8 @@ int typeParser()
 			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", pureValue); status = FALSE; break;
 		}
 
+
+		/* Resetting global variables to avoid errors. */
 
 		state2 = 0; valid = TRUE;
 	}
@@ -1541,6 +1542,8 @@ int typeParser()
 				case 10: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
 			}
 
+
+			/* Breaking prematurely from parsing rest of 'value' if reaching dump state. */
 
 			if (brk2==TRUE) {brk2 = FALSE; break;}
 		}
@@ -1577,6 +1580,8 @@ int typeParser()
 		}
 
 
+		/* Resetting global variables to avoid errors. */
+
 		state2 = 0; valid = TRUE;
 	}
 
@@ -1593,11 +1598,12 @@ int typeParser()
 		clearEntity("pureValue");
 		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
 
+
+		/* Taking path of target file. */
+
 		printf("Enter path for \"%s\": ", attribute);
 		clearEntity("directory"); fgets(directory, sizeof(directory), stdin);
-		newline_remover(directory);
-
-		printf("\n");
+		newline_remover(directory); printf("\n");
 
 		
 
@@ -1609,67 +1615,85 @@ int typeParser()
 		directory -> Path to media file.
 		shell_cmd -> Complete shell command to copy target file.
 
-		Path: /home/gouraarav/myCodes/trainers-crud-operation/client/index.html
+		Path: {PASTE_YOUR_PATH_HERE}
 
 		*/
 
+
+
+		/* Trying to open the target file to check its existence (with NULL safety). */
+
 		media = fopen(directory, "r");
+		if (media==NULL) {printf("ERROR: (%s) No such file exists!\n\n", directory); status = FALSE; return;}
 
 
-		if (media==NULL) {printf("ERROR: (%s) No such file exists!\n\n", directory); status = FALSE;}
+		/* Acknowledging user when file is being compressed. */
+
+		fclose(media);
+		printf("STAT: File is being compressed...\n");
+
+
+		/* Compressing the file. */
+
+		snprintf(shell_cmd, sizeof(shell_cmd), "xz -k %s", directory);
+		system(shell_cmd);
+
+
+		/* Copying the zip file. */
+
+		memset(shell_cmd, 0, sizeof(shell_cmd));
+		snprintf(shell_cmd, sizeof(shell_cmd), "cp %s.xz data/%s/%s/%s.xz", directory, database, table, pureValue);
+		system(shell_cmd);
+
+
+		/* Deleting the zip copy at user's directory. */
+
+		memset(shell_cmd, 0, sizeof(shell_cmd));
+		snprintf(shell_cmd, sizeof(shell_cmd), "rm %s.xz", directory);
+		system(shell_cmd);
+
+
+		/* Comparing actual size with compression rate. */
+
+		memset(shell_cmd, 0, sizeof(shell_cmd));
+		snprintf(shell_cmd, sizeof(shell_cmd), "du -h %s", directory);
+
+
+		/* Fetching early size of file through process piping. */
+
+		media = popen(shell_cmd, "r");
+		do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf(" ->\t");
+
+
+		/* Safely closing file descriptor. */
+
+		pclose(media);
+
+
+		/* Formatting 'shell_cmd' to know compressed size of the file. */
+
+		memset(shell_cmd, 0, sizeof(shell_cmd));
+		snprintf(shell_cmd, sizeof(shell_cmd), "du -h data/%s/%s/%s.xz", database, table, pureValue);
+
+
+		/* Fetching later size through process piping. */
+
+		media = popen(shell_cmd, "r");
+		do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf("\n");
 		
-		else
-		{
-			fclose(media);
-			printf("STAT: File is being compressed...\n");
+
+		/* Safely closing file descriptor. */
+
+		pclose(media);
 
 
-			/* Compressing the file. */
+		/* Setting status as true for error free type parsing. */
 
-			snprintf(shell_cmd, sizeof(shell_cmd), "xz -k %s", directory);
-			system(shell_cmd);
-
-
-			/* Copying the zip file. */
-
-			memset(shell_cmd, 0, sizeof(shell_cmd));
-			snprintf(shell_cmd, sizeof(shell_cmd), "cp %s.xz data/%s/%s/%s.xz", directory, database, table, pureValue);
-			system(shell_cmd);
-
-
-			/* Deleting the zip copy at user's directory. */
-
-			memset(shell_cmd, 0, sizeof(shell_cmd));
-			snprintf(shell_cmd, sizeof(shell_cmd), "rm %s.xz", directory);
-			system(shell_cmd);
-
-
-			/* Comparing actual size with compression rate. */
-
-			memset(shell_cmd, 0, sizeof(shell_cmd));
-			snprintf(shell_cmd, sizeof(shell_cmd), "du -h %s", directory);
-
-			media = popen(shell_cmd, "r");
-			do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf(" ->\t");
-
-			pclose(media);
-
-
-			memset(shell_cmd, 0, sizeof(shell_cmd));
-			snprintf(shell_cmd, sizeof(shell_cmd), "du -h data/%s/%s/%s.xz", database, table, pureValue);
-
-			media = popen(shell_cmd, "r");
-			do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf("\n");
-			
-			pclose(media);
-
-
-
-			status = TRUE;
-		}
+		status = TRUE;
 	}
 
 
+	/* Returning status, telling if type parsing was error free or not. */
 
 	return status;
 }
@@ -1683,19 +1707,27 @@ int typeParser()
 
 
 
-/* Pushing row into a table. {push to programmer(1, Gourav, 97.2)} */
+/* Pushing row into a table. */
 
 void pushRow()
 {
-	/* Declarations */
+	/* Initializations */
 
 	char c='$', c2='$';
-	int commaCount=0, invCount=0, buffIndex=0, totalArg, currArg=0;
 	char currAttribute[33]={0}, currDataType[33]={0}, currValue[33]={0};
+	int commaCount=0, buffIndex=0, totalArg, currArg=0;
+	int actualAttributes = 1;
 
 
 
-	/* Queue objects (structures). */
+	/* Checking if database opened or not with existence of the tables. */
+
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); return;}
+	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); return;}
+
+
+
+	/* Queue structure to handle attributes. */
 
 	Queue attributeQueue = {
 		.n = 0,
@@ -1712,6 +1744,9 @@ void pushRow()
 		.showAll = Queue_showAll
 	};
 
+
+	/* Queue structure to handle data types. */
+
 	Queue dataTypeQueue = {
 		.n = 0,
 		.pos = 0,
@@ -1726,6 +1761,9 @@ void pushRow()
 		.peek = Queue_peek,
 		.showAll = Queue_showAll
 	};
+
+
+	/* Queue structure to handle values. */
 
 	Queue valueQueue = {
 		.n = 0,
@@ -1744,61 +1782,74 @@ void pushRow()
 
 
 
+	/* Formatting 'directory' to open details.tosbit */
+
 	clearEntity("directory");
-	snprintf(directory, sizeof(directory), "data/%s/%s/details.json", database, table);
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
+
+
+	/* Opening details.tosbit with NULL safety. */
+
 	fptr = fopen(directory, "r");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory);}
+
+
+	/* Formatting 'directory' to open rows.tosbit */
 
 	clearEntity("directory");
-	snprintf(directory, sizeof(directory), "data/%s/%s/rows.json", database, table);
+	snprintf(directory, sizeof(directory), "data/%s/%s/rows.tosbit", database, table);
+
+
+	/* Opening rows.tosbit with NULL safety. */
+
 	fptr2 = fopen(directory, "r+");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory);}
 
 
-
-	/* Safety checks */
-
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); return;}
-	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); return;}
-
-
-
-	/* Checking number of argument (less or more or enough). */
+	/* Checking number of argument passed. */
 
 	for (int i=0; i<strlen(buffer); i++) {if(buffer[i]==',') {commaCount++;}}
 	totalArg = commaCount + 1;
 
+
+	/* Checking number or attributes the table has. */
+
 	while (!reachedEOF(fptr))
 	{
-		c2 = c; c = fgetc(fptr);
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH+1)+(DATA_TYPE_MAX_LENGTH+1)+(KEY_MAX_LENGTH+1)+1+2, SEEK_CUR);
 
-		if (c=='\"') {invCount++;}
+		c = fgetc(fptr);
+		if (c=='\n') {actualAttributes++; continue;}
 	}
 
 
-	if ((totalArg)<(invCount/6)) {printf("ERROR: Very few values passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
-	else if ((totalArg)>(invCount/6)) {printf("ERROR: Too many arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	/* Giving feedback as per number of arguments passed. */
 
-	invCount = 0;
+	if (totalArg<actualAttributes) {printf("ERROR: Very few values passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	else if (totalArg>actualAttributes) {printf("ERROR: Too many arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+
+
+	
+	/* Moving cursor back to start of file. */
+
 	fseek(fptr, 0, SEEK_SET);
-
 
 
 	/* Verifying data types of passed arguments. */
 
-	while (!reachedEOF(fptr))
+	for (int i=1; i<=actualAttributes; i++)
 	{
+		/* Clearing all repitatively used buffers. */
+
 		clearEntity("attribute"); clearEntity("dataType"); clearEntity("key"); clearEntity("value");
+
+
+		/* Counting number of arguments. */
 
 		currArg++;
 
 
-		do {c2 = c; c = fgetc(fptr);} while (c!='\"');
-		do {c2 = c; c = fgetc(fptr); if(c!='\"') {attribute[strlen(attribute)] = c;}} while (c!='\"');
-
-		fseek(fptr, 4, SEEK_CUR);	// Saving search computation time.
-		do {c2 = c; c = fgetc(fptr); if(c!='\"') {dataType[strlen(dataType)] = c;}} while (c!='\"');
-
-		fseek(fptr, 3, SEEK_CUR);	// Saving search computation time.
-		do {c2 = c; c = fgetc(fptr); if(c!='\"') {key[strlen(key)] = c;}} while (c!='\"');
+		/* Fetching current value/argument from buffer. */
 
 		for (int i=buffIndex; i<strlen(buffer); i++)
 		{
@@ -1807,38 +1858,65 @@ void pushRow()
 		}
 
 
-		fseek(fptr, 3, SEEK_CUR);		// For checking if EOF reached afterwards.
+		/* Checking if the passed argument is holding data type constraints. */
+
+		if (typeParser()==FALSE) {fclose(fptr); fclose(fptr2); return;}
 
 
-		if (!strcmp(key,"unique"))		// ULTIMATE THING TO REPAIR/DEBUG
-		{
-			if (checkUnique(value, currArg, totalArg)==FALSE)
-			{
-				printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute); return;
-			}
-		}
+		/* Fetching the name of first/next attribute. */
+
+		c = fgetc(fptr);
+		do {attribute[strlen(attribute)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-strlen(attribute), SEEK_CUR);
 
 
-		if (typeParser()==FALSE) {return;}
+		/* Fetching the name of first/next data type. */
 
+		c = fgetc(fptr);
+		do {dataType[strlen(dataType)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-strlen(dataType), SEEK_CUR);
+
+
+		/* Fetching the name of first/next key. */
+
+		c = fgetc(fptr);
+		do {key[strlen(key)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
+		fseek(fptr, (KEY_MAX_LENGTH-1)-strlen(key)+2, SEEK_CUR);
+
+
+		/* Skipping the '\n' for non-last arguments in file. */
+
+		if (i!=actualAttributes) {fseek(fptr, 1, SEEK_CUR);}
+
+
+		/* Checking duplication insertion attempts for unique attributes. */
+
+		// if (!strcmp(key,"unique"))		// UNDER REPAIR/ MODIFICATION/ DEBUGGING...
+		// {
+		// 	if (checkUnique(value, currArg, totalArg)==FALSE)
+		// 	{
+		// 		printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute); return;
+		// 	}
+		// }
+
+
+		/* Queueing attribute properties to respective queues. */
 
 		attributeQueue.queue(&attributeQueue, attribute);
 		dataTypeQueue.queue(&dataTypeQueue, dataType);
 		valueQueue.queue(&valueQueue, pureValue);
 	}
 
-	fclose(fptr);		// For "details.json"
 
+	/* Safely closing file descriptor used for viewing details. */
 
+	fclose(fptr);
+
+/////////////////////////////////////////////////*START*//////////////////////////////////////////////
 
 	/* Inserting values. */
 
-	fseek(fptr2, -6, SEEK_END);
-	c2 = c; c = fgetc(fptr2);
-
-	if (c=='}') {fputs(",\n", fptr2);}
-
-	fputs("\n\t\t{", fptr2);
+	if (!newFile(fptr2)) {fseek(fptr2, 0, SEEK_END); fputc('\n', fptr2);}
 
 
 	for (int i=0; i<totalArg; i++)
@@ -1888,17 +1966,21 @@ void pushRow()
 
 	fputs("\n\t\t}\n\t]\n}", fptr2);
 
+/////////////////////////////////////////////////*END*////////////////////////////////////////////////
 
-
-	/* Closing file descriptor & clear queues. */
+	/* Safely closing file descriptor. */
 
 	fclose(fptr2);
+
+
+	/* Clearing queues from memory. */
 	
 	attributeQueue.clear(&attributeQueue);
 	dataTypeQueue.clear(&dataTypeQueue);
 	valueQueue.clear(&dataTypeQueue);
 
 
+	/* Acknowledging user for successful push operation. */
 
 	printf("OK: Row pushed successfully!\n\n");
 }
