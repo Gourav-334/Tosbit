@@ -1624,7 +1624,7 @@ int typeParser()
 		/* Trying to open the target file to check its existence (with NULL safety). */
 
 		media = fopen(directory, "r");
-		if (media==NULL) {printf("ERROR: (%s) No such file exists!\n\n", directory); status = FALSE; return;}
+		if (media==NULL) {printf("ERROR: (%s) No such file exists!\n\n", directory); status = FALSE; return FALSE;}
 
 
 		/* Acknowledging user when file is being compressed. */
@@ -1693,6 +1693,11 @@ int typeParser()
 	}
 
 
+	/* Error handling safety for unknown bug (just for check purposes). */
+
+	else {printf("ERROR: Not matching any data type!\n\n");}
+
+
 	/* Returning status, telling if type parsing was error free or not. */
 
 	return status;
@@ -1713,10 +1718,11 @@ void pushRow()
 {
 	/* Initializations */
 
-	char c='$', c2='$';
-	char currAttribute[33]={0}, currDataType[33]={0}, currValue[33]={0};
+	char c;
+	char metaBuff[2] = {0};
 	int commaCount=0, buffIndex=0, totalArg, currArg=0;
 	int actualAttributes = 1;
+	int largestValue;
 
 
 
@@ -1790,7 +1796,7 @@ void pushRow()
 
 	/* Opening details.tosbit with NULL safety. */
 
-	fptr = fopen(directory, "r");
+	fptr = fopen(directory, "r+");
 	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory);}
 
 
@@ -1816,7 +1822,7 @@ void pushRow()
 
 	while (!reachedEOF(fptr))
 	{
-		fseek(fptr, (ATTRIBUTE_MAX_LENGTH+1)+(DATA_TYPE_MAX_LENGTH+1)+(KEY_MAX_LENGTH+1)+1+2, SEEK_CUR);
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1+2, SEEK_CUR);
 
 		c = fgetc(fptr);
 		if (c=='\n') {actualAttributes++; continue;}
@@ -1825,7 +1831,7 @@ void pushRow()
 
 	/* Giving feedback as per number of arguments passed. */
 
-	if (totalArg<actualAttributes) {printf("ERROR: Very few values passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	if (totalArg<actualAttributes) {printf("ERROR: Very few arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
 	else if (totalArg>actualAttributes) {printf("ERROR: Too many arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
 
 
@@ -1858,11 +1864,6 @@ void pushRow()
 		}
 
 
-		/* Checking if the passed argument is holding data type constraints. */
-
-		if (typeParser()==FALSE) {fclose(fptr); fclose(fptr2); return;}
-
-
 		/* Fetching the name of first/next attribute. */
 
 		c = fgetc(fptr);
@@ -1881,12 +1882,34 @@ void pushRow()
 
 		c = fgetc(fptr);
 		do {key[strlen(key)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
-		fseek(fptr, (KEY_MAX_LENGTH-1)-strlen(key)+2, SEEK_CUR);
+		fseek(fptr, (KEY_MAX_LENGTH-1)-strlen(key), SEEK_CUR);
 
 
-		/* Skipping the '\n' for non-last arguments in file. */
+		/* Checking if the passed argument is holding data type constraints. */
 
-		if (i!=actualAttributes) {fseek(fptr, 1, SEEK_CUR);}
+		if (typeParser()==FALSE) {fclose(fptr); fclose(fptr2); return;}
+
+
+		/* Fetching data from metadata.tosbit */
+
+		memset(metaBuff, 0, sizeof(metaBuff));
+
+		for (int j=0; j<2; j++)
+		{
+			c = fgetc(fptr);
+			if (c!=' ') {metaBuff[j] = c;}
+		}
+
+
+		/* Making changes to metadata.tosbit (if required) */
+
+		if ((int)strlen(pureValue)>atoi(metaBuff))
+		{
+			fseek(fptr, -2, SEEK_CUR);
+			fputs(itoa((int)strlen(pureValue),ascii), fptr);
+
+			if (strlen(metaBuff)<10) {fseek(fptr, 1, SEEK_CUR);}
+		}
 
 
 		/* Checking duplication insertion attempts for unique attributes. */
@@ -1898,6 +1921,11 @@ void pushRow()
 		// 		printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute); return;
 		// 	}
 		// }
+
+
+		/* Skipping the '\n' for non-last arguments in file. */
+
+		if (i!=actualAttributes) {fseek(fptr, 1, SEEK_CUR);}
 
 
 		/* Queueing attribute properties to respective queues. */
@@ -1912,7 +1940,7 @@ void pushRow()
 
 	fclose(fptr);
 
-/////////////////////////////////////////////////*START*//////////////////////////////////////////////
+
 
 	/* Inserting values. */
 
@@ -1921,38 +1949,24 @@ void pushRow()
 
 	for (int i=0; i<totalArg; i++)
 	{
-		/* Clearing strings & pasting the required value (for shorter string names). */
+		/* Inserting arguments to rows.tosbit, one-by-one from queue. */
 
-		memset(currAttribute, 0, sizeof(currAttribute));
-		memset(currDataType, 0, sizeof(currDataType));
-		memset(currValue, 0, sizeof(currValue));
+		fputs(valueQueue.getValue(&valueQueue,i), fptr2);
 
-		strcpy(currAttribute, attributeQueue.getValue(&attributeQueue,i));
-		strcpy(currDataType, dataTypeQueue.getValue(&dataTypeQueue,i));
-		strcpy(currValue, valueQueue.getValue(&valueQueue,i));
-
-
-
-		/* Inserting arguments to JSON document. */
-
-		clearEntity("buffer");
-		snprintf(buffer, sizeof(buffer), "\n\t\t\t\"%s\": ", currAttribute);
-		fputs(buffer, fptr2);
-
-		clearEntity("buffer");
-
-		if ((!strcmp(currDataType,"string"))||(!strcmp(currDataType,"media")))
+		if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue,i), "bool"))
 		{
-			snprintf(buffer, sizeof(buffer), "\"%s\"", currValue);
+			for (int j=0; j<5-strlen(valueQueue.getValue(&valueQueue,i)); j++)
+			{
+				fputc(' ', fptr2);
+			}
 		}
-
 		else
 		{
-			snprintf(buffer, sizeof(buffer), "%s", currValue);
+			for (int j=0; j<(VALUE_MAX_LENGTH-1)-strlen(valueQueue.getValue(&valueQueue,i)); j++)
+			{
+				fputc(' ', fptr2);
+			}
 		}
-
-		fputs(buffer, fptr2);
-
 
 
 		/* For non-last value, inserting comma. */
@@ -1960,13 +1974,6 @@ void pushRow()
 		if (i!=totalArg-1) {fputc(',', fptr2);}
 	}
 
-
-
-	/* Final insertions. */
-
-	fputs("\n\t\t}\n\t]\n}", fptr2);
-
-/////////////////////////////////////////////////*END*////////////////////////////////////////////////
 
 	/* Safely closing file descriptor. */
 
