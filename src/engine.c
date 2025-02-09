@@ -14,11 +14,12 @@ int main(int argc, char **argv[])
 	//profileManager();
 	//getLocation();
 	setConnection("123.141.138.013", "Gourav", "tangible%troops88");
-	
-	interpret("SHOW ALL DB");
-	interpret("OPEN DB db1");
-	interpret("SHOW ALL TABLES");
-	interpret("SHOW STRUCT table1");
+	//syntaxParser("Gourav", NULL);
+
+	interpret("open db mydb");
+	interpret("push to tester(1, Dipayan)");
+	interpret("push to tester(2, Arindam)");
+	interpret("push to tester(3, Gourav)");
 
 	return 0;
 }
