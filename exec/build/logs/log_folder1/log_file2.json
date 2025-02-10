@@ -2514,7 +2514,11 @@
 
 		{
 			"serial": 315,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:15 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:00 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "open db mydb"
@@ -2522,7 +2526,11 @@
 
 		{
 			"serial": 316,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:15 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:01 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "push to tester(1, Dipayan)"
@@ -2530,7 +2538,11 @@
 
 		{
 			"serial": 317,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:15 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:01 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "push to tester(2, Arindam)"
@@ -2538,7 +2550,11 @@
 
 		{
 			"serial": 318,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:15 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:01 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "push to tester(3, Gourav)"
@@ -2546,7 +2562,11 @@
 
 		{
 			"serial": 319,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:36 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:26 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "open db mydb"
@@ -2554,7 +2574,11 @@
 
 		{
 			"serial": 320,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:36 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:26 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "push to tester(1, Dipayan)"
@@ -2562,7 +2586,11 @@
 
 		{
 			"serial": 321,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:36 UTC 2025",
+=======
+			"time": "Sun Feb  9 17:15:26 UTC 2025",
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 			"location": "",
 			"author": "Gourav",
 			"command": "push to tester(2, Arindam)"
@@ -2570,6 +2598,7 @@
 
 		{
 			"serial": 322,
+<<<<<<< HEAD
 			"time": "Mon Feb 10 05:17:36 UTC 2025",
 			"location": "",
 			"author": "Gourav",
@@ -2846,6 +2875,12 @@
 			"location": "",
 			"author": "Gourav",
 			"command": " show tbl.(sno,name) where (akfwek)"
+=======
+			"time": "Sun Feb  9 17:15:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(3, Gourav)"
+>>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
 		}
 	]
 }
