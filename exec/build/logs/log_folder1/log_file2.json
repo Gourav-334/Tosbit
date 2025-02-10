@@ -2881,6 +2881,102 @@
 			"author": "Gourav",
 			"command": "push to tester(3, Gourav)"
 >>>>>>> b2b757a7d0b671cce526baa9bf7b0dcadc84bb1e
+		},
+
+		{
+			"serial": 1,
+			"time": "Mon Feb 10 17:27:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 2,
+			"time": "Mon Feb 10 17:28:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make db g"
+		},
+
+		{
+			"serial": 3,
+			"time": "Mon Feb 10 17:28:04 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 4,
+			"time": "Mon Feb 10 17:28:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db g"
+		},
+
+		{
+			"serial": 5,
+			"time": "Mon Feb 10 17:28:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 6,
+			"time": "Mon Feb 10 17:28:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete db g"
+		},
+
+		{
+			"serial": 7,
+			"time": "Mon Feb 10 17:28:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 8,
+			"time": "Mon Feb 10 18:52:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 9,
+			"time": "Mon Feb 10 18:52:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 10,
+			"time": "Mon Feb 10 18:52:38 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table bug(int axis, string axis)"
+		},
+
+		{
+			"serial": 11,
+			"time": "Mon Feb 10 18:52:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct tester"
+		},
+
+		{
+			"serial": 12,
+			"time": "Mon Feb 10 18:53:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct bug"
 		}
 	]
 }

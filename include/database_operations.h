@@ -96,6 +96,9 @@ extern void clearDb();
 extern int checkUnique(char value[], int currArg, int totalArg);
 extern int typeParser();
 extern void pushRow();
+extern void selectionParser();
+extern void conditionParser();
+extern void showRows();
 
 
 
