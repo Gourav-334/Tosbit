@@ -363,3 +363,20 @@ $$ totalVars\;=\;commaCount\;+\;1 $$
 - Multiple automata
 - Extreme looping & flow control
 - Multiple counters
+
+
+
+## SHOW Command
+
+```tosbit
+SHOW Desk.(sno,name,score) WHERE (sno>5 & score=7.00)
+```
+
+- Fetch `Desk` as table's name.
+- Fetch everything within `()` after `.` to `columns` array/queue.
+- `columns` elements must be separated by `,`.
+- Fetch everything within `()` after `WHERE` to `operations` array/queue.
+- `operations` elements must be separated by `&` or `|`.
+- Operands must be on left and right & operator in middle.
+
+>**<u>NOTE</u>:** Resolve the 'ALL' problem after this.

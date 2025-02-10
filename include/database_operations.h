@@ -53,6 +53,7 @@ extern char database[DATABASE_MAX_LENGTH];
 extern char table[TABLE_MAX_LENGTH];
 extern char directory[DIRECTORY_MAX_LENGTH];	// MAKE IT LOCAL!
 extern char buffer[BUFFER_MAX_LENGTH];
+extern char buffer2[BUFFER_MAX_LENGTH];
 extern char dataType[DATA_TYPE_MAX_LENGTH];
 extern char attribute[ATTRIBUTE_MAX_LENGTH];
 extern char key[KEY_MAX_LENGTH];

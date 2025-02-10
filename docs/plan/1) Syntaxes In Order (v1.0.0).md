@@ -53,11 +53,10 @@
 
 ### Remaining Commands:
 
-1. `show all from Desk where ?` (ALL POSSIBILITIES)
-2. `show Name,Dep from Desk where ?` (ALL POSSIBILITIES)
-3. `delete from Desk where ?` (ALL POSSIBILITIES)
-4. `change account password`
-5. `delete account`
+1. `show Desk.(sno,name,score) where (sno>5 & score=7.00)`
+2. `delete from Desk where ?` (ALL POSSIBILITIES)
+3. `change account password`
+4. `delete account`
 
 
 

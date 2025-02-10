@@ -30,6 +30,7 @@ char database[DATABASE_MAX_LENGTH] = {0};
 char table[TABLE_MAX_LENGTH] = {0};
 char directory[DIRECTORY_MAX_LENGTH] = {0};
 char buffer[BUFFER_MAX_LENGTH] = {0};
+char buffer2[BUFFER_MAX_LENGTH] = {0};
 char dataType[DATA_TYPE_MAX_LENGTH] = {0};
 char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
 char key[KEY_MAX_LENGTH] = {0};
@@ -73,6 +74,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"table")) {memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"directory")) {memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"buffer2")) {memset(buffer2, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}

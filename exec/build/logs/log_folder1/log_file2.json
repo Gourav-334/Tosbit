@@ -2510,6 +2510,342 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "push to tester(3, Gourav)"
+		},
+
+		{
+			"serial": 315,
+			"time": "Mon Feb 10 05:17:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 316,
+			"time": "Mon Feb 10 05:17:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(1, Dipayan)"
+		},
+
+		{
+			"serial": 317,
+			"time": "Mon Feb 10 05:17:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(2, Arindam)"
+		},
+
+		{
+			"serial": 318,
+			"time": "Mon Feb 10 05:17:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(3, Gourav)"
+		},
+
+		{
+			"serial": 319,
+			"time": "Mon Feb 10 05:17:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 320,
+			"time": "Mon Feb 10 05:17:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(1, Dipayan)"
+		},
+
+		{
+			"serial": 321,
+			"time": "Mon Feb 10 05:17:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(2, Arindam)"
+		},
+
+		{
+			"serial": 322,
+			"time": "Mon Feb 10 05:17:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tester(3, Gourav)"
+		},
+
+		{
+			"serial": 323,
+			"time": "Mon Feb 10 05:19:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 324,
+			"time": "Mon Feb 10 05:19:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 325,
+			"time": "Mon Feb 10 05:19:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 326,
+			"time": "Mon Feb 10 05:19:35 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct tester"
+		},
+
+		{
+			"serial": 327,
+			"time": "Mon Feb 10 12:59:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 328,
+			"time": "Mon Feb 10 12:59:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 329,
+			"time": "Mon Feb 10 12:59:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show from"
+		},
+
+		{
+			"serial": 330,
+			"time": "Mon Feb 10 13:00:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 331,
+			"time": "Mon Feb 10 13:00:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 332,
+			"time": "Mon Feb 10 13:00:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test)"
+		},
+
+		{
+			"serial": 333,
+			"time": "Mon Feb 10 13:02:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all"
+		},
+
+		{
+			"serial": 334,
+			"time": "Mon Feb 10 13:02:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test)"
+		},
+
+		{
+			"serial": 335,
+			"time": "Mon Feb 10 13:03:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test"
+		},
+
+		{
+			"serial": 336,
+			"time": "Mon Feb 10 13:03:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) "
+		},
+
+		{
+			"serial": 337,
+			"time": "Mon Feb 10 13:04:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test)"
+		},
+
+		{
+			"serial": 338,
+			"time": "Mon Feb 10 13:08:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test)"
+		},
+
+		{
+			"serial": 339,
+			"time": "Mon Feb 10 13:13:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test)"
+		},
+
+		{
+			"serial": 340,
+			"time": "Mon Feb 10 13:14:04 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) "
+		},
+
+		{
+			"serial": 341,
+			"time": "Mon Feb 10 13:14:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) e"
+		},
+
+		{
+			"serial": 342,
+			"time": "Mon Feb 10 13:14:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) wv"
+		},
+
+		{
+			"serial": 343,
+			"time": "Mon Feb 10 13:15:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5 & score>7.0)"
+		},
+
+		{
+			"serial": 344,
+			"time": "Mon Feb 10 13:18:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5)"
+		},
+
+		{
+			"serial": 345,
+			"time": "Mon Feb 10 13:19:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5)             "
+		},
+
+		{
+			"serial": 346,
+			"time": "Mon Feb 10 13:25:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5)"
+		},
+
+		{
+			"serial": 347,
+			"time": "Mon Feb 10 13:25:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5) "
+		},
+
+		{
+			"serial": 348,
+			"time": "Mon Feb 10 13:25:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5) e"
+		},
+
+		{
+			"serial": 349,
+			"time": "Mon Feb 10 13:25:56 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 350,
+			"time": "Mon Feb 10 13:27:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(sno, test) where (sno>5)"
+		},
+
+		{
+			"serial": 351,
+			"time": "Mon Feb 10 13:27:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.( dadwd ,  wdqwd    ) where        (dqwjk )"
+		},
+
+		{
+			"serial": 352,
+			"time": "Mon Feb 10 13:30:53 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno,name)where(sno>5)"
+		},
+
+		{
+			"serial": 353,
+			"time": "Mon Feb 10 13:31:07 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": " show tbl.(sno,name)where (dwqdqw)"
+		},
+
+		{
+			"serial": 354,
+			"time": "Mon Feb 10 13:31:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": " show tbl.(sno,name) WHerE(ewqeqw)"
+		},
+
+		{
+			"serial": 355,
+			"time": "Mon Feb 10 13:33:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": " show tbl.(sno,name)where(sno>5)"
+		},
+
+		{
+			"serial": 356,
+			"time": "Mon Feb 10 13:33:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": " show tbl.(sno,name) where (akfwek)"
 		}
 	]
 }
