@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "SHOW command to print ALL rows created. Subtle unconnected & nasty bugs found while pushing data though."
+git commit -m "Bugs for PUSH fixed."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

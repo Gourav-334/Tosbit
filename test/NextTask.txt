@@ -1,6 +1,8 @@
 MAKE TABLE PARSER:
 
 -> Optimize reachedEOF().
+-> Optimize newFile().
+-> Make showAll() table self-adjustable.
 
 -----------------------------------------------------------
 

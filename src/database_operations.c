@@ -1703,7 +1703,7 @@ int typeParser()
 	/* Error handling safety for unknown bug (just for check purposes). */
 
 	else {printf("ERROR: Not matching any data type!\n\n"); status = FALSE;}
-printf("DT: %s\n", dataType);////////////////////////////////////////////////////
+
 
 	/* Returning status, telling if type parsing was error free or not. */
 
@@ -1871,21 +1871,21 @@ void pushRow()
 		}
 
 
-		/* Fetching the name of first/next attribute. */
+		/* Fetching the name of first/next attribute from details.tosbit */
 
 		c = fgetc(fptr);
 		do {attribute[strlen(attribute)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
 		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-strlen(attribute), SEEK_CUR);
 
 
-		/* Fetching the name of first/next data type. */
+		/* Fetching the name of first/next data type from details.tosbit */
 
 		c = fgetc(fptr);
 		do {dataType[strlen(dataType)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
 		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-strlen(dataType), SEEK_CUR);
 
 
-		/* Fetching the name of first/next key. */
+		/* Fetching the name of first/next key from details.tosbit */
 
 		c = fgetc(fptr);
 		do {key[strlen(key)] = c; c = fgetc(fptr);} while (c!=' ' && c!=',');
@@ -1897,7 +1897,7 @@ void pushRow()
 		if (typeParser()==FALSE) {fclose(fptr); fclose(fptr2); return;}
 
 
-		/* Fetching data from metadata.tosbit */
+		/* Fetching data from details.tosbit */
 
 		memset(metaBuff, 0, sizeof(metaBuff));
 
@@ -1908,14 +1908,14 @@ void pushRow()
 		}
 
 
-		/* Making changes to metadata.tosbit (if required) */
+		/* Making changes to details.tosbit (if required) */
 
 		if ((int)strlen(pureValue)>atoi(metaBuff))
 		{
 			fseek(fptr, -2, SEEK_CUR);
 			fputs(itoa((int)strlen(pureValue),ascii), fptr);
 
-			if (strlen(metaBuff)<10) {fseek(fptr, 1, SEEK_CUR);}
+			if (strlen(pureValue)<10) {fseek(fptr, 1, SEEK_CUR);}
 		}
 
 
@@ -2094,7 +2094,9 @@ void allRows()
 
 	char c;
 	char largestAttributeS[2] = {0}, dataTypeS[DATA_TYPE_MAX_LENGTH] = {0};
-	int charsPrinted = 0, charsRead = 0, rowLength = 0, rowCount = 0;
+	int charsPrinted = 0, charsRead = 0;
+	int rowLength = 0, rowCount = 0;
+	int sizeCounter = 0;
 
 
 	/* Queue structure to handle data type of each table attribute. */
@@ -2286,7 +2288,7 @@ void allRows()
 
 
 		/* Printing the row with (including spaces in file). */
-
+//////////////////////////////////////////*WORK IN PROGRESS*///////////////////////////////////////////
 		for (int i=0; i<sizeQueue.n; i++)
 		{
 			/* Initializing certain values & printing default designs. */
@@ -2354,4 +2356,10 @@ void allRows()
 	/* Safely closing file descriptor. */
 
 	fclose(fptr);
+
+
+	/* Clearing queues. */
+
+	sizeQueue.clear(&sizeQueue);
+	dataTypeQueue.clear(&dataTypeQueue);
 }
