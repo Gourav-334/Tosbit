@@ -96,3 +96,26 @@ mydb............................
 4. Else if any mismatch is found inbetween, move by `tableLength - currLineCharsRead`.
 5. If EOF reached, stop the process & return appropriate error message.
 6. Else if its `\n`, continue the process iteration.
+
+
+## `showRows()`
+
+```tosbit
+SHOW Desk.(sno,name,score) WHERE (sno>5 & score=7.00)
+```
+
+### Columns:
+
+#### ALL:
+
+```tosbit
+@
+```
+- Open `details.tosbit` in `r` mode.
+
+#### SELECTIVE
+
+```tosbit
+sno, name, score
+```
+- Queue the requested set of attributes.

@@ -1993,3 +1993,50 @@ void pushRow()
 
 	printf("OK: Row pushed successfully!\n\n");
 }
+
+
+
+
+
+
+
+
+
+
+/* Parses the selection arguments & provides feedback on its integrity. */
+
+void selectionParser()
+{
+	/* Queue structure to handle attributes. */
+
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+
+
+	/* DFA-based parser. */
+
+	for (int i=0; i<strlen(buffer); i++)
+	{
+		case 0: changeState(buffer[i], " @", "0,1", &state2, 9); break;
+		case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
+		case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 7, &brk); break;
+		case 4: changeState(buffer[i], " ,@", "4,5,6", &state2, 8); breakValue(&state2, 8, &brk2); break;
+		case 5: changeState(buffer[i], " @", "5,6", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
+		case 9: if (strlen(attribute)!=0) {attributeQueue.queue(&attributeQueue,attribute);} clearEntity("attribute"); appendState(&state2, 9, attribute, buffer[i]); changeState(buffer[i], " ", "4", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
+	}
+
+	// REBUILD IT!
+}
