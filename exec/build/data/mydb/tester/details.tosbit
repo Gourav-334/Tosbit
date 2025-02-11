@@ -1,2 +1,0 @@
-$sno                            ,int   ,unique ,1 
-name                            ,string,regular,7 

@@ -892,7 +892,12 @@ void makeTable()
 			for (int i=0; i<(KEY_MAX_LENGTH-1)-strlen(key); i++) {fputc(' ', fptr2);}
 			fputc(',', fptr2);
 
-			fputs("0 ", fptr2);
+
+			/* Writing the largest value for each attribute (attribute name length by default). */
+
+			fputs(itoa((int)strlen(attribute),ascii), fptr2);
+			if (strlen(attribute)<10) {fputc(' ', fptr2);}
+
 
 
 			/* Modifying tbl_name/metadata.tosbit as per recent fetches. */
@@ -1697,8 +1702,8 @@ int typeParser()
 
 	/* Error handling safety for unknown bug (just for check purposes). */
 
-	else {printf("ERROR: Not matching any data type!\n\n");}
-
+	else {printf("ERROR: Not matching any data type!\n\n"); status = FALSE;}
+printf("DT: %s\n", dataType);////////////////////////////////////////////////////
 
 	/* Returning status, telling if type parsing was error free or not. */
 
@@ -2057,7 +2062,7 @@ void selectionParser()
 	switch (state2)
 	{
 		case 0: printf("ERROR: No column name passed as argument!\n\n"); break;
-		case 1: printf("OK: All columns & rows.\n\n"); break;
+		case 1: allRows(); break;
 		case 2: printf("ERROR: Syntax error when requesting for all columns!\n\n"); break;
 		case 3: printf("OK: Columns requsted manually.\n\n"); break;
 		case 4: printf("OK: Columns requsted manually.\n\n"); break;
@@ -2083,3 +2088,270 @@ void selectionParser()
 
 /* Parser to check integrity of conditional syntax (after WHERE). */
 
+void allRows()
+{
+	/* Initializations */
+
+	char c;
+	char largestAttributeS[2] = {0}, dataTypeS[DATA_TYPE_MAX_LENGTH] = {0};
+	int charsPrinted = 0, charsRead = 0, rowLength = 0, rowCount = 0;
+
+
+	/* Queue structure to handle data type of each table attribute. */
+
+	Queue dataTypeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+
+	/* Queue structure to handle size of each table attribute. */
+
+	Queue sizeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+
+
+	/* Formatting 'directory' to open details.tosbit in 'r' mode. */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
+
+
+	/* Opening details.tosbit with NULL safety. */
+
+	fptr = fopen(directory, "r");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory); return;}
+
+
+	/* Fetching data type & length of largest names for each attribute. */
+
+	while (!reachedEOF(fptr))
+	{
+		/* Moving file descriptor to fetch largest value of an attribute. */
+
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)+1, SEEK_CUR);
+
+
+		/* Fetching the largest value of an attribute. */
+
+		memset(dataTypeS, 0, sizeof(dataTypeS)); // Running 2-bytes ahead.
+
+		charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {dataTypeS[strlen(dataTypeS)] = c; c = fgetc(fptr); charsRead++;}
+
+
+		/* Queueing the largest value of an attribute to 'sizeQueue'. */
+
+		dataTypeQueue.queue(&dataTypeQueue, dataTypeS);
+
+
+
+		/* Moving file descriptor to fetch largest value of an attribute. */
+// ANALYZE WHY IT WORKS WITHOUT EXTRA 1 BYTE MOVEMENT!/////////////////////////////////////////////
+		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1-charsRead-1, SEEK_CUR);
+
+
+		/* Fetching the largest value of an attribute. */
+
+		memset(largestAttributeS, 0, sizeof(largestAttributeS));
+
+		for (int i=0; i<2; i++)
+		{
+			c = fgetc(fptr);
+			if (c!=' ') {largestAttributeS[i] = c;}
+		}
+
+
+		/* Queueing the largest value of an attribute to 'sizeQueue'. */
+
+		sizeQueue.queue(&sizeQueue, largestAttributeS);
+
+
+		/* Making the FD ready to repeat this process for the next attribute. */
+
+		fseek(fptr, 1, SEEK_CUR);
+	}
+
+
+
+	/* Printing upper ribbon of console-table's head. */
+
+	for (int i=0; i<sizeQueue.n; i++)
+	{
+		printf("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {printf("-");}
+	}
+	printf("+\n");
+
+
+
+	/* Moving FD to start of the file to print attributes now. */
+
+	fseek(fptr, 0, SEEK_SET);
+
+
+	for (int i=0; i<sizeQueue.n; i++)
+	{
+		/* Printing the name of attributes on top bar. */
+
+		charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		while (c!=' ' && c!=',') {printf("%c", c); charsPrinted++; c = fgetc(fptr);}
+
+
+		/* Printing spaces to maintain structure of console-table. */
+
+		for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i))-charsPrinted; j++) {printf(" ");}
+
+
+		/* Moving FD backward by one byte, as it read a character further for check. */
+
+		fseek(fptr, -1, SEEK_CUR);
+
+
+		/* Moving FD to end of line (to '\n' or EOF). */
+
+		fseek(fptr,
+			(ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1+2-charsPrinted+1,
+			SEEK_CUR
+		);
+	}
+	printf("|\n");
+
+
+
+	/* Printing lower ribbon of console-table's head. */
+
+	for (int i=0; i<sizeQueue.n; i++)
+	{
+		printf("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {printf("-");}
+	}
+	printf("+\n");
+
+
+	/* Safely closing file descriptor. */
+
+	fclose(fptr);
+
+
+
+	/* Summing length of a row (including commas). */
+
+	for (int i=0; i<sizeQueue.n; i++) {rowLength += atoi(sizeQueue.getValue(&sizeQueue, i));}
+	rowLength += (sizeQueue.n)-1;		// commas = attributes - 1
+
+
+	/* Formatting 'directory' to open rows.tosbit in 'r' mode. */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/rows.tosbit", database, table);
+
+
+	/* Opening rows.tosbit with NULL safety. */
+
+	fptr = fopen(directory, "r");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory); return;}
+
+
+	/* Reading rows from rows.data */
+
+	while (!reachedEOF(fptr))
+	{
+		/* Skipping deleted rows (those starting with '\t'). */
+
+		c = fgetc(fptr);
+		if (c=='\t') {fseek(fptr, rowLength+1, SEEK_CUR);}
+		else {fseek(fptr, -1, SEEK_CUR);}
+
+
+		/* Printing the row with (including spaces in file). */
+
+		for (int i=0; i<sizeQueue.n; i++)
+		{
+			/* Initializing certain values & printing default designs. */
+
+			charsPrinted = 0; printf("|");
+			
+
+			/* For boolean type attributes. */
+
+			if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
+			{
+				/* Printing attribute's value to screen. */
+
+				for (int j=0; j<5; j++)
+				{
+					printf("%c", fgetc(fptr));
+					charsPrinted++;
+				}
+
+
+				/* Skipping remaining spaces with comma or endline character. */
+
+				fseek(fptr, 5-charsPrinted+1, SEEK_SET);
+			}
+
+
+			/* For other type of attributes. */
+
+			else
+			{
+				/* Printing attribute's value to screen. */
+
+				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++)
+				{
+					printf("%c", fgetc(fptr));
+					charsPrinted++;
+				}
+
+
+				/* Skipping remaining spaces with comma or endline character. */
+				
+				fseek(fptr, (VALUE_MAX_LENGTH-1)-charsPrinted+1, SEEK_CUR);
+			}
+		}
+
+		printf("|\n"); rowCount++;
+	}
+
+
+	/* Printing ribbon of console-table's tail. */
+
+	for (int i=0; i<sizeQueue.n; i++)
+	{
+		printf("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {printf("-");}
+	}
+	printf("+\n");
+
+
+	/* Printing stats information. */
+
+	printf("STAT: Total %d rows found.\n\n", rowCount);
+
+
+
+	/* Safely closing file descriptor. */
+
+	fclose(fptr);
+}

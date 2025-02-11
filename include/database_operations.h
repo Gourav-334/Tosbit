@@ -98,7 +98,7 @@ extern int typeParser();
 extern void pushRow();
 extern void selectionParser();
 extern void conditionParser();
-extern void showRows();
+extern void allRows();
 
 
 
