@@ -2977,6 +2977,126 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "show struct bug"
+		},
+
+		{
+			"serial": 13,
+			"time": "Tue Feb 11 06:37:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, score)"
+		},
+
+		{
+			"serial": 14,
+			"time": "Tue Feb 11 06:37:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, score )"
+		},
+
+		{
+			"serial": 15,
+			"time": "Tue Feb 11 06:38:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.( sno, name  ,yes)"
+		},
+
+		{
+			"serial": 16,
+			"time": "Tue Feb 11 06:38:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, )"
+		},
+
+		{
+			"serial": 17,
+			"time": "Tue Feb 11 06:38:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, )"
+		},
+
+		{
+			"serial": 18,
+			"time": "Tue Feb 11 06:38:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name ijwd)"
+		},
+
+		{
+			"serial": 19,
+			"time": "Tue Feb 11 06:38:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.( @ )"
+		},
+
+		{
+			"serial": 20,
+			"time": "Tue Feb 11 06:38:50 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(@ )"
+		},
+
+		{
+			"serial": 21,
+			"time": "Tue Feb 11 06:38:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(@)"
+		},
+
+		{
+			"serial": 22,
+			"time": "Tue Feb 11 06:38:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.@"
+		},
+
+		{
+			"serial": 23,
+			"time": "Tue Feb 11 06:58:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": " show tbl.(sno, name ijwd)"
+		},
+
+		{
+			"serial": 24,
+			"time": "Tue Feb 11 06:59:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, score)"
+		},
+
+		{
+			"serial": 25,
+			"time": "Tue Feb 11 07:03:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, score)"
+		},
+
+		{
+			"serial": 26,
+			"time": "Tue Feb 11 07:06:05 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, score)"
+		},
+
+		{
+			"serial": 27,
+			"time": "Tue Feb 11 07:11:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tbl.(sno, name, score)"
 		}
 	]
 }

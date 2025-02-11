@@ -106,16 +106,46 @@ SHOW Desk.(sno,name,score) WHERE (sno>5 & score=7.00)
 
 ### Columns:
 
-#### ALL:
+#### ALL
 
 ```tosbit
 @
 ```
-- Open `details.tosbit` in `r` mode.
+1. Open `db_name/tbl_name/details.tosbit` in `r` mode.
+2. While EOF not reached, follow the instructions below.
+3. Move FD forward by `(MAX_ATTR_LEN-1)+1+(DT_MAX_LEN-1)+1+(KEY_MAX_LEN-1)+1`.
+4. Fetch the upcoming bytes to `largestAttributeS` until a space of `\n` or EOF approaches.
+5. Convert `largestAttributeS` queue that to `sizeQueue`.
+6. If a space was encountered, move FD forward by one byte.
+7. Now, for number of elements in `sizeQueue` follow the instructions given below.
+8. Print `+` & then `-` for current queue element (in integer) times.
+9. After that, print `+`.
+10. Move FD to start of file.
+11. Until not reached EOF, follow the instructions given below.
+12. Print `|`.
+13. Keep printing readings from `details.tosbit` until a space or `,` is encountered.
+14. If a space was encountered, move FD by `(MAX_ATTR_LEN-1)+1+(DT_MAX_LEN-1)+1+(KEY_MAX_LEN-1)+1+2-recentlyReadChars+1` bytes.
+15. After this process, print `|`.
+16. Again, for number of elements in `sizeQueue` follow the instructions given below.
+17. Print `+` & then `-` for current queue element (in integer) times.
+18. After that, print `+`.
+19. Sum the integer values of all strings in queue as `rowLength`.
+20. Open `db_name/tbl_name/rows.tosbit` in `r` mode.
+21. Until EOF not reached, follow the instructions given below.
+22. Read next character from file. ---(1)
+23. If this character is `\t`, move FD forward by `rowLength + totalNodes` & continue to next iteration of middle `for` loop. ---(1)
+24. Else, move FD backward by one byte. ---(1)
+25. For number of elements in `sizeQueue`, do the following. ---(1)
+26. Print `|` & then readings from file `for` {integer value of current queue element} times.
+27. Move FD forward by one byte & continue. ---(1).
+28. After that process, print `|\n` & increment `rowCount` for stats. ---(1)
+29. And after everything, for number of elements in `sizeQueue` follow the instructions given below.
+30. Print `+` & then `-` for current queue element (in integer) times.
+31. After that, print `+`.
+32. Print the stat information for number of rows afterwards.
 
 #### SELECTIVE
 
 ```tosbit
 sno, name, score
 ```
-- Queue the requested set of attributes.

@@ -2026,17 +2026,60 @@ void selectionParser()
 
 
 
-	/* DFA-based parser. */
+	/* DFA-based parser to extract all attribute names. */
 
 	for (int i=0; i<strlen(buffer); i++)
 	{
-		case 0: changeState(buffer[i], " @", "0,1", &state2, 9); break;
-		case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
-		case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 7, &brk); break;
-		case 4: changeState(buffer[i], " ,@", "4,5,6", &state2, 8); breakValue(&state2, 8, &brk2); break;
-		case 5: changeState(buffer[i], " @", "5,6", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
-		case 9: if (strlen(attribute)!=0) {attributeQueue.queue(&attributeQueue,attribute);} clearEntity("attribute"); appendState(&state2, 9, attribute, buffer[i]); changeState(buffer[i], " ", "4", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
+		switch (state2)
+		{
+			case 0: clearEntity("attribute"); changeState(buffer[i], " @", "0,1", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
+			case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
+			case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 6, &brk2); break;
+			case 4: changeState(buffer[i], " ,", "4,5", &state2, 7); breakValue(&state2, 2, &brk2); break;
+			case 5: if (strlen(attribute)>0) {attributeQueue.queue(&attributeQueue, attribute);} clearEntity("attribute"); changeState(buffer[i], " ", "5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]);break;
+		}
+
+
+		/* Prematurely breaking from loop if DFA reaches dump state. */
+
+		if (brk2==TRUE) {brk2 = FALSE; break;}
 	}
 
-	// REBUILD IT!
+	
+	/* Appending the one-and-only or the last attribute in buffer to queue. */
+
+	if (state2==3 || state2==4) {attributeQueue.queue(&attributeQueue, attribute);}
+
+
+
+	/* Taking action as per the final stop-state. */
+
+	switch (state2)
+	{
+		case 0: printf("ERROR: No column name passed as argument!\n\n"); break;
+		case 1: printf("OK: All columns & rows.\n\n"); break;
+		case 2: printf("ERROR: Syntax error when requesting for all columns!\n\n"); break;
+		case 3: printf("OK: Columns requsted manually.\n\n"); break;
+		case 4: printf("OK: Columns requsted manually.\n\n"); break;
+		case 5: printf("ERROR: Check position of commas!\n\n"); break;
+		case 6: printf("ERROR: Attribute name limit exceeded!\n\n"); break;
+		case 7: printf("ERROR: No comma among names of columns!\n\n"); break;
+	}
+
+
+	/* Resetting values to avoid future errors. */
+
+	state2 = 0; valid = TRUE;
 }
+
+
+
+
+
+
+
+
+
+
+/* Parser to check integrity of conditional syntax (after WHERE). */
+

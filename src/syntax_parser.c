@@ -350,7 +350,7 @@ void syntaxParser(char username[], char *user_cmd)
 			case 135: printf("ERROR: Did you meant \"show tbl_name.(...)\"?\n\n"); break;
 			case 136: printf("ERROR: Did you meant \"show tbl_name.(...)\"?\n\n"); break;
 			case 137: printf("ERROR: Did you meant \"show tbl_name.(...)\"?\n\n"); break;
-			case 139: printf("STAT: \'x\' rows found.\n\n"); break;
+			case 139: selectionParser(); break;
 			case 140: printf("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?\n\n"); break;
 			case 141: printf("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?\n\n"); break;
 			case 142: printf("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?\n\n"); break;
@@ -427,6 +427,8 @@ void attributeParser()
 			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state2, 7, &brk2); break;
 		}
 
+
+		/* Prematurely breaking from loop if DFA reaches dump state. */
 
 		if (brk2==TRUE) {brk2 = FALSE; break;}
 	}
