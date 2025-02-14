@@ -67,7 +67,7 @@ void Queue_queue(Queue *q, char str[])
 {
 	/* Creating a node */ 
 
-	q -> m = (node*)malloc(sizeof(node)); //printf("SIGNAL");
+	q -> m = (node*)malloc(sizeof(node));
 
 
 
@@ -97,8 +97,8 @@ void Queue_queue(Queue *q, char str[])
 	/* Filling input value to node (with \0), incrementing counter & acknowledging */
 
 	strcpy(q -> m -> name, str);
-	//q -> m -> name[strlen(q -> m -> name)] = '\0';
-
+	
+	q -> trav = q -> head;
 	(q -> n)++;
 }
 
@@ -130,11 +130,15 @@ void Queue_clear(Queue *q)
 
 int Queue_getIndex(Queue *q, char str[])
 {
+	/* Returning -2 incase queue is empty. */
+
+	if (q->n==0) {return -2;}
+
+
 	/* 'str2' is 'str' with null character (\0) at the end. */
 
 	char str2[strlen(str)+1]; strcpy(str2,str);
 	str2[strlen(str2)] = '\0';
-
 
 
 	/* Starting from default position value i.e 0 */
@@ -142,15 +146,18 @@ int Queue_getIndex(Queue *q, char str[])
 	q -> pos = 0;
 
 
-
 	/* Finding that node */
 
-	while (strcmp(q->trav->name,str2))
+	while (strcmp(q->trav->name,str2) && (q->trav->next)!=NULL)
 	{
 		q -> trav = q -> trav -> next;
 		q -> pos++;
 	}
 
+
+	/* Returning -1 as error status in case string value wasn't found. */
+
+	if (strcmp(q->trav->name,str2) && (q->trav->next)==NULL) {return -1;}
 
 
 	/* Throwing head back to first node */

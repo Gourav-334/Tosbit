@@ -1,8 +1,8 @@
 MAKE TABLE PARSER:
 
--> Optimize reachedEOF().
--> Optimize newFile().
 -> Make showAll() table self-adjustable.
+-> Deny duplicate unique key insertions.
+-> Select columns manually.
 
 -----------------------------------------------------------
 

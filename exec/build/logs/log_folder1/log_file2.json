@@ -5513,6 +5513,2174 @@
 			"location": "",
 			"author": "Gourav",
 			"command": "show dipayan.(@)"
+		},
+
+		{
+			"serial": 330,
+			"time": "Thu Feb 13 05:04:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 331,
+			"time": "Thu Feb 13 05:05:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 332,
+			"time": "Thu Feb 13 05:05:06 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 333,
+			"time": "Thu Feb 13 05:05:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct dipayan"
+		},
+
+		{
+			"serial": 334,
+			"time": "Thu Feb 13 05:06:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table tosbitter(int $sno, string name, string specialization, string experience, string type)"
+		},
+
+		{
+			"serial": 335,
+			"time": "Thu Feb 13 05:06:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 336,
+			"time": "Thu Feb 13 05:06:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct tosbitter"
+		},
+
+		{
+			"serial": 337,
+			"time": "Thu Feb 13 05:12:04 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tosbitter(1, Gourav Kumar Mallick, System Programming, High, Theory Applier)"
+		},
+
+		{
+			"serial": 338,
+			"time": "Thu Feb 13 05:12:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 339,
+			"time": "Thu Feb 13 05:13:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tosbitter(2, Dipayan Das, Big Data Analytics, Moderate, Suggester)"
+		},
+
+		{
+			"serial": 340,
+			"time": "Thu Feb 13 05:13:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 341,
+			"time": "Thu Feb 13 05:15:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tosbitter(2, Arindam Ghosh, Machine Learning & Sockets, High, All Rounder)"
+		},
+
+		{
+			"serial": 342,
+			"time": "Thu Feb 13 05:15:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 343,
+			"time": "Thu Feb 13 05:18:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to tosbitter(4, Shiva Bhattarai, Web Development, Low, Traditional)"
+		},
+
+		{
+			"serial": 344,
+			"time": "Thu Feb 13 05:18:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tobitter.(@)"
+		},
+
+		{
+			"serial": 345,
+			"time": "Thu Feb 13 05:18:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 346,
+			"time": "Thu Feb 13 05:19:26 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 347,
+			"time": "Thu Feb 13 05:20:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table dipayan"
+		},
+
+		{
+			"serial": 348,
+			"time": "Thu Feb 13 05:20:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all table"
+		},
+
+		{
+			"serial": 349,
+			"time": "Thu Feb 13 05:20:16 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 350,
+			"time": "Thu Feb 13 05:20:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 351,
+			"time": "Thu Feb 13 05:25:56 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 352,
+			"time": "Thu Feb 13 05:26:04 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear table tosbitter"
+		},
+
+		{
+			"serial": 353,
+			"time": "Thu Feb 13 05:26:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 354,
+			"time": "Thu Feb 13 05:26:20 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 355,
+			"time": "Thu Feb 13 05:26:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tosbitter.(@)"
+		},
+
+		{
+			"serial": 356,
+			"time": "Thu Feb 13 05:29:14 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 357,
+			"time": "Thu Feb 13 05:29:29 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 358,
+			"time": "Thu Feb 13 06:01:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 359,
+			"time": "Thu Feb 13 06:01:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 360,
+			"time": "Thu Feb 13 06:01:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 361,
+			"time": "Thu Feb 13 06:02:20 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table programs(int age, string name)"
+		},
+
+		{
+			"serial": 362,
+			"time": "Thu Feb 13 06:02:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 363,
+			"time": "Thu Feb 13 06:02:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct programs"
+		},
+
+		{
+			"serial": 364,
+			"time": "Thu Feb 13 06:02:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to programs(1, Gourav)"
+		},
+
+		{
+			"serial": 365,
+			"time": "Thu Feb 13 06:02:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to programs(2, Aarav)"
+		},
+
+		{
+			"serial": 366,
+			"time": "Thu Feb 13 06:02:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show programs.(@)"
+		},
+
+		{
+			"serial": 367,
+			"time": "Thu Feb 13 06:03:09 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 368,
+			"time": "Thu Feb 13 06:03:42 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table testfile(int sno, string sno)"
+		},
+
+		{
+			"serial": 369,
+			"time": "Thu Feb 13 06:04:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 370,
+			"time": "Thu Feb 13 06:04:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table testfile"
+		},
+
+		{
+			"serial": 371,
+			"time": "Thu Feb 13 06:04:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 372,
+			"time": "Thu Feb 13 06:07:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 373,
+			"time": "Thu Feb 13 06:07:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 374,
+			"time": "Thu Feb 13 06:07:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table testfile(int sno, string sno)"
+		},
+
+		{
+			"serial": 375,
+			"time": "Thu Feb 13 06:11:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 376,
+			"time": "Thu Feb 13 06:11:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 377,
+			"time": "Thu Feb 13 06:11:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string age)"
+		},
+
+		{
+			"serial": 378,
+			"time": "Thu Feb 13 06:11:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 379,
+			"time": "Thu Feb 13 06:11:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 380,
+			"time": "Thu Feb 13 06:11:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 381,
+			"time": "Thu Feb 13 06:11:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 382,
+			"time": "Thu Feb 13 06:11:19 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 383,
+			"time": "Thu Feb 13 06:12:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 384,
+			"time": "Thu Feb 13 06:12:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 385,
+			"time": "Thu Feb 13 06:14:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 386,
+			"time": "Thu Feb 13 06:14:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 387,
+			"time": "Thu Feb 13 06:14:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 388,
+			"time": "Fri Feb 14 05:24:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 389,
+			"time": "Fri Feb 14 05:24:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 390,
+			"time": "Fri Feb 14 05:24:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 391,
+			"time": "Fri Feb 14 17:45:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 392,
+			"time": "Fri Feb 14 17:45:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 393,
+			"time": "Fri Feb 14 17:45:23 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 394,
+			"time": "Fri Feb 14 17:51:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 395,
+			"time": "Fri Feb 14 17:51:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 396,
+			"time": "Fri Feb 14 17:51:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 397,
+			"time": "Fri Feb 14 17:51:59 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 398,
+			"time": "Fri Feb 14 17:52:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 399,
+			"time": "Fri Feb 14 17:52:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 400,
+			"time": "Fri Feb 14 17:52:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 401,
+			"time": "Fri Feb 14 17:52:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 402,
+			"time": "Fri Feb 14 17:52:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 403,
+			"time": "Fri Feb 14 17:52:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 404,
+			"time": "Fri Feb 14 17:52:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 405,
+			"time": "Fri Feb 14 17:52:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 406,
+			"time": "Fri Feb 14 17:52:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 407,
+			"time": "Fri Feb 14 17:53:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 408,
+			"time": "Fri Feb 14 17:53:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 409,
+			"time": "Fri Feb 14 17:53:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 410,
+			"time": "Fri Feb 14 17:53:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 411,
+			"time": "Fri Feb 14 17:54:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 412,
+			"time": "Fri Feb 14 17:54:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 413,
+			"time": "Fri Feb 14 17:54:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 414,
+			"time": "Fri Feb 14 17:54:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 415,
+			"time": "Fri Feb 14 17:54:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 416,
+			"time": "Fri Feb 14 17:54:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 417,
+			"time": "Fri Feb 14 17:54:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 418,
+			"time": "Fri Feb 14 17:55:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 419,
+			"time": "Fri Feb 14 17:55:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 420,
+			"time": "Fri Feb 14 17:55:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 421,
+			"time": "Fri Feb 14 17:55:28 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 422,
+			"time": "Fri Feb 14 17:55:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 423,
+			"time": "Fri Feb 14 17:55:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 424,
+			"time": "Fri Feb 14 17:55:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 425,
+			"time": "Fri Feb 14 17:55:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 426,
+			"time": "Fri Feb 14 17:58:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 427,
+			"time": "Fri Feb 14 17:58:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 428,
+			"time": "Fri Feb 14 17:58:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 429,
+			"time": "Fri Feb 14 17:58:44 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 430,
+			"time": "Fri Feb 14 18:00:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 431,
+			"time": "Fri Feb 14 18:00:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 432,
+			"time": "Fri Feb 14 18:01:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 433,
+			"time": "Fri Feb 14 18:01:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 434,
+			"time": "Fri Feb 14 18:01:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string kage)"
+		},
+
+		{
+			"serial": 435,
+			"time": "Fri Feb 14 18:01:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 436,
+			"time": "Fri Feb 14 18:02:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 437,
+			"time": "Fri Feb 14 18:02:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 438,
+			"time": "Fri Feb 14 18:02:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string age)"
+		},
+
+		{
+			"serial": 439,
+			"time": "Fri Feb 14 18:02:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 440,
+			"time": "Fri Feb 14 18:04:41 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 441,
+			"time": "Fri Feb 14 18:04:48 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make db duplicate"
+		},
+
+		{
+			"serial": 442,
+			"time": "Fri Feb 14 18:04:51 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 443,
+			"time": "Fri Feb 14 18:04:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make db duplicate"
+		},
+
+		{
+			"serial": 444,
+			"time": "Fri Feb 14 18:04:57 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": ""
+		},
+
+		{
+			"serial": 445,
+			"time": "Fri Feb 14 18:05:06 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete db duplicate"
+		},
+
+		{
+			"serial": 446,
+			"time": "Fri Feb 14 18:05:11 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 447,
+			"time": "Fri Feb 14 18:05:15 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open  db mydb"
+		},
+
+		{
+			"serial": 448,
+			"time": "Fri Feb 14 18:05:17 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 449,
+			"time": "Fri Feb 14 18:05:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 450,
+			"time": "Fri Feb 14 18:08:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 451,
+			"time": "Fri Feb 14 18:08:25 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(47)"
+		},
+
+		{
+			"serial": 452,
+			"time": "Fri Feb 14 18:12:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 453,
+			"time": "Fri Feb 14 18:12:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 454,
+			"time": "Fri Feb 14 18:12:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string age)"
+		},
+
+		{
+			"serial": 455,
+			"time": "Fri Feb 14 18:12:43 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 456,
+			"time": "Fri Feb 14 18:16:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 457,
+			"time": "Fri Feb 14 18:16:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 458,
+			"time": "Fri Feb 14 18:16:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string age)"
+		},
+
+		{
+			"serial": 459,
+			"time": "Fri Feb 14 18:16:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 460,
+			"time": "Fri Feb 14 18:25:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 461,
+			"time": "Fri Feb 14 18:25:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 462,
+			"time": "Fri Feb 14 18:25:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string age)"
+		},
+
+		{
+			"serial": 463,
+			"time": "Fri Feb 14 18:25:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct teammates"
+		},
+
+		{
+			"serial": 464,
+			"time": "Fri Feb 14 18:36:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 465,
+			"time": "Fri Feb 14 18:36:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 466,
+			"time": "Fri Feb 14 18:37:53 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 467,
+			"time": "Fri Feb 14 18:38:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 468,
+			"time": "Fri Feb 14 18:43:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 469,
+			"time": "Fri Feb 14 18:51:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 470,
+			"time": "Fri Feb 14 18:51:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 471,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 472,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 473,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 474,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 475,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 476,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 477,
+			"time": "Fri Feb 14 18:54:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 478,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 479,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 480,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 481,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 482,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 483,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 484,
+			"time": "Fri Feb 14 18:55:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 485,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 486,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 487,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 488,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 489,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 490,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 491,
+			"time": "Fri Feb 14 18:55:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 492,
+			"time": "Fri Feb 14 18:55:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 493,
+			"time": "Fri Feb 14 18:55:22 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 494,
+			"time": "Fri Feb 14 18:55:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 495,
+			"time": "Fri Feb 14 18:55:30 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 496,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 497,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 498,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 499,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 500,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 501,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 502,
+			"time": "Fri Feb 14 18:55:37 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 503,
+			"time": "Fri Feb 14 18:57:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 504,
+			"time": "Fri Feb 14 18:57:39 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 505,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 506,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 507,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 508,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 509,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 510,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 511,
+			"time": "Fri Feb 14 18:59:32 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 512,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 513,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 514,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 515,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 516,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 517,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 518,
+			"time": "Fri Feb 14 19:01:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 519,
+			"time": "Fri Feb 14 19:05:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 520,
+			"time": "Fri Feb 14 19:05:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 521,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 522,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 523,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 524,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 525,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 526,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 527,
+			"time": "Fri Feb 14 19:06:01 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 528,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 529,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 530,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 531,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 532,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 533,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 534,
+			"time": "Fri Feb 14 19:09:49 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 535,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 536,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 537,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 538,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 539,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 540,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 541,
+			"time": "Fri Feb 14 19:09:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 542,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 543,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 544,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 545,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 546,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 547,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 548,
+			"time": "Fri Feb 14 19:27:31 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 549,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 550,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 551,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 552,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 553,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 554,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 555,
+			"time": "Fri Feb 14 19:31:33 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 556,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 557,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 558,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 559,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 560,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 561,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 562,
+			"time": "Fri Feb 14 19:32:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 563,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 564,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "delete table teammates"
+		},
+
+		{
+			"serial": 565,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table teammates(int age, string name, float score)"
+		},
+
+		{
+			"serial": 566,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(1, Gourav Kumar Mallick, 7.50)"
+		},
+
+		{
+			"serial": 567,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(2, Arindam Ghosh, 9.50)"
+		},
+
+		{
+			"serial": 568,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "push to teammates(3, Dipayan Das, 8.50)"
+		},
+
+		{
+			"serial": 569,
+			"time": "Fri Feb 14 19:33:52 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show teammates.(@)"
+		},
+
+		{
+			"serial": 570,
+			"time": "Fri Feb 14 19:34:46 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 571,
+			"time": "Fri Feb 14 19:34:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 572,
+			"time": "Fri Feb 14 19:34:54 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 573,
+			"time": "Fri Feb 14 19:34:56 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 574,
+			"time": "Fri Feb 14 19:34:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 575,
+			"time": "Fri Feb 14 19:35:00 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 576,
+			"time": "Fri Feb 14 19:35:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 577,
+			"time": "Fri Feb 14 19:35:06 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 578,
+			"time": "Fri Feb 14 19:37:53 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 579,
+			"time": "Fri Feb 14 19:37:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 580,
+			"time": "Fri Feb 14 19:37:58 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "ceaf"
+		},
+
+		{
+			"serial": 581,
+			"time": "Fri Feb 14 19:38:02 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "qwqdeq"
+		},
+
+		{
+			"serial": 582,
+			"time": "Fri Feb 14 19:38:06 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "cl"
+		},
+
+		{
+			"serial": 583,
+			"time": "Fri Feb 14 19:38:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 584,
+			"time": "Fri Feb 14 19:38:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 585,
+			"time": "Fri Feb 14 19:39:06 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 586,
+			"time": "Fri Feb 14 19:39:08 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 587,
+			"time": "Fri Feb 14 19:39:12 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
+		},
+
+		{
+			"serial": 588,
+			"time": "Fri Feb 14 19:39:18 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear db mydb"
+		},
+
+		{
+			"serial": 589,
+			"time": "Fri Feb 14 19:39:25 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 590,
+			"time": "Fri Feb 14 19:39:36 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 591,
+			"time": "Fri Feb 14 19:39:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 592,
+			"time": "Fri Feb 14 19:40:10 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "make table tester(int $sno, string name, float score)"
+		},
+
+		{
+			"serial": 593,
+			"time": "Fri Feb 14 19:40:13 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 594,
+			"time": "Fri Feb 14 19:40:21 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show struct tester"
+		},
+
+		{
+			"serial": 595,
+			"time": "Fri Feb 14 19:40:45 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 596,
+			"time": "Fri Feb 14 19:41:24 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "PUSH TO tester (1, Ali, 6.5)"
+		},
+
+		{
+			"serial": 597,
+			"time": "Fri Feb 14 19:41:47 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "Push To tester(2, Rishab, 8)"
+		},
+
+		{
+			"serial": 598,
+			"time": "Fri Feb 14 19:41:55 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": " Push To tester(2, Rishab, 8.0)"
+		},
+
+		{
+			"serial": 599,
+			"time": "Fri Feb 14 19:42:03 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 600,
+			"time": "Fri Feb 14 19:42:27 UTC 2025",
+			"location": "",
+			"author": "Gourav",
+			"command": "clear"
 		}
 	]
 }

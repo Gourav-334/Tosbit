@@ -113,14 +113,14 @@ int checkDbExistence(int msg)
 	{
 		existence = FALSE;
 
-		printf("ERROR: No database named \"%s\" exists!\n\n", database);
+		printf("ERROR: No database named \"%s\" exists!", database);
 		clearEntity("database");
 	}
 	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 	else if (fptr!=NULL && msg==TRUE)
 	{
 		existence = TRUE;
-		printf("STAT: Database %s online!\n\n", database);
+		printf("STAT: Database %s online!", database);
 
 		fclose(fptr);
 	}
@@ -158,11 +158,11 @@ int checkTableExistence(int msg)
 
 	/* Checking if a database is opened or not & existence of details.tosbit */
 
-	if (strlen(database)==0 && msg==TRUE) {printf("ERROR: No database opened yet!\n\n");}
+	if (strlen(database)==0 && msg==TRUE) {printf("ERROR: No database opened yet!");}
 	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 	else if (fptr==NULL && msg==TRUE)
 	{
-		printf("ERROR: No table named \"%s\" exists!\n\n", table);
+		printf("ERROR: No table named \"%s\" exists!", table);
 		clearEntity("table");
 
 		existence = FALSE;
@@ -204,7 +204,7 @@ void tableStructure()
 	snprintf(directory, sizeof(directory), "data/%s/%s/metadata.tosbit", database, table);
 	fptr = fopen(directory, "r+");
 
-	if (fptr==NULL) {printf("ERROR: Metadata for table \"%s\" not found!\n\n", table); return;}
+	if (fptr==NULL) {printf("ERROR: Metadata for table \"%s\" not found!", table); return;}
 
 
 	/* Reading & storing maximum attribute name, data type name or key name length. */
@@ -233,7 +233,7 @@ void tableStructure()
 	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
 	fptr2 = fopen(directory, "r");
 
-	if (fptr2==NULL) {printf("ERROR: Details for \"%s\" not found!\n\n", table); return;}
+	if (fptr2==NULL) {printf("ERROR: Details for \"%s\" not found!", table); return;}
 
 
 	/* Printing upper part of the console-table (the header of the table). */
@@ -337,7 +337,7 @@ void tableStructure()
 
 	/* Showing total attributes encountered so far. */
 
-	printf("STAT: Table contains %d attributes.\n\n", totalAttributes);
+	printf("STAT: Table contains %d attributes.", totalAttributes);
 }
 
 
@@ -364,7 +364,7 @@ void allDatabases()
 	/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 	fptr = fopen("data/metadata.tosbit", "r+");
-	if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
+	if (fptr==NULL) {printf("ERROR: Data metadata not found!"); return;}
 
 
 	/* Reading length of largest database name. */
@@ -375,7 +375,7 @@ void allDatabases()
 	/* Opening databases.tosbit with safety for NULL file descriptor. */
 
 	fptr2 = fopen("data/databases.tosbit", "r");
-	if (fptr2==NULL) {printf("ERROR: Information for databases not found!\n\n"); return;}
+	if (fptr2==NULL) {printf("ERROR: Information for databases not found!"); return;}
 
 
 	/* Printing header of the console-table (header of table). */
@@ -446,7 +446,7 @@ void allDatabases()
 
 	/* Printing total number of databases as stats. */
 
-	printf("STAT: %d databases found.\n\n", totalDb);
+	printf("STAT: %d databases found.", totalDb);
 }
 
 
@@ -479,7 +479,7 @@ void allTables()
 	/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
+	if (fptr==NULL) {printf("ERROR: Data metadata not found!"); return;}
 
 
 	/* Reading length of largest table name. */
@@ -493,7 +493,7 @@ void allTables()
 	snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
 
 	fptr2 = fopen(directory, "r");
-	if (fptr2==NULL) {printf("ERROR: No database opened yet!\n\n"); return;}
+	if (fptr2==NULL) {printf("ERROR: No database opened yet!"); return;}
 
 
 	/* Printing header of the console-table (header of table). */
@@ -563,7 +563,7 @@ void allTables()
 
 	/* Printing total number of databases as stats. */
 
-	printf("STAT: %d tables found.\n\n", totalTable);
+	printf("STAT: %d tables found.", totalTable);
 }
 
 
@@ -631,25 +631,25 @@ void checkDataType()
 
 	switch (state3)
 	{
-		case 0: printf("ERROR: (%s) Invalid data type passed!\n\n", dataType); break;
-		case 1: printf("ERROR: Did you meant INT?\n\n"); break;
-		case 2: printf("ERROR: Did you meant INT?\n\n"); break;
-		case 4: printf("ERROR: Did you meant STRING?\n\n"); break;
-		case 5: printf("ERROR: Did you meant STRING?\n\n"); break;
-		case 6: printf("ERROR: Did you meant STRING?\n\n"); break;
-		case 7: printf("ERROR: Did you meant STRING?\n\n"); break;
-		case 8: printf("ERROR: Did you meant STRING?\n\n"); break;
-		case 10: printf("ERROR: Did you meant FLOAT?\n\n"); break;
-		case 11: printf("ERROR: Did you meant FLOAT?\n\n"); break;
-		case 12: printf("ERROR: Did you meant FLOAT?\n\n"); break;
-		case 13: printf("ERROR: Did you meant FLOAT?\n\n"); break;
-		case 16: printf("ERROR: Did you meant BOOL?\n\n"); break;
-		case 17: printf("ERROR: Did you meant BOOL?\n\n"); break;
-		case 18: printf("ERROR: Did you meant BOOL?\n\n"); break;
-		case 20: printf("ERROR: Did you meant MEDIA?\n\n"); break;
-		case 21: printf("ERROR: Did you meant MEDIA?\n\n"); break;
-		case 22: printf("ERROR: Did you meant MEDIA?\n\n"); break;
-		case 23: printf("ERROR: Did you meant MEDIA?\n\n"); break;
+		case 0: printf("ERROR: (%s) Invalid data type passed!", dataType); break;
+		case 1: printf("ERROR: Did you meant INT?"); break;
+		case 2: printf("ERROR: Did you meant INT?"); break;
+		case 4: printf("ERROR: Did you meant STRING?"); break;
+		case 5: printf("ERROR: Did you meant STRING?"); break;
+		case 6: printf("ERROR: Did you meant STRING?"); break;
+		case 7: printf("ERROR: Did you meant STRING?"); break;
+		case 8: printf("ERROR: Did you meant STRING?"); break;
+		case 10: printf("ERROR: Did you meant FLOAT?"); break;
+		case 11: printf("ERROR: Did you meant FLOAT?"); break;
+		case 12: printf("ERROR: Did you meant FLOAT?"); break;
+		case 13: printf("ERROR: Did you meant FLOAT?"); break;
+		case 16: printf("ERROR: Did you meant BOOL?"); break;
+		case 17: printf("ERROR: Did you meant BOOL?"); break;
+		case 18: printf("ERROR: Did you meant BOOL?"); break;
+		case 20: printf("ERROR: Did you meant MEDIA?"); break;
+		case 21: printf("ERROR: Did you meant MEDIA?"); break;
+		case 22: printf("ERROR: Did you meant MEDIA?"); break;
+		case 23: printf("ERROR: Did you meant MEDIA?"); break;
 		case 25: state2 = 8; error = TRUE; break;
 	}
 }
@@ -675,15 +675,33 @@ void makeTable()
 	int largestAttribute = 10, largestDataType = 10, largestKey = 6;
 
 
+	/* Queue structure to handle attributes. */
+
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+
 
 	/* Checking if database & table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); write = FALSE; return;}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!"); write = FALSE; return;}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
 	{
 		/* Asking users if they want to overwrite data to disk (for existing table). */
 
-		printf("STAT: Table already exists!\n\n");
+		printf("STAT: Table already exists!");
 		printf("Overwrite data to disk? (y/n): "); decision = getchar();
 
 		if (decision=='n') {write = FALSE;}
@@ -701,7 +719,7 @@ void makeTable()
 		if (illegalChars(table, "+-*/%!=&|")==TRUE)
 		{
 			printf(
-				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, &, |) in name of table.\n\n"
+				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, &, |) in name of table."
 			);
 
 			return;
@@ -717,7 +735,7 @@ void makeTable()
 		/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "r+");
-		if (fptr==NULL) {printf("ERROR: Database metadata not found!\n\n"); return;}
+		if (fptr==NULL) {printf("ERROR: Database metadata not found!"); return;}
 
 
 		/* The check & action as per that. */
@@ -742,7 +760,7 @@ void makeTable()
 		/* Opening table.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "r+");
-		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!\n\n", database); return;}
+		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!", database); return;}
 
 
 		/* Writing name of table in tables.tosbit, if a new table is made (no overwriting). */
@@ -771,7 +789,7 @@ void makeTable()
 		system(directory);
 
 
-		/* Creating rows.json */
+		/* Creating rows.tosbit */
 
 		clearEntity("directory");
 		snprintf(directory, sizeof(directory), "touch data/%s/%s/rows.tosbit", database, table);
@@ -787,7 +805,7 @@ void makeTable()
 		/* Having safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "w+");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s/%s!\n\n", database, table); return;}
+		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s/%s!", database, table); return;}
 
 
 		/* Writing default configurations to metadata.tosbit (required further too) */
@@ -805,7 +823,7 @@ void makeTable()
 		/* Checking file descriptor with NULL safety. */
 
 		fptr2 = fopen(directory, "w");
-		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!\n\n", database, table); return;}
+		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!", database, table); return;}
 
 
 		/* Creating details.tosbit */
@@ -817,7 +835,7 @@ void makeTable()
 		/* Checking file descriptor with NULL safety. */
 
 		fptr2 = fopen(directory, "w+");
-		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!\n\n", database, table); return;}
+		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!", database, table); return;}
 
 
 		/* 'buffer' contains everything within () that user passed with MAKE TABLE command. */
@@ -846,6 +864,18 @@ void makeTable()
 			while (buffer[i]!=',' && i!=strlen(buffer)) {attribute[strlen(attribute)] = buffer[i]; i++;}
 
 
+			/* Incase attributes with same name are encountered. */
+
+			if ((attributeQueue.getIndex(&attributeQueue, attribute)>=0) && (attributeQueue.n>0))
+				{printf("ERROR: Each attribute must have a unique name!"); deleteTable(FALSE); return;}
+
+
+			/* Enqueueing attribute to the end of attributeQueue. */
+
+			attributeQueue.queue(&attributeQueue, attribute);
+
+
+
 			/* Writing metadata to details.json with key constraints. */
 
 			clearEntity("key");
@@ -859,7 +889,7 @@ void makeTable()
 				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
-				printf("ERROR: Media attributes are hardwired to file keys!\n\n");
+				printf("ERROR: Media attributes are hardwired to file keys!");
 
 				return;
 			}
@@ -869,7 +899,7 @@ void makeTable()
 				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
-				printf("ERROR: A table can't have multiple unique keys!\n\n");
+				printf("ERROR: A table can't have multiple unique keys!");
 
 				return;
 			}
@@ -925,9 +955,14 @@ void makeTable()
 		fclose(fptr); fclose(fptr2);
 
 
+		/* Clearing the attribute queue. */
+
+		attributeQueue.clear(&attributeQueue);
+
+
 		/* Displaying message for successful table creation. */
 
-		printf("OK: Table created successfully!\n\n");
+		printf("OK: Table created successfully!");
 	}
 }
 
@@ -958,7 +993,7 @@ void makeDb()
 	{
 		/* Asking users if they want to overwrite data to disk (for existing database). */
 
-		printf("STAT: Database already exists!\n\n");
+		printf("STAT: Database already exists!");
 		printf("Overwrite data to disk? (y/n): "); decision = getchar();
 
 		if (decision=='n') {write = FALSE;}
@@ -976,7 +1011,7 @@ void makeDb()
 		if (illegalChars(database, "+-*/%!=&|")==TRUE)
 		{
 			printf(
-				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, =, &, |) in name of database.\n\n"
+				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, =, &, |) in name of database."
 			);
 
 			return;
@@ -986,7 +1021,7 @@ void makeDb()
 		/* Opening database.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen("data/databases.tosbit", "r+");
-		if (fptr==NULL) {printf("ERROR: Database information for \"%s\" not found!\n\n", database); return;}
+		if (fptr==NULL) {printf("ERROR: Database information for \"%s\" not found!", database); return;}
 
 
 		/* Writing name of database in database.tosbit, if a new database is made (no overwriting). */
@@ -1005,7 +1040,7 @@ void makeDb()
 		/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen("data/metadata.tosbit", "r+");
-		if (fptr==NULL) {printf("ERROR: Data metadata not found!\n\n"); return;}
+		if (fptr==NULL) {printf("ERROR: Data metadata not found!"); return;}
 
 
 		/* Checking if database's name if larger than existing tables/header. */
@@ -1050,7 +1085,7 @@ void makeDb()
 		/* Having safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "w+");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s!\n\n", database); return;}
+		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s!", database); return;}
 
 
 		/* Writing default configurations to metadata.tosbit (required further too) */
@@ -1065,7 +1100,7 @@ void makeDb()
 
 		/* Displaying message for successful database creation. */
 
-		printf("OK: Database created successfully!\n\n");
+		printf("OK: Database created successfully!");
 	}
 }
 
@@ -1080,7 +1115,7 @@ void makeDb()
 
 /* Deleting a table. */
 
-void deleteTable()
+void deleteTable(int msg)
 {
 	/* Initializations */
 
@@ -1091,10 +1126,10 @@ void deleteTable()
 
 	/* Checking if table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n");}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!");}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
 	{
-		printf("ERROR: No table named \"%s\" exists!\n\n", table);
+		printf("ERROR: No table named \"%s\" exists!", table);
 	}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
 	{
@@ -1114,7 +1149,7 @@ void deleteTable()
 		/* Opening file with NULL safety for file descriptor. */
 
 		fptr = fopen(directory, "r+");
-		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!\n\n", database); return;}
+		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!", database); return;}
 
 		
 
@@ -1151,8 +1186,8 @@ void deleteTable()
 
 		/* Giving final feedback (table deleter OR table not found). */
 
-		if (match==FALSE) {printf("ERROR: No table named \"%s\" found!\n\n", table);}
-		else if (match==TRUE) {printf("OK: Table deleted successfully!\n\n");}
+		if ((match==FALSE)&&(msg==TRUE)) {printf("ERROR: No table named \"%s\" found!", table);}
+		else if ((match==TRUE)&&(msg==TRUE)) {printf("OK: Table deleted successfully!");}
 
 
 		/* Closing file descriptor to make changes to file (avoiding fflush()). */
@@ -1172,7 +1207,7 @@ void deleteTable()
 
 /* Deleting a database. */
 
-void deleteDb()
+void deleteDb(int msg)
 {
 	/* Initializations */
 
@@ -1183,7 +1218,7 @@ void deleteDb()
 
 	/* Checking if table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", database);}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!", database);}
 	else if (checkDbExistence(FALSE)==TRUE)
 	{
 		/* Removing the database related directory. */
@@ -1196,7 +1231,7 @@ void deleteDb()
 		/* Opening file with NULL safety for file descriptor. */
 
 		fptr = fopen("data/databases.tosbit", "r+");
-		if (fptr==NULL) {printf("ERROR: Database information not found!\n\n"); return;}
+		if (fptr==NULL) {printf("ERROR: Database information not found!"); return;}
 
 		
 
@@ -1231,10 +1266,10 @@ void deleteDb()
 
 
 
-		/* Giving final feedback (table deleter OR table not found). */
+		/* Giving final feedback (database deleter OR database not found). */
 
-		if (match==FALSE) {printf("ERROR: No database named \"%s\" found!\n\n", database);}
-		else if (match==TRUE) {printf("OK: Database deleted successfully!\n\n");}
+		if ((match==FALSE)&&(msg==TRUE)) {printf("ERROR: No database named \"%s\" found!", database);}
+		else if ((match==TRUE)&&(msg==TRUE)) {printf("OK: Database deleted successfully!");}
 
 
 		/* Closing file descriptor to make changes to file (avoiding fflush()). */
@@ -1253,10 +1288,10 @@ void clearTable()
 {
 	/* Checking existence status of the table. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n");}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!");}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
 	{
-		printf("ERROR: No table named \"%s\" exists!\n\n", table);
+		printf("ERROR: No table named \"%s\" exists!", table);
 	}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
 	{
@@ -1269,7 +1304,7 @@ void clearTable()
 		/* Opening rows.tosbit with NULL safe file descriptor. */
 
 		fptr = fopen(directory, "w");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory); return;}
+		if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
 		/* Removing all zip files. */
@@ -1286,7 +1321,7 @@ void clearTable()
 
 		/* Acknowledging user for successful operation. */
 
-		printf("OK: Table cleared successfully!\n\n");
+		printf("OK: Table cleared successfully!");
 	}
 }
 
@@ -1300,7 +1335,7 @@ void clearDb()
 {
 	/* Checking existence of database. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database named \"%s\" exists!\n\n", database);}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database named \"%s\" exists!", database);}
 	else if (checkDbExistence(FALSE)==TRUE)
 	{
 		/* Removing whole database directory & recreating new one (with tables.tosbit). */
@@ -1325,7 +1360,7 @@ void clearDb()
 		/* Opening tables.tosbit with NULL safety for file descriptor. */
 
 		fopen(directory, "w");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory); return;}
+		if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
 		/* Writing defualt metadata to metadata.tosbit */
@@ -1340,7 +1375,7 @@ void clearDb()
 
 		/* Acknowledging user for successful operation. */
 
-		printf("OK: Database cleared successfully!\n\n");
+		printf("OK: Database cleared successfully!");
 	}
 }
 
@@ -1382,7 +1417,7 @@ int checkUnique(char value[], int currArg, int totalArg)
 
 		if (c==',') {fseek(fptr2, 4, SEEK_CUR); continue;}
 		else if (c=='\n') {return TRUE;}
-		else {printf("ERROR: rows.json file for current table is corrupted!\n\n"); return TRUE;}
+		else {printf("ERROR: rows.json file for current table is corrupted!"); return TRUE;}
 
 		// If having problem with "return", keep the "return TRUE;" line outside loop & break there.
 	}
@@ -1442,11 +1477,11 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as integer is blank!\n\n", pureValue); status = FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as integer is blank!", pureValue); status = FALSE; break;
 			case 1: state2 = 0; status = TRUE; break;
 			case 2: state2 = 0; status = TRUE; break;
-			case 3: printf("ERROR: (%s) An integer argument is expected!\n\n", pureValue); status = FALSE; break;
-			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!\n\n", pureValue); status = FALSE; break;
+			case 3: printf("ERROR: (%s) An integer argument is expected!", pureValue); status = FALSE; break;
+			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!", pureValue); status = FALSE; break;
 		}
 
 
@@ -1468,7 +1503,7 @@ int typeParser()
 		clearEntity("pureValue");
 		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
 
-		if (strlen(pureValue)>VALUE_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!\n\n", pureValue); status = FALSE;}
+		if (strlen(pureValue)>VALUE_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!", pureValue); status = FALSE;}
 	}
 
 
@@ -1509,13 +1544,13 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as float is blank!\n\n", pureValue); status = FALSE; break;
-			case 1: printf("ERROR: (%s) Float has no decimal point!\n\n", pureValue); status = FALSE; break;
-			case 2: printf("ERROR: (%s) No number written after decimal point!\n\n", pureValue); status = FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as float is blank!", pureValue); status = FALSE; break;
+			case 1: printf("ERROR: (%s) Float has no decimal point!", pureValue); status = FALSE; break;
+			case 2: printf("ERROR: (%s) No number written after decimal point!", pureValue); status = FALSE; break;
 			case 3: state2 = 0; status = TRUE; break;
 			case 4: state2 = 0; status = TRUE; break;
-			case 5: printf("ERROR: (%s) Supposed float argument is not float!\n\n", pureValue); status = FALSE; break;
-			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!\n\n", pureValue); status = FALSE; break;
+			case 5: printf("ERROR: (%s) Supposed float argument is not float!", pureValue); status = FALSE; break;
+			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!", pureValue); status = FALSE; break;
 		}
 
 
@@ -1572,18 +1607,18 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as boolean is blank!\n\n", pureValue); status = FALSE; break;
-			case 1: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
-			case 2: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
-			case 3: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
-			case 4: printf("ERROR: (%s) Did you meant \"false\"!\n\n", pureValue); status = FALSE; break;
+			case 0: printf("ERROR: (%s) Argument passed as boolean is blank!", pureValue); status = FALSE; break;
+			case 1: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
+			case 2: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
+			case 3: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
+			case 4: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
 			case 5: state2 = 0; status = TRUE; break;
-			case 6: printf("ERROR: (%s) Did you meant \"true\"!\n\n", pureValue); status = FALSE; break;
-			case 7: printf("ERROR: (%s) Did you meant \"true\"!\n\n", pureValue); status = FALSE; break;
-			case 8: printf("ERROR: (%s) Did you meant \"true\"!\n\n", pureValue); status = FALSE; break;
+			case 6: printf("ERROR: (%s) Did you meant \"true\"!", pureValue); status = FALSE; break;
+			case 7: printf("ERROR: (%s) Did you meant \"true\"!", pureValue); status = FALSE; break;
+			case 8: printf("ERROR: (%s) Did you meant \"true\"!", pureValue); status = FALSE; break;
 			case 9: state2 = 0; status = TRUE; break;
 			case 10: state2 = 0; status = TRUE; break;
-			case 11: printf("ERROR: (%s) Argument is neither \"true\" or \"false\"!\n\n", pureValue); status = FALSE; break;
+			case 11: printf("ERROR: (%s) Argument is neither \"true\" or \"false\"!", pureValue); status = FALSE; break;
 		}
 
 
@@ -1631,7 +1666,7 @@ int typeParser()
 		/* Trying to open the target file to check its existence (with NULL safety). */
 
 		media = fopen(directory, "r");
-		if (media==NULL) {printf("ERROR: (%s) No such file exists!\n\n", directory); status = FALSE; return FALSE;}
+		if (media==NULL) {printf("ERROR: (%s) No such file exists!", directory); status = FALSE; return FALSE;}
 
 
 		/* Acknowledging user when file is being compressed. */
@@ -1702,7 +1737,7 @@ int typeParser()
 
 	/* Error handling safety for unknown bug (just for check purposes). */
 
-	else {printf("ERROR: Not matching any data type!\n\n"); status = FALSE;}
+	else {printf("ERROR: Not matching any data type!"); status = FALSE;}
 
 
 	/* Returning status, telling if type parsing was error free or not. */
@@ -1735,8 +1770,8 @@ void pushRow()
 
 	/* Checking if database opened or not with existence of the tables. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!\n\n"); return;}
-	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!\n\n", table); return;}
+	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!"); return;}
+	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!", table); return;}
 
 
 
@@ -1804,7 +1839,7 @@ void pushRow()
 	/* Opening details.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory);}
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory);}
 
 
 	/* Formatting 'directory' to open rows.tosbit */
@@ -1816,7 +1851,7 @@ void pushRow()
 	/* Opening rows.tosbit with NULL safety. */
 
 	fptr2 = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory);}
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory);}
 
 
 	/* Checking number of argument passed. */
@@ -1838,8 +1873,8 @@ void pushRow()
 
 	/* Giving feedback as per number of arguments passed. */
 
-	if (totalArg<actualAttributes) {printf("ERROR: Very few arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
-	else if (totalArg>actualAttributes) {printf("ERROR: Too many arguments passed!\n\n"); fclose(fptr); fclose(fptr2); return;}
+	if (totalArg<actualAttributes) {printf("ERROR: Very few arguments passed!"); fclose(fptr); fclose(fptr2); return;}
+	else if (totalArg>actualAttributes) {printf("ERROR: Too many arguments passed!"); fclose(fptr); fclose(fptr2); return;}
 
 
 	
@@ -1925,7 +1960,7 @@ void pushRow()
 		// {
 		// 	if (checkUnique(value, currArg, totalArg)==FALSE)
 		// 	{
-		// 		printf("ERROR: Duplicate for unique key \"%s\"!\n\n", attribute); return;
+		// 		printf("ERROR: Duplicate for unique key \"%s\"!", attribute); return;
 		// 	}
 		// }
 
@@ -1996,7 +2031,7 @@ void pushRow()
 
 	/* Acknowledging user for successful push operation. */
 
-	printf("OK: Row pushed successfully!\n\n");
+	printf("OK: Row pushed successfully!");
 }
 
 
@@ -2061,14 +2096,14 @@ void selectionParser()
 
 	switch (state2)
 	{
-		case 0: printf("ERROR: No column name passed as argument!\n\n"); break;
+		case 0: printf("ERROR: No column name passed as argument!"); break;
 		case 1: allRows(); break;
-		case 2: printf("ERROR: Syntax error when requesting for all columns!\n\n"); break;
-		case 3: printf("OK: Columns requsted manually.\n\n"); break;
-		case 4: printf("OK: Columns requsted manually.\n\n"); break;
-		case 5: printf("ERROR: Check position of commas!\n\n"); break;
-		case 6: printf("ERROR: Attribute name limit exceeded!\n\n"); break;
-		case 7: printf("ERROR: No comma among names of columns!\n\n"); break;
+		case 2: printf("ERROR: Syntax error when requesting for all columns!"); break;
+		case 3: printf("OK: Columns requsted manually."); break;
+		case 4: printf("OK: Columns requsted manually."); break;
+		case 5: printf("ERROR: Check position of commas!"); break;
+		case 6: printf("ERROR: Attribute name limit exceeded!"); break;
+		case 7: printf("ERROR: No comma among names of columns!"); break;
 	}
 
 
@@ -2094,6 +2129,7 @@ void allRows()
 
 	char c;
 	char largestAttributeS[2] = {0}, dataTypeS[DATA_TYPE_MAX_LENGTH] = {0};
+	int largestAttributeN = 0;
 	int charsPrinted = 0, charsRead = 0;
 	int rowLength = 0, rowCount = 0;
 	int sizeCounter = 0;
@@ -2145,7 +2181,7 @@ void allRows()
 	/* Opening details.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory); return;}
+	if (fptr==NULL) {printf("ERROR: No table named \"%s\" exists!", table); return;}
 
 
 	/* Fetching data type & length of largest names for each attribute. */
@@ -2273,7 +2309,7 @@ void allRows()
 	/* Opening rows.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!\n\n", directory); return;}
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
 	/* Reading rows from rows.data */
@@ -2349,7 +2385,7 @@ void allRows()
 
 	/* Printing stats information. */
 
-	printf("STAT: Total %d rows found.\n\n", rowCount);
+	printf("STAT: Total %d rows found.", rowCount);
 
 
 

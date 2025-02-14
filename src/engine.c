@@ -17,14 +17,12 @@ int main(int argc, char **argv[])
 	syntaxParser("Gourav", NULL);
 
 	// interpret("open db mydb");
-	// interpret("delete table project");
-	// interpret("make table project(int $sno, string name, float score)");
-	// interpret("push to project(1, Gourav, 7.0)");
-	// interpret("push to project(2, Dipayan, 8.0)");
-	// interpret("push to project(3, Arindam, 9.0)");
-	// interpret("show project.(@)");
-	// interpret("push to project(4, Rikhish Khumanthem, 10.0)");
-	// interpret("show project.(@)");
+	// interpret("delete table teammates");
+	// interpret("make table teammates(int age, string name, float score)");
+	// interpret("push to teammates(1, Gourav Kumar Mallick, 7.50)");
+	// interpret("push to teammates(2, Arindam Ghosh, 9.50)");
+	// interpret("push to teammates(3, Dipayan Das, 8.50)");
+	// interpret("show teammates.(@)");
 
 
 	return 0;
