@@ -2171,6 +2171,24 @@ void allRows()
 	};
 
 
+	/* Queue structure to compare size of each table attribute. */
+
+	Queue attributeSizeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll
+	};
+
+
 
 	/* Formatting 'directory' to open details.tosbit in 'r' mode. */
 
@@ -2195,13 +2213,13 @@ void allRows()
 
 		/* Fetching the largest value of an attribute. */
 
-		memset(dataTypeS, 0, sizeof(dataTypeS)); // Running 2-bytes ahead.
+		memset(dataTypeS, 0, sizeof(dataTypeS));	// Running 2-bytes ahead.
 
 		charsRead = 0; c = fgetc(fptr);
 		while (c!=' ' && c!=',') {dataTypeS[strlen(dataTypeS)] = c; c = fgetc(fptr); charsRead++;}
 
 
-		/* Queueing the largest value of an attribute to 'sizeQueue'. */
+		/* Queueing the name of an attribute to 'dataTypeQueue'. */
 
 		dataTypeQueue.queue(&dataTypeQueue, dataTypeS);
 
@@ -2232,6 +2250,12 @@ void allRows()
 
 		fseek(fptr, 1, SEEK_CUR);
 	}
+
+
+
+	/* Filling 0 to as defualt to 'attributeSizeQueue'. */
+
+	for (int i=0; i<sizeQueue.n; i++) {attributeSizeQueue.queue(&attributeSizeQueue, "0");}
 
 
 
@@ -2371,6 +2395,14 @@ void allRows()
 		}
 
 		printf("|\n"); rowCount++;
+
+
+		/* Storing the largest encountered attirbute length. */
+
+		if (sizeQueue.getValue(&sizeQueue, i)>attributeSizeQueue.getValue(&attributeSizeQueue, i))
+		{
+			// Write queue function to make change to value of current string.
+		}
 	}
 
 

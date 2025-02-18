@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Unique attribute names enforced, seg faults in 'queue.h' fixed, performance measuring time unit added."
+git commit -m "Modifications to be done on queue."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main
