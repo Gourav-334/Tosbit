@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Modifications to be done on queue."
+git commit -m "Work continues on self-adjustable SHOW ALL console table."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

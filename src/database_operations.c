@@ -1789,7 +1789,8 @@ void pushRow()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -1807,7 +1808,8 @@ void pushRow()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -1825,7 +1827,8 @@ void pushRow()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -2061,7 +2064,8 @@ void selectionParser()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -2149,7 +2153,8 @@ void allRows()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -2167,7 +2172,8 @@ void allRows()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -2185,7 +2191,8 @@ void allRows()
 		.getIndex = Queue_getIndex,
 		.getValue = Queue_getValue,
 		.peek = Queue_peek,
-		.showAll = Queue_showAll
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
 	};
 
 
@@ -2312,11 +2319,6 @@ void allRows()
 	printf("+\n");
 
 
-	/* Safely closing file descriptor. */
-
-	fclose(fptr);
-
-
 
 	/* Summing length of a row (including commas). */
 
@@ -2332,23 +2334,23 @@ void allRows()
 
 	/* Opening rows.tosbit with NULL safety. */
 
-	fptr = fopen(directory, "r");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+	fptr2 = fopen(directory, "r");
+	if (fptr2==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
 	/* Reading rows from rows.data */
 
-	while (!reachedEOF(fptr))
+	while (!reachedEOF(fptr2))
 	{
 		/* Skipping deleted rows (those starting with '\t'). */
 
-		c = fgetc(fptr);
-		if (c=='\t') {fseek(fptr, rowLength+1, SEEK_CUR);}
-		else {fseek(fptr, -1, SEEK_CUR);}
+		c = fgetc(fptr2);
+		if (c=='\t') {fseek(fptr2, rowLength+1, SEEK_CUR);}
+		else {fseek(fptr2, -1, SEEK_CUR);}
 
 
 		/* Printing the row with (including spaces in file). */
-//////////////////////////////////////////*WORK IN PROGRESS*///////////////////////////////////////////
+
 		for (int i=0; i<sizeQueue.n; i++)
 		{
 			/* Initializing certain values & printing default designs. */
@@ -2364,14 +2366,14 @@ void allRows()
 
 				for (int j=0; j<5; j++)
 				{
-					printf("%c", fgetc(fptr));
+					printf("%c", fgetc(fptr2));
 					charsPrinted++;
 				}
 
 
 				/* Skipping remaining spaces with comma or endline character. */
 
-				fseek(fptr, 5-charsPrinted+1, SEEK_SET);
+				fseek(fptr2, 5-charsPrinted+1, SEEK_SET);
 			}
 
 
@@ -2383,26 +2385,26 @@ void allRows()
 
 				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++)
 				{
-					printf("%c", fgetc(fptr));
+					printf("%c", fgetc(fptr2));
 					charsPrinted++;
 				}
 
 
 				/* Skipping remaining spaces with comma or endline character. */
 				
-				fseek(fptr, (VALUE_MAX_LENGTH-1)-charsPrinted+1, SEEK_CUR);
+				fseek(fptr2, (VALUE_MAX_LENGTH-1)-charsPrinted+1, SEEK_CUR);
 			}
+
+
+			/* Storing the largest encountered attribute length. */
+
+			if (charsPrinted>atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i)))
+			{
+				attributeSizeQueue.changeAt(&attributeSizeQueue, i, itoa(charsPrinted, ascii));
+			}// MODIFY THIS
 		}
 
 		printf("|\n"); rowCount++;
-
-
-		/* Storing the largest encountered attirbute length. */
-
-		if (sizeQueue.getValue(&sizeQueue, i)>attributeSizeQueue.getValue(&attributeSizeQueue, i))
-		{
-			// Write queue function to make change to value of current string.
-		}
 	}
 
 
@@ -2414,6 +2416,41 @@ void allRows()
 	}
 	printf("+\n");
 
+/////////////////////////////////////////////////START////////////////////////////////////////////////
+
+	/* Bringing FP back to starting of details.tosbit. */
+
+	fseek(fptr, 0, SEEK_SET);
+
+
+	/* Checking if metadata in details.tosbit needs to be changed. */
+
+	for (int i=0; i<sizeQueue.n; i++)
+	{
+		/* Moving file descriptor to fetch largest value of an attribute. */
+
+		fseek(
+			fptr,
+			(ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1-1,
+			SEEK_CUR
+		);
+
+
+		/* Checking the largest value of an attribute. */
+
+		//attributeSizeQueue.showAll(&attributeSizeQueue);////////////////////////////////////////////
+
+		if (atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i))<atoi(sizeQueue.getValue(&sizeQueue, i)))
+		{
+			fputs(attributeSizeQueue.getValue(&attributeSizeQueue, i), fptr);
+
+			if (atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i))<10) {fseek(fptr, 2, SEEK_CUR);}
+			else if (atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i))>=10) {fseek(fptr, 1, SEEK_CUR);}
+		}
+		else {fseek(fptr, 3, SEEK_CUR);}
+	}
+
+//////////////////////////////////////////////////END////////////////////////////////////////////////
 
 	/* Printing stats information. */
 
@@ -2423,11 +2460,12 @@ void allRows()
 
 	/* Safely closing file descriptor. */
 
-	fclose(fptr);
+	fclose(fptr); fclose(fptr2);
 
 
 	/* Clearing queues. */
 
 	sizeQueue.clear(&sizeQueue);
 	dataTypeQueue.clear(&dataTypeQueue);
+	attributeSizeQueue.clear(&attributeSizeQueue);
 }

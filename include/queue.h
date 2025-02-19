@@ -49,6 +49,7 @@ typedef struct Queue
 	char *(*getValue)(struct Queue *q, int index);
 	void (*peek)(struct Queue *q);
 	void (*showAll)(struct Queue *q);
+	void (*changeAt)(struct Queue *q, int index, char str[]);
 
 } Queue;
 
@@ -66,6 +67,8 @@ extern char *Queue_getValue(Queue *q, int index);
 
 extern void Queue_peek(Queue *q);
 extern void Queue_showAll(Queue *q);
+
+extern void Queue_changeAt(Queue *q, int index, char str[]);
 
 
 

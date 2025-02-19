@@ -231,4 +231,20 @@ void Queue_showAll(Queue *q)
 
 
 
+
+
+/* Changing value at a certain index. */
+
+void Queue_changeAt(Queue *q, int index, char str[])
+{
+	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
+
+	memset(q->trav->name, 0, sizeof(q->trav->name));
+	strcpy(q->trav->name, str);
+
+	q -> trav = q -> head;
+}
+
+
+
 /* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
