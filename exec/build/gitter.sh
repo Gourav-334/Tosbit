@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Work continues on self-adjustable SHOW ALL console table."
+git commit -m "More progress made on console-table self adjust for SHOW ALL."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

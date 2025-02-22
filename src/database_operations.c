@@ -2179,7 +2179,26 @@ void allRows()
 
 	/* Queue structure to compare size of each table attribute. */
 
-	Queue attributeSizeQueue = {
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+
+	/* Queue structure to compare size of each table attribute. */
+
+	Queue attributeSizeNQueue = {
 		.n = 0,
 		.pos = 0,
 		.m = NULL,
@@ -2260,9 +2279,9 @@ void allRows()
 
 
 
-	/* Filling 0 to as defualt to 'attributeSizeQueue'. */
+	/* Filling 0 to as defualt to 'attributeSizeNQueue'. */
 
-	for (int i=0; i<sizeQueue.n; i++) {attributeSizeQueue.queue(&attributeSizeQueue, "0");}
+	for (int i=0; i<sizeQueue.n; i++) {attributeSizeNQueue.queue(&attributeSizeNQueue, "0");}
 
 
 
@@ -2285,8 +2304,20 @@ void allRows()
 	{
 		/* Printing the name of attributes on top bar. */
 
-		charsPrinted = 0; printf("|"); c = fgetc(fptr);
-		while (c!=' ' && c!=',') {printf("%c", c); charsPrinted++; c = fgetc(fptr);}
+		clearEntity("attribute"); charsPrinted = 0; printf("|"); c = fgetc(fptr);
+
+		while (c!=' ' && c!=',')
+		{
+			attribute[strlen(attribute)] = c;
+
+			printf("%c", c); charsPrinted++;
+			c = fgetc(fptr);
+		}
+
+
+		/* Queuing name of the attribute name to its queue. */
+
+		attributeQueue.queue(&attributeQueue, attribute);
 
 
 		/* Printing spaces to maintain structure of console-table. */
@@ -2383,25 +2414,24 @@ void allRows()
 			{
 				/* Printing attribute's value to screen. */
 
-				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++)
-				{
-					printf("%c", fgetc(fptr2));
-					charsPrinted++;
-				}
+				c = fgetc(fptr2);
+				while (c!=' ' && c!=',') {printf("%c", c); charsPrinted++; c = fgetc(fptr2);}
+
+				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i))-charsPrinted; j++) {printf(" ");}
 
 
 				/* Skipping remaining spaces with comma or endline character. */
 				
-				fseek(fptr2, (VALUE_MAX_LENGTH-1)-charsPrinted+1, SEEK_CUR);
+				fseek(fptr2, (VALUE_MAX_LENGTH-1)-charsPrinted+1-1, SEEK_CUR);
 			}
 
 
 			/* Storing the largest encountered attribute length. */
 
-			if (charsPrinted>atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i)))
+			if (charsPrinted>atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i)))
 			{
-				attributeSizeQueue.changeAt(&attributeSizeQueue, i, itoa(charsPrinted, ascii));
-			}// MODIFY THIS
+				attributeSizeNQueue.changeAt(&attributeSizeNQueue, i, itoa(charsPrinted, ascii));
+			}
 		}
 
 		printf("|\n"); rowCount++;
@@ -2423,6 +2453,11 @@ void allRows()
 	fseek(fptr, 0, SEEK_SET);
 
 
+	attributeQueue.showAll(&attributeQueue);///////////////////////////////////////////////////////
+	sizeQueue.showAll(&sizeQueue);////////////////////////////////////////////////////////////////
+	attributeSizeNQueue.showAll(&attributeSizeNQueue);///////////////////////////////////////////
+
+
 	/* Checking if metadata in details.tosbit needs to be changed. */
 
 	for (int i=0; i<sizeQueue.n; i++)
@@ -2438,14 +2473,15 @@ void allRows()
 
 		/* Checking the largest value of an attribute. */
 
-		//attributeSizeQueue.showAll(&attributeSizeQueue);////////////////////////////////////////////
+		if (
+			atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<atoi(sizeQueue.getValue(&sizeQueue, i)) &&
+			atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=strlen(attributeQueue.getValue(&attributeQueue, i))
+		)
+		{printf("%ld\n", ftell(fptr2)); // SOMETHING WRONG HERE...
+			fputs(attributeSizeNQueue.getValue(&attributeSizeNQueue, i), fptr); //fflush(fptr);
 
-		if (atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i))<atoi(sizeQueue.getValue(&sizeQueue, i)))
-		{
-			fputs(attributeSizeQueue.getValue(&attributeSizeQueue, i), fptr);
-
-			if (atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i))<10) {fseek(fptr, 2, SEEK_CUR);}
-			else if (atoi(attributeSizeQueue.getValue(&attributeSizeQueue, i))>=10) {fseek(fptr, 1, SEEK_CUR);}
+			if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<10) {fseek(fptr, 2, SEEK_CUR);}
+			else if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=10) {fseek(fptr, 1, SEEK_CUR);}
 		}
 		else {fseek(fptr, 3, SEEK_CUR);}
 	}
@@ -2467,5 +2503,5 @@ void allRows()
 
 	sizeQueue.clear(&sizeQueue);
 	dataTypeQueue.clear(&dataTypeQueue);
-	attributeSizeQueue.clear(&attributeSizeQueue);
+	attributeSizeNQueue.clear(&attributeSizeNQueue);
 }

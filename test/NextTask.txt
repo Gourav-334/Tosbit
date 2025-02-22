@@ -2,7 +2,7 @@ MAKE TABLE PARSER:
 
 -> Make showAll() table self-adjustable.
 -> Deny duplicate unique key insertions.
--> Select columns manually.
+-> Refuse queries to locked file.
 
 -----------------------------------------------------------
 
