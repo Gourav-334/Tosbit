@@ -1,5 +1,6 @@
 MAKE TABLE PARSER:
 
+-> Basic UPDATE command.
 -> Make showAll() table self-adjustable.
 -> Deny duplicate unique key insertions.
 -> Refuse queries to locked file.

@@ -2505,3 +2505,82 @@ void allRows()
 	dataTypeQueue.clear(&dataTypeQueue);
 	attributeSizeNQueue.clear(&attributeSizeNQueue);
 }
+
+
+
+
+
+
+
+
+
+
+/* Update parser parses & validates the first buffer in UPDATE command. */
+
+void updateParser() // CHANGE IT ALL!
+{
+	/* Queue structure to handle attributes. */
+
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+
+
+	/* DFA-based parser to extract all attribute names. */
+
+	for (int i=0; i<strlen(buffer); i++)
+	{
+		switch (state2)
+		{
+			case 0: clearEntity("attribute"); changeState(buffer[i], " @", "0,1", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
+			case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
+			case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 6, &brk2); break;
+			case 4: changeState(buffer[i], " ,", "4,5", &state2, 7); breakValue(&state2, 2, &brk2); break;
+			case 5: if (strlen(attribute)>0) {attributeQueue.queue(&attributeQueue, attribute);} clearEntity("attribute"); changeState(buffer[i], " ", "5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]);break;
+		}
+
+
+		/* Prematurely breaking from loop if DFA reaches dump state. */
+
+		if (brk2==TRUE) {brk2 = FALSE; break;}
+	}
+
+	
+	/* Appending the one-and-only or the last attribute in buffer to queue. */
+
+	if (state2==3 || state2==4) {attributeQueue.queue(&attributeQueue, attribute);}
+
+
+
+	/* Taking action as per the final stop-state. */
+
+	switch (state2)
+	{
+		case 0: printf("ERROR: No column name passed as argument!"); break;
+		case 1: allRows(); break;
+		case 2: printf("ERROR: Syntax error when requesting for all columns!"); break;
+		case 3: printf("OK: Columns requsted manually."); break;
+		case 4: printf("OK: Columns requsted manually."); break;
+		case 5: printf("ERROR: Check position of commas!"); break;
+		case 6: printf("ERROR: Attribute name limit exceeded!"); break;
+		case 7: printf("ERROR: No comma among names of columns!"); break;
+	}
+
+
+	/* Resetting values to avoid future errors. */
+
+	state2 = 0; valid = TRUE;
+}

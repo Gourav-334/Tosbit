@@ -69,7 +69,7 @@ void syntaxParser(char username[], char *user_cmd)
 		{
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsSmMdDcCpP", "0,1,3,3,16,16,47,47,73,73,95,95,116,116", &state, 2); break;
+				case 0: changeState(command[i], " @oOsSmMdDcCpPuU", "0,1,3,3,16,16,47,47,73,73,95,95,116,116,152,152", &state, 2); break;
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
 				case 2: brk = TRUE; break;
 				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
@@ -198,6 +198,26 @@ void syntaxParser(char username[], char *user_cmd)
 				case 147: changeState(command[i], ")", "148", &state, 147); appendState(&state, 147, buffer2, command[i]); limitChecker(buffer2, (BUFFER_MAX_LENGTH-1), &state, 130, &brk); break;
 				case 148: changeState(command[i], " ", "149", &state, 151); breakValue(&state, 151, &brk); break;
 				case 149: changeState(command[i], " ", "149", &state, 151); breakValue(&state, 151, &brk); break;
+				case 152: changeState(command[i], "pP", "153,153", &state, 173); breakValue(&state, 173, &brk); break;
+				case 153: changeState(command[i], "dD", "154,154", &state, 173); breakValue(&state, 173, &brk); break;
+				case 154: changeState(command[i], "aA", "155,155", &state, 173); breakValue(&state, 173, &brk); break;
+				case 155: changeState(command[i], "tT", "156,156", &state, 173); breakValue(&state, 173, &brk); break;
+				case 156: changeState(command[i], "eE", "157,157", &state, 173); breakValue(&state, 173, &brk); break;
+				case 157: changeState(command[i], " ", "158", &state, 173); breakValue(&state, 173, &brk); break;
+				case 158: clearEntity("table"); changeState(command[i], " ", "158", &state, 159); appendState(&state, 159, table, command[i]); break;
+				case 159: changeState(command[i], " .", "160,161", &state, 159); appendState(&state, 159, table, command[i]); limitChecker(table, (TABLE_MAX_LENGTH-1), &state, 65, &brk); break;
+				case 160: changeState(command[i], " .", "160,161", &state, 173); breakValue(&state, 173, &brk); break;
+				case 161: changeState(command[i], " (", "161,162", &state, 173); breakValue(&state, 173, &brk); break;
+				case 162: clearEntity("buffer"); changeState(command[i], ")", "164", &state, 163); appendState(&state, 163, buffer, command[i]); break;
+				case 163: changeState(command[i], ")", "164", &state, 163); appendState(&state, 163, buffer, command[i]); limitChecker(buffer, (BUFFER_MAX_LENGTH-1), &state, 130, &brk); break;
+				case 164: changeState(command[i], " wW", "164,165,165", &state, 174); breakValue(&state, 174, &brk); break;
+				case 165: changeState(command[i], "hH", "166,166", &state, 174); breakValue(&state, 174, &brk); break;
+				case 166: changeState(command[i], "eE", "167,167", &state, 174); breakValue(&state, 174, &brk); break;
+				case 167: changeState(command[i], "rR", "168,168", &state, 174); breakValue(&state, 174, &brk); break;
+				case 168: changeState(command[i], "eE", "169,169", &state, 174); breakValue(&state, 174, &brk); break;
+				case 169: changeState(command[i], " (", "169,170", &state, 174); breakValue(&state, 174, &brk); break;
+				case 170: clearEntity("buffer2"); changeState(command[i], ")", "172", &state, 171); appendState(&state, 171, buffer2, command[i]); break;
+				case 171: changeState(command[i], ")", "172", &state, 171); appendState(&state, 171, buffer2, command[i]); limitChecker(buffer2, (BUFFER_MAX_LENGTH-1), &state, 130, &brk); break;
 			}
 
 
@@ -370,6 +390,29 @@ void syntaxParser(char username[], char *user_cmd)
 			case 149: printf("STAT: \'y\' rows found."); break;
 			case 150: printf("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
 			case 151: printf("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
+			case 152: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 153: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 154: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 155: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 156: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 157: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 158: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 159: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 160: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 161: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 162: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 163: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 164: printf("OK: Rows updates normally."); break;
+			case 165: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 166: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 167: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 168: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 169: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 170: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 171: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 172: printf("OK: Rows updated complexly."); break;
+			case 173: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
+			case 174: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
 		}
 
 
