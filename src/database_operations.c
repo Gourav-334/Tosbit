@@ -2503,6 +2503,7 @@ void allRows()
 
 	sizeQueue.clear(&sizeQueue);
 	dataTypeQueue.clear(&dataTypeQueue);
+	attributeQueue.clear(&attributeQueue);
 	attributeSizeNQueue.clear(&attributeSizeNQueue);
 }
 
@@ -2517,11 +2518,36 @@ void allRows()
 
 /* Update parser parses & validates the first buffer in UPDATE command. */
 
-void updateParser() // CHANGE IT ALL!
+void updateParser()
 {
-	/* Queue structure to handle attributes. */
+	/* Declaration of variables. */
 
-	Queue attributeQueue = {
+	int prevState;
+
+
+
+	/* Queue structure to handle attribute arguments. */
+
+	Queue argumentQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+
+	/* Queue structure to handle values. */
+
+	Queue valueQueue = {
 		.n = 0,
 		.pos = 0,
 		.m = NULL,
@@ -2543,14 +2569,28 @@ void updateParser() // CHANGE IT ALL!
 
 	for (int i=0; i<strlen(buffer); i++)
 	{
+		/* Storing previous state. */
+
+		prevState = state2;
+
+
+		/* Automaton switch cases. */
+
 		switch (state2)
 		{
-			case 0: clearEntity("attribute"); changeState(buffer[i], " @", "0,1", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
-			case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
-			case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 6, &brk2); break;
-			case 4: changeState(buffer[i], " ,", "4,5", &state2, 7); breakValue(&state2, 2, &brk2); break;
-			case 5: if (strlen(attribute)>0) {attributeQueue.queue(&attributeQueue, attribute);} clearEntity("attribute"); changeState(buffer[i], " ", "5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]);break;
+			case 0: clearEntity("attribute"); changeState(buffer[i], " ", "0", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); break;
+			case 1: changeState(buffer[i], " =", "2,3", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 8, &brk2); break;
+			case 2: changeState(buffer[i], " =", "2,3", &state2, 6); breakValue(&state, 6, &brk); break;
+			case 3: clearEntity("value"); changeState(buffer[i], " ", "3", &state2, 4); appendState(&state2, 4, value, buffer[i]); break;
+			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, value, buffer[i]); limitChecker(value, (VALUE_MAX_LENGTH-1), &state2, 9, &brk2); break;
+			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state, 7, &brk); break;
 		}
+
+
+		/* Queueing attribute or value at right state transition. */
+
+		if (prevState==1 && (state2==2 || state2==3)) {argumentQueue.queue(&argumentQueue, attribute);}
+		else if (prevState==4 && (state2==5 || state2==0)) {valueQueue.queue(&valueQueue, value);}
 
 
 		/* Prematurely breaking from loop if DFA reaches dump state. */
@@ -2558,10 +2598,10 @@ void updateParser() // CHANGE IT ALL!
 		if (brk2==TRUE) {brk2 = FALSE; break;}
 	}
 
-	
-	/* Appending the one-and-only or the last attribute in buffer to queue. */
 
-	if (state2==3 || state2==4) {attributeQueue.queue(&attributeQueue, attribute);}
+	/* If last state was 4, queue the last value. */
+
+	if (state2==4) {valueQueue.queue(&valueQueue, value);}
 
 
 
@@ -2569,18 +2609,227 @@ void updateParser() // CHANGE IT ALL!
 
 	switch (state2)
 	{
-		case 0: printf("ERROR: No column name passed as argument!"); break;
-		case 1: allRows(); break;
-		case 2: printf("ERROR: Syntax error when requesting for all columns!"); break;
-		case 3: printf("OK: Columns requsted manually."); break;
-		case 4: printf("OK: Columns requsted manually."); break;
-		case 5: printf("ERROR: Check position of commas!"); break;
-		case 6: printf("ERROR: Attribute name limit exceeded!"); break;
-		case 7: printf("ERROR: No comma among names of columns!"); break;
+		case 0: printf("ERROR: Pass atleast one argument & remove extra comma!"); break;
+		case 1: printf("ERROR: Please define value to update attribute with."); break;
+		case 2: printf("ERROR: Please define value to update attribute with."); break;
+		case 3: printf("ERROR: Please define value to update attribute with."); break;
+		case 4: updateAll(&argumentQueue, &valueQueue); break;
+		case 5: updateAll(&argumentQueue, &valueQueue); break;
+		case 6: printf("ERROR: Check for missing assignment operator!"); break;
+		case 7: printf("ERROR: A comma is expected after each assignment!"); break;
+		case 8: printf("ERROR: Attribute length limit exceeded!"); break;
+		case 9: printf("ERROR: Value length limit exceeded!"); break;
 	}
+
+
+	/* Clearing queues. */
+
+	argumentQueue.clear(&argumentQueue);
+	valueQueue.clear(&valueQueue);
 
 
 	/* Resetting values to avoid future errors. */
 
 	state2 = 0; valid = TRUE;
+}
+
+
+
+
+
+
+
+
+
+
+/* Updating all rows for a given value for each. */
+
+void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
+{
+	/* Declarations */
+
+	char c;
+	char metaBuff[2] = {0};
+	int charsRead, charsPrinted;
+	int arg = 0;
+
+
+	/* Structure objects. */
+
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue dataTypeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue keyQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue largestValueQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue markQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+
+
+	/* Checking table's existence. */
+
+	if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named %s exist!", table); return;}
+
+
+	/* Formatting directory to open details.tosbit */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
+
+
+	/* Opening details.tosbit with NULL safety. */
+
+	fptr = fopen(directory, "r");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+
+	/* While EOF not reached in details.tosbit */
+
+	while (!reachedEOF(fptr))
+	{
+		/* Extracting attribute. */
+
+		clearEntity("attribute"); charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {attribute[strlen(attribute)] = c; c = fgetc(fptr); charsRead++;}
+		attributeQueue.queue(&attributeQueue, attribute);
+
+
+		/* Marking with 'yes' if this attribute was requested, else 'no'. */
+return;/////////////////////////////////////////////////////////////////////////////////////////
+		if (argumentQueue->getIndex(argumentQueue, attribute)!=-1) {markQueue.queue(&markQueue, "yes");}
+		else if (argumentQueue->getIndex(argumentQueue, attribute)!=-1) {markQueue.queue(&markQueue, "no");}
+
+
+		/* Moving FD forward to read the data type for same attribute. */
+
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-charsRead+1, SEEK_CUR);
+
+
+		/* Extracting data type. */
+
+		clearEntity("dataType"); charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {dataType[strlen(dataType)] = c; c = fgetc(fptr); charsRead++;}
+		dataTypeQueue.queue(&dataTypeQueue, dataType);
+
+
+		/* Moving FD forward to read the key for same attribute. */
+
+		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-charsRead+1, SEEK_CUR);
+
+
+		/* Extracting key. */
+
+		clearEntity("key"); charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {key[strlen(key)] = c; c = fgetc(fptr); charsRead++;}
+		keyQueue.queue(&keyQueue, key);
+
+
+		/* Checking if argument passed matches with data type or not & bad usage of keys. */
+
+		if (!strcmp(markQueue.getValue(&markQueue, markQueue.n-1),"yes"))
+		{
+			clearEntity("value");
+			strcpy(value, valueQueue->getValue(valueQueue, arg));
+			arg++;
+
+			if (typeParser()==FALSE) {printf("ERROR: Argument number %d is not a %s!", arg, dataType); return;}
+			if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}
+		}
+
+
+		/* Moving FD forward to read the largest value for same attribute. */
+
+		fseek(fptr, (KEY_MAX_LENGTH-1)-charsRead+1, SEEK_CUR);
+
+
+		/* Extracting largest values. */
+
+		memset(metaBuff, 0, sizeof(metaBuff));
+		charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!='\n') {metaBuff[strlen(metaBuff)] = c; c = fgetc(fptr); charsRead++;}
+		largestValueQueue.queue(&largestValueQueue, metaBuff);
+
+
+		/* Moving FD forward to read the next row. */
+
+		fseek(fptr, (2+1)-charsRead, SEEK_CUR);
+	}
+
+	attributeQueue.showAll(&attributeQueue);/////////////////////////////////////////
+	dataTypeQueue.showAll(&dataTypeQueue);/////////////////////////////////////////
+	keyQueue.showAll(&keyQueue);/////////////////////////////////////////
+	largestValueQueue.showAll(&largestValueQueue);/////////////////////////////////////////
+	markQueue.showAll(&markQueue);/////////////////////////////////////////
 }

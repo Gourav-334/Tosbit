@@ -151,3 +151,67 @@ SHOW Desk.(sno,name,score) WHERE (sno>5 & score=7.00)
 ```tosbit
 sno, name, score
 ```
+
+
+
+## `updateAll()`
+
+```tosbit
+update tbl_name.(sno=1, name=Gourav, score=7.8)
+```
+
+
+### details.tosbit:
+
+```tosbit
+$sno............................,int...,unique.,4.\n
+name............................,string,regular,6.\n
+score...........................,float.,regular,5.
+```
+
+
+### rows.tosbit
+
+```tosbit
+1...............................,Ali.............................,6.5.............................\n
+2...............................,Rishab..........................,8.0.............................
+```
+
+
+### Macro steps:
+
+1. Check for table's existence.
+2. Extract each attribute's name, data type, key type, largest lenght & mark if update needed.
+3. Reject whole operation if a unique or file attribute is involved.
+4. Evaluate each attribute for its correct data type.
+5. With reference to all extracted attributes & their marking, update their values.
+
+
+### Micro steps:
+
+1. Check for table's existence.
+2. Open `db_name/tbl_name/details.tosbit` in `r` mode.
+3. While EOF not reached, follow the instructions below.
+4. Keep reading the upcoming characters & appending them to `attribute` until a space or `,` appears.
+5. Queue the attribute to `attributeQueue`. ---(1)
+6. If this attribute matches to anyone in `argumentQueue`, queue `yes` to marker queue. ---(1)
+7. Else queue `no` to marker queue. ---(1)
+8. Move FD by `(ATTR_MAX_LEN+1)-characterRead` bytes. ---(1)
+9. Keep reading the upcoming characters & appending them to `dataType` until a space or `,`. ---(1)
+10. Queue the data type to `dataTypeQueue`. ---(1)
+11. Move FD by `(DATATYPE_MAX_LEN+1)-characterRead` bytes. ---(1)
+12. Keep reading the upcoming characters & appending them to `key` until a space or `,`. ---(1)
+13. Queue the key to `keyQueue`. ---(1)
+14. If current mark is `yes` & data type doesn't match, reject whole operation with error. ---(1)
+15. Else if current mark is `yes` & key is either unique or file, reject whole operation with error. ---(1)
+16. Move FD by `(KEY_MAX_LEN+1)-characterRead` bytes. ---(1)
+17. Keep reading the upcoming characters & appending them to `largestValue` until a space or `\n`. ---(1)
+18. Queue the largest value to `largestValueQueue`. ---(1)
+19. Move FD by `(2+1)-characterRead` bytes. ---(1)
+20. After this loop, open `db_name/tbl_name/rows.tosbit` in `r+` mode.
+21. While EOF not reached, follow the instructions below.
+22. If data type is marked `Yes`, overwrite with what's at node `iter % value.n`.
+23. Write space for `ATTR_MAX_LEN-charsPrinted` times for non-booleans & for `5-charsPrinted` times for booleans.
+24. Move FD by `1` byte.
+25. Increment `iter` by `1`.
+26. Empty all the queues created & used.

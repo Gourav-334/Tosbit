@@ -402,7 +402,7 @@ void syntaxParser(char username[], char *user_cmd)
 			case 161: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
 			case 162: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
 			case 163: printf("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
-			case 164: printf("OK: Rows updates normally."); break;
+			case 164: updateParser(); break;
 			case 165: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
 			case 166: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
 			case 167: printf("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;

@@ -100,6 +100,7 @@ extern void selectionParser();
 extern void conditionParser();		// Not made yet...
 extern void allRows();
 extern void updateParser();
+extern void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue);
 
 
 
