@@ -2453,9 +2453,9 @@ void allRows()
 	fseek(fptr, 0, SEEK_SET);
 
 
-	attributeQueue.showAll(&attributeQueue);///////////////////////////////////////////////////////
-	sizeQueue.showAll(&sizeQueue);////////////////////////////////////////////////////////////////
-	attributeSizeNQueue.showAll(&attributeSizeNQueue);///////////////////////////////////////////
+	// attributeQueue.showAll(&attributeQueue);///////////////////////////////////////////////////////
+	// sizeQueue.showAll(&sizeQueue);////////////////////////////////////////////////////////////////
+	// attributeSizeNQueue.showAll(&attributeSizeNQueue);///////////////////////////////////////////
 
 
 	/* Checking if metadata in details.tosbit needs to be changed. */
@@ -2649,7 +2649,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	/* Declarations */
 
 	char c;
-	char metaBuff[2] = {0};
+	char metaBuff[2] = {0}, str[33] = {0};
 	int charsRead, charsPrinted;
 	int arg = 0;
 
@@ -2767,9 +2767,9 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 
 		/* Marking with 'yes' if this attribute was requested, else 'no'. */
-return;/////////////////////////////////////////////////////////////////////////////////////////
+
 		if (argumentQueue->getIndex(argumentQueue, attribute)!=-1) {markQueue.queue(&markQueue, "yes");}
-		else if (argumentQueue->getIndex(argumentQueue, attribute)!=-1) {markQueue.queue(&markQueue, "no");}
+		else if (argumentQueue->getIndex(argumentQueue, attribute)==-1) {markQueue.queue(&markQueue, "no");}
 
 
 		/* Moving FD forward to read the data type for same attribute. */
@@ -2797,12 +2797,19 @@ return;/////////////////////////////////////////////////////////////////////////
 
 
 		/* Checking if argument passed matches with data type or not & bad usage of keys. */
+// BHAI YE CONDITION MAI KYA GALAT HAI?!
+		memset(str, 0, sizeof(str));/////////////////////*FOR DEBUGGING ONLY*////////////////////////
+		strcpy(str, markQueue.getValue(&markQueue, (markQueue.n)-1));//////*FOR DEBUGGING ONLY*//////
+		printf("%s\n", str);////////////////////////*FOR DEBUGGING ONLY*/////////////////////////////
 
-		if (!strcmp(markQueue.getValue(&markQueue, markQueue.n-1),"yes"))
-		{
+		if (!strcmp(str,"yes"))///////////////SEG-FAULT
+		{return;///////////////////////////////////////////////////////////////////////////
 			clearEntity("value");
 			strcpy(value, valueQueue->getValue(valueQueue, arg));
 			arg++;
+
+
+			/* Checking data type & key type. */
 
 			if (typeParser()==FALSE) {printf("ERROR: Argument number %d is not a %s!", arg, dataType); return;}
 			if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}

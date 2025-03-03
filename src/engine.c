@@ -17,7 +17,7 @@ int main(int argc, char **argv[])
 	//syntaxParser("Gourav", NULL);
 
 	interpret("open db mydb");
-	interpret("update tester.(sno=1, name=Gourav)");
+	interpret("update tester.(sno=1, name=Gourav, score=7.5)");
 
 
 	return 0;

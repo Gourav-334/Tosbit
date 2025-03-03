@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "UPDATE command as of last in prototype is under development (debugging seg faults)."
+git commit -m "Most bizzare segmentation fault ever, believe me."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main
