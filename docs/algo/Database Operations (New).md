@@ -210,8 +210,10 @@ score...........................,float.,regular,5.
 19. Move FD by `(2+1)-characterRead` bytes. ---(1)
 20. After this loop, open `db_name/tbl_name/rows.tosbit` in `r+` mode.
 21. While EOF not reached, follow the instructions below.
-22. If data type is marked `Yes`, overwrite with what's at node `iter % value.n`.
-23. Write space for `ATTR_MAX_LEN-charsPrinted` times for non-booleans & for `5-charsPrinted` times for booleans.
-24. Move FD by `1` byte.
-25. Increment `iter` by `1`.
-26. Empty all the queues created & used.
+
+22. If data type is marked `Yes`, overwrite with what's at node `iter % value.n` of `value`.
+23. Write space for `ATTR_MAX_LEN-charsPrinted` times for non-booleans & for `5-charsPrinted` times for booleans. ---(1)
+24. Else if data type is marked `No`, skip `ATTR_MAX_LEN` bytes for non-booleans & for `5` times for booleans.
+25. Move FD by `1` byte.
+26. Increment `iter` by `1`.
+27. Empty all the queues created & used.

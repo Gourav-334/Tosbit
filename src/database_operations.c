@@ -1438,7 +1438,7 @@ int typeParser()
 {
 	/* Initializations */
 
-	int status;
+	int status = TRUE;
 	char c3 = '$';
 	char pipedBuff[257] = {0}, shell_cmd[513] = {0};
 
@@ -2613,8 +2613,8 @@ void updateParser()
 		case 1: printf("ERROR: Please define value to update attribute with."); break;
 		case 2: printf("ERROR: Please define value to update attribute with."); break;
 		case 3: printf("ERROR: Please define value to update attribute with."); break;
-		case 4: updateAll(&argumentQueue, &valueQueue); break;
-		case 5: updateAll(&argumentQueue, &valueQueue); break;
+		case 4: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
+		case 5: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
 		case 6: printf("ERROR: Check for missing assignment operator!"); break;
 		case 7: printf("ERROR: A comma is expected after each assignment!"); break;
 		case 8: printf("ERROR: Attribute length limit exceeded!"); break;
@@ -2755,7 +2755,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
-	/* While EOF not reached in details.tosbit */
+	/* While EOF not reached in details.tosbit (extracting data) */
 
 	while (!reachedEOF(fptr))
 	{
@@ -2774,7 +2774,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 		/* Moving FD forward to read the data type for same attribute. */
 
-		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-charsRead+1, SEEK_CUR);
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-charsRead+1-1, SEEK_CUR);
 
 
 		/* Extracting data type. */
@@ -2786,7 +2786,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 		/* Moving FD forward to read the key for same attribute. */
 
-		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-charsRead+1, SEEK_CUR);
+		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-charsRead+1-1, SEEK_CUR);
 
 
 		/* Extracting key. */
@@ -2796,29 +2796,9 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 		keyQueue.queue(&keyQueue, key);
 
 
-		/* Checking if argument passed matches with data type or not & bad usage of keys. */
-// BHAI YE CONDITION MAI KYA GALAT HAI?!
-		memset(str, 0, sizeof(str));/////////////////////*FOR DEBUGGING ONLY*////////////////////////
-		strcpy(str, markQueue.getValue(&markQueue, (markQueue.n)-1));//////*FOR DEBUGGING ONLY*//////
-		printf("%s\n", str);////////////////////////*FOR DEBUGGING ONLY*/////////////////////////////
-
-		if (!strcmp(str,"yes"))///////////////SEG-FAULT
-		{return;///////////////////////////////////////////////////////////////////////////
-			clearEntity("value");
-			strcpy(value, valueQueue->getValue(valueQueue, arg));
-			arg++;
-
-
-			/* Checking data type & key type. */
-
-			if (typeParser()==FALSE) {printf("ERROR: Argument number %d is not a %s!", arg, dataType); return;}
-			if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}
-		}
-
-
 		/* Moving FD forward to read the largest value for same attribute. */
 
-		fseek(fptr, (KEY_MAX_LENGTH-1)-charsRead+1, SEEK_CUR);
+		fseek(fptr, (KEY_MAX_LENGTH-1)-charsRead+1-1, SEEK_CUR);
 
 
 		/* Extracting largest values. */
@@ -2831,12 +2811,143 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 		/* Moving FD forward to read the next row. */
 
-		fseek(fptr, (2+1)-charsRead, SEEK_CUR);
+		fseek(fptr, (2+1)-charsRead-1, SEEK_CUR);
 	}
 
-	attributeQueue.showAll(&attributeQueue);/////////////////////////////////////////
-	dataTypeQueue.showAll(&dataTypeQueue);/////////////////////////////////////////
-	keyQueue.showAll(&keyQueue);/////////////////////////////////////////
-	largestValueQueue.showAll(&largestValueQueue);/////////////////////////////////////////
-	markQueue.showAll(&markQueue);/////////////////////////////////////////
+
+
+	/* Checking if the arguments passed contained non-existing attributes. */
+
+	for (int i=0; i<argumentQueue->n; i++)
+	{
+		if (attributeQueue.getIndex(&attributeQueue, argumentQueue->getValue(argumentQueue, i)) == -1)
+		{
+			printf(
+				"ERROR: No attribute named \"%s\" exists in table \"%s\"!",
+				argumentQueue->getValue(argumentQueue, i), table
+			);
+
+			return;
+		}
+	}
+
+
+
+	/* Checking consistencies in the data types & keys of requested attributes. */
+
+	for (int i=0; i<attributeQueue.n; i++)
+	{
+		/* For safety, using 'str' to access strings in 'markQueue'. */
+
+		memset(str, 0, sizeof(str));
+		strcpy(str, markQueue.getValue(&markQueue, i));
+
+
+		/* Checking only requested attributes in particular. */
+
+		if (!strcmp(str,"yes"))
+		{
+			/* Fetching the next attribute & value only. */
+
+			clearEntity("dataType"); strcpy(dataType, dataTypeQueue.getValue(&dataTypeQueue, i));
+
+
+			/* Value at index of the found argument, referring to attributeQueue & markQueue. */
+
+			clearEntity("value");
+
+			strcpy(
+				value,
+				valueQueue->getValue(valueQueue, argumentQueue->getIndex(argumentQueue, attributeQueue.getValue(&attributeQueue, i)))
+			);
+
+
+			/* Checking data type & key type. */
+
+			if (typeParser()==FALSE) {printf("\n%d) WARN: (%s) != (%s)", i, value, dataType); return;}
+			else if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}
+		}
+	}
+
+	
+
+
+	/* Closing FD safely for later use in modifying values. */
+
+	fclose(fptr);
+
+
+
+	/* Formatting directory to open details.tosbit */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/rows.tosbit", database, table);
+
+
+	/* Opening details.tosbit with NULL safety. */
+
+	fptr = fopen(directory, "r+");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+
+	/* Traversing whole table data & modifying it. */
+
+	while (!reachedEOF(fptr))
+	{
+		for (int i=0; i<markQueue.n; i++)
+		{
+			/* If modification is required. */
+
+			if (!strcmp(markQueue.getValue(&markQueue, i),"yes"))
+			{
+				/* Now using 'str' for different purpose, for shortening code length. */
+
+				memset(str, 0, sizeof(str));
+
+				strcpy(str,
+					valueQueue->getValue(valueQueue, argumentQueue->getIndex(argumentQueue, attributeQueue.getValue(&attributeQueue, i)))
+				);
+
+
+				/* Writing the new value. */
+
+				fputs(str, fptr);
+
+//////////////////////////////////////// * START * ///////////////////////////////////////////////////
+				/* Writing spaces to file as per its data type (boolean or non-boolean). */
+
+				if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
+					{fseek(fptr, 5-strlen(str)+1, SEEK_CUR);}
+
+				else
+					{fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-strlen(str)+1, SEEK_CUR);}
+			}
+
+
+
+			/* If modification isn't required (attribute wasn't requested). */
+
+			else if (!strcmp(markQueue.getValue(&markQueue, i),"no"))
+			{
+				if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
+					{fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)+1, SEEK_CUR);}
+
+				else {fseek(fptr, 5+1, SEEK_CUR);}
+			}
+		}
+	}
+
+///////////////////////////////////////// * END * ////////////////////////////////////////////////////
+
+	/* Clearing all the local queues (of this function). */
+
+	attributeQueue.clear(&attributeQueue);
+	dataTypeQueue.clear(&dataTypeQueue);
+	keyQueue.clear(&keyQueue);
+	largestValueQueue.clear(&largestValueQueue);
+
+
+	/* Safely closing file. */
+
+	fclose(fptr); // APPLY CRITICAL WRITES & ?
 }
