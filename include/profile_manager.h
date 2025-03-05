@@ -62,7 +62,7 @@ extern FILE *file;
 
 /* Functions */
 
-extern void profileManager();
+extern int profileManager();
 
 
 

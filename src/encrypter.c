@@ -69,6 +69,12 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 
 
+char output[MAX_ENCRYPTED_SIZE] = {0};
+
+
+
+
+
 
 
 
@@ -78,9 +84,6 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 char *encrypt(char *input)
 {
-	static char output[MAX_ENCRYPTED_SIZE] = {0};
-	
-
 	/* This loop ensures each character is encrypted */
 
 	for (int i=0; i<strlen(input); i++)
@@ -118,9 +121,7 @@ char *encrypt(char *input)
 
 char *decrypt(char *input)
 {
-	static char output[MAX_ENCRYPTED_SIZE] = {0};
 	char buffer[MAX_DECRYPTED_SIZE] = {0};
-
 	int zero_count = 0;
 
 

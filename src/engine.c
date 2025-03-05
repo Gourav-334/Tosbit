@@ -11,15 +11,16 @@
 
 int main(int argc, char **argv[])
 {
-	//profileManager();
-	//getLocation();
-	setConnection("123.141.138.013", "Gourav", "tangible%troops88");
-	//syntaxParser("Gourav", NULL);
+	/* If username exists. */
+	if (profileManager()==TRUE)
+	{
+		getLocation();
+		setConnection("123.141.138.013", "Gourav", "tangible%troops88");
+		syntaxParser("Gourav", NULL);
+	}
 
-	interpret("open db mydb");
-	interpret("show tester.(@)");
-	// interpret("update tester.(name=Batman)");
-	// interpret("show tester.(@)");
+
+	else
 
 
 	return 0;
