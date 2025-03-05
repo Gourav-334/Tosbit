@@ -2224,7 +2224,7 @@ void allRows()
 
 	/* Opening details.tosbit with NULL safety. */
 
-	fptr = fopen(directory, "r");
+	fptr = fopen(directory, "r+");
 	if (fptr==NULL) {printf("ERROR: No table named \"%s\" exists!", table); return;}
 
 
@@ -2453,11 +2453,6 @@ void allRows()
 	fseek(fptr, 0, SEEK_SET);
 
 
-	// attributeQueue.showAll(&attributeQueue);///////////////////////////////////////////////////////
-	// sizeQueue.showAll(&sizeQueue);////////////////////////////////////////////////////////////////
-	// attributeSizeNQueue.showAll(&attributeSizeNQueue);///////////////////////////////////////////
-
-
 	/* Checking if metadata in details.tosbit needs to be changed. */
 
 	for (int i=0; i<sizeQueue.n; i++)
@@ -2466,7 +2461,7 @@ void allRows()
 
 		fseek(
 			fptr,
-			(ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1-1,
+			(ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1,
 			SEEK_CUR
 		);
 
@@ -2477,8 +2472,8 @@ void allRows()
 			atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<atoi(sizeQueue.getValue(&sizeQueue, i)) &&
 			atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=strlen(attributeQueue.getValue(&attributeQueue, i))
 		)
-		{printf("%ld\n", ftell(fptr2)); // SOMETHING WRONG HERE...
-			fputs(attributeSizeNQueue.getValue(&attributeSizeNQueue, i), fptr); //fflush(fptr);
+		{
+			fputs(attributeSizeNQueue.getValue(&attributeSizeNQueue, i), fptr);
 
 			if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<10) {fseek(fptr, 2, SEEK_CUR);}
 			else if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=10) {fseek(fptr, 1, SEEK_CUR);}
@@ -2651,7 +2646,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	char c;
 	char metaBuff[2] = {0}, str[33] = {0};
 	int charsRead, charsPrinted;
-	int arg = 0;
+	int rowLength = 0, totalRows = 0;
 
 
 	/* Structure objects. */
@@ -2751,7 +2746,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 	/* Opening details.tosbit with NULL safety. */
 
-	fptr = fopen(directory, "r");
+	fptr = fopen(directory, "r+");
 	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
@@ -2864,9 +2859,58 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 			/* Checking data type & key type. */
 
-			if (typeParser()==FALSE) {printf("\n%d) WARN: (%s) != (%s)", i, value, dataType); return;}
+			if (typeParser()==FALSE) {return;}
 			else if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}
 		}
+	}
+
+
+
+	/* Calculating row length. */
+
+	rowLength = (ATTRIBUTE_MAX_LENGTH-1+1)+(DATA_TYPE_MAX_LENGTH-1+1)+(KEY_MAX_LENGTH-1+1)+2;
+
+
+	/* Moving FD to the start of the file. */
+
+	fseek(fptr, 0, SEEK_SET);
+
+
+	/* Metadata updation in details.tosbit (largest attribute name length). */
+
+	for (int i=0; i<markQueue.n; i++)
+	{
+		/* Now using 'str' for different purpose, for shortening code length. */
+
+		memset(str, 0, sizeof(str));
+
+		strcpy(str,
+			valueQueue->getValue(valueQueue, argumentQueue->getIndex(argumentQueue, attributeQueue.getValue(&attributeQueue, i)))
+		);
+
+
+		/* Making changes in details.tosbit */
+
+		if (!strcmp(markQueue.getValue(&markQueue, i),"yes"))
+		{
+			if (strlen(str)!=atoi(largestValueQueue.getValue(&largestValueQueue, i)) && strlen(str)>=strlen(attributeQueue.getValue(&attributeQueue, i)))
+			{
+				fseek(fptr, rowLength-2, SEEK_CUR);
+				fputs(itoa((int)strlen(str), ascii), fptr);
+
+				if ((int)strlen(str)<10) {fputc(' ', fptr);}
+			}
+		}
+
+
+		/* Skipping whole details for the attribute if not requested for update. */
+
+		else {fseek(fptr, rowLength, SEEK_CUR);}
+
+
+		/* Skipping the '\n'/going to EOF. */
+
+		fseek(fptr, 1, SEEK_CUR);
 	}
 
 	
@@ -2890,10 +2934,20 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
 
 
+	/* Returning if the table is empty. */
+
+	if (newFile(fptr)) {printf("STAT: Table \"%s\" is empty.", table);}
+
+
 	/* Traversing whole table data & modifying it. */
 
 	while (!reachedEOF(fptr))
 	{
+		/* Counting rows after each endline character. */
+
+		totalRows++;
+
+
 		for (int i=0; i<markQueue.n; i++)
 		{
 			/* If modification is required. */
@@ -2913,14 +2967,19 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 				fputs(str, fptr);
 
-//////////////////////////////////////// * START * ///////////////////////////////////////////////////
+
 				/* Writing spaces to file as per its data type (boolean or non-boolean). */
 
 				if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
-					{fseek(fptr, 5-strlen(str)+1, SEEK_CUR);}
-
+				{
+					for (int j=0; j<5-strlen(str); j++) {fputc(' ', fptr);}
+					fseek(fptr, 1, SEEK_CUR);
+				}
 				else
-					{fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-strlen(str)+1, SEEK_CUR);}
+				{
+					for (int j=0; j<(ATTRIBUTE_MAX_LENGTH-1)-strlen(str); j++) {fputc(' ', fptr);}
+					fseek(fptr, 1, SEEK_CUR);
+				}
 			}
 
 
@@ -2930,14 +2989,14 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 			else if (!strcmp(markQueue.getValue(&markQueue, i),"no"))
 			{
 				if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
-					{fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)+1, SEEK_CUR);}
+					{fseek(fptr, 5+1, SEEK_CUR);}
 
-				else {fseek(fptr, 5+1, SEEK_CUR);}
+				else {fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)+1, SEEK_CUR);}
 			}
 		}
 	}
 
-///////////////////////////////////////// * END * ////////////////////////////////////////////////////
+
 
 	/* Clearing all the local queues (of this function). */
 
@@ -2949,5 +3008,10 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 	/* Safely closing file. */
 
-	fclose(fptr); // APPLY CRITICAL WRITES & ?
+	fclose(fptr); // APPLY CRITICAL WRITES & RESIZING CONSOLE-TABLES TOO...
+
+
+	/* Acknowledging users about update in query. */
+
+	printf("OK: Total %d rows updated!", totalRows);
 }

@@ -176,7 +176,7 @@ int Queue_getIndex(Queue *q, char str[])
 
 char *Queue_getValue(Queue *q, int index)
 {
-	if (((q -> n)<index+1)||(index<0)) {printf("Index is larger than total elements!\n"); return "NULL";}
+	if (((q -> n)<index+1)||(index<0)) {return "NULL";}
 
 	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
 
