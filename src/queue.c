@@ -115,6 +115,7 @@ void Queue_clear(Queue *q)
 	while ((q -> n)!=0)
 	{
 		q -> trav = q -> trav -> next;
+
 		free(q->head);
 		q -> head = q -> trav;
 
@@ -157,7 +158,7 @@ int Queue_getIndex(Queue *q, char str[])
 
 	/* Returning -1 as error status in case string value wasn't found. */
 
-	if (strcmp(q->trav->name,str2) && (q->trav->next)==NULL) {return -1;}
+	if (strcmp(q->trav->name,str2) && (q->trav->next)==NULL) {q -> trav = q -> head; return -1;}
 
 
 	/* Throwing head back to first node */
@@ -175,6 +176,8 @@ int Queue_getIndex(Queue *q, char str[])
 
 char *Queue_getValue(Queue *q, int index)
 {
+	if (((q -> n)<index+1)||(index<0)) {return "NULL";}
+
 	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
 
 	strcpy(node_value, q->trav->name);

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Rebase situation cooled down."
+git commit -m "Client-side prototype completed."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

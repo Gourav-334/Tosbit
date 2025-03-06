@@ -1438,7 +1438,7 @@ int typeParser()
 {
 	/* Initializations */
 
-	int status;
+	int status = TRUE;
 	char c3 = '$';
 	char pipedBuff[257] = {0}, shell_cmd[513] = {0};
 
@@ -2224,7 +2224,7 @@ void allRows()
 
 	/* Opening details.tosbit with NULL safety. */
 
-	fptr = fopen(directory, "r");
+	fptr = fopen(directory, "r+");
 	if (fptr==NULL) {printf("ERROR: No table named \"%s\" exists!", table); return;}
 
 
@@ -2446,16 +2446,11 @@ void allRows()
 	}
 	printf("+\n");
 
-/////////////////////////////////////////////////START////////////////////////////////////////////////
+
 
 	/* Bringing FP back to starting of details.tosbit. */
 
 	fseek(fptr, 0, SEEK_SET);
-
-
-	attributeQueue.showAll(&attributeQueue);///////////////////////////////////////////////////////
-	sizeQueue.showAll(&sizeQueue);////////////////////////////////////////////////////////////////
-	attributeSizeNQueue.showAll(&attributeSizeNQueue);///////////////////////////////////////////
 
 
 	/* Checking if metadata in details.tosbit needs to be changed. */
@@ -2466,7 +2461,7 @@ void allRows()
 
 		fseek(
 			fptr,
-			(ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1-1,
+			(ATTRIBUTE_MAX_LENGTH-1)+1+(DATA_TYPE_MAX_LENGTH-1)+1+(KEY_MAX_LENGTH-1)+1,
 			SEEK_CUR
 		);
 
@@ -2477,8 +2472,8 @@ void allRows()
 			atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<atoi(sizeQueue.getValue(&sizeQueue, i)) &&
 			atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=strlen(attributeQueue.getValue(&attributeQueue, i))
 		)
-		{printf("%ld\n", ftell(fptr2)); // SOMETHING WRONG HERE...
-			fputs(attributeSizeNQueue.getValue(&attributeSizeNQueue, i), fptr); //fflush(fptr);
+		{
+			fputs(attributeSizeNQueue.getValue(&attributeSizeNQueue, i), fptr);
 
 			if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<10) {fseek(fptr, 2, SEEK_CUR);}
 			else if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=10) {fseek(fptr, 1, SEEK_CUR);}
@@ -2486,7 +2481,7 @@ void allRows()
 		else {fseek(fptr, 3, SEEK_CUR);}
 	}
 
-//////////////////////////////////////////////////END////////////////////////////////////////////////
+
 
 	/* Printing stats information. */
 
@@ -2503,6 +2498,7 @@ void allRows()
 
 	sizeQueue.clear(&sizeQueue);
 	dataTypeQueue.clear(&dataTypeQueue);
+	attributeQueue.clear(&attributeQueue);
 	attributeSizeNQueue.clear(&attributeSizeNQueue);
 }
 
@@ -2517,11 +2513,36 @@ void allRows()
 
 /* Update parser parses & validates the first buffer in UPDATE command. */
 
-void updateParser() // CHANGE IT ALL!
+void updateParser()
 {
-	/* Queue structure to handle attributes. */
+	/* Declaration of variables. */
 
-	Queue attributeQueue = {
+	int prevState;
+
+
+
+	/* Queue structure to handle attribute arguments. */
+
+	Queue argumentQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+
+	/* Queue structure to handle values. */
+
+	Queue valueQueue = {
 		.n = 0,
 		.pos = 0,
 		.m = NULL,
@@ -2543,14 +2564,28 @@ void updateParser() // CHANGE IT ALL!
 
 	for (int i=0; i<strlen(buffer); i++)
 	{
+		/* Storing previous state. */
+
+		prevState = state2;
+
+
+		/* Automaton switch cases. */
+
 		switch (state2)
 		{
-			case 0: clearEntity("attribute"); changeState(buffer[i], " @", "0,1", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
-			case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
-			case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 6, &brk2); break;
-			case 4: changeState(buffer[i], " ,", "4,5", &state2, 7); breakValue(&state2, 2, &brk2); break;
-			case 5: if (strlen(attribute)>0) {attributeQueue.queue(&attributeQueue, attribute);} clearEntity("attribute"); changeState(buffer[i], " ", "5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]);break;
+			case 0: clearEntity("attribute"); changeState(buffer[i], " ", "0", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); break;
+			case 1: changeState(buffer[i], " =", "2,3", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 8, &brk2); break;
+			case 2: changeState(buffer[i], " =", "2,3", &state2, 6); breakValue(&state, 6, &brk); break;
+			case 3: clearEntity("value"); changeState(buffer[i], " ", "3", &state2, 4); appendState(&state2, 4, value, buffer[i]); break;
+			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, value, buffer[i]); limitChecker(value, (VALUE_MAX_LENGTH-1), &state2, 9, &brk2); break;
+			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state, 7, &brk); break;
 		}
+
+
+		/* Queueing attribute or value at right state transition. */
+
+		if (prevState==1 && (state2==2 || state2==3)) {argumentQueue.queue(&argumentQueue, attribute);}
+		else if (prevState==4 && (state2==5 || state2==0)) {valueQueue.queue(&valueQueue, value);}
 
 
 		/* Prematurely breaking from loop if DFA reaches dump state. */
@@ -2558,10 +2593,10 @@ void updateParser() // CHANGE IT ALL!
 		if (brk2==TRUE) {brk2 = FALSE; break;}
 	}
 
-	
-	/* Appending the one-and-only or the last attribute in buffer to queue. */
 
-	if (state2==3 || state2==4) {attributeQueue.queue(&attributeQueue, attribute);}
+	/* If last state was 4, queue the last value. */
+
+	if (state2==4) {valueQueue.queue(&valueQueue, value);}
 
 
 
@@ -2569,18 +2604,414 @@ void updateParser() // CHANGE IT ALL!
 
 	switch (state2)
 	{
-		case 0: printf("ERROR: No column name passed as argument!"); break;
-		case 1: allRows(); break;
-		case 2: printf("ERROR: Syntax error when requesting for all columns!"); break;
-		case 3: printf("OK: Columns requsted manually."); break;
-		case 4: printf("OK: Columns requsted manually."); break;
-		case 5: printf("ERROR: Check position of commas!"); break;
-		case 6: printf("ERROR: Attribute name limit exceeded!"); break;
-		case 7: printf("ERROR: No comma among names of columns!"); break;
+		case 0: printf("ERROR: Pass atleast one argument & remove extra comma!"); break;
+		case 1: printf("ERROR: Please define value to update attribute with."); break;
+		case 2: printf("ERROR: Please define value to update attribute with."); break;
+		case 3: printf("ERROR: Please define value to update attribute with."); break;
+		case 4: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
+		case 5: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
+		case 6: printf("ERROR: Check for missing assignment operator!"); break;
+		case 7: printf("ERROR: A comma is expected after each assignment!"); break;
+		case 8: printf("ERROR: Attribute length limit exceeded!"); break;
+		case 9: printf("ERROR: Value length limit exceeded!"); break;
 	}
+
+
+	/* Clearing queues. */
+
+	argumentQueue.clear(&argumentQueue);
+	valueQueue.clear(&valueQueue);
 
 
 	/* Resetting values to avoid future errors. */
 
 	state2 = 0; valid = TRUE;
+}
+
+
+
+
+
+
+
+
+
+
+/* Updating all rows for a given value for each. */
+
+void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
+{
+	/* Declarations */
+
+	char c;
+	char metaBuff[2] = {0}, str[33] = {0};
+	int charsRead, charsPrinted;
+	int rowLength = 0, totalRows = 0;
+
+
+	/* Structure objects. */
+
+	Queue attributeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue dataTypeQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue keyQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue largestValueQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+	Queue markQueue = {
+		.n = 0,
+		.pos = 0,
+		.m = NULL,
+		.head = NULL, 
+		.temp = NULL,
+		.trav = NULL,
+		.queue = Queue_queue,
+		.clear = Queue_clear,
+		.getIndex = Queue_getIndex,
+		.getValue = Queue_getValue,
+		.peek = Queue_peek,
+		.showAll = Queue_showAll,
+		.changeAt = Queue_changeAt
+	};
+
+
+
+	/* Checking table's existence. */
+
+	if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named %s exist!", table); return;}
+
+
+	/* Formatting directory to open details.tosbit */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
+
+
+	/* Opening details.tosbit with NULL safety. */
+
+	fptr = fopen(directory, "r+");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+
+	/* While EOF not reached in details.tosbit (extracting data) */
+
+	while (!reachedEOF(fptr))
+	{
+		/* Extracting attribute. */
+
+		clearEntity("attribute"); charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {attribute[strlen(attribute)] = c; c = fgetc(fptr); charsRead++;}
+		attributeQueue.queue(&attributeQueue, attribute);
+
+
+		/* Marking with 'yes' if this attribute was requested, else 'no'. */
+
+		if (argumentQueue->getIndex(argumentQueue, attribute)!=-1) {markQueue.queue(&markQueue, "yes");}
+		else if (argumentQueue->getIndex(argumentQueue, attribute)==-1) {markQueue.queue(&markQueue, "no");}
+
+
+		/* Moving FD forward to read the data type for same attribute. */
+
+		fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)-charsRead+1-1, SEEK_CUR);
+
+
+		/* Extracting data type. */
+
+		clearEntity("dataType"); charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {dataType[strlen(dataType)] = c; c = fgetc(fptr); charsRead++;}
+		dataTypeQueue.queue(&dataTypeQueue, dataType);
+
+
+		/* Moving FD forward to read the key for same attribute. */
+
+		fseek(fptr, (DATA_TYPE_MAX_LENGTH-1)-charsRead+1-1, SEEK_CUR);
+
+
+		/* Extracting key. */
+
+		clearEntity("key"); charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!=',') {key[strlen(key)] = c; c = fgetc(fptr); charsRead++;}
+		keyQueue.queue(&keyQueue, key);
+
+
+		/* Moving FD forward to read the largest value for same attribute. */
+
+		fseek(fptr, (KEY_MAX_LENGTH-1)-charsRead+1-1, SEEK_CUR);
+
+
+		/* Extracting largest values. */
+
+		memset(metaBuff, 0, sizeof(metaBuff));
+		charsRead = 0; c = fgetc(fptr);
+		while (c!=' ' && c!='\n') {metaBuff[strlen(metaBuff)] = c; c = fgetc(fptr); charsRead++;}
+		largestValueQueue.queue(&largestValueQueue, metaBuff);
+
+
+		/* Moving FD forward to read the next row. */
+
+		fseek(fptr, (2+1)-charsRead-1, SEEK_CUR);
+	}
+
+
+
+	/* Checking if the arguments passed contained non-existing attributes. */
+
+	for (int i=0; i<argumentQueue->n; i++)
+	{
+		if (attributeQueue.getIndex(&attributeQueue, argumentQueue->getValue(argumentQueue, i)) == -1)
+		{
+			printf(
+				"ERROR: No attribute named \"%s\" exists in table \"%s\"!",
+				argumentQueue->getValue(argumentQueue, i), table
+			);
+
+			return;
+		}
+	}
+
+
+
+	/* Checking consistencies in the data types & keys of requested attributes. */
+
+	for (int i=0; i<attributeQueue.n; i++)
+	{
+		/* For safety, using 'str' to access strings in 'markQueue'. */
+
+		memset(str, 0, sizeof(str));
+		strcpy(str, markQueue.getValue(&markQueue, i));
+
+
+		/* Checking only requested attributes in particular. */
+
+		if (!strcmp(str,"yes"))
+		{
+			/* Fetching the next attribute & value only. */
+
+			clearEntity("dataType"); strcpy(dataType, dataTypeQueue.getValue(&dataTypeQueue, i));
+
+
+			/* Value at index of the found argument, referring to attributeQueue & markQueue. */
+
+			clearEntity("value");
+
+			strcpy(
+				value,
+				valueQueue->getValue(valueQueue, argumentQueue->getIndex(argumentQueue, attributeQueue.getValue(&attributeQueue, i)))
+			);
+
+
+			/* Checking data type & key type. */
+
+			if (typeParser()==FALSE) {return;}
+			else if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}
+		}
+	}
+
+
+
+	/* Calculating row length. */
+
+	rowLength = (ATTRIBUTE_MAX_LENGTH-1+1)+(DATA_TYPE_MAX_LENGTH-1+1)+(KEY_MAX_LENGTH-1+1)+2;
+
+
+	/* Moving FD to the start of the file. */
+
+	fseek(fptr, 0, SEEK_SET);
+
+
+	/* Metadata updation in details.tosbit (largest attribute name length). */
+
+	for (int i=0; i<markQueue.n; i++)
+	{
+		/* Now using 'str' for different purpose, for shortening code length. */
+
+		memset(str, 0, sizeof(str));
+
+		strcpy(str,
+			valueQueue->getValue(valueQueue, argumentQueue->getIndex(argumentQueue, attributeQueue.getValue(&attributeQueue, i)))
+		);
+
+
+		/* Making changes in details.tosbit */
+
+		if (!strcmp(markQueue.getValue(&markQueue, i),"yes"))
+		{
+			if (strlen(str)!=atoi(largestValueQueue.getValue(&largestValueQueue, i)) && strlen(str)>=strlen(attributeQueue.getValue(&attributeQueue, i)))
+			{
+				fseek(fptr, rowLength-2, SEEK_CUR);
+				fputs(itoa((int)strlen(str), ascii), fptr);
+
+				if ((int)strlen(str)<10) {fputc(' ', fptr);}
+			}
+		}
+
+
+		/* Skipping whole details for the attribute if not requested for update. */
+
+		else {fseek(fptr, rowLength, SEEK_CUR);}
+
+
+		/* Skipping the '\n'/going to EOF. */
+
+		fseek(fptr, 1, SEEK_CUR);
+	}
+
+	
+
+
+	/* Closing FD safely for later use in modifying values. */
+
+	fclose(fptr);
+
+
+
+	/* Formatting directory to open details.tosbit */
+
+	clearEntity("directory");
+	snprintf(directory, sizeof(directory), "data/%s/%s/rows.tosbit", database, table);
+
+
+	/* Opening details.tosbit with NULL safety. */
+
+	fptr = fopen(directory, "r+");
+	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+
+	/* Returning if the table is empty. */
+
+	if (newFile(fptr)) {printf("STAT: Table \"%s\" is empty.", table);}
+
+
+	/* Traversing whole table data & modifying it. */
+
+	while (!reachedEOF(fptr))
+	{
+		/* Counting rows after each endline character. */
+
+		totalRows++;
+
+
+		for (int i=0; i<markQueue.n; i++)
+		{
+			/* If modification is required. */
+
+			if (!strcmp(markQueue.getValue(&markQueue, i),"yes"))
+			{
+				/* Now using 'str' for different purpose, for shortening code length. */
+
+				memset(str, 0, sizeof(str));
+
+				strcpy(str,
+					valueQueue->getValue(valueQueue, argumentQueue->getIndex(argumentQueue, attributeQueue.getValue(&attributeQueue, i)))
+				);
+
+
+				/* Writing the new value. */
+
+				fputs(str, fptr);
+
+
+				/* Writing spaces to file as per its data type (boolean or non-boolean). */
+
+				if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
+				{
+					for (int j=0; j<5-strlen(str); j++) {fputc(' ', fptr);}
+					fseek(fptr, 1, SEEK_CUR);
+				}
+				else
+				{
+					for (int j=0; j<(ATTRIBUTE_MAX_LENGTH-1)-strlen(str); j++) {fputc(' ', fptr);}
+					fseek(fptr, 1, SEEK_CUR);
+				}
+			}
+
+
+
+			/* If modification isn't required (attribute wasn't requested). */
+
+			else if (!strcmp(markQueue.getValue(&markQueue, i),"no"))
+			{
+				if (!strcmp(dataTypeQueue.getValue(&dataTypeQueue, i),"bool"))
+					{fseek(fptr, 5+1, SEEK_CUR);}
+
+				else {fseek(fptr, (ATTRIBUTE_MAX_LENGTH-1)+1, SEEK_CUR);}
+			}
+		}
+	}
+
+
+
+	/* Clearing all the local queues (of this function). */
+
+	attributeQueue.clear(&attributeQueue);
+	dataTypeQueue.clear(&dataTypeQueue);
+	keyQueue.clear(&keyQueue);
+	largestValueQueue.clear(&largestValueQueue);
+
+
+	/* Safely closing file. */
+
+	fclose(fptr); // APPLY CRITICAL WRITES & RESIZING CONSOLE-TABLES TOO...
+
+
+	/* Acknowledging users about update in query. */
+
+	printf("OK: Total %d rows updated!", totalRows);
 }

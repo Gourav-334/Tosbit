@@ -11,12 +11,12 @@
 
 /* Constant (must not change) macros */
 
-#define USERNAME_MIN_SIZE 3
+#define USERNAME_MIN_SIZE 4
 #define USERNAME_MAX_SIZE 33
 
 #define BUFFER_SIZE 133
 
-#define PASSWORD_MIN_SIZE 6
+#define PASSWORD_MIN_SIZE 7
 #define PASSWORD_MAX_SIZE 33
 
 #define TRUE 1
@@ -30,6 +30,7 @@
 
 #include <stdlib.h>
 #include "encrypter.h"
+#include "utility_box.h"
 
 
 
@@ -43,12 +44,10 @@
 /* Variables */
 
 extern char username[USERNAME_MAX_SIZE];
+extern char codedUsername[MAX_ENCRYPTED_SIZE];
 extern char password[PASSWORD_MAX_SIZE];
-extern char re_password[PASSWORD_MAX_SIZE];
-extern char buff[BUFFER_SIZE];
-
-extern int functionID;
-extern int exit_status;
+extern char codedPassword[MAX_ENCRYPTED_SIZE];
+extern char codedUsername[MAX_ENCRYPTED_SIZE];
 
 extern FILE *file;
 
@@ -62,7 +61,7 @@ extern FILE *file;
 
 /* Functions */
 
-extern void profileManager();
+extern int profileManager();
 
 
 
