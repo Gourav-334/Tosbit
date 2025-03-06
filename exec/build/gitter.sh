@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Client-side prototype completed."
+git commit -m "Screw the tester. Worst kind of bugs without any explanations. (Reason for my BP)"
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

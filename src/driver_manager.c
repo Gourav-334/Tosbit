@@ -61,7 +61,7 @@ void setConnection(char *hostIP, char username[], char password[])
 /* Interprets a passed command. */
 
 void interpret(char *user_cmd)
-{
-	if (strlen(hostName)==0 || strlen(hostPassword)==0) {printf("ERROR: No host connected!\n");}
-	else {syntaxParser(hostName, user_cmd);}
+{syntaxParser(hostName, user_cmd);/////////////////////////////////////////////////////////
+	// if (strlen(hostName)==0 || strlen(hostPassword)==0) {printf("ERROR: No host connected!\n");}
+	// else {syntaxParser(hostName, user_cmd);}
 }
