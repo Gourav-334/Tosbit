@@ -38,8 +38,7 @@ void setConnection(char *hostIP, char username[], char password[])
 
 	/* Checking if the username exists. */
 
-	snprintf(directory, sizeof(directory), "users/%s.tosbit", username);
-	fd = fopen(directory, "r");
+	fd = fopen("users/user.tosbit", "r");
 
 	if (fd==NULL) {printf("ERROR: No host named %s found!\n", username); return;}
 	else {strcpy(hostName,username); printf("STAT: Checking password for host %s...\n", hostName);}

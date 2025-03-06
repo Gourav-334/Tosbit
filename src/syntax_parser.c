@@ -57,7 +57,7 @@ void syntaxParser(char username[], char *user_cmd)
 		/* Filtering illegal characters. */
 
 		if (illegalChars(command, "\"[]")==TRUE)
-			{printf("ERROR: Please don't use \", [ or ]"); continue;}
+			{printf("ERROR: Please don't use \", [ or ]\n\n"); continue;}
 
 
 

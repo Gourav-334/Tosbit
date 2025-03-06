@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Strong modifications going on in profile manager."
+git commit -m "Client-side prototype completed."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main

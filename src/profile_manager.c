@@ -3,30 +3,6 @@
 
 
 #include "../include/profile_manager.h"
-#include "../include/utility_box.h"
-
-
-
-
-
-
-
-
-
-
-/*
-
-Total continuation points: 2
-
-
-functionIDs:
-
-Check account = 1
-Create account = 2
-Set password = 3
-Welcome note = 4
-
-*/
 
 
 
@@ -40,12 +16,10 @@ Welcome note = 4
 /* Variables */
 
 char username[USERNAME_MAX_SIZE] = {0};
+char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
 char password[PASSWORD_MAX_SIZE] = {0};
+char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
 char re_password[PASSWORD_MAX_SIZE] = {0};
-char buff[BUFFER_SIZE] = {0};
-
-int functionID = 1;
-int exit_status = FALSE;
 
 FILE *file = NULL;
 
@@ -65,7 +39,6 @@ int profileManager()
 	/* Declarations */
 
 	char c;
-	int success;
 
 
 	/* Opening 'users.tosbit' with NULL safety. */
@@ -73,50 +46,88 @@ int profileManager()
 	file = fopen("users/user.tosbit", "r+");
 
 
+
 	/* If 'user.tosbit' wasn't found. */
 
 	if (file==NULL)
 	{
 		printf("WARN: Your Tosbit pacakge wasn't probably downloaded/installed properly.\n");
-		printf("WARN: Some files are missing from the source directory, make sure nothing was misplaced.\n\n");
+		printf("WARN: Some files are missing from the source directory, make sure nothing was misplaced.\n");
+
+
+		/* Creating the missing file. */
 
 		file = fopen("users/user.tosbit", "w");
+		printf("WARN: A change is applied, please restart the engine.\n");
+
+
+		return FALSE;
 	}
+
 
 
 	/* If 'user.tosbit' exists, but its empty inside. */
 
 	if (file!=NULL && reachedEOF(file))
 	{
+		/* Sign-up for new user. */
+
 		printf("Enter new username: "); fgets(username, sizeof(username), stdin); newline_remover(username);
+
+		if (strlen(username)<(USERNAME_MIN_SIZE-1))
+			{printf("ERROR: The username must be at least %d characters long!\n", USERNAME_MIN_SIZE-1); return FALSE;}
+
+		else if (strlen(username)>(USERNAME_MAX_SIZE-1))
+			{printf("ERROR: The password must be at least %d characters long!\n", USERNAME_MAX_SIZE-1); return FALSE;}
+
+
+		/* Continuing with password. */
+
 		printf("Enter password: "); fgets(password, sizeof(password), stdin); newline_remover(password);
+
+		if (strlen(password)<(PASSWORD_MIN_SIZE-1))
+			{printf("ERROR: The password must be at least %d characters long!\n", PASSWORD_MIN_SIZE-1); return FALSE;}
+
+		else if (strlen(password)>=(PASSWORD_MAX_SIZE-1))
+			{printf("ERROR: The password must be at least %d characters long!\n", PASSWORD_MAX_SIZE-1); return FALSE;}
+
 		printf("Re-enter password: "); fgets(re_password, sizeof(re_password), stdin); newline_remover(re_password);
 
-		if (strcmp(password,re_password)) {printf("ERROR: Your passwords don't match, please restart the engine.\n"); success = FALSE;}
+
+		/* Matching passwords. */
+
+		if (strcmp(password,re_password)) {printf("ERROR: Your passwords don't match, please restart the engine.\n"); return FALSE;}
 		else if (!strcmp(password,re_password))
 		{
 			fputs(encrypt(username), file); fputc('\n', file); 
 			memset(encrypt(username), 0, sizeof(encrypt(username))); fputs(encrypt(password), file);
 
 			printf("Hi %s!\n\n", username);
-
-			success = TRUE;
 		}
 	}
+
 
 
 	/* If user profile has already been made. */
 
 	else if (file!=NULL && !reachedEOF(file))
 	{
-		c = fgetc(file);
-		while (c!='\n') {username[strlen(username)] = c; c = fgetc(file);}
+		/* Storing the encrypted username. */
 
-		fgets(buff, sizeof(buff), file); strcpy(re_password, decrypt(buff)); newline_remover(re_password);
+		c = fgetc(file);
+		while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(file);}
+
+
+		/* Storing remaining bytes (encrypted password). */
+
+		fgets(codedPassword, sizeof(codedPassword), file); strcpy(re_password, decrypt(codedPassword)); newline_remover(re_password);
 		printf("Enter password: "); fgets(password, sizeof(password), stdin); newline_remover(password);
-printf("username: %s, password: %s\n", decrypt(username), password);
-		if (strcmp(password,re_password)) {printf("ERROR: What you entered doesn't match the password!\n"); success = FALSE;}
-		else if (!strcmp(password,re_password)) {printf("\n*** Tosbit v0.1.0-beta ***\n"); printf("Welcome back %s!\n\n", decrypt(username)); success = TRUE;}
+
+
+		/* Greeting users or exiting program for wrong credentials. */
+
+		if (strcmp(password,re_password)) {printf("ERROR: What you entered doesn't match the password!\n"); return FALSE;}
+		else if (!strcmp(password,re_password)) {printf("\n***** Tosbit v0.1.0-beta *****\n\n"); printf("Welcome back %s!\n\n", decrypt(codedUsername));}
 	}
 
 
@@ -126,9 +137,9 @@ printf("username: %s, password: %s\n", decrypt(username), password);
 	fclose(file);
 
 
-	/* Returning success status. */
+	/* Returning TRUE if it makes to the end of the function (success in login/sign-up). */
 
-	return success;
+	return TRUE;
 }
 
 
