@@ -50,7 +50,13 @@ int main(int argc, char **argv[])
 	// }
 
 	interpret("open db mydb");
-	interpret("update tester.(name=DipayanD)");
+	interpret("update tester.(name=Gourav)");
+	interpret("show tester.(@)");
+	interpret("update tester.(name=  Gourav   )");
+	interpret("show tester.(@)");
+	interpret("update tester.(name=Gourav Ku)");
+	interpret("show tester.(@)");
+	interpret("update tester.(name=Dipayan D)");
 	interpret("show tester.(@)");
 
 

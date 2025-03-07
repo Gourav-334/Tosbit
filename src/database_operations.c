@@ -2416,10 +2416,11 @@ void allRows()
 ////////////////////////////////////////// * START * /////////////////////////////////////////////////
 				c = fgetc(fptr2);
 
+
 				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++)
 				{
 					stringSpaces = 0;
-					printf("\n(%c)\n", c);
+
 					while (c!=' ') {printf("%c", c); charsPrinted++; c = fgetc(fptr2); j++;}
 
 					while (c==' ' && j<atoi(sizeQueue.getValue(&sizeQueue, i)))
@@ -2429,8 +2430,11 @@ void allRows()
 
 						j++;
 					}
-//printf("FTELL: (%ld)\n", ftell(fptr2)); 
-					if (j<atoi(sizeQueue.getValue(&sizeQueue, i))) {charsPrinted += stringSpaces;}
+
+					if (j==atoi(sizeQueue.getValue(&sizeQueue, i)))
+					{
+						charsPrinted += stringSpaces;
+					}
 				}
 
 
@@ -2600,7 +2604,13 @@ void updateParser()
 		/* Queueing attribute or value at right state transition. */
 
 		if (prevState==1 && (state2==2 || state2==3)) {argumentQueue.queue(&argumentQueue, attribute);}
-		else if (prevState==4 && (state2==5 || state2==0)) {valueQueue.queue(&valueQueue, value);}
+		else if (prevState==4 && (state2==5 || state2==0))
+		{
+			memset(pureValue, 0, sizeof(pureValue));
+
+			spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+			valueQueue.queue(&valueQueue, pureValue);
+		}
 
 
 		/* Prematurely breaking from loop if DFA reaches dump state. */
@@ -2611,7 +2621,13 @@ void updateParser()
 
 	/* If last state was 4, queue the last value. */
 
-	if (state2==4) {valueQueue.queue(&valueQueue, value);}
+	if (state2==4)
+	{
+		memset(pureValue, 0, sizeof(pureValue));
+
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+		valueQueue.queue(&valueQueue, pureValue);
+	}
 
 
 

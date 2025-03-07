@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git add --all
-git commit -m "Screw the tester. Worst kind of bugs without any explanations. (Reason for my BP)"
+git commit -m "Probably at least half the issue solved, subtle bugs & minute detailing in approach."
 git pull origin gouravTest
 git push origin gouravTest
 git checkout main
