@@ -2422,7 +2422,6 @@ void allRows()
 					stringSpaces = 0;
 
 					while (c!=' ') {printf("%c", c); charsPrinted++; c = fgetc(fptr2); j++;}
-
 					while (c==' ' && j<atoi(sizeQueue.getValue(&sizeQueue, i)))
 					{
 						stringSpaces++;
@@ -2431,10 +2430,11 @@ void allRows()
 						j++;
 					}
 
-					if (j==atoi(sizeQueue.getValue(&sizeQueue, i)))
-					{
-						charsPrinted += stringSpaces;
-					}
+					if (c==atoi(sizeQueue.getValue(&sizeQueue, i))) {charsPrinted += stringSpaces;}
+					else if (j==atoi(sizeQueue.getValue(&sizeQueue, i))-1) {printf("%c", c); charsPrinted++;}
+
+					// if (c!=' ') {charsPrinted += stringSpaces;}
+					// if (j<atoi(sizeQueue.getValue(&sizeQueue, i)))
 				}
 
 
