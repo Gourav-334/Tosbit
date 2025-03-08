@@ -29,7 +29,7 @@ int main(int argc, char **argv[])
 
 		/* Asking user for connecting to certain server. */
 
-		printf("Do you want to access an external server? (y/n): "); decision = getchar();
+		printf("Do you want to access an external server? (y/n): "); scanf("%c", &decision);
 
 
 		if (decision=='y'||decision=='Y')

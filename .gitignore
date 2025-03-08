@@ -1,4 +1,4 @@
 docs/represent/Comminuted Encryption.md
-#docs/algo/Encrypter.md
-#include/encrypter.h
-#src/encrypter.c
+docs/algo/Encrypter.md
+include/encrypter.h
+src/encrypter.c

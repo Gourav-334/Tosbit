@@ -2136,7 +2136,7 @@ void allRows()
 	int largestAttributeN = 0;
 	int charsPrinted = 0, charsRead = 0;
 	int rowLength = 0, rowCount = 0;
-	int sizeCounter = 0;
+	int sizeCounter = 0, stringSpaces = 0;
 
 
 	/* Queue structure to handle data type of each table attribute. */
@@ -2413,18 +2413,37 @@ void allRows()
 			else
 			{
 				/* Printing attribute's value to screen. */
-
+////////////////////////////////////////// * START * /////////////////////////////////////////////////
 				c = fgetc(fptr2);
-				while (c!=' ' && c!=',') {printf("%c", c); charsPrinted++; c = fgetc(fptr2);}
-
-				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i))-charsPrinted; j++) {printf(" ");}
 
 
-				/* Skipping remaining spaces with comma or endline character. */
+				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++)
+				{
+					stringSpaces = 0;
+
+					while (c!=' ') {printf("%c", c); charsPrinted++; c = fgetc(fptr2); j++;}
+					while (c==' ' && j<atoi(sizeQueue.getValue(&sizeQueue, i)))
+					{
+						stringSpaces++;
+						printf(" "); c = fgetc(fptr2);
+
+						j++;
+					}
+
+					if (c==atoi(sizeQueue.getValue(&sizeQueue, i))) {charsPrinted += stringSpaces;}
+					else if (j==atoi(sizeQueue.getValue(&sizeQueue, i))-1) {printf("%c", c); charsPrinted++;}
+
+					// if (c!=' ') {charsPrinted += stringSpaces;}
+					// if (j<atoi(sizeQueue.getValue(&sizeQueue, i)))
+				}
+
+
+
+				/* Skipping remaining spaces along with comma or endline character. */
 				
-				fseek(fptr2, (VALUE_MAX_LENGTH-1)-charsPrinted+1-1, SEEK_CUR);
+				fseek(fptr2, (VALUE_MAX_LENGTH-1)-atoi(sizeQueue.getValue(&sizeQueue, i))+1-1, SEEK_CUR);
 			}
-
+///////////////////////////////////////// * END * ////////////////////////////////////////////////////
 
 			/* Storing the largest encountered attribute length. */
 
@@ -2475,8 +2494,8 @@ void allRows()
 		{
 			fputs(attributeSizeNQueue.getValue(&attributeSizeNQueue, i), fptr);
 
-			if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<10) {fseek(fptr, 2, SEEK_CUR);}
-			else if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))>=10) {fseek(fptr, 1, SEEK_CUR);}
+			if (atoi(attributeSizeNQueue.getValue(&attributeSizeNQueue, i))<10) {fputc(' ', fptr);}
+			fseek(fptr, 1, SEEK_CUR);
 		}
 		else {fseek(fptr, 3, SEEK_CUR);}
 	}
@@ -2577,15 +2596,21 @@ void updateParser()
 			case 1: changeState(buffer[i], " =", "2,3", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 8, &brk2); break;
 			case 2: changeState(buffer[i], " =", "2,3", &state2, 6); breakValue(&state, 6, &brk); break;
 			case 3: clearEntity("value"); changeState(buffer[i], " ", "3", &state2, 4); appendState(&state2, 4, value, buffer[i]); break;
-			case 4: changeState(buffer[i], " ,", "5,0", &state2, 4); appendState(&state2, 4, value, buffer[i]); limitChecker(value, (VALUE_MAX_LENGTH-1), &state2, 9, &brk2); break;
-			case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state, 7, &brk); break;
+			case 4: changeState(buffer[i], ",", "0", &state2, 4); appendState(&state2, 4, value, buffer[i]); limitChecker(value, (VALUE_MAX_LENGTH-1), &state2, 9, &brk2); break;
+			//case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state, 7, &brk); break;
 		}
 
 
 		/* Queueing attribute or value at right state transition. */
 
 		if (prevState==1 && (state2==2 || state2==3)) {argumentQueue.queue(&argumentQueue, attribute);}
-		else if (prevState==4 && (state2==5 || state2==0)) {valueQueue.queue(&valueQueue, value);}
+		else if (prevState==4 && (state2==5 || state2==0))
+		{
+			memset(pureValue, 0, sizeof(pureValue));
+
+			spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+			valueQueue.queue(&valueQueue, pureValue);
+		}
 
 
 		/* Prematurely breaking from loop if DFA reaches dump state. */
@@ -2596,7 +2621,13 @@ void updateParser()
 
 	/* If last state was 4, queue the last value. */
 
-	if (state2==4) {valueQueue.queue(&valueQueue, value);}
+	if (state2==4)
+	{
+		memset(pureValue, 0, sizeof(pureValue));
+
+		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
+		valueQueue.queue(&valueQueue, pureValue);
+	}
 
 
 
@@ -2609,7 +2640,7 @@ void updateParser()
 		case 2: printf("ERROR: Please define value to update attribute with."); break;
 		case 3: printf("ERROR: Please define value to update attribute with."); break;
 		case 4: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
-		case 5: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
+		//case 5: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
 		case 6: printf("ERROR: Check for missing assignment operator!"); break;
 		case 7: printf("ERROR: A comma is expected after each assignment!"); break;
 		case 8: printf("ERROR: Attribute length limit exceeded!"); break;
