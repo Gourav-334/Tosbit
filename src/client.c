@@ -93,7 +93,7 @@ static void handle_server_response(void)
         /* Read data from the server into the read buffer at the current position. */
         
         ssize_t bytes_read = read(
-            client_socket, 
+            client_socket,
             buffer.read_buffer + buffer.read_pos,
             BUFFER_SIZE - buffer.read_pos
         );
@@ -115,6 +115,7 @@ static void handle_server_response(void)
         {
             printf("Server disconnected\n");
             running = 0;
+
             return;
         }
 
@@ -331,8 +332,8 @@ void cleanup_client(void) {close(client_socket); close(epoll_fd);}
 
 
 
-int main(int argc, char *argv[]) {
-    
+int main(int argc, char *argv[])
+{
     if (argc != 2)
     {
         printf("Usage: %s <server_ip>\n", argv[0]);

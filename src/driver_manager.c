@@ -28,11 +28,9 @@ char hostPassword[HOSTPASSWORD_MAX_LENGTH] = {0};
 
 void setConnection(char *hostIP, char username[], char password[])
 {
-	FILE *fd;
+	/* Declarations */
 
-
-
-	// hostIP part will be added soon with sockets.
+	FILE *fd;	
 
 
 
@@ -40,8 +38,11 @@ void setConnection(char *hostIP, char username[], char password[])
 
 	fd = fopen("users/user.tosbit", "r");
 
-	if (fd==NULL) {printf("ERROR: No host named %s found!\n", username); return;}
-	else {strcpy(hostName,username); printf("STAT: Checking password for host %s...\n", hostName);}
+	if (fd==NULL) {printf("ERROR: Can't find user credential file!\n", username); return;}
+	else
+	{
+		printf("STAT: Checking password for host \"%s\"...\n", hostName);
+	}
 
 
 
@@ -52,6 +53,10 @@ void setConnection(char *hostIP, char username[], char password[])
 
 	if (strcmp(password,buffer)) {printf("ERROR: Host %s's password doesn't match!\n", hostName); return;}
 	else if (!strcmp(password,buffer)) {strcpy(hostPassword,password); printf("OK: Connected to host %s successfully!\n\n", hostName);}
+
+
+
+	/* Connecting to host's IP address. */
 }
 
 

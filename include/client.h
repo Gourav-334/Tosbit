@@ -15,6 +15,9 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#include "syntax_parser.h"
+#include "encrypter.h"
+
 
 
 #define SERVER_PORT 8080

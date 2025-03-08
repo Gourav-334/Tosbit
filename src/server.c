@@ -123,7 +123,7 @@ static client_t* add_client(int client_socket, struct sockaddr_in addr)
 
 /* Till now we saw the pointer is is been now waiting for new client but he was not able to find one so lets explore. */
 
-/* Function to remove a client */
+/* Function to remove a client. */
 
 static void remove_client(client_t* client)
 {
@@ -248,7 +248,7 @@ static void handle_new_connection(int server_socket)
 /* Function to handle client data - This will be provided by Tosbit. */
 
 static void handle_client_data(client_t* client)
-{    
+{
     while (1)
     {
         /*
@@ -402,7 +402,7 @@ int start_socket_server(int port, void(*client_handler)(client_t*))
             if (errno == EINTR) {continue;}
             perror("epoll_wait"); break;
         }
-        
+
 
         /* Loop through each triggered event. */
 
@@ -458,5 +458,32 @@ void cleanup_server(void)
 
 int main(void)
 {
+    /* Declarations */
+
+    char c;
+    char password[MAX_ENCRYPTED_SIZE] = {0};
+
+
+
+    /* Setting up file pointer to user.tosbit */
+
+    FILE *fptr = fopen("users/user.tosbit", "r");
+    if (fptr==NULL) {printf("ERROR: File with server credentials not found!\n\n"); return EXIT_FAILURE;}
+
+
+    /* Fetch the password on local file-system. */
+
+    c = fgetc(fptr);
+    while (c!='\n') {password[strlen(password)] = c; fgetc(fptr);}
+
+
+    /* Close the file pointer safely. */
+
+    fclose(fptr);
+
+
+
+    /* Runs the server on loop. */
+
     return start_socket_server(PORT, handle_client_data);
 }
