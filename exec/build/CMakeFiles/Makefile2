@@ -63,7 +63,9 @@ CMAKE_BINARY_DIR = /home/gouraarav/myCodes/Tosbit/exec/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/program.dir/all
+all: CMakeFiles/engine.dir/all
+all: CMakeFiles/client.dir/all
+all: CMakeFiles/server.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +73,88 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/program.dir/clean
+clean: CMakeFiles/engine.dir/clean
+clean: CMakeFiles/client.dir/clean
+clean: CMakeFiles/server.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/program.dir
+# Target rules for target CMakeFiles/engine.dir
 
 # All Build rule for target.
-CMakeFiles/program.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target program"
-.PHONY : CMakeFiles/program.dir/all
+CMakeFiles/engine.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=3,4,5,6,7,8,9,10,11,12,13 "Built target engine"
+.PHONY : CMakeFiles/engine.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/program.dir/rule: cmake_check_build_system
+CMakeFiles/engine.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles 11
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/program.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/engine.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles 0
-.PHONY : CMakeFiles/program.dir/rule
+.PHONY : CMakeFiles/engine.dir/rule
 
 # Convenience name for target.
-program: CMakeFiles/program.dir/rule
-.PHONY : program
+engine: CMakeFiles/engine.dir/rule
+.PHONY : engine
 
 # clean rule for target.
-CMakeFiles/program.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/clean
-.PHONY : CMakeFiles/program.dir/clean
+CMakeFiles/engine.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/clean
+.PHONY : CMakeFiles/engine.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/client.dir
+
+# All Build rule for target.
+CMakeFiles/client.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=1,2 "Built target client"
+.PHONY : CMakeFiles/client.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/client.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/client.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles 0
+.PHONY : CMakeFiles/client.dir/rule
+
+# Convenience name for target.
+client: CMakeFiles/client.dir/rule
+.PHONY : client
+
+# clean rule for target.
+CMakeFiles/client.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/clean
+.PHONY : CMakeFiles/client.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/server.dir
+
+# All Build rule for target.
+CMakeFiles/server.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=14,15 "Built target server"
+.PHONY : CMakeFiles/server.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles 0
+.PHONY : CMakeFiles/server.dir/rule
+
+# Convenience name for target.
+server: CMakeFiles/server.dir/rule
+.PHONY : server
+
+# clean rule for target.
+CMakeFiles/server.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/clean
+.PHONY : CMakeFiles/server.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

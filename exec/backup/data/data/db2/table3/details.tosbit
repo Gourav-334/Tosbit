@@ -1,0 +1,2 @@
+name                            ,string,unique ,5 
+age                             ,int   ,regular,4 

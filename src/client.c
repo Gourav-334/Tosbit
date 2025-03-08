@@ -32,20 +32,6 @@ static int set_nonblocking(int sockfd);     // Non-blocking mode.
 
 
 
-/* Structure to hold buffer for reading and writing data. */
-
-typedef struct
-{
-    char read_buffer[BUFFER_SIZE];          // Buffer for incoming data
-    size_t read_pos;                        // Position in the read buffer
-    char write_buffer[BUFFER_SIZE];         // Buffer for outgoing data
-    size_t write_pos;                       // Position in the write buffer
-} client_buffer_t;
-
-
-
-
-
 /* Initialize the buffer structure with zeros. */
 
 client_buffer_t buffer = {0};

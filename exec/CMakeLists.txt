@@ -16,10 +16,10 @@ add_executable(engine
 	../src/queue.c
 )
 
-add_executable(
+add_executable(client
 	../src/client.c
 )
 
-add_executable(
+add_executable(server
 	../src/server.c
 )

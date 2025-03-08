@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o -o server 

@@ -4,20 +4,6 @@
 
 
 
-/* Structure to hold client information. */
-
-typedef struct
-{
-    int socket;                     // It is client socket file descriptor.
-    struct sockaddr_in address;     // It contains client address information.
-    char buffer[BUFFER_SIZE];       // Buffer to store the received data.
-    size_t buffer_used;             // It specifies the size of the data currently present in the buffer.
-} client_t;
-
-
-
-
-
 /* Global variables. */
 
 client_t *clients[MAX_CLIENTS]; // It is the array to keep tracks of the connected clients.

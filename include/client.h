@@ -28,7 +28,8 @@
 
 /* Structure to hold buffer for reading and writing data. */
 
-typedef struct {
+typedef struct
+{
     char read_buffer[BUFFER_SIZE];      // Buffer for incoming data
     size_t read_pos;                    // Position in the read buffer
     char write_buffer[BUFFER_SIZE];     // Buffer for outgoing data
