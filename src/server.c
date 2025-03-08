@@ -1,22 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/types.h>
-#include <errno.h>
-#include <signal.h>
-#include <sys/epoll.h>
-#include <fcntl.h>
-
-
-
-#define PORT 8080
-#define BUFFER_SIZE 1024
-#define MAX_EVENTS 10
-#define MAX_CLIENTS 1024
+#include "../include/server.h"
 
 
 

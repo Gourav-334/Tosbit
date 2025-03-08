@@ -3,7 +3,7 @@ project(Tosbit C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
-add_executable(program
+add_executable(engine
 	../src/engine.c
 	../src/database_operations.c
 	../src/driver_manager.c
@@ -14,4 +14,12 @@ add_executable(program
 	../src/transition_tool.c
 	../src/utility_box.c
 	../src/queue.c
+)
+
+add_executable(
+	../src/client.c
+)
+
+add_executable(
+	../src/server.c
 )
