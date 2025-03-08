@@ -24,30 +24,30 @@ int epoll_fd;
 volatile int running = 1;
 
 
-void cleanup_client(void);
-void handle_signal(int sig);
-int start_socket_client(const char *ip_address, int port, void (*signal_handler)(int));
-static int set_nonblocking(int sockfd);
+void cleanup_client(void);//cleans up resources before existing
+void handle_signal(int sig);// handle termination signals
+int start_socket_client(const char *ip_address, int port, void (*signal_handler)(int));//starts the client socket
+static int set_nonblocking(int sockfd);//non blocking mode
 
-
+//structure to hold buffer for reading and writing data 
 typedef struct {
-    char read_buffer[BUFFER_SIZE];
-    size_t read_pos;
-    char write_buffer[BUFFER_SIZE];
-    size_t write_pos;
+    char read_buffer[BUFFER_SIZE];//buffer for incoming data
+    size_t read_pos;// position in the read buffer
+    char write_buffer[BUFFER_SIZE];//Buffer for outgoing data
+    size_t write_pos;//position in the write buffer
 } client_buffer_t;
-
+// Initialize the buffer structure with zeros
 client_buffer_t buffer = {0};
 
-
+// Function to set a socket to non-blocking mode
 static int set_nonblocking(int sockfd) {
-    int flags = fcntl(sockfd, F_GETFL, 0);
-    if (flags == -1) {
-        perror("fcntl F_GETFL");
+    int flags = fcntl(sockfd, F_GETFL, 0);// Get the current socket flags
+    if (flags == -1) {// Check for error
+        perror("fcntl F_GETFL");// Print error message
         return -1;
     }
-    if (fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {
-        perror("fcntl F_SETFL O_NONBLOCK");
+    if (fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {// Set the socket to non-blocking mode
+        perror("fcntl F_SETFL O_NONBLOCK");// Print error message
         return -1;
     }
     return 0;
@@ -59,12 +59,15 @@ void handle_signal(int sig) {
     running = 0;
 }
 
-
+//Function to handle server responses
 static void handle_server_response(void) {
     while (1) {
+         // Read data from the server into the read buffer at the current position
         ssize_t bytes_read = read(client_socket, 
                                 buffer.read_buffer + buffer.read_pos,
                                 BUFFER_SIZE - buffer.read_pos);
+
+        // If read operation fails                        
 
         if (bytes_read < 0) {
             if (errno == EAGAIN || errno == EWOULDBLOCK) {
@@ -80,10 +83,10 @@ static void handle_server_response(void) {
             running = 0;
             return;
         }
-
+        // Update the read position in the buffer
         buffer.read_pos += bytes_read;
         
-        
+         // Pointer to locate newline character ('\n') in received data
         char* newline;
         while ((newline = memchr(buffer.read_buffer, '\n', buffer.read_pos))) {
             size_t line_length = newline - buffer.read_buffer + 1;
@@ -93,19 +96,20 @@ static void handle_server_response(void) {
                 running = 0;
                 return;
             }
+             // Check if the full line was written successfully
             if ((size_t)bytes_written < line_length) {
                 fprintf(stderr, "Partial write occurred\n");
                 running = 0;
                 return;
             }
             
-            
+            // Shift the remaining data in the buffer to the beginning
             memmove(buffer.read_buffer, newline + 1, 
                     buffer.read_pos - line_length);
             buffer.read_pos -= line_length;
         }
 
-        
+        // If the buffer is full, write the whole buffer to output and clear it
         if (buffer.read_pos == BUFFER_SIZE) {
             ssize_t bytes_written = write(STDOUT_FILENO, buffer.read_buffer, buffer.read_pos);
             if (bytes_written < 0) {
@@ -164,17 +168,21 @@ static void handle_user_input(void) {
 
 
 int start_socket_client(const char *ip_address, int port, void (*signal_handler)(int)) {
+
+
+    // Copy the provided server IP address to the global variable `server_ip`
+    // Ensure null termination to prevent buffer overflow
     
     strncpy(server_ip, ip_address, sizeof(server_ip) - 1);
     server_ip[sizeof(server_ip) - 1] = '\0';
 
-    
+    // Register the provided signal handler function for SIGINT (Ctrl+C) and SIGTERM (termination signal)   
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
-
+    // Declare a structure to store server address details
     struct sockaddr_in server_addr;
 
-    
+    // Create a TCP socket (IPv4, Stream-Oriented)
     client_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (client_socket < 0) {
         perror("Socket creation failed");
@@ -187,18 +195,18 @@ int start_socket_client(const char *ip_address, int port, void (*signal_handler)
         return -1;
     }
 
-    
+      // Initialize the server address structure to zero
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(port);
     
-    
+      // Convert IP address from text format to binary format and store it in the address structure
     if (inet_pton(AF_INET, ip_address, &server_addr.sin_addr) <= 0) {
         perror("Invalid server IP address");
         return -1;
     }
 
-   
+    // Attempt to connect to the server
     if (connect(client_socket, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         if (errno != EINPROGRESS) {
             perror("Connection failed");
@@ -208,14 +216,14 @@ int start_socket_client(const char *ip_address, int port, void (*signal_handler)
 
     printf("Connected to server at %s:%d\n", ip_address, port);
 
-   
+    // Create an epoll instance for monitoring multiple events
     epoll_fd = epoll_create1(0);
     if (epoll_fd < 0) {
         perror("epoll_create1");
         return -1;
     }
 
-    
+    // Configure epoll to monitor the client socket for incoming data
     struct epoll_event ev;
     ev.events = EPOLLIN | EPOLLET;  
     ev.data.fd = client_socket;

@@ -329,9 +329,6 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_F-ZgTozwiScLtCvDwMv-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="_F-ZgTozwiScLtCvDwMv-13" target="_F-ZgTozwiScLtCvDwMv-15" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="_F-ZgTozwiScLtCvDwMv-25" value="," style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="_F-ZgTozwiScLtCvDwMv-13" target="_F-ZgTozwiScLtCvDwMv-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
@@ -343,12 +340,6 @@
         <mxCell id="_F-ZgTozwiScLtCvDwMv-13" value="q4" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="720" y="80" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="_F-ZgTozwiScLtCvDwMv-24" value="," style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="_F-ZgTozwiScLtCvDwMv-15" target="_F-ZgTozwiScLtCvDwMv-1" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="_F-ZgTozwiScLtCvDwMv-15" value="q5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="720" y="240" width="80" height="80" as="geometry" />
-        </mxCell>
         <mxCell id="_F-ZgTozwiScLtCvDwMv-16" value="None" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="1" source="_F-ZgTozwiScLtCvDwMv-13" target="_F-ZgTozwiScLtCvDwMv-13" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
@@ -357,22 +348,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_F-ZgTozwiScLtCvDwMv-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" parent="1" source="_F-ZgTozwiScLtCvDwMv-15" target="_F-ZgTozwiScLtCvDwMv-15" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="788" y="250" />
-              <mxPoint x="820" y="250" />
-              <mxPoint x="820" y="308" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="EfzIpijv7Mu_dpKs1OyK-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;DUMP STATES&lt;/h1&gt;&lt;div&gt;q2: q6&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;q5: q7&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+        <mxCell id="EfzIpijv7Mu_dpKs1OyK-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;DUMP STATES&lt;/h1&gt;&lt;div&gt;q2: q6&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;q5: q7&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="180" y="380" width="180" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="EfzIpijv7Mu_dpKs1OyK-2" value="q5" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="725" y="245" width="70" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="EfzIpijv7Mu_dpKs1OyK-3" value="q4" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="EfzIpijv7Mu_dpKs1OyK-3" value="q4" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="725" y="85" width="70" height="70" as="geometry" />
         </mxCell>
       </root>
