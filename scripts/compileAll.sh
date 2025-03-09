@@ -27,5 +27,11 @@ gcc -g -c -I../include ../src/queue.c -o ../dist/queue.o
 echo "Compiling TEST (.C)"
 gcc -g -c -I../include ../test/test.c -o ../dist/test.o
 
+echo "Compiling CLIENT (.C)"
+gcc -g -c -I../include ../src/client.c -o ../dist/client.o
+
+echo "Compiling SERVER (.C)"
+gcc -g -c -I../include ../src/server.c -o ../dist/server.o
+
 
 echo "END OF COMPILATION"

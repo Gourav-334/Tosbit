@@ -1,5 +1,10 @@
 /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/engine.dir
+<<<<<<< HEAD
 /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/server.dir
 /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/client.dir
+=======
+/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/client.dir
+/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/server.dir
+>>>>>>> 0280440e53f28a2567c15ad2bb11eb97b521e304
 /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/edit_cache.dir
 /home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles/rebuild_cache.dir

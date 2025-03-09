@@ -16,6 +16,7 @@ add_executable(engine
 	../src/queue.c
 )
 
+<<<<<<< HEAD
 add_executable(server
 	../src/server.c
 )
@@ -23,3 +24,12 @@ add_executable(server
 add_executable(client
 	../src/client.c
 )
+=======
+add_executable(client
+	../src/client.c
+)
+
+add_executable(server
+	../src/server.c
+)
+>>>>>>> 0280440e53f28a2567c15ad2bb11eb97b521e304
