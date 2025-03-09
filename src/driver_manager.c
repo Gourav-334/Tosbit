@@ -38,7 +38,7 @@ void setConnection(char *hostIP, char username[], char password[])
 
 	fd = fopen("users/user.tosbit", "r");
 
-	if (fd==NULL) {printf("ERROR: Can't find user credential file!\n", username); return;}
+	if (fd==NULL) {printf("ERROR: Can't find user credential file!\n"); return;}
 	else
 	{
 		printf("STAT: Checking password for host \"%s\"...\n", hostName);

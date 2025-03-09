@@ -130,22 +130,6 @@ engine/fast:
 .PHONY : engine/fast
 
 #=============================================================================
-<<<<<<< HEAD
-# Target rules for targets named server
-
-# Build rule for target.
-server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server
-.PHONY : server
-
-# fast build rule for target.
-server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
-.PHONY : server/fast
-
-#=============================================================================
-=======
->>>>>>> 0280440e53f28a2567c15ad2bb11eb97b521e304
 # Target rules for targets named client
 
 # Build rule for target.
@@ -158,8 +142,6 @@ client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
 .PHONY : client/fast
 
-<<<<<<< HEAD
-=======
 #=============================================================================
 # Target rules for targets named server
 
@@ -173,7 +155,6 @@ server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
->>>>>>> 0280440e53f28a2567c15ad2bb11eb97b521e304
 home/gouraarav/myCodes/Tosbit/src/client.o: home/gouraarav/myCodes/Tosbit/src/client.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/client.o
 
