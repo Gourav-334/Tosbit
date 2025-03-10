@@ -24,7 +24,14 @@
 /* Function declarations. */
 
 extern void error(const char *msg);
-extern int runClient(char username[], char hostIP[], short unsigned int port, char hostUsername[], char hostPassword[]);
+extern void readMessage(int *sockFD, char *buffer, char message[]);
+extern int runClient(
+	char username[],
+	char hostIP[],
+	short unsigned int port,
+	char hostUsername[],
+	char hostPassword[]
+);
 
 
 

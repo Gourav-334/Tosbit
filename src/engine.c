@@ -24,7 +24,7 @@ int main(int argc, char **argv[])
 	{
 		/* Fetching the location. */
 
-		getLocation();
+		//getLocation();		// ON IT AFTER CONNECTION IS BACK!
 
 
 

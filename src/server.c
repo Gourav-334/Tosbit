@@ -14,7 +14,7 @@
 
 
 #define MAX_EVENTS 10
-#define ONLINE_BUFFER_SIZE 1025
+#define ONLINE_BUFFER_SIZE 512
 
 
 
@@ -39,6 +39,25 @@ void set_nonblocking(int sock)
 {
     int flags = fcntl(sock, F_GETFL, 0);
     fcntl(sock, F_SETFL, flags | O_NONBLOCK);
+}
+
+
+
+
+
+/* Reads messages until newline character appaears. */
+
+void readMessage(int *sockFD, char *buffer, char message[])
+{
+    int bytesInvolved;
+
+
+    memset(buffer, 0, sizeof(buffer));
+
+    do {
+        bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
+        if (bytesInvolved<=0) {printf("%s\n", message);}
+    } while (buffer[strlen(buffer)-1]!='\n');
 }
 
 
@@ -191,11 +210,7 @@ int main(int argc, char *argv[])
 
                 /* Receiving guestUsername. */
 
-                do {
-                    bytesInvolved = read(newsockFD, guestUsername+strlen(guestUsername), 1);
-                    if (bytesInvolved<=0) {printf("ERROR: Can't read sent guesUsername!\n");}
-                } while (guestUsername[strlen(guestUsername)-1]!='\n');
-
+                readMessage(&newsockFD, guestUsername, "ERROR: Can't read sent guestUsername!");
                 newline_remover(guestUsername);
                 printf("STAT: Guest username %s received.\n", guestUsername);
 
@@ -204,17 +219,14 @@ int main(int argc, char *argv[])
                     "OK: Local username received.\n",
                     strlen("OK: Local username received.\n")
                 );
+
                 if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
 
 
 
                 /* Receiving & verifying local username. */
 
-                do {
-                    bytesInvolved = read(newsockFD, buffer+strlen(buffer), 1);
-                    if (bytesInvolved<=0) {printf("ERROR: Can't read sent local username!\n");}
-                } while (buffer[strlen(buffer)-1]!='\n');
-
+                readMessage(&newsockFD, buffer, "ERROR: Can't read sent username!");
                 newline_remover(buffer);
                 printf("STAT: Host username %s received.\n", buffer);
 
@@ -225,24 +237,28 @@ int main(int argc, char *argv[])
                         "ERROR: Host username is incorrect!\n",
                         strlen("ERROR: Host username is incorrect!\n")
                     );
+
                     if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
 
                     printf("STAT: FD %d gave wrong username.\n", newsockFD);
                     close(newsockFD);
                 }
-                else {printf("STAT: FD %d entered right username.\n", newsockFD);}
+                else
+                {
+                    printf("STAT: FD %d entered right username.\n", newsockFD);
+
+                    bytesInvolved =  write(
+                        newsockFD,
+                        "OK: Server fetched the username.\n",
+                        strlen("OK: Server fetched the username.\n")
+                    );
+                }
 
 
 
                 /* Receiving & verifying local password. */
 
-                memset(buffer, 0, sizeof(buffer));
-
-                do {
-                    bytesInvolved = read(newsockFD, buffer+strlen(buffer), 1);
-                    if (bytesInvolved<=0) {printf("ERROR: Can't read sent local password!\n");}
-                } while (buffer[strlen(buffer)-1]!='\n');
-
+                readMessage(&newsockFD, buffer, "ERROR: Can't read sent password!");
                 newline_remover(buffer);
                 printf("STAT: Guest password %s received.\n", buffer);
 
@@ -253,12 +269,22 @@ int main(int argc, char *argv[])
                         "ERROR: Host password is incorrect!\n",
                         strlen("ERROR: Host password is incorrect!\n")
                     );
+
                     if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
 
                     printf("STAT: FD %d gave wrong password.\n", newsockFD);
                     close(newsockFD);
                 }
-                else {printf("STAT: FD %d entered right password.\n", newsockFD);}
+                else
+                {
+                    printf("STAT: FD %d entered right password.\n", newsockFD);
+
+                    bytesInvolved =  write(
+                        newsockFD,
+                        "OK: Server fetched the password.\n",
+                        strlen("OK: Server fetched the password.\n")
+                    );
+                }
             }
 
 
