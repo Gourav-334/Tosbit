@@ -130,19 +130,6 @@ engine/fast:
 .PHONY : engine/fast
 
 #=============================================================================
-# Target rules for targets named client
-
-# Build rule for target.
-client: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 client
-.PHONY : client
-
-# fast build rule for target.
-client/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
-.PHONY : client/fast
-
-#=============================================================================
 # Target rules for targets named server
 
 # Build rule for target.
@@ -160,7 +147,7 @@ home/gouraarav/myCodes/Tosbit/src/client.o: home/gouraarav/myCodes/Tosbit/src/cl
 
 # target to build an object file
 home/gouraarav/myCodes/Tosbit/src/client.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/home/gouraarav/myCodes/Tosbit/src/client.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/client.c.o
 
 home/gouraarav/myCodes/Tosbit/src/client.i: home/gouraarav/myCodes/Tosbit/src/client.c.i
@@ -168,7 +155,7 @@ home/gouraarav/myCodes/Tosbit/src/client.i: home/gouraarav/myCodes/Tosbit/src/cl
 
 # target to preprocess a source file
 home/gouraarav/myCodes/Tosbit/src/client.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/home/gouraarav/myCodes/Tosbit/src/client.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.i
 .PHONY : home/gouraarav/myCodes/Tosbit/src/client.c.i
 
 home/gouraarav/myCodes/Tosbit/src/client.s: home/gouraarav/myCodes/Tosbit/src/client.c.s
@@ -176,7 +163,7 @@ home/gouraarav/myCodes/Tosbit/src/client.s: home/gouraarav/myCodes/Tosbit/src/cl
 
 # target to generate assembly for a file
 home/gouraarav/myCodes/Tosbit/src/client.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/home/gouraarav/myCodes/Tosbit/src/client.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/client.c.s
 
 home/gouraarav/myCodes/Tosbit/src/database_operations.o: home/gouraarav/myCodes/Tosbit/src/database_operations.c.o
@@ -233,6 +220,7 @@ home/gouraarav/myCodes/Tosbit/src/encrypter.o: home/gouraarav/myCodes/Tosbit/src
 # target to build an object file
 home/gouraarav/myCodes/Tosbit/src/encrypter.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/encrypter.c.o
 
 home/gouraarav/myCodes/Tosbit/src/encrypter.i: home/gouraarav/myCodes/Tosbit/src/encrypter.c.i
@@ -241,6 +229,7 @@ home/gouraarav/myCodes/Tosbit/src/encrypter.i: home/gouraarav/myCodes/Tosbit/src
 # target to preprocess a source file
 home/gouraarav/myCodes/Tosbit/src/encrypter.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.i
 .PHONY : home/gouraarav/myCodes/Tosbit/src/encrypter.c.i
 
 home/gouraarav/myCodes/Tosbit/src/encrypter.s: home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
@@ -249,6 +238,7 @@ home/gouraarav/myCodes/Tosbit/src/encrypter.s: home/gouraarav/myCodes/Tosbit/src
 # target to generate assembly for a file
 home/gouraarav/myCodes/Tosbit/src/encrypter.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
 
 home/gouraarav/myCodes/Tosbit/src/engine.o: home/gouraarav/myCodes/Tosbit/src/engine.c.o
@@ -425,6 +415,7 @@ home/gouraarav/myCodes/Tosbit/src/utility_box.o: home/gouraarav/myCodes/Tosbit/s
 # target to build an object file
 home/gouraarav/myCodes/Tosbit/src/utility_box.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/utility_box.c.o
 
 home/gouraarav/myCodes/Tosbit/src/utility_box.i: home/gouraarav/myCodes/Tosbit/src/utility_box.c.i
@@ -433,6 +424,7 @@ home/gouraarav/myCodes/Tosbit/src/utility_box.i: home/gouraarav/myCodes/Tosbit/s
 # target to preprocess a source file
 home/gouraarav/myCodes/Tosbit/src/utility_box.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.i
 .PHONY : home/gouraarav/myCodes/Tosbit/src/utility_box.c.i
 
 home/gouraarav/myCodes/Tosbit/src/utility_box.s: home/gouraarav/myCodes/Tosbit/src/utility_box.c.s
@@ -441,6 +433,7 @@ home/gouraarav/myCodes/Tosbit/src/utility_box.s: home/gouraarav/myCodes/Tosbit/s
 # target to generate assembly for a file
 home/gouraarav/myCodes/Tosbit/src/utility_box.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.s
 .PHONY : home/gouraarav/myCodes/Tosbit/src/utility_box.c.s
 
 # Help Target
@@ -451,7 +444,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... client"
 	@echo "... engine"
 	@echo "... server"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/client.o"

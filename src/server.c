@@ -9,96 +9,232 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#include "../include/utility_box.h"
+#include "../include/encrypter.h"
+
+
 #define MAX_EVENTS 10
-#define BUFFER_SIZE 256
+#define ONLINE_BUFFER_SIZE 1025
 
-void error(const char *msg) {
-    perror(msg);
-    exit(1);
-}
 
-// Set socket to non-blocking mode
-void set_nonblocking(int sock) {
+
+
+
+
+
+
+
+
+/* Error handling function for 'print & exit'. */
+
+void error(const char *msg) {perror(msg); exit(1);}
+
+
+
+
+
+/* Set socket to non-blocking mode. */
+
+void set_nonblocking(int sock)
+{
     int flags = fcntl(sock, F_GETFL, 0);
     fcntl(sock, F_SETFL, flags | O_NONBLOCK);
 }
 
-int main(int argc, char *argv[]) {
-    int sockfd, newsockfd, portno, epoll_fd;
+
+
+
+
+/* The main window which keeps running. */
+
+int main(int argc, char *argv[])
+{
+    /* Variable declarations. */
+
+    FILE *fptr; char c;
+    char guestUsername[MAX_DECRYPTED_SIZE] = {0};
+    char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
+    char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
+
+    char buffer[ONLINE_BUFFER_SIZE];
+
+    int sockFD, newsockFD, portno, epollFD;
+
+
+    /* Structure declarations (including epoll() ones). */
+
     struct sockaddr_in serv_addr, cli_addr;
     socklen_t clilen;
     struct epoll_event event, events[MAX_EVENTS];
 
-    if (argc < 2) {
-        fprintf(stderr, "ERROR, no port provided\n");
-        exit(1);
-    }
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0)
-        error("ERROR opening socket");
 
-    set_nonblocking(sockfd);
+    /* Fetching password for host. */
 
-    bzero((char *)&serv_addr, sizeof(serv_addr));
+    fptr = fopen("users/user.tosbit", "r");
+
+    c = fgetc(fptr);
+    while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);}
+    while (!reachedEOF(fptr)) {codedPassword[strlen(codedPassword)] = c; c = fgetc(fptr);}
+    fclose(fptr);
+
+
+
+    /* Confirming details on terminal screen. */
+
+    printf("Username: %s\n", decrypt(codedUsername));
+    printf("Password: %s\n", decrypt(codedPassword));
+
+
+
+    /* Handling less than minimum arguments. */
+
+    if (argc < 2) {fprintf(stderr, "ERROR, no port provided\n"); exit(1);}
+
+
+    /* Establishing a socket with error handling. */
+
+    sockFD = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockFD < 0) {error("ERROR opening socket");}
+
+
+    /* Setting socket file descriptor to 'non-blocking'. */
+
+    set_nonblocking(sockFD);
+
+
+    /* Setting socket configurations. */
+
+    memset((char *)&serv_addr, 0, sizeof(serv_addr));
+
     portno = atoi(argv[1]);
+
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
     serv_addr.sin_port = htons(portno);
 
-    if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
-        error("ERROR on binding");
 
-    listen(sockfd, 5);
 
-    // Create epoll instance
-    epoll_fd = epoll_create1(0);
-    if (epoll_fd == -1)
-        error("ERROR creating epoll");
+    /* Binding socket to configured settings. */
 
-    // Add server socket to epoll
+    if (bind(sockFD, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+        {error("ERROR on binding");}
+
+
+    /* Listen for connections. */
+
+    listen(sockFD, 5);
+
+
+
+    /* Create epoll instance. */
+
+    epollFD = epoll_create1(0);
+    if (epollFD == -1) {error("ERROR creating epoll");}
+
+
+    /* Add server socket to epoll. */
+
     event.events = EPOLLIN;
-    event.data.fd = sockfd;
-    if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, sockfd, &event) == -1)
-        error("ERROR adding socket to epoll");
+    event.data.fd = sockFD;
+
+    if (epoll_ctl(epollFD, EPOLL_CTL_ADD, sockFD, &event) == -1)
+        {error("ERROR adding socket to epoll");}
 
     printf("Server listening on port %d...\n", portno);
 
-    while (1) {
-        int num_fds = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);
-        if (num_fds == -1)
-            error("ERROR in epoll_wait");
 
-        for (int i = 0; i < num_fds; i++) {
+
+
+
+    /* Main request-response loop. */
+
+    while (1)
+    {
+        /* Epoll file descriptor. */
+
+        int num_fds = epoll_wait(epollFD, events, MAX_EVENTS, -1);
+        if (num_fds == -1) {error("ERROR in epoll_wait");}
+
+
+        for (int i = 0; i < num_fds; i++)
+        {
             int fd = events[i].data.fd;
 
-            if (fd == sockfd) { // New incoming connection
+
+            /* Accepting a new incoming request. */
+
+            if (fd == sockFD)
+            {
                 clilen = sizeof(cli_addr);
-                newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
-                if (newsockfd == -1) {
-                    perror("ERROR on accept");
-                    continue;
+                newsockFD = accept(sockFD, (struct sockaddr *)&cli_addr, &clilen);
+
+                if (newsockFD == -1) {perror("ERROR on accept"); continue;}
+
+
+                /* Setting the new request to non-blocking too. */
+
+                set_nonblocking(newsockFD);
+
+                event.events = EPOLLIN | EPOLLET;   // Edge-triggered mode
+                event.data.fd = newsockFD;
+
+                if (epoll_ctl(epollFD, EPOLL_CTL_ADD, newsockFD, &event) == -1)
+                    {error("ERROR adding new client to epoll");}
+
+                printf("New client connected: FD %d\n", newsockFD);
+
+
+
+                /* Receiving guestUsername, username & password. */
+
+                read(fd, guestUsername, sizeof(guestUsername));
+                write(fd, "OK: Local username received.\n", strlen("OK: Local username received.\n"));
+                printf("STAT: Guest username received.\n");
+
+
+                read(fd, buffer, sizeof(buffer));
+                if (strcmp(buffer,decrypt(codedUsername)))
+                {
+                    write(fd, "ERROR: Host username is incorrect!\n", strlen("ERROR: Host username is incorrect!\n"));
+                    printf("STAT: FD %d gave wrong username.\n", newsockFD);
+                    close(fd);
                 }
+                else {printf("STAT: FD %d entered right username.\n", newsockFD);}
 
-                set_nonblocking(newsockfd);
-                event.events = EPOLLIN | EPOLLET; // Edge-triggered mode
-                event.data.fd = newsockfd;
 
-                if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, newsockfd, &event) == -1)
-                    error("ERROR adding new client to epoll");
+                read(fd, buffer, sizeof(buffer));
+                if (strcmp(buffer,decrypt(codedPassword)))
+                {
+                    write(fd, "ERROR: Host password is incorrect!\n", strlen("ERROR: Host password is incorrect!\n"));
+                    printf("STAT: FD %d gave wrong password.\n", newsockFD);
+                    close(fd);
+                }
+                else {printf("STAT: FD %d entered right password.\n", newsockFD);}
+            }
 
-                printf("New client connected: FD %d\n", newsockfd);
 
-            } else { // Existing client sent data
-                char buffer[BUFFER_SIZE];
-                bzero(buffer, BUFFER_SIZE);
-                int n = read(fd, buffer, BUFFER_SIZE - 1);
 
-                if (n <= 0) { // Client disconnected
+            /* Existing client sent data. */
+
+            else
+            {
+                char buffer[ONLINE_BUFFER_SIZE];
+                memset(buffer, 0, ONLINE_BUFFER_SIZE);
+
+                int n = read(fd, buffer, ONLINE_BUFFER_SIZE - 1);
+
+
+                /* Handling client disconnection. */
+
+                if (n <= 0)
+                {
                     printf("Client FD %d disconnected\n", fd);
                     close(fd);
-                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
-                } else {
+                    epoll_ctl(epollFD, EPOLL_CTL_DEL, fd, NULL);
+                }
+                else
+                {
                     printf("Received from client FD %d: %s\n", fd, buffer);
                     write(fd, "I got your message", 18);
                 }
@@ -106,7 +242,11 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    close(sockfd);
-    close(epoll_fd);
+
+
+    /* Closing the server's socket & epoll file descriptor. */
+
+    close(sockFD); close(epollFD);
+
     return 0;
 }

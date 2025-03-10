@@ -65,8 +65,8 @@ extern int state;							// Main automaton
 extern int state2;							// Used for "table attribute" & "data types"
 extern int zero_count;
 
-extern int brk;								// Set TRUE when the syntax goes wrong.
-extern int brk2;
+extern int breaker;							// Set TRUE when the syntax goes wrong.
+extern int breaker2;
 extern int valid;							// Syntax if found wrong, only then invalid.
 
 

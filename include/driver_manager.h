@@ -6,18 +6,20 @@
 
 
 
+#include <errno.h>
+
 #include "encrypter.h"
 #include "utility_box.h"
+#include "client.h"
+#include "syntax_parser.h"
 
 
 
 
 
-/* Variables */
+/* Declarations */
 
-extern char *hostIP;
-extern char hostName[HOSTNAME_MAX_LENGTH];
-extern char hostPassword[HOSTPASSWORD_MAX_LENGTH];
+extern int connected;
 
 
 
@@ -25,7 +27,13 @@ extern char hostPassword[HOSTPASSWORD_MAX_LENGTH];
 
 /* Functions */
 
-extern void setConnection(char *hostIP, char hostName[], char hostPassword[]);
+extern void setConnection(
+	char username[],
+	char hostIP[],
+	short unsigned int port,
+	char hostUsername[],
+	char hostPassword[]
+);
 extern void interpret(char *user_cmd);
 
 

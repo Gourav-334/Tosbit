@@ -40,9 +40,8 @@
 
 ### Macro-level:
 
-1. Server fetches password & stores it decrypted in as a variable.
-2. Driver verifies the username at local file-system.
-3. Immeditately when connection is established to server, client sends the password to server.
-4. Server verifies it as per its local file system.
-5. If the verification is successful, the connection is continued to exist, else disconnected.
-6. After connection is established successfully, server receives commands to buffers & executes them on local file-system.
+1. Server fetches its local username and password & stores it.
+2. Driver fetches its local username.
+3. Driver sends its username, hostIP, hostUsername & hostPassword to the host.
+4. Host checks if its username & password by client are correct.
+5. If any mismatch is found, connection request is rejected. Else accepted.

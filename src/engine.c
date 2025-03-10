@@ -4,6 +4,7 @@
 
 #include "../include/profile_manager.h"
 #include "../include/driver_manager.h"
+#include "../include/shell_piping.h"
 
 
 
@@ -35,7 +36,7 @@ int main(int argc, char **argv[])
 		if (decision=='y'||decision=='Y')
 		{
 			printf("STAT: Accessing server-side file system...\n\n");
-			setConnection("123.141.138.013", username, "tangible%troops88");
+			setConnection("Gourav", "Gouraarav", 8080, "Gourav", "tosbit_user");
 		}
 		else if (decision=='n'||decision=='N')
 		{

@@ -9,11 +9,9 @@
 
 
 
-/* Variables */
+/* Variable definitions. */
 
-char *hostIP = "@#$";
-char hostName[HOSTNAME_MAX_LENGTH] = {0};
-char hostPassword[HOSTPASSWORD_MAX_LENGTH] = {0};
+int connected = FALSE;
 
 
 
@@ -26,37 +24,42 @@ char hostPassword[HOSTPASSWORD_MAX_LENGTH] = {0};
 
 /* Connects to the database. */
 
-void setConnection(char *hostIP, char username[], char password[])
+void setConnection(char username[], char hostIP[], short unsigned int port, char hostUsername[], char hostPassword[])
 {
 	/* Declarations */
 
-	FILE *fd;	
+	FILE *fptr;
+	char c;
+	char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
 
 
 
 	/* Checking if the username exists. */
 
-	fd = fopen("users/user.tosbit", "r");
+	fptr = fopen("users/user.tosbit", "r");
 
-	if (fd==NULL) {printf("ERROR: Can't find user credential file!\n"); return;}
+
+	if (fptr==NULL) {printf("ERROR: Can't find user credential file!\n"); return;}
 	else
 	{
-		printf("STAT: Checking password for host \"%s\"...\n", hostName);
+		c = fgetc(fptr);
+		while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);} fclose(fptr);
+
+
+		/* Confirming details on terminal screen. */
+
+    	printf("Username: %s\n", decrypt(codedUsername));
+
+
+		if (!strcmp(username,decrypt(codedUsername)))
+		{
+			printf("STAT: Checking credentials for host %s...\n", hostUsername);
+			
+			if (runClient(username, hostIP, port, hostUsername, hostPassword)!=EXIT_FAILURE)
+				connected = TRUE;
+		}
+		else {printf("ERROR: Username doesn't match!\n"); return;}
 	}
-
-
-
-	/* Checking if password is right. */
-
-	fread(buffer, sizeof(char), sizeof(buffer), fd);
-	newline_remover(buffer);
-
-	if (strcmp(password,buffer)) {printf("ERROR: Host %s's password doesn't match!\n", hostName); return;}
-	else if (!strcmp(password,buffer)) {strcpy(hostPassword,password); printf("OK: Connected to host %s successfully!\n\n", hostName);}
-
-
-
-	/* Connecting to host's IP address. */
 }
 
 
@@ -66,7 +69,7 @@ void setConnection(char *hostIP, char username[], char password[])
 /* Interprets a passed command. */
 
 void interpret(char *user_cmd)
-{syntaxParser(hostName, user_cmd);/////////////////////////////////////////////////////////
-	// if (strlen(hostName)==0 || strlen(hostPassword)==0) {printf("ERROR: No host connected!\n");}
-	// else {syntaxParser(hostName, user_cmd);}
+{
+	if (connected==TRUE) {printf("Connected!\n");}
+	else if (connected==FALSE) {printf("Not connected!\n");}
 }

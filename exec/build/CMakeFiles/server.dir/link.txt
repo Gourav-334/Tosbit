@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o -o server 
+/usr/bin/cc CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o -o server 

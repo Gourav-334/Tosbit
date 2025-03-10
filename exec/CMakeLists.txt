@@ -5,10 +5,11 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 
 add_executable(engine
-	../src/engine.c
+	../src/client.c
 	../src/database_operations.c
 	../src/driver_manager.c
 	../src/encrypter.c
+	../src/engine.c
 	../src/profile_manager.c
 	../src/shell_piping.c
 	../src/syntax_parser.c
@@ -17,10 +18,8 @@ add_executable(engine
 	../src/queue.c
 )
 
-add_executable(client
-	../src/client.c
-)
-
 add_executable(server
+	../src/encrypter.c
 	../src/server.c
+	../src/utility_box.c
 )

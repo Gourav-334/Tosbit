@@ -42,8 +42,8 @@ int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
 int zero_count = 0;
 
-int brk = FALSE;							// Set TRUE when the syntax goes wrong.
-int brk2 = FALSE;
+int breaker = FALSE;							// Set TRUE when the syntax goes wrong.
+int breaker2 = FALSE;
 int valid = TRUE;							// Syntax if found wrong, only then invalid.
 
 
@@ -581,7 +581,7 @@ void checkDataType()
 {
 	/* Initializations */
 
-	int state3 = 0, brk3 = 0, error = FALSE;
+	int state3 = 0, breaker3 = 0, error = FALSE;
 
 
 
@@ -591,36 +591,36 @@ void checkDataType()
 	{
 		switch (state3)
 		{
-			case 0: changeState(dataType[i], "iIsSfFbBmM", "1,1,4,4,10,10,16,16,20,20", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 1: changeState(dataType[i], "nN", "2,2", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 2: changeState(dataType[i], "tT", "3,3", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 3: changeState(dataType[i], " ", "3", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 4: changeState(dataType[i], "tT", "5,5", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 5: changeState(dataType[i], "rR", "6,6", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 6: changeState(dataType[i], "iI", "7,7", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 7: changeState(dataType[i], "nN", "8,8", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 8: changeState(dataType[i], "gG", "9,9", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 9: changeState(dataType[i], " ", "9", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 10: changeState(dataType[i], "lL", "11,11", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 11: changeState(dataType[i], "oO", "12,12", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 12: changeState(dataType[i], "aA", "13,13", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 13: changeState(dataType[i], "tT", "14,14", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 14: changeState(dataType[i], " ", "14", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 16: changeState(dataType[i], "oO", "17,17", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 17: changeState(dataType[i], "oO", "18,18", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 18: changeState(dataType[i], "lL", "19,19", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 19: changeState(dataType[i], " ", "19", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 20: changeState(dataType[i], "eE", "21,21", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 21: changeState(dataType[i], "dD", "22,22", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 22: changeState(dataType[i], "iI", "23,23", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 23: changeState(dataType[i], "aA", "24,24", &state3, 25); breakValue(&state3, 25, &brk3); break;
-			case 24: changeState(dataType[i], " ", "24", &state3, 25); breakValue(&state3, 25, &brk3); break;
+			case 0: changeState(dataType[i], "iIsSfFbBmM", "1,1,4,4,10,10,16,16,20,20", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 1: changeState(dataType[i], "nN", "2,2", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 2: changeState(dataType[i], "tT", "3,3", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 3: changeState(dataType[i], " ", "3", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 4: changeState(dataType[i], "tT", "5,5", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 5: changeState(dataType[i], "rR", "6,6", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 6: changeState(dataType[i], "iI", "7,7", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 7: changeState(dataType[i], "nN", "8,8", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 8: changeState(dataType[i], "gG", "9,9", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 9: changeState(dataType[i], " ", "9", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 10: changeState(dataType[i], "lL", "11,11", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 11: changeState(dataType[i], "oO", "12,12", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 12: changeState(dataType[i], "aA", "13,13", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 13: changeState(dataType[i], "tT", "14,14", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 14: changeState(dataType[i], " ", "14", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 16: changeState(dataType[i], "oO", "17,17", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 17: changeState(dataType[i], "oO", "18,18", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 18: changeState(dataType[i], "lL", "19,19", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 19: changeState(dataType[i], " ", "19", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 20: changeState(dataType[i], "eE", "21,21", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 21: changeState(dataType[i], "dD", "22,22", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 22: changeState(dataType[i], "iI", "23,23", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 23: changeState(dataType[i], "aA", "24,24", &state3, 25); breakValue(&state3, 25, &breaker3); break;
+			case 24: changeState(dataType[i], " ", "24", &state3, 25); breakValue(&state3, 25, &breaker3); break;
 		}
 
 
 		/* Breaking from loop early if DFA reaches dump state (error). */
 
-		if (brk3==TRUE) {brk3 = FALSE; break;}
+		if (breaker3==TRUE) {breaker3 = FALSE; break;}
 	}
 
 
@@ -1453,15 +1453,15 @@ int typeParser()
 		{
 			switch (state2)
 			{
-				case 0: clearEntity("pureValue"); changeState(value[i], " 0123456789", "0,1,1,1,1,1,1,1,1,1,1", &state2, 3); breakValue(&state2, 3, &brk2); appendState(&state2, 1, pureValue, value[i]); break;
-				case 1: changeState(value[i], "0123456789 ", "1,1,1,1,1,1,1,1,1,1,2", &state2, 3); breakValue(&state2, 3, &brk2); appendState(&state2, 1, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 4, &brk2); break;
-				case 2: changeState(value[i], " ", "2", &state2, 3); breakValue(&state2, 3, &brk2); break;
+				case 0: clearEntity("pureValue"); changeState(value[i], " 0123456789", "0,1,1,1,1,1,1,1,1,1,1", &state2, 3); breakValue(&state2, 3, &breaker2); appendState(&state2, 1, pureValue, value[i]); break;
+				case 1: changeState(value[i], "0123456789 ", "1,1,1,1,1,1,1,1,1,1,2", &state2, 3); breakValue(&state2, 3, &breaker2); appendState(&state2, 1, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 4, &breaker2); break;
+				case 2: changeState(value[i], " ", "2", &state2, 3); breakValue(&state2, 3, &breaker2); break;
 			}
 
 
 			/* Breaking prematurely from parsing rest of 'value' if reaching dump state. */
 
-			if (brk2==TRUE) {brk2 = FALSE; break;}
+			if (breaker2==TRUE) {breaker2 = FALSE; break;}
 		}
 
 
@@ -1518,17 +1518,17 @@ int typeParser()
 		{
 			switch (state2)
 			{
-				case 0: clearEntity("pureValue"); changeState(value[i], " 0123456789", "0,1,1,1,1,1,1,1,1,1,1", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 1, pureValue, value[i]); break; // Debug this headache, man...
-				case 1: changeState(value[i], "0123456789.", "1,1,1,1,1,1,1,1,1,1,2", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 1, pureValue, value[i]); appendState(&state2, 2, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &brk2); break;
-				case 2: changeState(value[i], "0123456789", "3,3,3,3,3,3,3,3,3,3", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 3, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &brk2); break;
-				case 3: changeState(value[i], "0123456789", "3,3,3,3,3,3,3,3,3,3", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 3, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &brk2); break;
-				case 4: changeState(value[i], " ", "4", &state2, 5); breakValue(&state2, 5, &brk2); appendState(&state2, 1, pureValue, value[i]); break;
+				case 0: clearEntity("pureValue"); changeState(value[i], " 0123456789", "0,1,1,1,1,1,1,1,1,1,1", &state2, 5); breakValue(&state2, 5, &breaker2); appendState(&state2, 1, pureValue, value[i]); break; // Debug this headache, man...
+				case 1: changeState(value[i], "0123456789.", "1,1,1,1,1,1,1,1,1,1,2", &state2, 5); breakValue(&state2, 5, &breaker2); appendState(&state2, 1, pureValue, value[i]); appendState(&state2, 2, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &breaker2); break;
+				case 2: changeState(value[i], "0123456789", "3,3,3,3,3,3,3,3,3,3", &state2, 5); breakValue(&state2, 5, &breaker2); appendState(&state2, 3, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &breaker2); break;
+				case 3: changeState(value[i], "0123456789", "3,3,3,3,3,3,3,3,3,3", &state2, 5); breakValue(&state2, 5, &breaker2); appendState(&state2, 3, pureValue, value[i]); limitChecker(pureValue, (VALUE_MAX_LENGTH-1), &state2, 7, &breaker2); break;
+				case 4: changeState(value[i], " ", "4", &state2, 5); breakValue(&state2, 5, &breaker2); appendState(&state2, 1, pureValue, value[i]); break;
 			}
 
 
 			/* Breaking prematurely from parsing rest of 'value' if reaching dump state. */
 
-			if (brk2==TRUE) {brk2 = FALSE; break;}
+			if (breaker2==TRUE) {breaker2 = FALSE; break;}
 		}
 
 
@@ -1571,23 +1571,23 @@ int typeParser()
 		{
 			switch (state2)
 			{
-				case 0: clearEntity("pureValue"); changeState(value[i], " ft", "0,1,6", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 1, pureValue, value[i]); break;
-				case 1: changeState(value[i], "a", "2", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 2, pureValue, value[i]); break;
-				case 2: changeState(value[i], "l", "3", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 3, pureValue, value[i]); break;
-				case 3: changeState(value[i], "s", "4", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 4, pureValue, value[i]); break;
-				case 4: changeState(value[i], "e", "5", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 5, pureValue, value[i]); break;
-				case 5: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
-				case 6: changeState(value[i], "r", "7", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 7, pureValue, value[i]); break;
-				case 7: changeState(value[i], "u", "8", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 8, pureValue, value[i]); break;
-				case 8: changeState(value[i], "e", "9", &state2, 11); breakValue(&state2, 11, &brk2); appendState(&state2, 9, pureValue, value[i]); break;
-				case 9: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
-				case 10: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &brk2); break;
+				case 0: clearEntity("pureValue"); changeState(value[i], " ft", "0,1,6", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 1, pureValue, value[i]); break;
+				case 1: changeState(value[i], "a", "2", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 2, pureValue, value[i]); break;
+				case 2: changeState(value[i], "l", "3", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 3, pureValue, value[i]); break;
+				case 3: changeState(value[i], "s", "4", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 4, pureValue, value[i]); break;
+				case 4: changeState(value[i], "e", "5", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 5, pureValue, value[i]); break;
+				case 5: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &breaker2); break;
+				case 6: changeState(value[i], "r", "7", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 7, pureValue, value[i]); break;
+				case 7: changeState(value[i], "u", "8", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 8, pureValue, value[i]); break;
+				case 8: changeState(value[i], "e", "9", &state2, 11); breakValue(&state2, 11, &breaker2); appendState(&state2, 9, pureValue, value[i]); break;
+				case 9: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &breaker2); break;
+				case 10: changeState(value[i], " ", "10", &state2, 11); breakValue(&state2, 11, &breaker2); break;
 			}
 
 
 			/* Breaking prematurely from parsing rest of 'value' if reaching dump state. */
 
-			if (brk2==TRUE) {brk2 = FALSE; break;}
+			if (breaker2==TRUE) {breaker2 = FALSE; break;}
 		}
 
 
@@ -2077,16 +2077,16 @@ void selectionParser()
 		switch (state2)
 		{
 			case 0: clearEntity("attribute"); changeState(buffer[i], " @", "0,1", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); break;
-			case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &brk2); break;
-			case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 6, &brk2); break;
-			case 4: changeState(buffer[i], " ,", "4,5", &state2, 7); breakValue(&state2, 2, &brk2); break;
+			case 1: changeState(buffer[i], " ", "1", &state2, 2); breakValue(&state2, 2, &breaker2); break;
+			case 3: changeState(buffer[i], " ,", "4,5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 6, &breaker2); break;
+			case 4: changeState(buffer[i], " ,", "4,5", &state2, 7); breakValue(&state2, 2, &breaker2); break;
 			case 5: if (strlen(attribute)>0) {attributeQueue.queue(&attributeQueue, attribute);} clearEntity("attribute"); changeState(buffer[i], " ", "5", &state2, 3); appendState(&state2, 3, attribute, buffer[i]);break;
 		}
 
 
 		/* Prematurely breaking from loop if DFA reaches dump state. */
 
-		if (brk2==TRUE) {brk2 = FALSE; break;}
+		if (breaker2==TRUE) {breaker2 = FALSE; break;}
 	}
 
 	
@@ -2593,11 +2593,11 @@ void updateParser()
 		switch (state2)
 		{
 			case 0: clearEntity("attribute"); changeState(buffer[i], " ", "0", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); break;
-			case 1: changeState(buffer[i], " =", "2,3", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 8, &brk2); break;
-			case 2: changeState(buffer[i], " =", "2,3", &state2, 6); breakValue(&state, 6, &brk); break;
+			case 1: changeState(buffer[i], " =", "2,3", &state2, 1); appendState(&state2, 1, attribute, buffer[i]); limitChecker(attribute, (ATTRIBUTE_MAX_LENGTH-1), &state2, 8, &breaker2); break;
+			case 2: changeState(buffer[i], " =", "2,3", &state2, 6); breakValue(&state, 6, &breaker); break;
 			case 3: clearEntity("value"); changeState(buffer[i], " ", "3", &state2, 4); appendState(&state2, 4, value, buffer[i]); break;
-			case 4: changeState(buffer[i], ",", "0", &state2, 4); appendState(&state2, 4, value, buffer[i]); limitChecker(value, (VALUE_MAX_LENGTH-1), &state2, 9, &brk2); break;
-			//case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state, 7, &brk); break;
+			case 4: changeState(buffer[i], ",", "0", &state2, 4); appendState(&state2, 4, value, buffer[i]); limitChecker(value, (VALUE_MAX_LENGTH-1), &state2, 9, &breaker2); break;
+			//case 5: changeState(buffer[i], " ,", "5,0", &state2, 7); breakValue(&state, 7, &breaker); break;
 		}
 
 
@@ -2615,7 +2615,7 @@ void updateParser()
 
 		/* Prematurely breaking from loop if DFA reaches dump state. */
 
-		if (brk2==TRUE) {brk2 = FALSE; break;}
+		if (breaker2==TRUE) {breaker2 = FALSE; break;}
 	}
 
 
