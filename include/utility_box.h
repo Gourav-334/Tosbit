@@ -22,23 +22,19 @@ extern void strappend(char str[], char *addition);
 extern void constrappend(char str[], const char *addition);
 extern void charappend(char str[], char addition);
 extern void const_charappend(char str[], const char addition);
-
 extern void newline_remover(char str[]);
 extern void frontchar_remover(char str[]);
-
 extern void flush_stdin();
 extern void binary_print(char str[], int size);
 extern void str_shift(char str[], int start, int end, int direction, int steps);
-
 extern int illegalChars(char str[], char chars[]);
 extern int illegalChar(char character, char chars[]);
 extern int reachedEOF(FILE *fptr);
 extern int newFile(FILE *fptr);
 extern void spaceRemover(char str[], char result[], int size);
-
 extern void removeKeySymbol(char *attribute);
-
 extern char *itoa(int x, char *ascii);
+extern char *addTerminator(char *str);
 
 
 

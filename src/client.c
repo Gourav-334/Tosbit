@@ -68,10 +68,11 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 
 
 
-    /* Sending various initiation details to server. */
+    /* Sending various initiation details to server (username, hostUsername & hostPassword). */
 
     printf("Sending username: %s...\n", username);
     bytesInvolved = write(sockFD, username, strlen(username));
+    write(sockFD, "\n", 1);     // Delimiter indicator.
 
     if (bytesInvolved<=0) {printf("ERROR: Can't write username to socket!\n");}
     else {printf("OK: Username written to socket!\n");}
@@ -79,6 +80,7 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 
     printf("Sending hostName: %s...\n", hostUsername);
     bytesInvolved = write(sockFD, hostUsername, strlen(hostUsername));
+    write(sockFD, "\n", 1);     // Delimiter indicator.
 
     if (bytesInvolved<=0) {printf("ERROR: Can't write hostUsername to socket!\n");}
     else {printf("OK: hostUsername written to socket!\n");}
@@ -86,6 +88,7 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 
     printf("Sending hostPassword: %s...\n", hostPassword);
     bytesInvolved = write(sockFD, hostPassword, strlen(hostPassword));
+    write(sockFD, "\n", 1);     // Delimiter indicator.
 
     if (bytesInvolved<=0) {printf("ERROR: Can't write hostPassword to socket!\n");}
     else {printf("OK: hostPassword written to socket!\n");}
@@ -99,13 +102,14 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
         /* Clean buffer & send the message. */
 
         memset(onlineBuffer, 0, sizeof(onlineBuffer));
-        printf("Please enter the message: "); fgets(onlineBuffer,255,stdin); newline_remover(onlineBuffer);
+        printf("Please enter the message: "); printf("(%s)\n", onlineBuffer);
+        fgets(onlineBuffer, sizeof(onlineBuffer), stdin); newline_remover(onlineBuffer);
 
 
         /* Checking for empty commands/messages passed. */
 
         bytesInvolved = write(sockFD, onlineBuffer, strlen(onlineBuffer)-1);
-        if (bytesInvolved < 0) {error("ERROR writing to socket");}
+        if (bytesInvolved < 0) {continue;}
 
         memset(onlineBuffer, 0, sizeof(onlineBuffer));
 

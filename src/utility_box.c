@@ -15,7 +15,6 @@ void strappend(char str[], char *addition)
 	for (int i=0; i<strlen(addition); i++)
 	{
 		str[strlen(str)] = addition[i];
-		//printf("%d-%c-%s\n", i, addition[i], str);
 	}
 }
 
@@ -252,6 +251,19 @@ char *itoa(int x, char *ascii)
 	snprintf(ascii, sizeof(ascii), "%d", x);
 
 	return ascii;
+}
+
+
+
+
+
+/* Adds endline terminator at the end of a string. */
+
+char *addTerminator(char *str)
+{
+	str[strlen(str)] = '\0';
+
+	return str;
 }
 
 

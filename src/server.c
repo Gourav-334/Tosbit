@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
     char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
 
-    char buffer[ONLINE_BUFFER_SIZE];
+    char buffer[ONLINE_BUFFER_SIZE] = {0};
 
     int sockFD, newsockFD, portno, epollFD;
     ssize_t bytesInvolved;
@@ -187,22 +187,36 @@ int main(int argc, char *argv[])
 
 
 
+
+
                 /* Receiving guestUsername. */
 
-                bytesInvolved = read(newsockFD, guestUsername, sizeof(guestUsername)-1);/////////////////////
-                if (bytesInvolved<=0) {printf("ERROR: Can't read guestUsername!\n");}
+                do {
+                    bytesInvolved = read(newsockFD, guestUsername+strlen(guestUsername), 1);
+                    if (bytesInvolved<=0) {printf("ERROR: Can't read sent guesUsername!\n");}
+                } while (guestUsername[strlen(guestUsername)-1]!='\n');
 
-                bytesInvolved = write(newsockFD, "OK: Local username received.\n", strlen("OK: Local username received.\n"));
+                newline_remover(guestUsername);
+                printf("STAT: Guest username %s received.\n", guestUsername);
+
+                bytesInvolved = write(
+                    newsockFD,
+                    "OK: Local username received.\n",
+                    strlen("OK: Local username received.\n")
+                );
                 if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
-
-                printf("STAT: Guest username received.\n");
 
 
 
                 /* Receiving & verifying local username. */
 
-                bytesInvolved = read(newsockFD, buffer, sizeof(buffer));
-                if (bytesInvolved<=0) {printf("ERROR: Can't read sent local username!\n");}
+                do {
+                    bytesInvolved = read(newsockFD, buffer+strlen(buffer), 1);
+                    if (bytesInvolved<=0) {printf("ERROR: Can't read sent local username!\n");}
+                } while (buffer[strlen(buffer)-1]!='\n');
+
+                newline_remover(buffer);
+                printf("STAT: Host username %s received.\n", buffer);
 
                 if (strcmp(buffer,decrypt(codedUsername)))
                 {
@@ -222,8 +236,15 @@ int main(int argc, char *argv[])
 
                 /* Receiving & verifying local password. */
 
-                bytesInvolved = read(newsockFD, buffer, sizeof(buffer));
-                if (bytesInvolved<=0) {printf("ERROR: Can't read sent local password!\n");}
+                memset(buffer, 0, sizeof(buffer));
+
+                do {
+                    bytesInvolved = read(newsockFD, buffer+strlen(buffer), 1);
+                    if (bytesInvolved<=0) {printf("ERROR: Can't read sent local password!\n");}
+                } while (buffer[strlen(buffer)-1]!='\n');
+
+                newline_remover(buffer);
+                printf("STAT: Guest password %s received.\n", buffer);
 
                 if (strcmp(buffer,decrypt(codedPassword)))
                 {
@@ -246,9 +267,7 @@ int main(int argc, char *argv[])
 
             else
             {
-                char buffer[ONLINE_BUFFER_SIZE] = {0};
                 memset(buffer, 0, sizeof(buffer));
-
                 bytesInvolved = read(fd, buffer, sizeof(buffer)-1);
 
 
