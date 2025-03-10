@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
     char buffer[ONLINE_BUFFER_SIZE];
 
     int sockFD, newsockFD, portno, epollFD;
+    ssize_t bytesInvolved;
 
 
     /* Structure declarations (including epoll() ones). */
@@ -186,29 +187,55 @@ int main(int argc, char *argv[])
 
 
 
-                /* Receiving guestUsername, username & password. */
+                /* Receiving guestUsername. */
 
-                read(fd, guestUsername, sizeof(guestUsername));
-                write(fd, "OK: Local username received.\n", strlen("OK: Local username received.\n"));
+                bytesInvolved = read(newsockFD, guestUsername, sizeof(guestUsername)-1);/////////////////////
+                if (bytesInvolved<=0) {printf("ERROR: Can't read guestUsername!\n");}
+
+                bytesInvolved = write(newsockFD, "OK: Local username received.\n", strlen("OK: Local username received.\n"));
+                if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
+
                 printf("STAT: Guest username received.\n");
 
 
-                read(fd, buffer, sizeof(buffer));
+
+                /* Receiving & verifying local username. */
+
+                bytesInvolved = read(newsockFD, buffer, sizeof(buffer));
+                if (bytesInvolved<=0) {printf("ERROR: Can't read sent local username!\n");}
+
                 if (strcmp(buffer,decrypt(codedUsername)))
                 {
-                    write(fd, "ERROR: Host username is incorrect!\n", strlen("ERROR: Host username is incorrect!\n"));
+                    bytesInvolved =  write(
+                        newsockFD,
+                        "ERROR: Host username is incorrect!\n",
+                        strlen("ERROR: Host username is incorrect!\n")
+                    );
+                    if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
+
                     printf("STAT: FD %d gave wrong username.\n", newsockFD);
-                    close(fd);
+                    close(newsockFD);
                 }
                 else {printf("STAT: FD %d entered right username.\n", newsockFD);}
 
 
-                read(fd, buffer, sizeof(buffer));
+
+                /* Receiving & verifying local password. */
+
+                bytesInvolved = read(newsockFD, buffer, sizeof(buffer));
+                if (bytesInvolved<=0) {printf("ERROR: Can't read sent local password!\n");}
+
                 if (strcmp(buffer,decrypt(codedPassword)))
                 {
-                    write(fd, "ERROR: Host password is incorrect!\n", strlen("ERROR: Host password is incorrect!\n"));
+                    bytesInvolved = write(
+                        newsockFD,
+                        "ERROR: Host password is incorrect!\n",
+                        strlen("ERROR: Host password is incorrect!\n")
+                    );
+                    if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
+
                     printf("STAT: FD %d gave wrong password.\n", newsockFD);
-                    close(fd);
+                    close(newsockFD);
                 }
                 else {printf("STAT: FD %d entered right password.\n", newsockFD);}
             }
@@ -219,15 +246,15 @@ int main(int argc, char *argv[])
 
             else
             {
-                char buffer[ONLINE_BUFFER_SIZE];
-                memset(buffer, 0, ONLINE_BUFFER_SIZE);
+                char buffer[ONLINE_BUFFER_SIZE] = {0};
+                memset(buffer, 0, sizeof(buffer));
 
-                int n = read(fd, buffer, ONLINE_BUFFER_SIZE - 1);
+                bytesInvolved = read(fd, buffer, sizeof(buffer)-1);
 
 
                 /* Handling client disconnection. */
 
-                if (n <= 0)
+                if (bytesInvolved <= 0)
                 {
                     printf("Client FD %d disconnected\n", fd);
                     close(fd);

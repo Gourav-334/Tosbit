@@ -23,7 +23,7 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 {
     /* Variable declarations. */
 
-    int sockFD, n;
+    int sockFD, bytesInvolved;
     char onlineBuffer[ONLINE_BUFFER_SIZE] = {0};
 
 
@@ -70,9 +70,25 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 
     /* Sending various initiation details to server. */
 
-    printf("Sending username: %s...\n", username); write(sockFD, username, strlen(username));
-    printf("Sending hostName: %s...\n", hostUsername); write(sockFD, hostUsername, strlen(hostUsername));
-    printf("Sending hostPassword: %s...\n", hostPassword); write(sockFD, hostPassword, strlen(hostPassword));
+    printf("Sending username: %s...\n", username);
+    bytesInvolved = write(sockFD, username, strlen(username));
+
+    if (bytesInvolved<=0) {printf("ERROR: Can't write username to socket!\n");}
+    else {printf("OK: Username written to socket!\n");}
+
+
+    printf("Sending hostName: %s...\n", hostUsername);
+    bytesInvolved = write(sockFD, hostUsername, strlen(hostUsername));
+
+    if (bytesInvolved<=0) {printf("ERROR: Can't write hostUsername to socket!\n");}
+    else {printf("OK: hostUsername written to socket!\n");}
+
+
+    printf("Sending hostPassword: %s...\n", hostPassword);
+    bytesInvolved = write(sockFD, hostPassword, strlen(hostPassword));
+
+    if (bytesInvolved<=0) {printf("ERROR: Can't write hostPassword to socket!\n");}
+    else {printf("OK: hostPassword written to socket!\n");}
 
 
 
@@ -82,22 +98,22 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
     {
         /* Clean buffer & send the message. */
 
-        memset(onlineBuffer, 0, ONLINE_BUFFER_SIZE);
+        memset(onlineBuffer, 0, sizeof(onlineBuffer));
         printf("Please enter the message: "); fgets(onlineBuffer,255,stdin); newline_remover(onlineBuffer);
 
 
         /* Checking for empty commands/messages passed. */
 
-        n = write(sockFD, onlineBuffer, strlen(onlineBuffer));
-        if (n < 0) {error("ERROR writing to socket");}
+        bytesInvolved = write(sockFD, onlineBuffer, strlen(onlineBuffer)-1);
+        if (bytesInvolved < 0) {error("ERROR writing to socket");}
 
-        memset(onlineBuffer, 0, ONLINE_BUFFER_SIZE);
+        memset(onlineBuffer, 0, sizeof(onlineBuffer));
 
 
         /* Reading a sent message. */
 
-        n = read(sockFD, onlineBuffer, ONLINE_BUFFER_SIZE-1);
-        if (n < 0) {error("ERROR reading from socket");}
+        bytesInvolved = read(sockFD, onlineBuffer, strlen(onlineBuffer));
+        if (bytesInvolved < 0) {error("ERROR reading from socket");}
 
         printf("%s\n", onlineBuffer);
     }
