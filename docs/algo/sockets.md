@@ -45,3 +45,13 @@
 3. Driver sends its username, hostIP, hostUsername & hostPassword to the host.
 4. Host checks if its username & password by client are correct.
 5. If any mismatch is found, connection request is rejected. Else accepted.
+
+
+## Server's request-response:
+
+1. If user chooses 'y', engine sets connection, which calls client program.
+2. Then client tells syntax parser that its not a local operation.
+3. Client gets the `TOS>` style prompt.
+4. Whatever command client enters, is sent to server through socket.
+5. Server receives the command.
+6. Server parses it locally & writes output to local and client terminal.

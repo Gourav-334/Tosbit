@@ -17,6 +17,7 @@
 
 
 #define ONLINE_BUFFER_SIZE 1025
+#define COMMAND_MAX_LENGTH 512
 
 
 

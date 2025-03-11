@@ -314,7 +314,7 @@ int main(int argc, char *argv[])
             else
             {
                 memset(buffer, 0, sizeof(buffer));
-                bytesInvolved = read(fd, buffer, sizeof(buffer)-1);
+                bytesInvolved = read(fd, buffer, sizeof(buffer));
 
 
                 /* Handling client disconnection. */
@@ -327,8 +327,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    printf("Received from client FD %d: %s\n", fd, buffer);
-                    write(fd, "I got your message", 18);
+                    syntaxParser(username, buffer, TRUE);
                 }
             }
         }

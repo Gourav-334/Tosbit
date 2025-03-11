@@ -44,7 +44,7 @@ int readMessage(int *sockFD, char *buffer, size_t size)
 
 
 
-/* Writes a message with endline character. */
+/* Writes a message with tabspace character. */
 
 int writeMessage(int *sockFD, char message[])
 {
@@ -71,6 +71,7 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 
     int sockFD, bytesInvolved;
     char onlineBuffer[ONLINE_BUFFER_SIZE] = {0};
+    char command[COMMAND_MAX_LENGTH] = {0};
 
 
     /* Structure declarations. */
@@ -171,7 +172,9 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
     {
         /* Clean buffer & send the message. */
 
-        syntaxParser(username, NULL, TRUE);
+        printf("TOS> "); fgets(command, sizeof(command), stdin); newline_remover(command);
+        writeMessage(&sockFD, command);
+        readMessage(&sockFD, buffer, sizeof(buffer));
     }
 
 
