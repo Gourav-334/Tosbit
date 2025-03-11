@@ -25,7 +25,7 @@
 
 /* The automaton, each state has to be defined for all situations. */
 
-void syntaxParser(char username[], char *user_cmd)
+void syntaxParser(char username[], char *user_cmd, int serverConn)
 {
 	/* Calculating performance. */
 

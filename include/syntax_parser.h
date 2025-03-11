@@ -54,7 +54,7 @@
 
 /* Functions */
 
-extern void syntaxParser(char username[], char *user_cmd);
+extern void syntaxParser(char username[], char *user_cmd, int serverConn);
 extern void attributeParser();
 
 

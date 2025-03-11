@@ -17,19 +17,46 @@ void error(const char *msg) {perror(msg); exit(EXIT_FAILURE);}
 
 
 
-/* Reads messages until newline character appaears. */
+/* Reads messages until tabspace character appaears. */ 
 
-void readMessage(int *sockFD, char *buffer, char message[])
+int readMessage(int *sockFD, char *buffer, size_t size)
 {
     int bytesInvolved;
 
 
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0, size);
 
-    do {
+    bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
+    if (bytesInvolved==0) {perror("ERROR: (r) First byte"); return 0;}
+
+    while (buffer[strlen(buffer)-1]!='\t')
+    {
         bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
-        if (bytesInvolved<=0) {printf("%s\n", message);}
-    } while (buffer[strlen(buffer)-1]!='\n');
+        if (bytesInvolved==0) {perror("ERROR: (r) Later bytes"); return 0;}
+    }
+
+    memset(buffer+strlen(buffer)-1, 0, 1);
+
+    return 1;
+}
+
+
+
+
+
+/* Writes a message with endline character. */
+
+int writeMessage(int *sockFD, char message[])
+{
+    int bytesInvolved;
+
+    bytesInvolved = write(*sockFD, message, strlen(message));
+    if (bytesInvolved<=0) {perror("ERROR: (w) First byte"); return 0;}
+
+    bytesInvolved = write(*sockFD, "\t", 1);
+    if (bytesInvolved<=0) {perror("ERROR: (w) Later bytes"); return 0;}
+
+    return 1;
 }
 
 
@@ -91,41 +118,48 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
 
     /* Sending username to server. */
 
-    printf("Sending username: %s...\n", username);
-    bytesInvolved = write(sockFD, username, strlen(username));
-    write(sockFD, "\n", 1);     // Delimiter indicator.
+    printf("STAT: Sending username \"%s\".\n", username);
 
-    if (bytesInvolved<=0) {printf("ERROR: Can't write username to socket!\n");}
-    else {printf("OK: Username written to socket!\n");}
+    if (writeMessage(&sockFD, username)==1) {printf("OK: Username written to socket!\n");}
+    else {printf("ERROR: Can't write username to socket!\n");}
 
-    readMessage(&sockFD, onlineBuffer, "ERROR: Unable to read from server!");
-    printf("%s\n", onlineBuffer);
+    if (readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer))==1)
+        printf("STAT: Username socket received is \"%s\".\n", onlineBuffer);
+
+    else
+        printf("ERROR: Unable to read stream sent by server!\n");
+
 
 
     /* Sending hostName to server. */
 
-    printf("Sending hostName: %s...\n", hostUsername);
-    bytesInvolved = write(sockFD, hostUsername, strlen(hostUsername));
-    write(sockFD, "\n", 1);     // Delimiter indicator.
+    printf("STAT: Sending host username \"%s\".\n", hostUsername);
 
-    if (bytesInvolved<=0) {printf("ERROR: Can't write hostUsername to socket!\n");}
-    else {printf("OK: hostUsername written to socket!\n");}
+    if (writeMessage(&sockFD, hostUsername)==1) {printf("OK: Host username written to socket!\n");}
+    else {printf("ERROR: Can't write host username to socket!\n");}
 
-    readMessage(&sockFD, onlineBuffer, "ERROR: Unable to read from server!");
-    printf("%s\n", onlineBuffer);
+    if (readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer))==1)
+        printf("%s\n", onlineBuffer);
+
+    else
+        printf("ERROR: Unable to read stream sent by server!\n");
+
 
 
     /* Sending hostPassword to server. */
 
-    printf("Sending hostPassword: %s...\n", hostPassword);
-    bytesInvolved = write(sockFD, hostPassword, strlen(hostPassword));
-    write(sockFD, "\n", 1);     // Delimiter indicator.
+    printf("STAT: Sending host password \"%s\".\n", hostPassword);
 
-    if (bytesInvolved<=0) {printf("ERROR: Can't write hostPassword to socket!\n");}
-    else {printf("OK: hostPassword written to socket!\n");}
+    if (writeMessage(&sockFD, hostPassword)==1) {printf("OK: Host password written to socket!\n");}
+    else {printf("ERROR: Can't write host password to socket!\n");}
 
-    readMessage(&sockFD, onlineBuffer, "ERROR: Unable to read from server!");
-    printf("%s\n", onlineBuffer);
+    if (readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer))==1)
+        printf("%s\n", onlineBuffer);
+
+    else
+        printf("ERROR: Unable to read stream sent by server!\n");
+
+    printf("\n");
 
 
 
@@ -137,25 +171,7 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
     {
         /* Clean buffer & send the message. */
 
-        memset(onlineBuffer, 0, sizeof(onlineBuffer));
-        printf("Please enter the message: ");
-        fgets(onlineBuffer, sizeof(onlineBuffer), stdin); newline_remover(onlineBuffer);
-
-
-        /* Checking for empty commands/messages passed. */
-
-        bytesInvolved = write(sockFD, onlineBuffer, strlen(onlineBuffer));
-        if (bytesInvolved < 0) {continue;}
-
-        memset(onlineBuffer, 0, sizeof(onlineBuffer));
-
-
-        /* Reading a sent message. */
-
-        bytesInvolved = read(sockFD, onlineBuffer, strlen(onlineBuffer));
-        if (bytesInvolved < 0) {error("ERROR reading from socket");}
-
-        printf("%s\n", onlineBuffer);
+        syntaxParser(username, NULL, TRUE);
     }
 
 

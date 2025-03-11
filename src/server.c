@@ -14,7 +14,7 @@
 
 
 #define MAX_EVENTS 10
-#define ONLINE_BUFFER_SIZE 512
+#define ONLINE_BUFFER_SIZE 1024
 
 
 
@@ -47,17 +47,44 @@ void set_nonblocking(int sock)
 
 /* Reads messages until newline character appaears. */
 
-void readMessage(int *sockFD, char *buffer, char message[])
+int readMessage(int *sockFD, char *buffer, size_t size)
 {
     int bytesInvolved;
 
 
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0, size);
 
-    do {
+    bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
+    if (bytesInvolved==0) {perror("ERROR: (r) First byte"); return 0;}
+
+    while (buffer[strlen(buffer)-1]!='\t')
+    {
         bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
-        if (bytesInvolved<=0) {printf("%s\n", message);}
-    } while (buffer[strlen(buffer)-1]!='\n');
+        if (bytesInvolved==0) {perror("ERROR: (r) Later bytes"); return 0;}
+    }
+
+    memset(buffer+strlen(buffer)-1, 0, 1);
+
+    return 1;
+}
+
+
+
+
+
+/* Writes a message with endline character. */
+
+int writeMessage(int *sockFD, char message[])
+{
+    int bytesInvolved;
+
+    bytesInvolved = write(*sockFD, message, strlen(message));
+    if (bytesInvolved<=0) {perror("ERROR: (w) First byte"); return 0;}
+
+    bytesInvolved = write(*sockFD, "\t", 1);
+    if (bytesInvolved<=0) {perror("ERROR: (w) Later bytes"); return 0;}
+
+    return 1;
 }
 
 
@@ -177,19 +204,19 @@ int main(int argc, char *argv[])
         if (num_fds == -1) {error("ERROR in epoll_wait");}
 
 
-        for (int i = 0; i < num_fds; i++)
+        for (int i=0; i<num_fds; i++)
         {
             int fd = events[i].data.fd;
 
 
             /* Accepting a new incoming request. */
 
-            if (fd == sockFD)
+            if (fd==sockFD)
             {
                 clilen = sizeof(cli_addr);
                 newsockFD = accept(sockFD, (struct sockaddr *)&cli_addr, &clilen);
 
-                if (newsockFD == -1) {perror("ERROR on accept"); continue;}
+                if (newsockFD==-1) {perror("ERROR"); continue;}
 
 
                 /* Setting the new request to non-blocking too. */
@@ -210,80 +237,73 @@ int main(int argc, char *argv[])
 
                 /* Receiving guestUsername. */
 
-                readMessage(&newsockFD, guestUsername, "ERROR: Can't read sent guestUsername!");
-                newline_remover(guestUsername);
-                printf("STAT: Guest username %s received.\n", guestUsername);
+                if (readMessage(&newsockFD, guestUsername, sizeof(guestUsername))==1)
+                    printf("OK: Guest username \"%s\" received.\n", guestUsername);
 
-                bytesInvolved = write(
-                    newsockFD,
-                    "OK: Local username received.\n",
-                    strlen("OK: Local username received.\n")
-                );
+                else
+                    printf("ERROR: Unable to read stream sent by client.\n");
 
-                if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
+                if (writeMessage(&newsockFD, guestUsername)==1) {printf("OK: Guest username written to socket!\n");}
+                else {printf("ERROR: Can't write guest username to socket!\n");}
 
 
 
                 /* Receiving & verifying local username. */
 
-                readMessage(&newsockFD, buffer, "ERROR: Can't read sent username!");
-                newline_remover(buffer);
-                printf("STAT: Host username %s received.\n", buffer);
+                if (readMessage(&newsockFD, buffer, sizeof(buffer))==1)
+                    printf("OK: Username \"%s\" received.\n", buffer);
+
+                else
+                    printf("ERROR: Unable to read stream sent by client.\n");
+
 
                 if (strcmp(buffer,decrypt(codedUsername)))
                 {
-                    bytesInvolved =  write(
-                        newsockFD,
-                        "ERROR: Host username is incorrect!\n",
-                        strlen("ERROR: Host username is incorrect!\n")
-                    );
+                    if (writeMessage(&newsockFD, "ERROR: Username by client is incorrect.")==1)
+                        printf("OK: Acknowledgment sent to client.\n");
 
-                    if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
+                    else
+                        printf("ERROR: Can't send acknowledgment to client.\n");
 
-                    printf("STAT: FD %d gave wrong username.\n", newsockFD);
                     close(newsockFD);
                 }
-                else
+                else if (!strcmp(buffer,decrypt(codedUsername)))
                 {
-                    printf("STAT: FD %d entered right username.\n", newsockFD);
+                    if (writeMessage(&newsockFD, "OK: Username by client is correct.")==1)
+                        printf("OK: Acknowledgment sent to client.\n");
 
-                    bytesInvolved =  write(
-                        newsockFD,
-                        "OK: Server fetched the username.\n",
-                        strlen("OK: Server fetched the username.\n")
-                    );
+                    else
+                        printf("ERROR: Can't send acknowledgment to client.\n");
                 }
 
 
 
                 /* Receiving & verifying local password. */
 
-                readMessage(&newsockFD, buffer, "ERROR: Can't read sent password!");
-                newline_remover(buffer);
-                printf("STAT: Guest password %s received.\n", buffer);
+                if (readMessage(&newsockFD, buffer, sizeof(buffer))==1)
+                    printf("OK: Password \"%s\" received.\n", buffer);
+
+                else
+                    printf("ERROR: Unable to read stream sent by client.\n");
+
 
                 if (strcmp(buffer,decrypt(codedPassword)))
                 {
-                    bytesInvolved = write(
-                        newsockFD,
-                        "ERROR: Host password is incorrect!\n",
-                        strlen("ERROR: Host password is incorrect!\n")
-                    );
+                    if (writeMessage(&newsockFD, "ERROR: Password by client is incorrect.")==1)
+                        printf("OK: Acknowledgment sent to client.\n");
 
-                    if (bytesInvolved<=0) {printf("ERROR: Can't write acknowledgment!\n");}
+                    else
+                        printf("ERROR: Can't send acknowledgment to client.\n");
 
-                    printf("STAT: FD %d gave wrong password.\n", newsockFD);
                     close(newsockFD);
                 }
-                else
+                else if (!strcmp(buffer,decrypt(codedPassword)))
                 {
-                    printf("STAT: FD %d entered right password.\n", newsockFD);
+                    if (writeMessage(&newsockFD, "OK: Password by client is correct.")==1)
+                        printf("OK: Acknowledgment sent to client.\n");
 
-                    bytesInvolved =  write(
-                        newsockFD,
-                        "OK: Server fetched the password.\n",
-                        strlen("OK: Server fetched the password.\n")
-                    );
+                    else
+                        printf("ERROR: Can't send acknowledgment to client.\n");
                 }
             }
 

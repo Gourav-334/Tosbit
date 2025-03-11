@@ -24,13 +24,22 @@ int connected = FALSE;
 
 /* Connects to the database. */
 
-void setConnection(char username[], char hostIP[], short unsigned int port, char hostUsername[], char hostPassword[])
+void setConnection(
+	char username[],
+	char password[],
+	char hostIP[],
+	short unsigned int port,
+	char hostUsername[],
+	char hostPassword[]
+)
 {
 	/* Declarations */
 
 	FILE *fptr;
 	char c;
+
 	char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
+	char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
 
 
 
@@ -42,23 +51,25 @@ void setConnection(char username[], char hostIP[], short unsigned int port, char
 	if (fptr==NULL) {printf("ERROR: Can't find user credential file!\n"); return;}
 	else
 	{
+		/* Fetching encrypted username & password. */
+
 		c = fgetc(fptr);
-		while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);} fclose(fptr);
+		while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);}
+
+		c = fgetc(fptr);
+		while (!reachedEOF(fptr)) {codedPassword[strlen(codedPassword)] = c; c = fgetc(fptr);}
+
+		fclose(fptr);
 
 
 		/* Confirming details on terminal screen. */
 
-    	printf("Username: %s\n", decrypt(codedUsername));
-
-
-		if (!strcmp(username,decrypt(codedUsername)))
+		if (!strcmp(username,decrypt(codedUsername)) && !strcmp(password,decrypt(codedPassword)))
 		{
 			printf("STAT: Checking credentials for host %s...\n", hostUsername);
-			
-			if (runClient(username, hostIP, port, hostUsername, hostPassword)!=EXIT_FAILURE)
-				connected = TRUE;
+			runClient(username, hostIP, port, hostUsername, hostPassword);
 		}
-		else {printf("ERROR: Username doesn't match!\n"); return;}
+		else {printf("ERROR: Username or password doesn't match!\n"); return;}
 	}
 }
 
