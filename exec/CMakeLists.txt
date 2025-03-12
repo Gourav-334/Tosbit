@@ -19,7 +19,12 @@ add_executable(engine
 )
 
 add_executable(server
+	../src/database_operations.c
 	../src/encrypter.c
+	../src/queue.c
 	../src/server.c
+	../src/shell_piping.c
+	../src/syntax_parser.c
+	../src/transition_tool.c
 	../src/utility_box.c
 )

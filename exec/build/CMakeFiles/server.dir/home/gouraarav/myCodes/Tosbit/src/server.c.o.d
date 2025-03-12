@@ -91,4 +91,13 @@ CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o: \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/utility_box.h \
  /home/gouraarav/myCodes/Tosbit/src/../include/encrypter.h \
- /home/gouraarav/myCodes/Tosbit/src/../include/utility_box.h
+ /home/gouraarav/myCodes/Tosbit/src/../include/utility_box.h \
+ /home/gouraarav/myCodes/Tosbit/src/../include/syntax_parser.h \
+ /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /home/gouraarav/myCodes/Tosbit/src/../include/encrypter.h \
+ /home/gouraarav/myCodes/Tosbit/src/../include/database_operations.h \
+ /home/gouraarav/myCodes/Tosbit/src/../include/transition_tool.h \
+ /home/gouraarav/myCodes/Tosbit/src/../include/queue.h \
+ /home/gouraarav/myCodes/Tosbit/src/../include/shell_piping.h

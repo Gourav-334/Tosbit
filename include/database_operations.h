@@ -13,6 +13,7 @@
 #define TABLE_MAX_LENGTH 33
 #define DIRECTORY_MAX_LENGTH 257
 #define BUFFER_MAX_LENGTH 257
+#define FEEDBACK_BUFFER_SIZE 512
 
 #define DATA_TYPE_MAX_LENGTH 7
 #define ATTRIBUTE_MAX_LENGTH 33
@@ -61,6 +62,7 @@ extern char key[KEY_MAX_LENGTH];
 extern char value[VALUE_MAX_LENGTH];
 extern char pureValue[VALUE_MAX_LENGTH];
 extern char ascii[INT_TO_ASCII_LIMIT];
+extern char feedbackBuffer[FEEDBACK_BUFFER_SIZE];
 
 extern int state;							// Main automaton
 extern int state2;							// Used for "table attribute" & "data types"

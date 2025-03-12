@@ -38,11 +38,12 @@ char key[KEY_MAX_LENGTH] = {0};
 char value[VALUE_MAX_LENGTH] = {0};
 char pureValue[VALUE_MAX_LENGTH] = {0};
 char ascii[INT_TO_ASCII_LIMIT] = {0};
+char feedbackBuffer[FEEDBACK_BUFFER_SIZE] = {0};
 
 int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
 int zero_count = 0;
-int breaker = FALSE;							// Set TRUE when the syntax goes wrong.
+int breaker = FALSE;						// Set TRUE when the syntax goes wrong.
 int breaker2 = FALSE;
 int valid = TRUE;							// Syntax if found wrong, only then invalid.
 int serverMode = FALSE;
@@ -73,24 +74,33 @@ void extendFeedback(char message[])
 {
 	/* Declarations */
 
-	char *ptr;
+	char *ptr = NULL;
 
 
 	/* Extending size of 'feedback' by 'message' string length with NULL safety. */
 
-	ptr = (char*)realloc(feedback, (size_t)strlen(message)*sizeof(char));
-	if (ptr==NULL) {printf("ERROR: Can't reallocate feedback."); return;}
+	if (feedback==NULL)
+	{
+		feedback = (char*)malloc(1*sizeof(char)); feedback[0] = '\0';
+		if (feedback==NULL) {printf("ERROR: Can't allocate first byte!"); return;}
+		else {feedbackSize++;}
+	}
+
+	ptr = (char*)realloc(feedback, (size_t)(feedbackSize + strlen(message) + 1)*sizeof(char));
+
+	if (ptr==NULL) {printf("ERROR: Can't reallocate feedback!"); return;}
+	feedback = ptr;
 
 
-	/* Incrementing 'feedbackSize' by new size of 'feedback' & cleaning extension. */
+	// /* Incrementing 'feedbackSize' by new size of 'feedback' & cleaning extension. */
 
-	memset(feedback+feedbackSize , 0, (size_t)strlen(message));
-	feedbackSize += (size_t)strlen(message);
+	// memset(feedback+feedbackSize , 0, (size_t)strlen(message));
 
 
 	/* Appending 'message' at the end of 'feedback'. */
 
 	strcat(feedback, message);
+	feedbackSize += (size_t)strlen(message);
 }
 
 
@@ -117,6 +127,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"feedbackBuffer")) {memset(feedbackBuffer, 0, FEEDBACK_BUFFER_SIZE*sizeof(char));}
 }
 
 
@@ -150,14 +161,20 @@ int checkDbExistence(int msg)
 	{
 		existence = FALSE;
 
-		printf("ERROR: No database named \"%s\" exists!", database);
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No database named \"%s\" exists!", database);
+		extendFeedback(feedbackBuffer);
+		
 		clearEntity("database");
 	}
 	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 	else if (fptr!=NULL && msg==TRUE)
 	{
 		existence = TRUE;
-		printf("STAT: Database %s online!", database);
+
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "STAT: Database %s online!", database);
+		extendFeedback(feedbackBuffer);
 
 		fclose(fptr);
 	}
@@ -195,11 +212,14 @@ int checkTableExistence(int msg)
 
 	/* Checking if a database is opened or not & existence of details.tosbit */
 
-	if (strlen(database)==0 && msg==TRUE) {printf("ERROR: No database opened yet!");}
+	if (strlen(database)==0 && msg==TRUE) {extendFeedback("ERROR: No database opened yet!");}
 	else if (fptr==NULL && msg==FALSE) {existence = FALSE;}
 	else if (fptr==NULL && msg==TRUE)
 	{
-		printf("ERROR: No table named \"%s\" exists!", table);
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
+
 		clearEntity("table");
 
 		existence = FALSE;
@@ -241,7 +261,14 @@ void tableStructure()
 	snprintf(directory, sizeof(directory), "data/%s/%s/metadata.tosbit", database, table);
 	fptr = fopen(directory, "r+");
 
-	if (fptr==NULL) {printf("ERROR: Metadata for table \"%s\" not found!", table); return;}
+	if (fptr==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Metadata for table \"%s\" not found!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* Reading & storing maximum attribute name, data type name or key name length. */
@@ -270,22 +297,29 @@ void tableStructure()
 	snprintf(directory, sizeof(directory), "data/%s/%s/details.tosbit", database, table);
 	fptr2 = fopen(directory, "r");
 
-	if (fptr2==NULL) {printf("ERROR: Details for \"%s\" not found!", table); return;}
+	if (fptr2==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Details for \"%s\" not found!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* Printing upper part of the console-table (the header of the table). */
 
-	printf("+"); for (int i=0; i<largestAttribute; i++) {printf("-");}
-	printf("+"); for (int i=0; i<largestDataType; i++) {printf("-");}
-	printf("+"); for (int i=0; i<largestKey; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestAttribute; i++) {extendFeedback("-");}
+	extendFeedback("+"); for (int i=0; i<largestDataType; i++) {extendFeedback("-");}
+	extendFeedback("+"); for (int i=0; i<largestKey; i++) {extendFeedback("-");} extendFeedback("+\n");
 
-	printf("|Attributes"); for (int i=0; i<largestAttribute-strlen("Attributes"); i++) {printf(" ");}
-	printf("|Data Types"); for (int i=0; i<largestDataType-strlen("Data Types"); i++) {printf(" ");}
-	printf("|Keys"); for (int i=0; i<largestKey-strlen("Keys"); i++) {printf(" ");} printf("|\n");
+	extendFeedback("|Attributes"); for (int i=0; i<largestAttribute-strlen("Attributes"); i++) {extendFeedback(" ");}
+	extendFeedback("|Data Types"); for (int i=0; i<largestDataType-strlen("Data Types"); i++) {extendFeedback(" ");}
+	extendFeedback("|Keys"); for (int i=0; i<largestKey-strlen("Keys"); i++) {extendFeedback(" ");} extendFeedback("|\n");
 
-	printf("+"); for (int i=0; i<largestAttribute; i++) {printf("-");}
-	printf("+"); for (int i=0; i<largestDataType; i++) {printf("-");}
-	printf("+"); for (int i=0; i<largestKey; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestAttribute; i++) {extendFeedback("-");}
+	extendFeedback("+"); for (int i=0; i<largestDataType; i++) {extendFeedback("-");}
+	extendFeedback("+"); for (int i=0; i<largestKey; i++) {extendFeedback("-");} extendFeedback("+\n");
 
 
 	/* Printing Lower part of console-table (about all attributes & their properties). */
@@ -294,11 +328,18 @@ void tableStructure()
 	{
 		/* Attributes */
 
-		charsPrinted = 0;
+		charsPrinted = 0; extendFeedback("|"); c = fgetc(fptr2);
 
-		printf("|"); c = fgetc(fptr2);
-		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
-		for (int i=0; i<largestAttribute-charsPrinted; i++) {printf(" ");}
+		do {
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+			extendFeedback(feedbackBuffer);
+
+			charsPrinted++; c = fgetc(fptr2);
+		}
+		while (c!=' ' && c!=',');
+
+		for (int i=0; i<largestAttribute-charsPrinted; i++) {extendFeedback(" ");}
 		if (c==' ') {fseek(fptr2, (ATTRIBUTE_MAX_LENGTH-1)-charsPrinted, SEEK_CUR);}
 
 		if (charsPrinted > largestAttributeN) {largestAttributeN = charsPrinted;}
@@ -306,9 +347,18 @@ void tableStructure()
 
 		/* Data Type */
 
-		charsPrinted = 0; printf("|"); c = fgetc(fptr2);
-		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
-		for (int i=0; i<largestDataType-charsPrinted; i++) {printf(" ");}
+		charsPrinted = 0; extendFeedback("|"); c = fgetc(fptr2);
+
+		do {
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+			extendFeedback(feedbackBuffer);
+
+			charsPrinted++; c = fgetc(fptr2);
+		}
+		while (c!=' ' && c!=',');
+
+		for (int i=0; i<largestDataType-charsPrinted; i++) {extendFeedback(" ");}
 		if (c==' ') {fseek(fptr2, (DATA_TYPE_MAX_LENGTH-1)-charsPrinted, SEEK_CUR);}
 
 		if (charsPrinted > largestDataTypeN) {largestDataTypeN = charsPrinted;}
@@ -316,11 +366,20 @@ void tableStructure()
 
 		/* Key Type */
 
-		charsPrinted = 0; printf("|"); c = fgetc(fptr2);
-		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
-		for (int i=0; i<largestKey-charsPrinted; i++) {printf(" ");}
+		charsPrinted = 0; extendFeedback("|"); c = fgetc(fptr2);
+
+		do {
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+			extendFeedback(feedbackBuffer);
+
+			charsPrinted++; c = fgetc(fptr2);
+		}
+		while (c!=' ' && c!=',');
+
+		for (int i=0; i<largestKey-charsPrinted; i++) {extendFeedback(" ");}
 		if (c==' ') {fseek(fptr2, ((KEY_MAX_LENGTH-1)-charsPrinted)+2, SEEK_CUR);}
-		else if (c==',') {fseek(fptr2, 2, SEEK_CUR);} printf("|\n");
+		else if (c==',') {fseek(fptr2, 2, SEEK_CUR);} extendFeedback("|\n");
 
 		if (charsPrinted > largestKeyN) {largestKeyN = charsPrinted;}
 
@@ -337,9 +396,9 @@ void tableStructure()
 		else if (c=='\n') {continue;}
 	}
 
-	printf("+"); for (int i=0; i<largestAttribute; i++) {printf("-");}
-	printf("+"); for (int i=0; i<largestDataType; i++) {printf("-");}
-	printf("+"); for (int i=0; i<largestKey; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestAttribute; i++) {extendFeedback("-");}
+	extendFeedback("+"); for (int i=0; i<largestDataType; i++) {extendFeedback("-");}
+	extendFeedback("+"); for (int i=0; i<largestKey; i++) {extendFeedback("-");} extendFeedback("+\n");
 
 
 	/* Safely closing file descriptor. */
@@ -374,7 +433,9 @@ void tableStructure()
 
 	/* Showing total attributes encountered so far. */
 
-	printf("STAT: Table contains %d attributes.", totalAttributes);
+	clearEntity("feedbackBuffer");
+	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "STAT: Table contains %d attributes.", totalAttributes);
+	extendFeedback(feedbackBuffer);
 }
 
 
@@ -401,7 +462,7 @@ void allDatabases()
 	/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 	fptr = fopen("data/metadata.tosbit", "r+");
-	if (fptr==NULL) {printf("ERROR: Data metadata not found!"); return;}
+	if (fptr==NULL) {extendFeedback("ERROR: Data metadata not found!"); return;}
 
 
 	/* Reading length of largest database name. */
@@ -412,14 +473,14 @@ void allDatabases()
 	/* Opening databases.tosbit with safety for NULL file descriptor. */
 
 	fptr2 = fopen("data/databases.tosbit", "r");
-	if (fptr2==NULL) {printf("ERROR: Information for databases not found!"); return;}
+	if (fptr2==NULL) {extendFeedback("ERROR: Information for databases not found!"); return;}
 
 
 	/* Printing header of the console-table (header of table). */
 
-	printf("+"); for (int i=0; i<largestDb; i++) {printf("-");} printf("+\n");
-	printf("|Databases"); for (int i=0; i<largestDb-strlen("Databases"); i++) {printf(" ");} printf("|\n");
-	printf("+"); for (int i=0; i<largestDb; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestDb; i++) {extendFeedback("-");} extendFeedback("+\n");
+	extendFeedback("|Databases"); for (int i=0; i<largestDb-strlen("Databases"); i++) {extendFeedback(" ");} extendFeedback("|\n");
+	extendFeedback("+"); for (int i=0; i<largestDb; i++) {extendFeedback("-");} extendFeedback("+\n");
 
 
 	/* Printing the lower part of the console-table (names of all databases). */
@@ -430,11 +491,19 @@ void allDatabases()
 
 		charsPrinted = 0;
 
-		printf("|"); c = fgetc(fptr2);
-		if (c=='\t') {printf("\b"); fseek(fptr2, DATABASE_MAX_LENGTH-1, SEEK_CUR); continue;}
+		extendFeedback("|"); c = fgetc(fptr2);
+		if (c=='\t') {extendFeedback("\b"); fseek(fptr2, DATABASE_MAX_LENGTH-1, SEEK_CUR); continue;}
 
-		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
-		for (int i=0; i<largestDb-charsPrinted; i++) {printf(" ");} printf("|\n");
+		do {
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+			extendFeedback(feedbackBuffer);
+
+			charsPrinted++; c = fgetc(fptr2);
+		}
+		while (c!=' ' && c!=',');
+
+		for (int i=0; i<largestDb-charsPrinted; i++) {extendFeedback(" ");} extendFeedback("|\n");
 
 		if (charsPrinted > largestDbN) {largestDbN = charsPrinted;}
 
@@ -464,7 +533,7 @@ void allDatabases()
 
 	/* Printing tail of the console-table (the last line). */
 
-	printf("+"); for (int i=0; i<largestDb; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestDb; i++) {extendFeedback("-");} extendFeedback("+\n");
 
 
 	/* Writing new largest database name length (if any). */
@@ -483,7 +552,9 @@ void allDatabases()
 
 	/* Printing total number of databases as stats. */
 
-	printf("STAT: %d databases found.", totalDb);
+	clearEntity("feedbackBuffer");
+	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "STAT: %d databases found.", totalDb);
+	extendFeedback(feedbackBuffer);
 }
 
 
@@ -516,7 +587,7 @@ void allTables()
 	/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Data metadata not found!"); return;}
+	if (fptr==NULL) {extendFeedback("ERROR: Data metadata not found!"); return;}
 
 
 	/* Reading length of largest table name. */
@@ -530,14 +601,14 @@ void allTables()
 	snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
 
 	fptr2 = fopen(directory, "r");
-	if (fptr2==NULL) {printf("ERROR: No database opened yet!"); return;}
+	if (fptr2==NULL) {extendFeedback("ERROR: No database opened yet!"); return;}
 
 
 	/* Printing header of the console-table (header of table). */
 
-	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
-	printf("|Tables"); for (int i=0; i<largestTable-strlen("Tables"); i++) {printf(" ");} printf("|\n");
-	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestTable; i++) {extendFeedback("-");} extendFeedback("+\n");
+	extendFeedback("|Tables"); for (int i=0; i<largestTable-strlen("Tables"); i++) {extendFeedback(" ");} extendFeedback("|\n");
+	extendFeedback("+"); for (int i=0; i<largestTable; i++) {extendFeedback("-");} extendFeedback("+\n");
 
 
 	/* Printing the lower part of the console-table (names of all tables). */
@@ -548,11 +619,19 @@ void allTables()
 
 		charsPrinted = 0;
 
-		printf("|"); c = fgetc(fptr2);
-		if (c=='\t') {printf("\b"); fseek(fptr2, TABLE_MAX_LENGTH-1, SEEK_CUR); continue;}
+		extendFeedback("|"); c = fgetc(fptr2);
+		if (c=='\t') {extendFeedback("\b"); fseek(fptr2, TABLE_MAX_LENGTH-1, SEEK_CUR); continue;}
 
-		do {printf("%c", c); charsPrinted++; c = fgetc(fptr2);} while (c!=' ' && c!=',');
-		for (int i=0; i<largestTable-charsPrinted; i++) {printf(" ");} printf("|\n");
+		do {
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+			extendFeedback(feedbackBuffer);
+
+			charsPrinted++; c = fgetc(fptr2);
+		}
+		while (c!=' ' && c!=',');
+
+		for (int i=0; i<largestTable-charsPrinted; i++) {extendFeedback(" ");} extendFeedback("|\n");
 		if (charsPrinted > largestTableN) {largestTableN = charsPrinted;}
 
 
@@ -581,7 +660,7 @@ void allTables()
 
 	/* Printing tail of the console-table (the last line). */
 
-	printf("+"); for (int i=0; i<largestTable; i++) {printf("-");} printf("+\n");
+	extendFeedback("+"); for (int i=0; i<largestTable; i++) {extendFeedback("-");} extendFeedback("+\n");
 
 
 	/* Writing new largest table name length (if any). */
@@ -600,7 +679,9 @@ void allTables()
 
 	/* Printing total number of databases as stats. */
 
-	printf("STAT: %d tables found.", totalTable);
+	clearEntity("feedbackBuffer");
+	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "STAT: %d tables found.", totalTable);
+	extendFeedback(feedbackBuffer);
 }
 
 
@@ -668,25 +749,29 @@ void checkDataType()
 
 	switch (state3)
 	{
-		case 0: printf("ERROR: (%s) Invalid data type passed!", dataType); break;
-		case 1: printf("ERROR: Did you meant INT?"); break;
-		case 2: printf("ERROR: Did you meant INT?"); break;
-		case 4: printf("ERROR: Did you meant STRING?"); break;
-		case 5: printf("ERROR: Did you meant STRING?"); break;
-		case 6: printf("ERROR: Did you meant STRING?"); break;
-		case 7: printf("ERROR: Did you meant STRING?"); break;
-		case 8: printf("ERROR: Did you meant STRING?"); break;
-		case 10: printf("ERROR: Did you meant FLOAT?"); break;
-		case 11: printf("ERROR: Did you meant FLOAT?"); break;
-		case 12: printf("ERROR: Did you meant FLOAT?"); break;
-		case 13: printf("ERROR: Did you meant FLOAT?"); break;
-		case 16: printf("ERROR: Did you meant BOOL?"); break;
-		case 17: printf("ERROR: Did you meant BOOL?"); break;
-		case 18: printf("ERROR: Did you meant BOOL?"); break;
-		case 20: printf("ERROR: Did you meant MEDIA?"); break;
-		case 21: printf("ERROR: Did you meant MEDIA?"); break;
-		case 22: printf("ERROR: Did you meant MEDIA?"); break;
-		case 23: printf("ERROR: Did you meant MEDIA?"); break;
+		case 0: clearEntity("feedbackBuffer");
+				snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Invalid data type passed!", dataType);
+				extendFeedback(feedbackBuffer);
+				break;
+
+		case 1: extendFeedback("ERROR: Did you meant INT?"); break;
+		case 2: extendFeedback("ERROR: Did you meant INT?"); break;
+		case 4: extendFeedback("ERROR: Did you meant STRING?"); break;
+		case 5: extendFeedback("ERROR: Did you meant STRING?"); break;
+		case 6: extendFeedback("ERROR: Did you meant STRING?"); break;
+		case 7: extendFeedback("ERROR: Did you meant STRING?"); break;
+		case 8: extendFeedback("ERROR: Did you meant STRING?"); break;
+		case 10: extendFeedback("ERROR: Did you meant FLOAT?"); break;
+		case 11: extendFeedback("ERROR: Did you meant FLOAT?"); break;
+		case 12: extendFeedback("ERROR: Did you meant FLOAT?"); break;
+		case 13: extendFeedback("ERROR: Did you meant FLOAT?"); break;
+		case 16: extendFeedback("ERROR: Did you meant BOOL?"); break;
+		case 17: extendFeedback("ERROR: Did you meant BOOL?"); break;
+		case 18: extendFeedback("ERROR: Did you meant BOOL?"); break;
+		case 20: extendFeedback("ERROR: Did you meant MEDIA?"); break;
+		case 21: extendFeedback("ERROR: Did you meant MEDIA?"); break;
+		case 22: extendFeedback("ERROR: Did you meant MEDIA?"); break;
+		case 23: extendFeedback("ERROR: Did you meant MEDIA?"); break;
 		case 25: state2 = 8; error = TRUE; break;
 	}
 }
@@ -733,13 +818,13 @@ void makeTable()
 
 	/* Checking if database & table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!"); write = FALSE; return;}
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); write = FALSE; return;}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
 	{
 		/* Asking users if they want to overwrite data to disk (for existing table). */
 
-		printf("STAT: Table already exists!");
-		printf("Overwrite data to disk? (y/n): "); decision = getchar();
+		extendFeedback("STAT: Table already exists!");
+		extendFeedback("Overwrite data to disk? (y/n): "); decision = getchar();
 
 		if (decision=='n') {write = FALSE;}
 		else if (decision=='y')
@@ -755,7 +840,7 @@ void makeTable()
 
 		if (illegalChars(table, "+-*/%!=&|")==TRUE)
 		{
-			printf(
+			extendFeedback(
 				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, &, |) in name of table."
 			);
 
@@ -772,7 +857,7 @@ void makeTable()
 		/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "r+");
-		if (fptr==NULL) {printf("ERROR: Database metadata not found!"); return;}
+		if (fptr==NULL) {extendFeedback("ERROR: Database metadata not found!"); return;}
 
 
 		/* The check & action as per that. */
@@ -797,7 +882,15 @@ void makeTable()
 		/* Opening table.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "r+");
-		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!", database); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Table information for \"%s\" not found!", database);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Writing name of table in tables.tosbit, if a new table is made (no overwriting). */
@@ -842,7 +935,15 @@ void makeTable()
 		/* Having safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "w+");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s/%s!", database, table); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through data/%s/%s!", database, table);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Writing default configurations to metadata.tosbit (required further too) */
@@ -860,7 +961,15 @@ void makeTable()
 		/* Checking file descriptor with NULL safety. */
 
 		fptr2 = fopen(directory, "w");
-		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!", database, table); return;}
+
+		if (fptr2==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through data/%s/%s!", database, table);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Creating details.tosbit */
@@ -872,7 +981,15 @@ void makeTable()
 		/* Checking file descriptor with NULL safety. */
 
 		fptr2 = fopen(directory, "w+");
-		if (fptr2==NULL) {printf("ERROR: Can't navigate through data/%s/%s!", database, table); return;}
+
+		if (fptr2==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through data/%s/%s!", database, table);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* 'buffer' contains everything within () that user passed with MAKE TABLE command. */
@@ -904,7 +1021,7 @@ void makeTable()
 			/* Incase attributes with same name are encountered. */
 
 			if ((attributeQueue.getIndex(&attributeQueue, attribute)>=0) && (attributeQueue.n>0))
-				{printf("ERROR: Each attribute must have a unique name!"); deleteTable(FALSE); return;}
+				{extendFeedback("ERROR: Each attribute must have a unique name!"); deleteTable(FALSE); return;}
 
 
 			/* Enqueueing attribute to the end of attributeQueue. */
@@ -926,7 +1043,7 @@ void makeTable()
 				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
-				printf("ERROR: Media attributes are hardwired to file keys!");
+				extendFeedback("ERROR: Media attributes are hardwired to file keys!");
 
 				return;
 			}
@@ -936,7 +1053,7 @@ void makeTable()
 				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
-				printf("ERROR: A table can't have multiple unique keys!");
+				extendFeedback("ERROR: A table can't have multiple unique keys!");
 
 				return;
 			}
@@ -999,7 +1116,7 @@ void makeTable()
 
 		/* Displaying message for successful table creation. */
 
-		printf("OK: Table created successfully!");
+		extendFeedback("OK: Table created successfully!");
 	}
 }
 
@@ -1030,8 +1147,8 @@ void makeDb()
 	{
 		/* Asking users if they want to overwrite data to disk (for existing database). */
 
-		printf("STAT: Database already exists!");
-		printf("Overwrite data to disk? (y/n): "); decision = getchar();
+		extendFeedback("STAT: Database already exists!");
+		extendFeedback("Overwrite data to disk? (y/n): "); decision = getchar();
 
 		if (decision=='n') {write = FALSE;}
 		else if (decision=='y')
@@ -1047,7 +1164,7 @@ void makeDb()
 
 		if (illegalChars(database, "+-*/%!=&|")==TRUE)
 		{
-			printf(
+			extendFeedback(
 				"ERROR: Please don't use operators (+, -, *, /, %%, !, =, =, &, |) in name of database."
 			);
 
@@ -1058,7 +1175,15 @@ void makeDb()
 		/* Opening database.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen("data/databases.tosbit", "r+");
-		if (fptr==NULL) {printf("ERROR: Database information for \"%s\" not found!", database); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Database information for \"%s\" not found!", database);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Writing name of database in database.tosbit, if a new database is made (no overwriting). */
@@ -1077,7 +1202,7 @@ void makeDb()
 		/* Opening metadata.tosbit with safety for NULL file descriptor. */
 
 		fptr = fopen("data/metadata.tosbit", "r+");
-		if (fptr==NULL) {printf("ERROR: Data metadata not found!"); return;}
+		if (fptr==NULL) {extendFeedback("ERROR: Data metadata not found!"); return;}
 
 
 		/* Checking if database's name if larger than existing tables/header. */
@@ -1122,7 +1247,15 @@ void makeDb()
 		/* Having safety for NULL file descriptor. */
 
 		fptr = fopen(directory, "w+");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through data/%s!", database); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through data/%s!", database);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Writing default configurations to metadata.tosbit (required further too) */
@@ -1137,7 +1270,7 @@ void makeDb()
 
 		/* Displaying message for successful database creation. */
 
-		printf("OK: Database created successfully!");
+		extendFeedback("OK: Database created successfully!");
 	}
 }
 
@@ -1163,10 +1296,12 @@ void deleteTable(int msg)
 
 	/* Checking if table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!");}
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!");}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
 	{
-		printf("ERROR: No table named \"%s\" exists!", table);
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
 	}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
 	{
@@ -1186,7 +1321,15 @@ void deleteTable(int msg)
 		/* Opening file with NULL safety for file descriptor. */
 
 		fptr = fopen(directory, "r+");
-		if (fptr==NULL) {printf("ERROR: Table information for \"%s\" not found!", database); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Table information for \"%s\" not found!", database);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 		
 
@@ -1223,8 +1366,13 @@ void deleteTable(int msg)
 
 		/* Giving final feedback (table deleter OR table not found). */
 
-		if ((match==FALSE)&&(msg==TRUE)) {printf("ERROR: No table named \"%s\" found!", table);}
-		else if ((match==TRUE)&&(msg==TRUE)) {printf("OK: Table deleted successfully!");}
+		if ((match==FALSE)&&(msg==TRUE))
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" found!", table);
+			extendFeedback(feedbackBuffer);
+		}
+		else if ((match==TRUE)&&(msg==TRUE)) {extendFeedback("OK: Table deleted successfully!");}
 
 
 		/* Closing file descriptor to make changes to file (avoiding fflush()). */
@@ -1255,7 +1403,12 @@ void deleteDb(int msg)
 
 	/* Checking if table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!", database);}
+	if (checkDbExistence(FALSE)==FALSE)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", database);
+		extendFeedback(feedbackBuffer);
+	}
 	else if (checkDbExistence(FALSE)==TRUE)
 	{
 		/* Removing the database related directory. */
@@ -1268,7 +1421,7 @@ void deleteDb(int msg)
 		/* Opening file with NULL safety for file descriptor. */
 
 		fptr = fopen("data/databases.tosbit", "r+");
-		if (fptr==NULL) {printf("ERROR: Database information not found!"); return;}
+		if (fptr==NULL) {extendFeedback("ERROR: Database information not found!"); return;}
 
 		
 
@@ -1305,8 +1458,13 @@ void deleteDb(int msg)
 
 		/* Giving final feedback (database deleter OR database not found). */
 
-		if ((match==FALSE)&&(msg==TRUE)) {printf("ERROR: No database named \"%s\" found!", database);}
-		else if ((match==TRUE)&&(msg==TRUE)) {printf("OK: Database deleted successfully!");}
+		if ((match==FALSE)&&(msg==TRUE))
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No database named \"%s\" found!", database);
+			extendFeedback(feedbackBuffer);
+		}
+		else if ((match==TRUE)&&(msg==TRUE)) {extendFeedback("OK: Database deleted successfully!");}
 
 
 		/* Closing file descriptor to make changes to file (avoiding fflush()). */
@@ -1325,10 +1483,12 @@ void clearTable()
 {
 	/* Checking existence status of the table. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!");}
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!");}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
 	{
-		printf("ERROR: No table named \"%s\" exists!", table);
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
 	}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==TRUE)
 	{
@@ -1341,7 +1501,15 @@ void clearTable()
 		/* Opening rows.tosbit with NULL safe file descriptor. */
 
 		fptr = fopen(directory, "w");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Removing all zip files. */
@@ -1358,7 +1526,7 @@ void clearTable()
 
 		/* Acknowledging user for successful operation. */
 
-		printf("OK: Table cleared successfully!");
+		extendFeedback("OK: Table cleared successfully!");
 	}
 }
 
@@ -1372,7 +1540,12 @@ void clearDb()
 {
 	/* Checking existence of database. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database named \"%s\" exists!", database);}
+	if (checkDbExistence(FALSE)==FALSE)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No database named \"%s\" exists!", database);
+		extendFeedback(feedbackBuffer);
+	}
 	else if (checkDbExistence(FALSE)==TRUE)
 	{
 		/* Removing whole database directory & recreating new one (with tables.tosbit). */
@@ -1397,7 +1570,15 @@ void clearDb()
 		/* Opening tables.tosbit with NULL safety for file descriptor. */
 
 		fopen(directory, "w");
-		if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+		if (fptr==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+			extendFeedback(feedbackBuffer);
+
+			return;
+		}
 
 
 		/* Writing defualt metadata to metadata.tosbit */
@@ -1412,7 +1593,7 @@ void clearDb()
 
 		/* Acknowledging user for successful operation. */
 
-		printf("OK: Database cleared successfully!");
+		extendFeedback("OK: Database cleared successfully!");
 	}
 }
 
@@ -1454,7 +1635,7 @@ int checkUnique(char value[], int currArg, int totalArg)
 
 		if (c==',') {fseek(fptr2, 4, SEEK_CUR); continue;}
 		else if (c=='\n') {return TRUE;}
-		else {printf("ERROR: rows.json file for current table is corrupted!"); return TRUE;}
+		else {extendFeedback("ERROR: rows.tosbit file for current table is corrupted!"); return TRUE;}
 
 		// If having problem with "return", keep the "return TRUE;" line outside loop & break there.
 	}
@@ -1514,11 +1695,23 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as integer is blank!", pureValue); status = FALSE; break;
+			case 0: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Argument passed as integer is blank!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
 			case 1: state2 = 0; status = TRUE; break;
 			case 2: state2 = 0; status = TRUE; break;
-			case 3: printf("ERROR: (%s) An integer argument is expected!", pureValue); status = FALSE; break;
-			case 4: printf("ERROR: (%s) Integer value passed exceeds 32 digits!", pureValue); status = FALSE; break;
+
+			case 3: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) An integer argument is expected!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 4: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Integer value passed exceeds 32 digits!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
 		}
 
 
@@ -1540,7 +1733,14 @@ int typeParser()
 		clearEntity("pureValue");
 		spaceRemover(value, pureValue, VALUE_MAX_LENGTH);
 
-		if (strlen(pureValue)>VALUE_MAX_LENGTH-1) {printf("ERROR: (%s) String value passed exceeds 32 digits!", pureValue); status = FALSE;}
+		if (strlen(pureValue)>VALUE_MAX_LENGTH-1)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) String value passed exceeds 32 digits!", pureValue);
+			extendFeedback(feedbackBuffer);
+
+			status = FALSE;
+		}
 	}
 
 
@@ -1581,13 +1781,33 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as float is blank!", pureValue); status = FALSE; break;
-			case 1: printf("ERROR: (%s) Float has no decimal point!", pureValue); status = FALSE; break;
-			case 2: printf("ERROR: (%s) No number written after decimal point!", pureValue); status = FALSE; break;
+			case 0: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Argument passed as float is blank!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 1: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Float has no decimal point!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 2: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) No number written after decimal point!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
 			case 3: state2 = 0; status = TRUE; break;
 			case 4: state2 = 0; status = TRUE; break;
-			case 5: printf("ERROR: (%s) Supposed float argument is not float!", pureValue); status = FALSE; break;
-			case 6: printf("ERROR: (%s) Float value passed exceeds 32 digits!", pureValue); status = FALSE; break;
+
+			case 5: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Supposed float argument is not float!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 6: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Float value passed exceeds 32 digits!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
 		}
 
 
@@ -1644,18 +1864,55 @@ int typeParser()
 
 		switch (state2)
 		{
-			case 0: printf("ERROR: (%s) Argument passed as boolean is blank!", pureValue); status = FALSE; break;
-			case 1: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
-			case 2: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
-			case 3: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
-			case 4: printf("ERROR: (%s) Did you meant \"false\"!", pureValue); status = FALSE; break;
+			case 0: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Argument passed as boolean is blank!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 1: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"false\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 2: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"false\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 3: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"false\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 4: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"false\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
 			case 5: state2 = 0; status = TRUE; break;
-			case 6: printf("ERROR: (%s) Did you meant \"true\"!", pureValue); status = FALSE; break;
-			case 7: printf("ERROR: (%s) Did you meant \"true\"!", pureValue); status = FALSE; break;
-			case 8: printf("ERROR: (%s) Did you meant \"true\"!", pureValue); status = FALSE; break;
+
+			case 6: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"true\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 7: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"true\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
+			case 8: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Did you meant \"true\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
+
 			case 9: state2 = 0; status = TRUE; break;
 			case 10: state2 = 0; status = TRUE; break;
-			case 11: printf("ERROR: (%s) Argument is neither \"true\" or \"false\"!", pureValue); status = FALSE; break;
+
+			case 11: clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) Argument is neither \"true\" or \"false\"!", pureValue);
+					extendFeedback(feedbackBuffer);
+					status = FALSE; break;
 		}
 
 
@@ -1680,9 +1937,12 @@ int typeParser()
 
 		/* Taking path of target file. */
 
-		printf("Enter path for \"%s\": ", attribute);
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "Enter path for \"%s\": ", attribute);
+		extendFeedback(feedbackBuffer);
+
 		clearEntity("directory"); fgets(directory, sizeof(directory), stdin);
-		newline_remover(directory); printf("\n");
+		newline_remover(directory); extendFeedback("\n");
 
 		
 
@@ -1703,13 +1963,21 @@ int typeParser()
 		/* Trying to open the target file to check its existence (with NULL safety). */
 
 		media = fopen(directory, "r");
-		if (media==NULL) {printf("ERROR: (%s) No such file exists!", directory); status = FALSE; return FALSE;}
+
+		if (media==NULL)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: (%s) No such file exists!", directory);
+			extendFeedback(feedbackBuffer);
+
+			status = FALSE; return FALSE;
+		}
 
 
 		/* Acknowledging user when file is being compressed. */
 
 		fclose(media);
-		printf("STAT: File is being compressed...\n");
+		extendFeedback("STAT: File is being compressed...\n");
 
 
 		/* Compressing the file. */
@@ -1741,7 +2009,15 @@ int typeParser()
 		/* Fetching early size of file through process piping. */
 
 		media = popen(shell_cmd, "r");
-		do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf(" ->\t");
+
+		do {
+			c3 = fgetc(media);
+
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c3);
+			extendFeedback(feedbackBuffer);
+		}
+		while (c3!='\t'); extendFeedback(" ->\t");
 
 
 		/* Safely closing file descriptor. */
@@ -1758,7 +2034,15 @@ int typeParser()
 		/* Fetching later size through process piping. */
 
 		media = popen(shell_cmd, "r");
-		do {c3 = fgetc(media); printf("%c", c3);} while (c3!='\t'); printf("\n");
+
+		do {
+			c3 = fgetc(media);
+
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c3);
+			extendFeedback(feedbackBuffer);
+		}
+		while (c3!='\t'); extendFeedback("\n");
 		
 
 		/* Safely closing file descriptor. */
@@ -1774,7 +2058,7 @@ int typeParser()
 
 	/* Error handling safety for unknown bug (just for check purposes). */
 
-	else {printf("ERROR: Not matching any data type!"); status = FALSE;}
+	else {extendFeedback("ERROR: Not matching any data type!"); status = FALSE;}
 
 
 	/* Returning status, telling if type parsing was error free or not. */
@@ -1807,8 +2091,15 @@ void pushRow()
 
 	/* Checking if database opened or not with existence of the tables. */
 
-	if (checkDbExistence(FALSE)==FALSE) {printf("ERROR: No database opened yet!"); return;}
-	else if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named \"%s\" exists!", table); return;}
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); return;}
+	else if (checkTableExistence(FALSE)==FALSE)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 
@@ -1879,7 +2170,13 @@ void pushRow()
 	/* Opening details.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory);}
+
+	if (fptr==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+		extendFeedback(feedbackBuffer);
+	}
 
 
 	/* Formatting 'directory' to open rows.tosbit */
@@ -1891,7 +2188,13 @@ void pushRow()
 	/* Opening rows.tosbit with NULL safety. */
 
 	fptr2 = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory);}
+
+	if (fptr==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+		extendFeedback(feedbackBuffer);
+	}
 
 
 	/* Checking number of argument passed. */
@@ -1913,8 +2216,8 @@ void pushRow()
 
 	/* Giving feedback as per number of arguments passed. */
 
-	if (totalArg<actualAttributes) {printf("ERROR: Very few arguments passed!"); fclose(fptr); fclose(fptr2); return;}
-	else if (totalArg>actualAttributes) {printf("ERROR: Too many arguments passed!"); fclose(fptr); fclose(fptr2); return;}
+	if (totalArg<actualAttributes) {extendFeedback("ERROR: Very few arguments passed!"); fclose(fptr); fclose(fptr2); return;}
+	else if (totalArg>actualAttributes) {extendFeedback("ERROR: Too many arguments passed!"); fclose(fptr); fclose(fptr2); return;}
 
 
 	
@@ -2071,7 +2374,7 @@ void pushRow()
 
 	/* Acknowledging user for successful push operation. */
 
-	printf("OK: Row pushed successfully!");
+	extendFeedback("OK: Row pushed successfully!");
 }
 
 
@@ -2137,14 +2440,14 @@ void selectionParser()
 
 	switch (state2)
 	{
-		case 0: printf("ERROR: No column name passed as argument!"); break;
+		case 0: extendFeedback("ERROR: No column name passed as argument!"); break;
 		case 1: allRows(); break;
-		case 2: printf("ERROR: Syntax error when requesting for all columns!"); break;
-		case 3: printf("OK: Columns requsted manually."); break;
-		case 4: printf("OK: Columns requsted manually."); break;
-		case 5: printf("ERROR: Check position of commas!"); break;
-		case 6: printf("ERROR: Attribute name limit exceeded!"); break;
-		case 7: printf("ERROR: No comma among names of columns!"); break;
+		case 2: extendFeedback("ERROR: Syntax error when requesting for all columns!"); break;
+		case 3: extendFeedback("OK: Columns requsted manually."); break;
+		case 4: extendFeedback("OK: Columns requsted manually."); break;
+		case 5: extendFeedback("ERROR: Check position of commas!"); break;
+		case 6: extendFeedback("ERROR: Attribute name limit exceeded!"); break;
+		case 7: extendFeedback("ERROR: No comma among names of columns!"); break;
 	}
 
 
@@ -2262,7 +2565,15 @@ void allRows()
 	/* Opening details.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: No table named \"%s\" exists!", table); return;}
+
+	if (fptr==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* Fetching data type & length of largest names for each attribute. */
@@ -2326,9 +2637,9 @@ void allRows()
 
 	for (int i=0; i<sizeQueue.n; i++)
 	{
-		printf("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {printf("-");}
+		extendFeedback("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {extendFeedback("-");}
 	}
-	printf("+\n");
+	extendFeedback("+\n");
 
 
 
@@ -2341,13 +2652,17 @@ void allRows()
 	{
 		/* Printing the name of attributes on top bar. */
 
-		clearEntity("attribute"); charsPrinted = 0; printf("|"); c = fgetc(fptr);
+		clearEntity("attribute"); charsPrinted = 0; extendFeedback("|"); c = fgetc(fptr);
 
 		while (c!=' ' && c!=',')
 		{
 			attribute[strlen(attribute)] = c;
 
-			printf("%c", c); charsPrinted++;
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+			extendFeedback(feedbackBuffer);
+
+			charsPrinted++;
 			c = fgetc(fptr);
 		}
 
@@ -2359,7 +2674,7 @@ void allRows()
 
 		/* Printing spaces to maintain structure of console-table. */
 
-		for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i))-charsPrinted; j++) {printf(" ");}
+		for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i))-charsPrinted; j++) {extendFeedback(" ");}
 
 
 		/* Moving FD backward by one byte, as it read a character further for check. */
@@ -2374,7 +2689,7 @@ void allRows()
 			SEEK_CUR
 		);
 	}
-	printf("|\n");
+	extendFeedback("|\n");
 
 
 
@@ -2382,9 +2697,9 @@ void allRows()
 
 	for (int i=0; i<sizeQueue.n; i++)
 	{
-		printf("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {printf("-");}
+		extendFeedback("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {extendFeedback("-");}
 	}
-	printf("+\n");
+	extendFeedback("+\n");
 
 
 
@@ -2403,7 +2718,15 @@ void allRows()
 	/* Opening rows.tosbit with NULL safety. */
 
 	fptr2 = fopen(directory, "r");
-	if (fptr2==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+	if (fptr2==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* Reading rows from rows.data */
@@ -2423,7 +2746,7 @@ void allRows()
 		{
 			/* Initializing certain values & printing default designs. */
 
-			charsPrinted = 0; printf("|");
+			charsPrinted = 0; extendFeedback("|");
 			
 
 			/* For boolean type attributes. */
@@ -2434,7 +2757,10 @@ void allRows()
 
 				for (int j=0; j<5; j++)
 				{
-					printf("%c", fgetc(fptr2));
+					clearEntity("feedbackBuffer");
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", fgetc(fptr2));
+					extendFeedback(feedbackBuffer);
+
 					charsPrinted++;
 				}
 
@@ -2458,17 +2784,31 @@ void allRows()
 				{
 					stringSpaces = 0;
 
-					while (c!=' ') {printf("%c", c); charsPrinted++; c = fgetc(fptr2); j++;}
+					while (c!=' ')
+					{
+						clearEntity("feedbackBuffer");
+						snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+						extendFeedback(feedbackBuffer);
+
+						charsPrinted++; c = fgetc(fptr2); j++;
+					}
 					while (c==' ' && j<atoi(sizeQueue.getValue(&sizeQueue, i)))
 					{
 						stringSpaces++;
-						printf(" "); c = fgetc(fptr2);
+						extendFeedback(" "); c = fgetc(fptr2);
 
 						j++;
 					}
 
 					if (c==atoi(sizeQueue.getValue(&sizeQueue, i))) {charsPrinted += stringSpaces;}
-					else if (j==atoi(sizeQueue.getValue(&sizeQueue, i))-1) {printf("%c", c); charsPrinted++;}
+					else if (j==atoi(sizeQueue.getValue(&sizeQueue, i))-1)
+					{
+						clearEntity("feedbackBuffer");
+						snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
+						extendFeedback(feedbackBuffer);
+
+						charsPrinted++;
+					}
 
 					// if (c!=' ') {charsPrinted += stringSpaces;}
 					// if (j<atoi(sizeQueue.getValue(&sizeQueue, i)))
@@ -2490,7 +2830,7 @@ void allRows()
 			}
 		}
 
-		printf("|\n"); rowCount++;
+		extendFeedback("|\n"); rowCount++;
 	}
 
 
@@ -2498,9 +2838,9 @@ void allRows()
 
 	for (int i=0; i<sizeQueue.n; i++)
 	{
-		printf("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {printf("-");}
+		extendFeedback("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {extendFeedback("-");}
 	}
-	printf("+\n");
+	extendFeedback("+\n");
 
 
 
@@ -2541,7 +2881,9 @@ void allRows()
 
 	/* Printing stats information. */
 
-	printf("STAT: Total %d rows found.", rowCount);
+	clearEntity("feedbackBuffer");
+	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "STAT: Total %d rows found.", rowCount);
+	extendFeedback(feedbackBuffer);
 
 
 
@@ -2672,16 +3014,16 @@ void updateParser()
 
 	switch (state2)
 	{
-		case 0: printf("ERROR: Pass atleast one argument & remove extra comma!"); break;
-		case 1: printf("ERROR: Please define value to update attribute with."); break;
-		case 2: printf("ERROR: Please define value to update attribute with."); break;
-		case 3: printf("ERROR: Please define value to update attribute with."); break;
+		case 0: extendFeedback("ERROR: Pass atleast one argument & remove extra comma!"); break;
+		case 1: extendFeedback("ERROR: Please define value to update attribute with."); break;
+		case 2: extendFeedback("ERROR: Please define value to update attribute with."); break;
+		case 3: extendFeedback("ERROR: Please define value to update attribute with."); break;
 		case 4: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
 		//case 5: state2 = 0; updateAll(&argumentQueue, &valueQueue); break;
-		case 6: printf("ERROR: Check for missing assignment operator!"); break;
-		case 7: printf("ERROR: A comma is expected after each assignment!"); break;
-		case 8: printf("ERROR: Attribute length limit exceeded!"); break;
-		case 9: printf("ERROR: Value length limit exceeded!"); break;
+		case 6: extendFeedback("ERROR: Check for missing assignment operator!"); break;
+		case 7: extendFeedback("ERROR: A comma is expected after each assignment!"); break;
+		case 8: extendFeedback("ERROR: Attribute length limit exceeded!"); break;
+		case 9: extendFeedback("ERROR: Value length limit exceeded!"); break;
 	}
 
 
@@ -2803,7 +3145,14 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 	/* Checking table's existence. */
 
-	if (checkTableExistence(FALSE)==FALSE) {printf("ERROR: No table named %s exist!", table); return;}
+	if (checkTableExistence(FALSE)==FALSE)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named %s exist!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* Formatting directory to open details.tosbit */
@@ -2815,7 +3164,15 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	/* Opening details.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+	if (fptr==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* While EOF not reached in details.tosbit (extracting data) */
@@ -2885,10 +3242,14 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	{
 		if (attributeQueue.getIndex(&attributeQueue, argumentQueue->getValue(argumentQueue, i)) == -1)
 		{
-			printf(
+			clearEntity("feedbackBuffer");
+			snprintf(
+				feedbackBuffer, sizeof(feedbackBuffer),
 				"ERROR: No attribute named \"%s\" exists in table \"%s\"!",
 				argumentQueue->getValue(argumentQueue, i), table
 			);
+			extendFeedback(feedbackBuffer);
+
 
 			return;
 		}
@@ -2928,7 +3289,11 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 			/* Checking data type & key type. */
 
 			if (typeParser()==FALSE) {return;}
-			else if (!strcmp(key,"unique") || !strcmp(key,"file")) {printf("ERROR: Unique & File attributes can't change!"); return;}
+			else if (!strcmp(key,"unique") || !strcmp(key,"file"))
+			{
+				extendFeedback("ERROR: Unique & File attributes can't change!");
+				return;
+			}
 		}
 	}
 
@@ -2999,12 +3364,25 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	/* Opening details.tosbit with NULL safety. */
 
 	fptr = fopen(directory, "r+");
-	if (fptr==NULL) {printf("ERROR: Can't navigate through %s!", directory); return;}
+
+	if (fptr==NULL)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: Can't navigate through %s!", directory);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 	/* Returning if the table is empty. */
 
-	if (newFile(fptr)) {printf("STAT: Table \"%s\" is empty.", table);}
+	if (newFile(fptr))
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "STAT: Table \"%s\" is empty.", table);
+		extendFeedback(feedbackBuffer);
+	}
 
 
 	/* Traversing whole table data & modifying it. */
@@ -3081,5 +3459,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 	/* Acknowledging users about update in query. */
 
-	printf("OK: Total %d rows updated!", totalRows);
+	clearEntity("feedbackBuffer");
+	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "OK: Total %d rows updated!", totalRows);
+	extendFeedback(feedbackBuffer);
 }

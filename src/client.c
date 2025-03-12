@@ -70,8 +70,9 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
     /* Variable declarations. */
 
     int sockFD, bytesInvolved;
+    int chunks;
     char onlineBuffer[ONLINE_BUFFER_SIZE] = {0};
-    char command[COMMAND_MAX_LENGTH] = {0};
+    char user_cmd[COMMAND_MAX_LENGTH] = {0};
 
 
     /* Structure declarations. */
@@ -172,9 +173,14 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
     {
         /* Clean buffer & send the message. */
 
-        printf("TOS> "); fgets(command, sizeof(command), stdin); newline_remover(command);
-        writeMessage(&sockFD, command);
-        readMessage(&sockFD, buffer, sizeof(buffer));
+        printf("TOS> "); fgets(user_cmd, sizeof(user_cmd), stdin); newline_remover(user_cmd);
+        writeMessage(&sockFD, user_cmd);
+
+        readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer));
+        chunks = atoi(onlineBuffer);
+
+        readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer));
+        printf("%s", onlineBuffer);
     }
 
 

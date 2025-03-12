@@ -69,10 +69,24 @@ include CMakeFiles/server.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/server.dir/flags.make
 
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o: /home/gouraarav/myCodes/Tosbit/src/database_operations.c
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o -c /home/gouraarav/myCodes/Tosbit/src/database_operations.c
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gouraarav/myCodes/Tosbit/src/database_operations.c > CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.i
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/database_operations.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.s
+
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o: CMakeFiles/server.dir/flags.make
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o: /home/gouraarav/myCodes/Tosbit/src/encrypter.c
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o -c /home/gouraarav/myCodes/Tosbit/src/encrypter.c
 
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.i: cmake_force
@@ -83,10 +97,24 @@ CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.s: cmake_for
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/encrypter.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.s
 
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o: /home/gouraarav/myCodes/Tosbit/src/queue.c
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o -c /home/gouraarav/myCodes/Tosbit/src/queue.c
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gouraarav/myCodes/Tosbit/src/queue.c > CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.i
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/queue.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.s
+
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o: CMakeFiles/server.dir/flags.make
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o: /home/gouraarav/myCodes/Tosbit/src/server.c
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o -c /home/gouraarav/myCodes/Tosbit/src/server.c
 
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.i: cmake_force
@@ -97,10 +125,52 @@ CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/server.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.s
 
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o: /home/gouraarav/myCodes/Tosbit/src/shell_piping.c
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o -c /home/gouraarav/myCodes/Tosbit/src/shell_piping.c
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gouraarav/myCodes/Tosbit/src/shell_piping.c > CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.i
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/shell_piping.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.s
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o: /home/gouraarav/myCodes/Tosbit/src/syntax_parser.c
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o -c /home/gouraarav/myCodes/Tosbit/src/syntax_parser.c
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gouraarav/myCodes/Tosbit/src/syntax_parser.c > CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.i
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/syntax_parser.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.s
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o: /home/gouraarav/myCodes/Tosbit/src/transition_tool.c
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o -c /home/gouraarav/myCodes/Tosbit/src/transition_tool.c
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/gouraarav/myCodes/Tosbit/src/transition_tool.c > CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.i
+
+CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/gouraarav/myCodes/Tosbit/src/transition_tool.c -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.s
+
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o: CMakeFiles/server.dir/flags.make
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o: /home/gouraarav/myCodes/Tosbit/src/utility_box.c
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o -MF CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o.d -o CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o -c /home/gouraarav/myCodes/Tosbit/src/utility_box.c
 
 CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.i: cmake_force
@@ -113,19 +183,29 @@ CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.s: cmake_f
 
 # Object files for target server
 server_OBJECTS = \
+"CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o" \
 "CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o" \
+"CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o" \
 "CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o" \
+"CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o" \
+"CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o" \
+"CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o" \
 "CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o"
 
 # External object files for target server
 server_EXTERNAL_OBJECTS =
 
+server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o
 server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/encrypter.c.o
+server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/queue.c.o
 server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/server.c.o
+server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/shell_piping.c.o
+server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/syntax_parser.c.o
+server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/transition_tool.c.o
 server: CMakeFiles/server.dir/home/gouraarav/myCodes/Tosbit/src/utility_box.c.o
 server: CMakeFiles/server.dir/build.make
 server: CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/gouraarav/myCodes/Tosbit/exec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

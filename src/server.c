@@ -106,6 +106,7 @@ int main(int argc, char *argv[])
     char buffer[ONLINE_BUFFER_SIZE] = {0};
 
     int sockFD, newsockFD, portno, epollFD;
+    int chunks;
     ssize_t bytesInvolved;
 
 
@@ -327,8 +328,18 @@ int main(int argc, char *argv[])
                     epoll_ctl(epollFD, EPOLL_CTL_DEL, fd, NULL);
                 }
                 else
-                {
-                    syntaxParser(username, buffer, TRUE);
+                {// {printf("---{SIGNAL!}---\n");/////////////////////////////////////
+                    syntaxParser(guestUsername, buffer, TRUE);
+
+                    // chunks = ((int)strlen(feedback)%(int)sizeof(buffer))+1;
+                    // writeMessage(&fd, itoa(chunks, ascii));
+
+                    // for (int j=0; j<chunks; j++)
+                    // {
+                    //     writeMessage(&fd, )
+                    // }
+
+                    writeMessage(&fd, feedback);
                 }
             }
         }
