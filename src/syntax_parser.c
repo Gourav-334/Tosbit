@@ -27,6 +27,15 @@
 
 void syntaxParser(char username[], char *user_cmd, int serverConn)
 {
+	/* Initial memory cleanage & assingment process. */
+
+	if (serverConn==TRUE) {serverMode = TRUE;}
+	else if (serverConn==FALSE) {serverMode = FALSE;}
+
+	if (feedbackSize>0) {free(feedback); feedback = NULL;}
+	feedbackSize = 0;
+
+
 	/* Calculating performance. */
 
 	struct timespec start, end;

@@ -55,3 +55,38 @@
 4. Whatever command client enters, is sent to server through socket.
 5. Server receives the command.
 6. Server parses it locally & writes output to local and client terminal.
+
+
+### Conditional socket print:
+
+```
+{database_operations.h} -> {syntax_parser.h} -> {server.c}
+```
+
+1. Make a global variable `serverMode` in `database_operations.c`.
+2. Make a global limitless string variable `feedback` & its global size tracker `feedbackSize` in `database_operations.c`.
+3. Also make a function `extendFeedback()` in `database_operations.c`.
+4. At the start of `syntax_parser.c`, memset `feedback` if required & set `feedbackSize` to `0`.
+5. Whenever `syntax_parser.c` is called, it checks if `serverConn` flag in `TRUE` or `FALSE` & sets `serverMode` to same.
+6. All print functions are replaced with `extendFeedback()`. *
+7. Print `feedback` at the end of `syntaxParser()`.
+8. At `server.c`, send `feedback` in chunks of `1024` (client buffer size).
+
+
+## Chunkifier
+
+1. First send client that how many chunks you are going to send.
+2. For that many times, server will write fragments of `feedback` to client.
+3. And for that many times, client will read fragments of `feedback` by server.
+
+
+## String Extender
+
+```c
+void extendFeedback(char message[]);
+```
+
+1. Extend `feedback` by string length of `message`.
+2. Clean the newly extended part with `memset()`.
+3. Increment `feedbackSize` by string length of `message`.
+4. Append `message` at the end of `feedback`.

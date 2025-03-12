@@ -24,6 +24,7 @@
 FILE *fptr = NULL;
 FILE *fptr2 = NULL;
 FILE *cache = NULL;
+char *feedback = NULL;
 
 char command[COMMAND_MAX_LENGTH] = {0};
 char database[DATABASE_MAX_LENGTH] = {0};
@@ -41,10 +42,11 @@ char ascii[INT_TO_ASCII_LIMIT] = {0};
 int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
 int zero_count = 0;
-
 int breaker = FALSE;							// Set TRUE when the syntax goes wrong.
 int breaker2 = FALSE;
 int valid = TRUE;							// Syntax if found wrong, only then invalid.
+int serverMode = FALSE;
+size_t feedbackSize = 0;
 
 
 
@@ -55,6 +57,41 @@ int valid = TRUE;							// Syntax if found wrong, only then invalid.
 
 
 
+
+
+
+
+
+
+
+
+
+
+/* Stores all bytes in final feedback. */
+
+void extendFeedback(char message[])
+{
+	/* Declarations */
+
+	char *ptr;
+
+
+	/* Extending size of 'feedback' by 'message' string length with NULL safety. */
+
+	ptr = (char*)realloc(feedback, (size_t)strlen(message)*sizeof(char));
+	if (ptr==NULL) {printf("ERROR: Can't reallocate feedback."); return;}
+
+
+	/* Incrementing 'feedbackSize' by new size of 'feedback' & cleaning extension. */
+
+	memset(feedback+feedbackSize , 0, (size_t)strlen(message));
+	feedbackSize += (size_t)strlen(message);
+
+
+	/* Appending 'message' at the end of 'feedback'. */
+
+	strcat(feedback, message);
+}
 
 
 

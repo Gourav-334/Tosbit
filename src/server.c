@@ -11,6 +11,7 @@
 
 #include "../include/utility_box.h"
 #include "../include/encrypter.h"
+#include "../include/syntax_parser.h"
 
 
 #define MAX_EVENTS 10

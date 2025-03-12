@@ -13,7 +13,6 @@
 #include <netdb.h>
 
 #include "utility_box.h"
-#include "syntax_parser.h"
 
 
 #define ONLINE_BUFFER_SIZE 1025

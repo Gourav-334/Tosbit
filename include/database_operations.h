@@ -47,6 +47,7 @@
 
 extern FILE *fptr, *fptr2;		// MAKE IT LOCAL!
 extern FILE *cache;				// MAKE IT LOCAL!
+extern char *feedback;
 
 extern char command[COMMAND_MAX_LENGTH];
 extern char database[DATABASE_MAX_LENGTH];
@@ -64,10 +65,11 @@ extern char ascii[INT_TO_ASCII_LIMIT];
 extern int state;							// Main automaton
 extern int state2;							// Used for "table attribute" & "data types"
 extern int zero_count;
-
 extern int breaker;							// Set TRUE when the syntax goes wrong.
 extern int breaker2;
 extern int valid;							// Syntax if found wrong, only then invalid.
+extern int serverMode;
+extern size_t feedbackSize;
 
 
 
@@ -80,6 +82,7 @@ extern int valid;							// Syntax if found wrong, only then invalid.
 
 /* Implementation of DB operations. */
 
+extern void extendFeedback(char message[]);
 extern void clearEntity(char *str);
 extern int checkDbExistence(int msg);
 extern int checkTableExistence(int msg);
