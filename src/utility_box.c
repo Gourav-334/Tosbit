@@ -270,4 +270,30 @@ char *addTerminator(char *str)
 
 
 
+/* Prints characters as raw. */
+
+void printRaw(char *str)
+{
+	printf("{");
+
+	for (int i=0; i<strlen(str); i++)
+	{
+		switch (str[i])
+		{
+			case '\n': printf("\\n"); break;
+			case '\t': printf("\\t"); break;
+			case '\a': printf("\\a"); break;
+			case '\b': printf("\\b"); break;
+			case '\r': printf("\\r"); break;
+			default: printf("%c", str[i]); break;
+		}
+	}
+
+	printf("}");
+}
+
+
+
+
+
 /* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

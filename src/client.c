@@ -174,13 +174,14 @@ int runClient(char username[], char hostIP[], short unsigned int port, char host
         /* Clean buffer & send the message. */
 
         printf("TOS> "); fgets(user_cmd, sizeof(user_cmd), stdin); newline_remover(user_cmd);
-        writeMessage(&sockFD, user_cmd);
+        bytesInvolved = write(sockFD, user_cmd, strlen(user_cmd));
+        if (bytesInvolved<=0) {perror("ERROR: (w) First byte"); return 0;}
 
         readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer));
         chunks = atoi(onlineBuffer);
 
         readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer));
-        printf("%s", onlineBuffer);
+        printf("%s\n\n", onlineBuffer);
     }
 
 

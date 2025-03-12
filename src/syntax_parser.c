@@ -45,7 +45,7 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 		/* For driver manager piping. */
 
-		if (user_cmd==NULL) {fgets(command, COMMAND_MAX_LENGTH, stdin);}
+		if (user_cmd==NULL) {fgets(command, COMMAND_MAX_LENGTH, stdin); newline_remover(command);}
 		else {strcpy(command, user_cmd); printf("%s\n", command);}
 
 
@@ -234,8 +234,6 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 
 			if (breaker==TRUE) {breaker = FALSE; break;}
-			
-			newline_remover(command);
 		}
 
 
@@ -446,14 +444,14 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 	    double time_taken = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
     	
     	clearEntity("feedbackBuffer");
-		snprintf(feedbackBuffer, sizeof(feedbackBuffer), " (%f sec)\n\n", time_taken);
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), " (%f sec)", time_taken);
 		extendFeedback(feedbackBuffer);
 
 
 
     	/* Printing to local terminal. */
 
-    	printf("%s", feedback);
+    	printf("%s\n\n", feedback);
 
 
 

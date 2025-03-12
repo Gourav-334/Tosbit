@@ -316,6 +316,7 @@ int main(int argc, char *argv[])
             else
             {
                 memset(buffer, 0, sizeof(buffer));
+                //readMessage(&fd, buffer, sizeof(buffer));
                 bytesInvolved = read(fd, buffer, sizeof(buffer));
 
 
@@ -331,8 +332,8 @@ int main(int argc, char *argv[])
                 {// {printf("---{SIGNAL!}---\n");/////////////////////////////////////
                     syntaxParser(guestUsername, buffer, TRUE);
 
-                    // chunks = ((int)strlen(feedback)%(int)sizeof(buffer))+1;
-                    // writeMessage(&fd, itoa(chunks, ascii));
+                    chunks = ((int)strlen(feedback)%(int)sizeof(buffer))+1;
+                    writeMessage(&fd, itoa(chunks, ascii));
 
                     // for (int j=0; j<chunks; j++)
                     // {
