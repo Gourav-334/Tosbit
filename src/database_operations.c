@@ -92,10 +92,6 @@ void extendFeedback(char message[])
 	feedback = ptr;
 
 
-	// /* Incrementing 'feedbackSize' by new size of 'feedback' & cleaning extension. */
-
-	// memset(feedback+feedbackSize , 0, (size_t)strlen(message));
-
 
 	/* Appending 'message' at the end of 'feedback'. */
 
@@ -127,6 +123,7 @@ void clearEntity(char *str)
 	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"feedback")) {memset(feedback, 0, (size_t)feedbackSize);}
 	else if (!strcmp(str,"feedbackBuffer")) {memset(feedbackBuffer, 0, FEEDBACK_BUFFER_SIZE*sizeof(char));}
 }
 
@@ -824,7 +821,7 @@ void makeTable()
 		/* Asking users if they want to overwrite data to disk (for existing table). */
 
 		extendFeedback("STAT: Table already exists!");
-		extendFeedback("Overwrite data to disk? (y/n): "); decision = getchar();
+		extendFeedback("Overwrite data to disk? (y/n): "); scanf("%c", &decision); getchar();
 
 		if (decision=='n') {write = FALSE;}
 		else if (decision=='y')
@@ -1148,7 +1145,7 @@ void makeDb()
 		/* Asking users if they want to overwrite data to disk (for existing database). */
 
 		extendFeedback("STAT: Database already exists!");
-		extendFeedback("Overwrite data to disk? (y/n): "); decision = getchar();
+		extendFeedback("Overwrite data to disk? (y/n): "); scanf("%c", &decision); getchar();
 
 		if (decision=='n') {write = FALSE;}
 		else if (decision=='y')
@@ -1296,7 +1293,7 @@ void deleteTable(int msg)
 
 	/* Checking if table exists or not. */
 
-	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!");}
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); return;}
 	else if (checkDbExistence(FALSE)==TRUE && checkTableExistence(FALSE)==FALSE)
 	{
 		clearEntity("feedbackBuffer");
@@ -1636,8 +1633,6 @@ int checkUnique(char value[], int currArg, int totalArg)
 		if (c==',') {fseek(fptr2, 4, SEEK_CUR); continue;}
 		else if (c=='\n') {return TRUE;}
 		else {extendFeedback("ERROR: rows.tosbit file for current table is corrupted!"); return TRUE;}
-
-		// If having problem with "return", keep the "return TRUE;" line outside loop & break there.
 	}
 }
 
@@ -2410,6 +2405,20 @@ void selectionParser()
 
 
 
+	/* Checking if database opened or not with existence of the tables. */
+
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); return;}
+	else if (checkTableExistence(FALSE)==FALSE)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
+
+
+
 	/* DFA-based parser to extract all attribute names. */
 
 	for (int i=0; i<strlen(buffer); i++)
@@ -2553,6 +2562,20 @@ void allRows()
 		.showAll = Queue_showAll,
 		.changeAt = Queue_changeAt
 	};
+
+
+
+	/* Checking if database opened or not with existence of the tables. */
+
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); return;}
+	else if (checkTableExistence(FALSE)==FALSE)
+	{
+		clearEntity("feedbackBuffer");
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
+		extendFeedback(feedbackBuffer);
+
+		return;
+	}
 
 
 
@@ -3158,16 +3181,18 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 
 
-	/* Checking table's existence. */
+	/* Checking if database opened or not with existence of the tables. */
 
-	if (checkTableExistence(FALSE)==FALSE)
+	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); return;}
+	else if (checkTableExistence(FALSE)==FALSE)
 	{
 		clearEntity("feedbackBuffer");
-		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named %s exist!", table);
+		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "ERROR: No table named \"%s\" exists!", table);
 		extendFeedback(feedbackBuffer);
 
 		return;
 	}
+
 
 
 	/* Formatting directory to open details.tosbit */

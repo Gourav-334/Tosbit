@@ -73,8 +73,7 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 			if (serverConn==TRUE) {serverMode = TRUE;}
 			else if (serverConn==FALSE) {serverMode = FALSE;}
 
-			if (feedbackSize>0) {free(feedback); feedback = NULL;}
-			feedbackSize = 0;
+			if (feedbackSize>0) {free(feedback); feedback = NULL;} feedbackSize = 0;
 
 
 
@@ -93,11 +92,11 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 				case 10: changeState(command[i], " ", "10", &state, 12); breakValue(&state, 12, &breaker); break;
 				case 13: changeState(command[i], " dD", "13,7,7", &state, 11); breakValue(&state, 11, &breaker); break;
 				case 14: clearEntity("database"); changeState(command[i], " ", "14", &state, 9); appendState(&state, 9, database, command[i]); break;
-				case 16: changeState(command[i], "hH", "17,17", &state, 28); breakValue(&state, 28, &breaker); break;
+				case 16: changeState(command[i], "hHeE", "17,17,175,175", &state, 28); breakValue(&state, 28, &breaker); break;
 				case 17: changeState(command[i], "oO", "18,18", &state, 28); breakValue(&state, 28, &breaker); break;
 				case 18: changeState(command[i], "wW", "19,19", &state, 28); breakValue(&state, 28, &breaker); break;
 				case 19: changeState(command[i], " ", "20", &state, 28); breakValue(&state, 28, &breaker); break;
-				case 20: clearEntity("table"); changeState(command[i], " sSaA", "20,22,22,31,31", &state, 132); appendState(&state, 132, table, command[i]); break;
+				case 20: changeState(command[i], " sSaA", "20,22,22,31,31", &state, 28); breakValue(&state, 28, &breaker); break;
 				case 21: changeState(command[i], " ", "29", &state, 21); appendState(&state, 21, table, command[i]); break;
 				case 22: changeState(command[i], "tT", "23,23", &state, 28); breakValue(&state, 28, &breaker); break;
 				case 23: changeState(command[i], "rR", "24,24", &state, 28); breakValue(&state, 28, &breaker); break;
@@ -229,6 +228,12 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 				case 169: changeState(command[i], " (", "169,170", &state, 174); breakValue(&state, 174, &breaker); break;
 				case 170: clearEntity("buffer2"); changeState(command[i], ")", "172", &state, 171); appendState(&state, 171, buffer2, command[i]); break;
 				case 171: changeState(command[i], ")", "172", &state, 171); appendState(&state, 171, buffer2, command[i]); limitChecker(buffer2, (BUFFER_MAX_LENGTH-1), &state, 130, &breaker); break;
+				case 175: changeState(command[i], "lL", "176,176", &state, 150); breakValue(&state, 150, &breaker); break;
+				case 176: changeState(command[i], "eE", "177,177", &state, 150); breakValue(&state, 150, &breaker); break;
+				case 177: changeState(command[i], "cC", "178,178", &state, 150); breakValue(&state, 150, &breaker); break;
+				case 178: changeState(command[i], "tT", "179,179", &state, 150); breakValue(&state, 150, &breaker); break;
+				case 179: changeState(command[i], " ", "180", &state, 150); breakValue(&state, 150, &breaker); break;
+				case 180: clearEntity("table"); changeState(command[i], " ", "180", &state, 132); appendState(&state, 132, table, command[i]); break;
 			}
 
 
@@ -386,24 +391,24 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 			case 129: extendFeedback("ERROR: Did you meant \"push to tbl_name (...)\"?"); break;
 			case 130: extendFeedback("ERROR: Buffer limit exceeded (command too long)!"); break;
 			case 131: extendFeedback("ERROR: Did you meant \"push to tbl_name (...)\"?"); break;
-			case 132: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
-			case 133: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
-			case 134: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
-			case 135: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
-			case 136: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
-			case 137: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
+			case 132: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 133: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 134: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 135: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 136: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 137: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
 			case 139: selectionParser(); break;
-			case 140: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
-			case 141: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
-			case 142: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
-			case 143: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
-			case 145: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
-			case 146: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
-			case 147: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
+			case 140: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
+			case 141: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
+			case 142: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
+			case 143: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
+			case 145: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
+			case 146: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
+			case 147: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
 			case 148: extendFeedback("STAT: \'y\' rows found."); break;
 			case 149: extendFeedback("STAT: \'y\' rows found."); break;
-			case 150: extendFeedback("ERROR: Did you meant \"show tbl_name.(...)\"?"); break;
-			case 151: extendFeedback("ERROR: Did you meant \"show tbl_name.(...) where (...)\"?"); break;
+			case 150: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 151: extendFeedback("ERROR: Did you meant \"select tbl_name.(...) where (...)\"?"); break;
 			case 152: extendFeedback("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
 			case 153: extendFeedback("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
 			case 154: extendFeedback("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
@@ -427,6 +432,12 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 			case 172: extendFeedback("OK: Rows updated complexly."); break;
 			case 173: extendFeedback("ERROR: Did you meant \"update tbl_name.(...)\"?"); break;
 			case 174: extendFeedback("ERROR: Did you meant \"update tbl_name.(...) where (...)\"?"); break;
+			case 175: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 176: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 177: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 178: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 179: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+			case 180: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
 		}
 
 

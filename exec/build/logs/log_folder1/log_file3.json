@@ -6574,6 +6574,550 @@
 			"location": "",
 			"author": "",
 			"command": "show raspberry.(@)"
+		},
+
+		{
+			"serial": 823,
+			"time": "Thu Mar 13 19:39:10 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 824,
+			"time": "Thu Mar 13 19:39:16 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select tester.(@)"
+		},
+
+		{
+			"serial": 825,
+			"time": "Thu Mar 13 19:39:22 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 826,
+			"time": "Thu Mar 13 19:39:30 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select      tester.(@)"
+		},
+
+		{
+			"serial": 827,
+			"time": "Thu Mar 13 19:39:42 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "SELECT tester.(@)"
+		},
+
+		{
+			"serial": 828,
+			"time": "Thu Mar 13 19:40:48 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sele"
+		},
+
+		{
+			"serial": 829,
+			"time": "Thu Mar 13 19:40:54 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sel"
+		},
+
+		{
+			"serial": 830,
+			"time": "Thu Mar 13 19:40:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 831,
+			"time": "Thu Mar 13 19:40:59 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sh"
+		},
+
+		{
+			"serial": 832,
+			"time": "Thu Mar 13 19:41:01 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 833,
+			"time": "Thu Mar 13 19:41:04 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 834,
+			"time": "Thu Mar 13 19:43:09 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 835,
+			"time": "Thu Mar 13 19:43:12 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select"
+		},
+
+		{
+			"serial": 836,
+			"time": "Thu Mar 13 19:43:20 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sel"
+		},
+
+		{
+			"serial": 837,
+			"time": "Thu Mar 13 19:43:23 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 838,
+			"time": "Thu Mar 13 19:44:11 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 839,
+			"time": "Thu Mar 13 19:44:15 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 840,
+			"time": "Thu Mar 13 19:45:58 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 841,
+			"time": "Thu Mar 13 19:46:00 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 842,
+			"time": "Thu Mar 13 19:46:22 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sel"
+		},
+
+		{
+			"serial": 843,
+			"time": "Thu Mar 13 19:46:27 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 844,
+			"time": "Thu Mar 13 19:46:37 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 845,
+			"time": "Thu Mar 13 19:49:58 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sel"
+		},
+
+		{
+			"serial": 846,
+			"time": "Thu Mar 13 19:50:06 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 847,
+			"time": "Thu Mar 13 19:50:07 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 848,
+			"time": "Thu Mar 13 19:50:11 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sel"
+		},
+
+		{
+			"serial": 849,
+			"time": "Thu Mar 13 19:50:13 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sele"
+		},
+
+		{
+			"serial": 850,
+			"time": "Thu Mar 13 19:52:50 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "s"
+		},
+
+		{
+			"serial": 851,
+			"time": "Thu Mar 13 19:52:51 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "se"
+		},
+
+		{
+			"serial": 852,
+			"time": "Thu Mar 13 19:52:54 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "sel"
+		},
+
+		{
+			"serial": 853,
+			"time": "Thu Mar 13 19:52:57 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "selcc"
+		},
+
+		{
+			"serial": 854,
+			"time": "Thu Mar 13 19:53:00 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select t"
+		},
+
+		{
+			"serial": 855,
+			"time": "Thu Mar 13 19:53:07 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select                 "
+		},
+
+		{
+			"serial": 856,
+			"time": "Thu Mar 13 19:53:19 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select             ts"
+		},
+
+		{
+			"serial": 857,
+			"time": "Thu Mar 13 19:53:28 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select table.(@)"
+		},
+
+		{
+			"serial": 858,
+			"time": "Thu Mar 13 19:54:22 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select test"
+		},
+
+		{
+			"serial": 859,
+			"time": "Thu Mar 13 19:54:30 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select tester.(@)"
+		},
+
+		{
+			"serial": 860,
+			"time": "Thu Mar 13 19:54:36 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 861,
+			"time": "Thu Mar 13 19:55:08 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update samosa.(name=uio)"
+		},
+
+		{
+			"serial": 862,
+			"time": "Thu Mar 13 20:02:06 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show struct ansdqw"
+		},
+
+		{
+			"serial": 863,
+			"time": "Thu Mar 13 20:04:25 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "push to moxer(wqow, qw)"
+		},
+
+		{
+			"serial": 864,
+			"time": "Thu Mar 13 20:04:32 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show moxer.(@)"
+		},
+
+		{
+			"serial": 865,
+			"time": "Thu Mar 13 20:04:39 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select moxer.(@)"
+		},
+
+		{
+			"serial": 866,
+			"time": "Thu Mar 13 20:05:45 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "delete table moxer"
+		},
+
+		{
+			"serial": 867,
+			"time": "Thu Mar 13 20:08:58 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update moxer.(name = wqom)"
+		},
+
+		{
+			"serial": 868,
+			"time": "Thu Mar 13 20:11:05 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select moxer.(@)"
+		},
+
+		{
+			"serial": 869,
+			"time": "Thu Mar 13 20:11:15 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update moxer.(@)"
+		},
+
+		{
+			"serial": 870,
+			"time": "Thu Mar 13 20:11:29 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update moxer.(name=Naiw)"
+		},
+
+		{
+			"serial": 871,
+			"time": "Thu Mar 13 20:13:41 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update moxer.(name=ieqno)"
+		},
+
+		{
+			"serial": 872,
+			"time": "Thu Mar 13 20:13:46 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 873,
+			"time": "Thu Mar 13 20:13:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update moxer.(name=sdawd)"
+		},
+
+		{
+			"serial": 874,
+			"time": "Thu Mar 13 20:14:02 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show all db"
+		},
+
+		{
+			"serial": 875,
+			"time": "Thu Mar 13 20:14:07 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 876,
+			"time": "Thu Mar 13 20:14:15 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "make table sample"
+		},
+
+		{
+			"serial": 877,
+			"time": "Thu Mar 13 20:17:02 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 878,
+			"time": "Thu Mar 13 20:17:06 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "make table sample"
+		},
+
+		{
+			"serial": 879,
+			"time": "Thu Mar 13 20:18:12 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 880,
+			"time": "Thu Mar 13 20:19:20 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 881,
+			"time": "Thu Mar 13 20:19:44 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 882,
+			"time": "Thu Mar 13 20:20:21 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 883,
+			"time": "Thu Mar 13 20:21:13 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 884,
+			"time": "Thu Mar 13 20:21:40 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 885,
+			"time": "Thu Mar 13 20:24:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 886,
+			"time": "Thu Mar 13 20:26:03 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 887,
+			"time": "Thu Mar 13 20:29:20 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 888,
+			"time": "Thu Mar 13 20:29:23 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 889,
+			"time": "Thu Mar 13 20:29:47 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "make table check(media photo)"
+		},
+
+		{
+			"serial": 890,
+			"time": "Thu Mar 13 20:29:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "select check.(@)"
 		}
 	]
 }

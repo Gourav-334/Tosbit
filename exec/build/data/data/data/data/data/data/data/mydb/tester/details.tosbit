@@ -1,3 +1,0 @@
-$sno                            ,int   ,unique ,4 
-name                            ,string,regular,18
-score                           ,float ,regular,5 
