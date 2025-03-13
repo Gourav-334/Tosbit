@@ -5,7 +5,6 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 
 add_executable(engine
-	../src/client.c
 	../src/database_operations.c
 	../src/driver_manager.c
 	../src/encrypter.c

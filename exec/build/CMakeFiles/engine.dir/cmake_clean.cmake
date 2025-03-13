@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.o"
-  "CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.o.d"
   "CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o"
   "CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/database_operations.c.o.d"
   "CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/driver_manager.c.o"

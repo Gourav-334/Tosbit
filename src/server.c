@@ -48,23 +48,23 @@ void set_nonblocking(int sock)
 
 /* Reads messages until newline character appaears. */
 
-int readMessage(int *sockFD, char *buffer, size_t size)
+int readMessage(int *sockFD, char *onlineBuffer, size_t size)
 {
     int bytesInvolved;
 
 
-    memset(buffer, 0, size);
+    memset(onlineBuffer, 0, size);
 
-    bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
+    bytesInvolved = read(*sockFD, onlineBuffer+strlen(onlineBuffer), 1);
     if (bytesInvolved==0) {perror("ERROR: (r) First byte"); return 0;}
 
-    while (buffer[strlen(buffer)-1]!='\t')
+    while (onlineBuffer[strlen(onlineBuffer)-1]!='\t')
     {
-        bytesInvolved = read(*sockFD, buffer+strlen(buffer), 1);
+        bytesInvolved = read(*sockFD, onlineBuffer+strlen(onlineBuffer), 1);
         if (bytesInvolved==0) {perror("ERROR: (r) Later bytes"); return 0;}
     }
 
-    memset(buffer+strlen(buffer)-1, 0, 1);
+    memset(onlineBuffer+strlen(onlineBuffer)-1, 0, 1);
 
     return 1;
 }
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
     char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
 
-    char buffer[ONLINE_BUFFER_SIZE] = {0};
+    char onlineBuffer[ONLINE_BUFFER_SIZE] = {0};
 
     int sockFD, newsockFD, portno, epollFD;
     int chunks;
@@ -252,14 +252,14 @@ int main(int argc, char *argv[])
 
                 /* Receiving & verifying local username. */
 
-                if (readMessage(&newsockFD, buffer, sizeof(buffer))==1)
-                    printf("OK: Username \"%s\" received.\n", buffer);
+                if (readMessage(&newsockFD, onlineBuffer, sizeof(onlineBuffer))==1)
+                    printf("OK: Username \"%s\" received.\n", onlineBuffer);
 
                 else
                     printf("ERROR: Unable to read stream sent by client.\n");
 
 
-                if (strcmp(buffer,decrypt(codedUsername)))
+                if (strcmp(onlineBuffer,decrypt(codedUsername)))
                 {
                     if (writeMessage(&newsockFD, "ERROR: Username by client is incorrect.")==1)
                         printf("OK: Acknowledgment sent to client.\n");
@@ -269,7 +269,7 @@ int main(int argc, char *argv[])
 
                     close(newsockFD);
                 }
-                else if (!strcmp(buffer,decrypt(codedUsername)))
+                else if (!strcmp(onlineBuffer,decrypt(codedUsername)))
                 {
                     if (writeMessage(&newsockFD, "OK: Username by client is correct.")==1)
                         printf("OK: Acknowledgment sent to client.\n");
@@ -282,14 +282,14 @@ int main(int argc, char *argv[])
 
                 /* Receiving & verifying local password. */
 
-                if (readMessage(&newsockFD, buffer, sizeof(buffer))==1)
-                    printf("OK: Password \"%s\" received.\n", buffer);
+                if (readMessage(&newsockFD, onlineBuffer, sizeof(onlineBuffer))==1)
+                    printf("OK: Password \"%s\" received.\n", onlineBuffer);
 
                 else
                     printf("ERROR: Unable to read stream sent by client.\n");
 
 
-                if (strcmp(buffer,decrypt(codedPassword)))
+                if (strcmp(onlineBuffer,decrypt(codedPassword)))
                 {
                     if (writeMessage(&newsockFD, "ERROR: Password by client is incorrect.")==1)
                         printf("OK: Acknowledgment sent to client.\n");
@@ -299,7 +299,7 @@ int main(int argc, char *argv[])
 
                     close(newsockFD);
                 }
-                else if (!strcmp(buffer,decrypt(codedPassword)))
+                else if (!strcmp(onlineBuffer,decrypt(codedPassword)))
                 {
                     if (writeMessage(&newsockFD, "OK: Password by client is correct.")==1)
                         printf("OK: Acknowledgment sent to client.\n");
@@ -307,6 +307,8 @@ int main(int argc, char *argv[])
                     else
                         printf("ERROR: Can't send acknowledgment to client.\n");
                 }
+
+                printf("\n");
             }
 
 
@@ -315,9 +317,8 @@ int main(int argc, char *argv[])
 
             else
             {
-                memset(buffer, 0, sizeof(buffer));
-                //readMessage(&fd, buffer, sizeof(buffer));
-                bytesInvolved = read(fd, buffer, sizeof(buffer));
+                memset(onlineBuffer, 0, sizeof(onlineBuffer));
+                bytesInvolved = read(fd, onlineBuffer, sizeof(onlineBuffer));
 
 
                 /* Handling client disconnection. */
@@ -329,17 +330,8 @@ int main(int argc, char *argv[])
                     epoll_ctl(epollFD, EPOLL_CTL_DEL, fd, NULL);
                 }
                 else
-                {// {printf("---{SIGNAL!}---\n");/////////////////////////////////////
-                    syntaxParser(guestUsername, buffer, TRUE);
-
-                    chunks = ((int)strlen(feedback)%(int)sizeof(buffer))+1;
-                    writeMessage(&fd, itoa(chunks, ascii));
-
-                    // for (int j=0; j<chunks; j++)
-                    // {
-                    //     writeMessage(&fd, )
-                    // }
-
+                {
+                    syntaxParser(guestUsername, onlineBuffer, TRUE);
                     writeMessage(&fd, feedback);
                 }
             }

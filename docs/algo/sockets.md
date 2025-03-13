@@ -90,3 +90,17 @@ void extendFeedback(char message[]);
 2. Clean the newly extended part with `memset()`.
 3. Increment `feedbackSize` by string length of `message`.
 4. Append `message` at the end of `feedback`.
+
+
+## User driver manager:
+
+```
+{client.h} -> {driver_manager.h} -> {program.c}
+```
+
+1. Explicitly tell `runClient()` that there is no database takeover to main program (breaks allowed).
+2. Use a global flag for doing this job.
+3. If this flag is ON, make the takeover by entering the endless loop.
+4. Else if flag is OFF, skip the takeover & return from function.
+5. When using `interpret()` function, it checks that flag & interprets the passed command.
+6. User must close the socket for gracefully disconnecting from the server.

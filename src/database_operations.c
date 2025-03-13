@@ -2740,7 +2740,7 @@ void allRows()
 		else {fseek(fptr2, -1, SEEK_CUR);}
 
 
-		/* Printing the row with (including spaces in file). */
+		/* Printing the row (including spaces in file). */
 
 		for (int i=0; i<sizeQueue.n; i++)
 		{
@@ -2783,6 +2783,9 @@ void allRows()
 				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++)
 				{
 					stringSpaces = 0;
+
+
+					/* While space hasn't appeared. */
 
 					while (c!=' ')
 					{

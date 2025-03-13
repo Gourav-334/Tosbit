@@ -142,30 +142,6 @@ server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-home/gouraarav/myCodes/Tosbit/src/client.o: home/gouraarav/myCodes/Tosbit/src/client.c.o
-.PHONY : home/gouraarav/myCodes/Tosbit/src/client.o
-
-# target to build an object file
-home/gouraarav/myCodes/Tosbit/src/client.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.o
-.PHONY : home/gouraarav/myCodes/Tosbit/src/client.c.o
-
-home/gouraarav/myCodes/Tosbit/src/client.i: home/gouraarav/myCodes/Tosbit/src/client.c.i
-.PHONY : home/gouraarav/myCodes/Tosbit/src/client.i
-
-# target to preprocess a source file
-home/gouraarav/myCodes/Tosbit/src/client.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.i
-.PHONY : home/gouraarav/myCodes/Tosbit/src/client.c.i
-
-home/gouraarav/myCodes/Tosbit/src/client.s: home/gouraarav/myCodes/Tosbit/src/client.c.s
-.PHONY : home/gouraarav/myCodes/Tosbit/src/client.s
-
-# target to generate assembly for a file
-home/gouraarav/myCodes/Tosbit/src/client.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/home/gouraarav/myCodes/Tosbit/src/client.c.s
-.PHONY : home/gouraarav/myCodes/Tosbit/src/client.c.s
-
 home/gouraarav/myCodes/Tosbit/src/database_operations.o: home/gouraarav/myCodes/Tosbit/src/database_operations.c.o
 .PHONY : home/gouraarav/myCodes/Tosbit/src/database_operations.o
 
@@ -461,9 +437,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... engine"
 	@echo "... server"
-	@echo "... home/gouraarav/myCodes/Tosbit/src/client.o"
-	@echo "... home/gouraarav/myCodes/Tosbit/src/client.i"
-	@echo "... home/gouraarav/myCodes/Tosbit/src/client.s"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/database_operations.o"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/database_operations.i"
 	@echo "... home/gouraarav/myCodes/Tosbit/src/database_operations.s"

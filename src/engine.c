@@ -16,7 +16,7 @@
 
 
 int main(int argc, char **argv[])
-{
+{while(TRUE) {syntaxParser(username, NULL, FALSE);}
 	/* Declarations */
 
 	char decision;
@@ -63,8 +63,10 @@ int main(int argc, char **argv[])
 
 			setConnection(
 				decrypt(codedUsername), decrypt(codedPassword),
-				hostIP, port, hostUsername, hostPassword
+				hostIP, port, hostUsername, hostPassword, TRUE
 			);
+
+			endConnection();
 		}
 		else if (decision=='n'||decision=='N')
 		{
