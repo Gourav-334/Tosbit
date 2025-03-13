@@ -5966,6 +5966,614 @@
 			"location": "",
 			"author": "",
 			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 747,
+			"time": "Thu Mar 13 13:17:31 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 748,
+			"time": "Thu Mar 13 13:17:36 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 749,
+			"time": "Thu Mar 13 13:17:45 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 750,
+			"time": "Thu Mar 13 13:18:19 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar)"
+		},
+
+		{
+			"serial": 751,
+			"time": "Thu Mar 13 13:18:25 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 752,
+			"time": "Thu Mar 13 13:18:45 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar Mallick)"
+		},
+
+		{
+			"serial": 753,
+			"time": "Thu Mar 13 13:18:55 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 754,
+			"time": "Thu Mar 13 13:19:08 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": " update tester.(name=Gourav Kumar Ma)"
+		},
+
+		{
+			"serial": 755,
+			"time": "Thu Mar 13 13:19:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 756,
+			"time": "Thu Mar 13 13:20:00 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 757,
+			"time": "Thu Mar 13 13:20:26 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": " update tester.(name=Gourav Kumar Mal)"
+		},
+
+		{
+			"serial": 758,
+			"time": "Thu Mar 13 13:20:32 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 759,
+			"time": "Thu Mar 13 13:20:38 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": " update tester.(name=Gourav Kumar Mal)"
+		},
+
+		{
+			"serial": 760,
+			"time": "Thu Mar 13 13:20:43 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 761,
+			"time": "Thu Mar 13 13:20:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": " update tester.(name=Gourav Kumar M)"
+		},
+
+		{
+			"serial": 762,
+			"time": "Thu Mar 13 13:22:29 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 763,
+			"time": "Thu Mar 13 16:49:17 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 764,
+			"time": "Thu Mar 13 16:49:34 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 765,
+			"time": "Thu Mar 13 16:50:03 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Ku)"
+		},
+
+		{
+			"serial": 766,
+			"time": "Thu Mar 13 16:50:17 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 767,
+			"time": "Thu Mar 13 16:50:29 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar Mallcik)"
+		},
+
+		{
+			"serial": 768,
+			"time": "Thu Mar 13 16:50:36 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 769,
+			"time": "Thu Mar 13 16:50:45 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar Ma)"
+		},
+
+		{
+			"serial": 770,
+			"time": "Thu Mar 13 16:51:06 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 771,
+			"time": "Thu Mar 13 16:51:12 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar Mallick Plu)"
+		},
+
+		{
+			"serial": 772,
+			"time": "Thu Mar 13 16:52:14 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 773,
+			"time": "Thu Mar 13 16:53:20 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 774,
+			"time": "Thu Mar 13 16:53:44 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 775,
+			"time": "Thu Mar 13 16:53:49 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Ku)"
+		},
+
+		{
+			"serial": 776,
+			"time": "Thu Mar 13 16:54:17 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 777,
+			"time": "Thu Mar 13 16:54:29 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 778,
+			"time": "Thu Mar 13 16:54:42 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kum)"
+		},
+
+		{
+			"serial": 779,
+			"time": "Thu Mar 13 16:54:48 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 780,
+			"time": "Thu Mar 13 16:55:37 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 781,
+			"time": "Thu Mar 13 16:55:43 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 782,
+			"time": "Thu Mar 13 16:55:50 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Ku)"
+		},
+
+		{
+			"serial": 783,
+			"time": "Thu Mar 13 16:57:38 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 784,
+			"time": "Thu Mar 13 16:57:42 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 785,
+			"time": "Thu Mar 13 16:57:59 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav K)"
+		},
+
+		{
+			"serial": 786,
+			"time": "Thu Mar 13 16:58:05 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 787,
+			"time": "Thu Mar 13 16:58:15 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar Ma)"
+		},
+
+		{
+			"serial": 788,
+			"time": "Thu Mar 13 16:58:20 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 789,
+			"time": "Thu Mar 13 16:58:25 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update tester.(name=Gourav Kumar M)"
+		},
+
+		{
+			"serial": 790,
+			"time": "Thu Mar 13 16:58:29 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 791,
+			"time": "Thu Mar 13 16:58:56 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 792,
+			"time": "Thu Mar 13 16:59:02 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 793,
+			"time": "Thu Mar 13 17:07:30 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 794,
+			"time": "Thu Mar 13 17:07:40 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 795,
+			"time": "Thu Mar 13 17:08:32 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "make table respberry"
+		},
+
+		{
+			"serial": 796,
+			"time": "Thu Mar 13 17:09:01 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "make table raspberry(string name, bool married)"
+		},
+
+		{
+			"serial": 797,
+			"time": "Thu Mar 13 17:09:05 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show table struct"
+		},
+
+		{
+			"serial": 798,
+			"time": "Thu Mar 13 17:09:14 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show struct table"
+		},
+
+		{
+			"serial": 799,
+			"time": "Thu Mar 13 17:09:28 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show struct raspberry"
+		},
+
+		{
+			"serial": 800,
+			"time": "Thu Mar 13 17:09:49 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "push to raspberry(Gourav, false)"
+		},
+
+		{
+			"serial": 801,
+			"time": "Thu Mar 13 17:10:21 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 802,
+			"time": "Thu Mar 13 17:10:44 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "push to raspberry(Anirudh, true)"
+		},
+
+		{
+			"serial": 803,
+			"time": "Thu Mar 13 17:12:15 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 804,
+			"time": "Thu Mar 13 17:12:28 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update raspberry.(married=true)"
+		},
+
+		{
+			"serial": 805,
+			"time": "Thu Mar 13 17:12:47 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update raspberry.(married=false)"
+		},
+
+		{
+			"serial": 806,
+			"time": "Thu Mar 13 17:13:25 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 807,
+			"time": "Thu Mar 13 17:13:44 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "make table sample(string name, bool me)"
+		},
+
+		{
+			"serial": 808,
+			"time": "Thu Mar 13 17:13:49 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show struct sample"
+		},
+
+		{
+			"serial": 809,
+			"time": "Thu Mar 13 17:14:18 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "push to sample(Gourav, false)"
+		},
+
+		{
+			"serial": 810,
+			"time": "Thu Mar 13 17:15:09 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "update sample.(me=  true  )"
+		},
+
+		{
+			"serial": 811,
+			"time": "Thu Mar 13 17:23:28 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 812,
+			"time": "Thu Mar 13 17:23:49 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show sample.(@)"
+		},
+
+		{
+			"serial": 813,
+			"time": "Thu Mar 13 17:26:25 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show all tables"
+		},
+
+		{
+			"serial": 814,
+			"time": "Thu Mar 13 17:26:32 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show tester.(@)"
+		},
+
+		{
+			"serial": 815,
+			"time": "Thu Mar 13 17:26:43 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show sample.(@)"
+		},
+
+		{
+			"serial": 816,
+			"time": "Thu Mar 13 17:31:06 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 817,
+			"time": "Thu Mar 13 17:32:03 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 818,
+			"time": "Thu Mar 13 17:34:15 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 819,
+			"time": "Thu Mar 13 18:06:26 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 820,
+			"time": "Thu Mar 13 18:06:35 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show raspberry.(@)"
+		},
+
+		{
+			"serial": 821,
+			"time": "Thu Mar 13 18:10:01 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "open db mydb"
+		},
+
+		{
+			"serial": 822,
+			"time": "Thu Mar 13 18:10:07 UTC 2025",
+			"location": "",
+			"author": "",
+			"command": "show raspberry.(@)"
 		}
 	]
 }

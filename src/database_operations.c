@@ -2697,7 +2697,8 @@ void allRows()
 
 	for (int i=0; i<sizeQueue.n; i++)
 	{
-		extendFeedback("+"); for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {extendFeedback("-");}
+		extendFeedback("+");
+		for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i)); j++) {extendFeedback("-");}
 	}
 	extendFeedback("+\n");
 
@@ -2757,17 +2758,27 @@ void allRows()
 
 				for (int j=0; j<5; j++)
 				{
+					c = fgetc(fptr2);
+
 					clearEntity("feedbackBuffer");
-					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", fgetc(fptr2));
+					snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
 					extendFeedback(feedbackBuffer);
 
 					charsPrinted++;
 				}
 
 
+				/* Covering rest of the space, with space. */
+
+				for (int j=0; j<atoi(sizeQueue.getValue(&sizeQueue, i))-charsPrinted; j++)
+				{
+					extendFeedback(" ");
+				}
+
+
 				/* Skipping remaining spaces with comma or endline character. */
 
-				fseek(fptr2, 5-charsPrinted+1, SEEK_SET);
+				fseek(fptr2, 5-charsPrinted+1, SEEK_CUR);
 			}
 
 
@@ -2776,7 +2787,7 @@ void allRows()
 			else
 			{
 				/* Printing attribute's value to screen. */
-////////////////////////////////////////// * START * /////////////////////////////////////////////////
+
 				c = fgetc(fptr2);
 
 
@@ -2795,6 +2806,10 @@ void allRows()
 
 						charsPrinted++; c = fgetc(fptr2); j++;
 					}
+
+
+					/* While non-space hasn't been read or max characters not read. */
+
 					while (c==' ' && j<atoi(sizeQueue.getValue(&sizeQueue, i)))
 					{
 						stringSpaces++;
@@ -2803,18 +2818,15 @@ void allRows()
 						j++;
 					}
 
-					if (c==atoi(sizeQueue.getValue(&sizeQueue, i))) {charsPrinted += stringSpaces;}
-					else if (j==atoi(sizeQueue.getValue(&sizeQueue, i))-1)
+
+					/* Trying out the all possible combinations. */
+
+					if (c==' ' && j==atoi(sizeQueue.getValue(&sizeQueue, i))) {break;}
+					else if (c!=' ' && j<atoi(sizeQueue.getValue(&sizeQueue, i)))
 					{
-						clearEntity("feedbackBuffer");
-						snprintf(feedbackBuffer, sizeof(feedbackBuffer), "%c", c);
-						extendFeedback(feedbackBuffer);
-
-						charsPrinted++;
+						charsPrinted += stringSpaces;
+						j--;
 					}
-
-					// if (c!=' ') {charsPrinted += stringSpaces;}
-					// if (j<atoi(sizeQueue.getValue(&sizeQueue, i)))
 				}
 
 
@@ -2823,7 +2835,7 @@ void allRows()
 				
 				fseek(fptr2, (VALUE_MAX_LENGTH-1)-atoi(sizeQueue.getValue(&sizeQueue, i))+1-1, SEEK_CUR);
 			}
-///////////////////////////////////////// * END * ////////////////////////////////////////////////////
+
 
 			/* Storing the largest encountered attribute length. */
 
