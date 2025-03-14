@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #include "../include/database_operations.h"
 
 
@@ -42,7 +46,6 @@ char feedbackBuffer[FEEDBACK_BUFFER_SIZE] = {0};
 
 int state = 0;								// Main automaton
 int state2 = 0;								// Table attribute automaton
-int zero_count = 0;
 int breaker = FALSE;						// Set TRUE when the syntax goes wrong.
 int breaker2 = FALSE;
 int valid = TRUE;							// Syntax if found wrong, only then invalid.
@@ -818,18 +821,8 @@ void makeTable()
 	if (checkDbExistence(FALSE)==FALSE) {extendFeedback("ERROR: No database opened yet!"); write = FALSE; return;}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==TRUE))
 	{
-		/* Asking users if they want to overwrite data to disk (for existing table). */
-
 		extendFeedback("STAT: Table already exists!");
-		extendFeedback("Overwrite data to disk? (y/n): "); scanf("%c", &decision); getchar();
-
-		if (decision=='n') {write = FALSE;}
-		else if (decision=='y')
-		{
-			clearEntity("directory");
-			snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
-			system(directory);
-		}
+		write = FALSE;
 	}
 	else if ((checkDbExistence(FALSE)==TRUE) && (checkTableExistence(FALSE)==FALSE))
 	{
@@ -1142,18 +1135,8 @@ void makeDb()
 
 	if (checkDbExistence(FALSE)==TRUE)
 	{
-		/* Asking users if they want to overwrite data to disk (for existing database). */
-
 		extendFeedback("STAT: Database already exists!");
-		extendFeedback("Overwrite data to disk? (y/n): "); scanf("%c", &decision); getchar();
-
-		if (decision=='n') {write = FALSE;}
-		else if (decision=='y')
-		{
-			clearEntity("directory");
-			snprintf(directory, sizeof(directory), "rm -rf data/%s", database);
-			system(directory);
-		}
+		write = FALSE;
 	}
 	else if (checkDbExistence(FALSE)==FALSE)
 	{
@@ -1920,7 +1903,7 @@ int typeParser()
 
 
 
-	/* media: Media files (WARNING - To be put with file extension.) */
+	/* media: Media files (WARNING - To be put with file extension). */
 
 	else if (!strcmp(dataType,"media"))
 	{
@@ -1932,9 +1915,19 @@ int typeParser()
 
 		/* Taking path of target file. */
 
-		clearEntity("feedbackBuffer");
-		snprintf(feedbackBuffer, sizeof(feedbackBuffer), "Enter path for \"%s\": ", attribute);
-		extendFeedback(feedbackBuffer);
+		if (serverMode==TRUE)
+		{
+			clearEntity("feedbackBuffer");
+			snprintf(feedbackBuffer, sizeof(feedbackBuffer), "Enter path for \"%s\": ", attribute);
+			extendFeedback(feedbackBuffer);
+		}
+		else if (serverMode==FALSE)
+		{
+			printf("Enter path for \"%s\": ", attribute);
+		}
+
+
+		/* Getting the input from user for file's path. */
 
 		clearEntity("directory"); fgets(directory, sizeof(directory), stdin);
 		newline_remover(directory); extendFeedback("\n");
@@ -3314,6 +3307,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 			/* Fetching the next attribute & value only. */
 
 			clearEntity("dataType"); strcpy(dataType, dataTypeQueue.getValue(&dataTypeQueue, i));
+			clearEntity("key"); strcpy(key, keyQueue.getValue(&keyQueue, i));
 
 
 			/* Value at index of the found argument, referring to attributeQueue & markQueue. */
@@ -3328,12 +3322,12 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 
 			/* Checking data type & key type. */
 
-			if (typeParser()==FALSE) {return;}
-			else if (!strcmp(key,"unique") || !strcmp(key,"file"))
+			if (!strcmp(key,"unique") || !strcmp(key,"file"))
 			{
 				extendFeedback("ERROR: Unique & File attributes can't change!");
 				return;
 			}
+			if (typeParser()==FALSE) {return;}
 		}
 	}
 
