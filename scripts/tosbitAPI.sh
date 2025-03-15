@@ -1,0 +1,1 @@
+ar rcs ../lib/libtosbitAPI.a ../dist/database_operations.o ../dist/driver_manager.o ../dist/encrypter.o ../dist/queue.o ../dist/shell_piping.o ../dist/syntax_parser.o ../dist/transition_tool.o ../dist/utility_box.o
