@@ -11,16 +11,15 @@
 
 /* Constant (must not change) macros */
 
-#define USERNAME_MIN_SIZE 4
-#define USERNAME_MAX_SIZE 33
+#define TRUE 	1  			// Macro to imitate boolean TRUE behaviour.
+#define FALSE 	0			// Macro to imitate boolean FALSE behaviour.
 
-#define BUFFER_SIZE 133
 
-#define PASSWORD_MIN_SIZE 7
-#define PASSWORD_MAX_SIZE 33
-
-#define TRUE 1
-#define FALSE 0
+#define USERNAME_MIN_SIZE 	4  			// Minimum allowed length for username.
+#define USERNAME_MAX_SIZE 	33  		// Maximum allowed length for username.
+#define BUFFER_SIZE 		133  		// Size of buffer allowed.
+#define PASSWORD_MIN_SIZE 	7  			// Minimum allowed length for password.
+#define PASSWORD_MAX_SIZE 	33  		// Maximum allowed length for password.
 
 
 
@@ -28,9 +27,9 @@
 
 /* Header & source file inclusion */
 
-#include <stdlib.h>
-#include "encrypter.h"
-#include "utility_box.h"
+#include <stdlib.h>				// Standard library functionalities header.
+#include "encrypter.h"			// Encryption & decryption header.
+#include "utility_box.h"  		// Custom utility functions header.
 
 
 
@@ -43,13 +42,11 @@
 
 /* Variables */
 
-extern char username[USERNAME_MAX_SIZE];
-extern char codedUsername[MAX_ENCRYPTED_SIZE];
-extern char password[PASSWORD_MAX_SIZE];
-extern char codedPassword[MAX_ENCRYPTED_SIZE];
-extern char codedUsername[MAX_ENCRYPTED_SIZE];
+extern char username 		[USERNAME_MAX_SIZE];		// Stores username for the user.
+extern char codedUsername 	[MAX_ENCRYPTED_SIZE];		// Stores encrypted username in it.
+extern char password 		[PASSWORD_MAX_SIZE];		// Stores password for the user.
+extern char codedPassword 	[MAX_ENCRYPTED_SIZE];		// Stores encrypted password in it.
 
-extern FILE *file;
 
 
 
@@ -61,7 +58,14 @@ extern FILE *file;
 
 /* Functions */
 
-extern int profileManager();
+extern int profileManager();		// Handles the user credentials & verification etc.
+
+
+
+
+
+
+
 
 
 

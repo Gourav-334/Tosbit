@@ -74,7 +74,7 @@ const char *prime_codes[TOTAL_CHARS] = {
 
 
 
-/* Encrypts the passed argument string */
+/* Encrypts the passed argument string. */
 
 char *encrypt(char *input)
 {
@@ -122,7 +122,7 @@ char *encrypt(char *input)
 
 
 
-/* Decrypts the passed argument string */
+/* Decrypts the passed argument string. */
 
 char *decrypt(char *input)
 {
@@ -216,6 +216,8 @@ char *decrypt(char *input)
 
 
 
+
+/* Tells the equivalent mapped code for a key. */
 
 char keymapped(char *input)
 {

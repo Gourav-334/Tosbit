@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #include "../include/shell_piping.h"
 
 
@@ -207,3 +211,7 @@ void getLocation()
 
 	printf("(FETCHED)\n\n");
 }
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

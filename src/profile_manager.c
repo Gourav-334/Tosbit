@@ -21,8 +21,6 @@ char password[PASSWORD_MAX_SIZE] = {0};
 char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
 char re_password[PASSWORD_MAX_SIZE] = {0};
 
-FILE *file = NULL;
-
 
 
 
@@ -38,6 +36,7 @@ int profileManager()
 {
 	/* Declarations */
 
+	FILE *file = NULL;
 	char c;
 
 

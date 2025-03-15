@@ -104,3 +104,9 @@ void extendFeedback(char message[]);
 4. Else if flag is OFF, skip the takeover & return from function.
 5. When using `interpret()` function, it checks that flag & interprets the passed command.
 6. User must close the socket for gracefully disconnecting from the server.
+
+
+## File transfer through server:
+
+- If running in offline mode, do the following.
+- Prompt the user about the path.

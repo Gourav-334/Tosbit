@@ -1,39 +1,38 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #ifndef DATABASE_OPERATIONS_H
 	#define DATABASE_OPERATIONS_H
 
-#define TRUE 1
-#define FALSE 0
+
+#define TRUE 	1 		// Macro to imitate boolean TRUE behaviour.
+#define FALSE 	0		// Macro to imitate boolean FALSE behaviour.
+
+#define COMMAND_MAX_LENGTH 		512			// Max size a command can be of.
+#define DATABASE_MAX_LENGTH 	33			// Max size a database name can be of.
+#define TABLE_MAX_LENGTH 		33			// Max size a table name can be of.
+#define DIRECTORY_MAX_LENGTH 	257			// Max size a directory path can be of.
+#define BUFFER_MAX_LENGTH 		257			// Max size a buffer can be of.
+#define FEEDBACK_BUFFER_SIZE 	512			// Max size the feedback buffer can be of.
+#define DATA_TYPE_MAX_LENGTH 	7			// Max size a data type name can be of.
+#define ATTRIBUTE_MAX_LENGTH 	33			// Max size an attribute name can be of.
+#define KEY_MAX_LENGTH 			8			// Max size a key type can be of.
+#define VALUE_MAX_LENGTH 		33			// Max size an attribute value can be of.
+#define INT_TO_ASCII_LIMIT 		8			// Max size an ASCII buffer can be of.
 
 
 
 
 
-#define COMMAND_MAX_LENGTH 512
-#define DATABASE_MAX_LENGTH 33
-#define TABLE_MAX_LENGTH 33
-#define DIRECTORY_MAX_LENGTH 257
-#define BUFFER_MAX_LENGTH 257
-#define FEEDBACK_BUFFER_SIZE 512
-
-#define DATA_TYPE_MAX_LENGTH 7
-#define ATTRIBUTE_MAX_LENGTH 33
-#define KEY_MAX_LENGTH 8
-#define VALUE_MAX_LENGTH 33
-#define PATH_MAX_LENGTH 257
-
-#define INT_TO_ASCII_LIMIT 8
+#include <stdio.h>			// Standard input/output header.
+#include <stdlib.h>			// Standard library functions header.
+#include <string.h>			// String utility header.
 
 
-
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "utility_box.h"
-#include "transition_tool.h"
-#include "queue.h"
+#include "utility_box.h"			// Custom utility header.
+#include "transition_tool.h"		// DFA state transition management header.
+#include "queue.h"					// Queue data structure utility header.
 
 
 
@@ -46,32 +45,33 @@
 
 /* Major buffer string & other variables. */
 
-extern FILE *fptr, *fptr2;		// MAKE IT LOCAL!
-extern FILE *cache;				// MAKE IT LOCAL!
-extern char *feedback;
+extern FILE *fptr, *fptr2;		// File pointers used in file operations.
+extern FILE *cache;				// File pointer used specifically for cache files.
+extern char *feedback;			// The final string printed after full execution of command.
 
-extern char command[COMMAND_MAX_LENGTH];
-extern char database[DATABASE_MAX_LENGTH];
-extern char table[TABLE_MAX_LENGTH];
-extern char directory[DIRECTORY_MAX_LENGTH];	// MAKE IT LOCAL!
-extern char buffer[BUFFER_MAX_LENGTH];
-extern char buffer2[BUFFER_MAX_LENGTH];
-extern char dataType[DATA_TYPE_MAX_LENGTH];
-extern char attribute[ATTRIBUTE_MAX_LENGTH];
-extern char key[KEY_MAX_LENGTH];
-extern char value[VALUE_MAX_LENGTH];
-extern char pureValue[VALUE_MAX_LENGTH];
-extern char ascii[INT_TO_ASCII_LIMIT];
-extern char feedbackBuffer[FEEDBACK_BUFFER_SIZE];
 
-extern int state;							// Main automaton
-extern int state2;							// Used for "table attribute" & "data types"
-extern int zero_count;
-extern int breaker;							// Set TRUE when the syntax goes wrong.
-extern int breaker2;
-extern int valid;							// Syntax if found wrong, only then invalid.
-extern int serverMode;
-extern size_t feedbackSize;
+extern char command 		[COMMAND_MAX_LENGTH];		// Command input by user.
+extern char database 		[DATABASE_MAX_LENGTH];		// Stores name of the database.
+extern char table 			[TABLE_MAX_LENGTH];			// Stores name of the table.
+extern char directory 		[DIRECTORY_MAX_LENGTH];		// Continuously formatted directory path.
+extern char buffer 			[BUFFER_MAX_LENGTH];		// Intermediate buffer for many operations.
+extern char buffer2 		[BUFFER_MAX_LENGTH];		// Another buffer for some cases.
+extern char dataType 		[DATA_TYPE_MAX_LENGTH];		// Stores data type of an attribute at times.
+extern char attribute 		[ATTRIBUTE_MAX_LENGTH];		// Stores attribute name at times.
+extern char key 			[KEY_MAX_LENGTH];			// Stores key type at times.
+extern char value 			[VALUE_MAX_LENGTH];			// Stores attribute value at times.
+extern char pureValue 		[VALUE_MAX_LENGTH];			// Stores formatted attribute value at times.
+extern char ascii 			[INT_TO_ASCII_LIMIT];		// Intermediate buffer for 'integer to ASCII'.
+extern char feedbackBuffer 	[FEEDBACK_BUFFER_SIZE];		// Intermediate buffer to store feedback info.
+
+
+extern int 		state;					// Main automaton
+extern int 		state2;					// Used for "table attribute" & "data types"
+extern int 		breaker;				// Set TRUE when syntax goes wrong in main DFA..
+extern int 		breaker2;				// Set TRUE when syntax goes wrong in secondary DFA.
+extern int 		valid;					// Syntax if found wrong, only then invalid.
+extern int 		serverMode;				// Tells if database is currently connected to server.
+extern size_t 	feedbackSize;			// Tracks size for the 'feedback' string.
 
 
 
@@ -84,28 +84,32 @@ extern size_t feedbackSize;
 
 /* Implementation of DB operations. */
 
-extern void extendFeedback(char message[]);
-extern void clearEntity(char *str);
-extern int checkDbExistence(int msg);
-extern int checkTableExistence(int msg);
-extern void tableStructure();
-extern void allDatabases();
-extern void allTables();
-extern void checkDataType();
-extern void makeTable();
-extern void makeDb();
-extern void deleteTable(int msg);
-extern void deleteDb(int msg);
-extern void clearTable();
-extern void clearDb();
-extern int checkUnique(char value[], int currArg, int totalArg);
-extern int typeParser();
-extern void pushRow();
-extern void selectionParser();
-extern void conditionParser();		// Not made yet...
-extern void allRows();
-extern void updateParser();
-extern void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue);
+extern void extendFeedback(char message[]);		// Stores all bytes in final feedback.
+extern void clearEntity(char *str);				// This function clears a string, identified through entered value of string.
+extern int 	checkDbExistence(int msg);			// Checks if the user requested database exists or not.
+extern int 	checkTableExistence(int msg);		// Checks if a user requested table exists or not.
+extern void tableStructure();					// Shows structure of the requested table (console design comes before fetching).
+extern void allDatabases();						// Shows all the available databases.
+extern void allTables();						// Shows all available tables in the online database.
+extern void checkDataType();					// This funstion checks if a invalid data type was passed.
+extern void makeTable();						// Creates a table & configures many files.
+extern void makeDb();							// Make a database on user's request.
+extern void deleteTable(int msg);				// Deleting a table.
+extern void deleteDb(int msg);					// Deleting a database.
+extern void clearTable();						// Clears any requested table (clears of all data it holds).
+extern void clearDb();							// Clear all the tables present in a database.
+extern int 	checkUnique(						// Checking if unique value exists or not. (UNTESTED ON UNIQUE KEYS).
+	char value[], int currArg, int totalArg
+);
+extern int 	typeParser();						// Data type parsing & validating automaton.
+extern void pushRow();							// Pushing row into a table.
+extern void selectionParser();					// Parses the selection arguments & provides feedback on its integrity.
+extern void allRows();							// Parser to check integrity of conditional syntax (after WHERE).
+extern void updateParser();						// Update parser parses & validates the first buffer in UPDATE command.
+extern void updateAll(							// Updating all rows for a given value for each.
+	struct Queue *argumentQueue,
+	struct Queue *valueQueue
+);
 
 
 
@@ -117,3 +121,7 @@ extern void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue);
 
 
 #endif
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

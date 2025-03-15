@@ -8,7 +8,12 @@
 
 
 
-/* Appends string to another string */
+
+
+
+
+
+/* Appends string to another string. */
 
 void strappend(char str[], char *addition)
 {
@@ -22,7 +27,12 @@ void strappend(char str[], char *addition)
 
 
 
-/* Appends contant string to another string */
+
+
+
+
+
+/* Appends contant string to another string. */
 
 void constrappend(char str[], const char *addition)
 {
@@ -36,7 +46,12 @@ void constrappend(char str[], const char *addition)
 
 
 
-/* Appends character to a string */
+
+
+
+
+
+/* Appends character to a string. */
 
 void charappend(char str[], char addition)
 {
@@ -47,7 +62,12 @@ void charappend(char str[], char addition)
 
 
 
-/* Appends constant character to a string */
+
+
+
+
+
+/* Appends constant character to a string. */
 
 void const_charappend(char str[], const char addition)
 {
@@ -58,7 +78,12 @@ void const_charappend(char str[], const char addition)
 
 
 
-/* Removes newline from a string */
+
+
+
+
+
+/* Removes newline from a string. */
 
 void newline_remover(char str[])
 {
@@ -72,7 +97,12 @@ void newline_remover(char str[])
 
 
 
-/* Removes first character from the string */
+
+
+
+
+
+/* Removes first character from the string. */
 
 void frontchar_remover(char str[])
 {
@@ -84,7 +114,12 @@ void frontchar_remover(char str[])
 
 
 
-/* BRAINF*CK WARNING!: Cleans the standard input buffer */
+
+
+
+
+
+/* Cleans the standard input buffer. */
 
 void flush_stdin()
 {
@@ -96,7 +131,12 @@ void flush_stdin()
 
 
 
-/* Print whole string transparently */
+
+
+
+
+
+/* Print whole string transparently. */
 
 void binary_print(char str[], int size)
 {
@@ -116,7 +156,12 @@ void binary_print(char str[], int size)
 
 
 
-/* Shift characters of a string in a particular direction by some steps */
+
+
+
+
+
+/* Shift characters of a string in a particular direction by some steps. */
 
 void str_shift(char str[], int start, int end, int direction, int steps)
 {
@@ -137,7 +182,12 @@ void str_shift(char str[], int start, int end, int direction, int steps)
 
 
 
-/* Check existence of a character in an array */
+
+
+
+
+
+/* Check existence of some characters in an array. */
 
 int illegalChars(char str[], char chars[])	// Might become problem of the future.
 {
@@ -161,6 +211,13 @@ int illegalChars(char str[], char chars[])	// Might become problem of the future
 
 
 
+
+
+
+
+
+/* Check existence of a character in an array. */
+
 int illegalChar(char character, char chars[])	// Might become problem of the future too.
 {
 	int brk = FALSE;
@@ -180,6 +237,11 @@ int illegalChar(char character, char chars[])	// Might become problem of the fut
 
 
 
+
+
+
+
+
 /* Makes use of 'feof()' function safer. */
 
 int reachedEOF(FILE *fptr)
@@ -189,6 +251,11 @@ int reachedEOF(FILE *fptr)
 	if (feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return TRUE;}
 	else if (!feof(fptr)) {fseek(fptr, -1, SEEK_CUR); return FALSE;}
 }
+
+
+
+
+
 
 
 
@@ -210,7 +277,12 @@ int newFile(FILE *fptr)
 
 
 
-/* Removes whitespaces from a string from both the sides. (provide a buffer too.) */
+
+
+
+
+
+/* Removes whitespaces from a string from both the sides (provide a buffer too). */
 
 extern void spaceRemover(char str[], char result[], int size)
 {
@@ -220,6 +292,11 @@ extern void spaceRemover(char str[], char result[], int size)
 	for (int i=strlen(str)-1; i>=0; i--) {if (str[i]!=' ') {end = i; break;}}
 	for (int i=start; i<=end; i++) {result[strlen(result)] = str[i];}
 }
+
+
+
+
+
 
 
 
@@ -244,6 +321,11 @@ void removeKeySymbol(char *attribute)
 
 
 
+
+
+
+
+
 /* Integer to ASCII conversion. */
 
 char *itoa(int x, char *ascii)
@@ -257,7 +339,12 @@ char *itoa(int x, char *ascii)
 
 
 
-/* Adds endline terminator at the end of a string. */
+
+
+
+
+
+/* Adds string terminator at the end of a string. */
 
 char *addTerminator(char *str)
 {
@@ -265,6 +352,11 @@ char *addTerminator(char *str)
 
 	return str;
 }
+
+
+
+
+
 
 
 
@@ -291,8 +383,6 @@ void printRaw(char *str)
 
 	printf("}");
 }
-
-
 
 
 
