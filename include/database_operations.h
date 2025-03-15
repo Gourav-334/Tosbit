@@ -86,8 +86,8 @@ extern size_t 	feedbackSize;			// Tracks size for the 'feedback' string.
 
 extern void extendFeedback(char message[]);		// Stores all bytes in final feedback.
 extern void clearEntity(char *str);				// This function clears a string, identified through entered value of string.
-extern int 	checkDbExistence(int msg);			// Checks if the user requested database exists or not.
-extern int 	checkTableExistence(int msg);		// Checks if a user requested table exists or not.
+extern int checkDbExistence(int msg);			// Checks if the user requested database exists or not.
+extern int checkTableExistence(int msg);		// Checks if a user requested table exists or not.
 extern void tableStructure();					// Shows structure of the requested table (console design comes before fetching).
 extern void allDatabases();						// Shows all the available databases.
 extern void allTables();						// Shows all available tables in the online database.
@@ -98,10 +98,10 @@ extern void deleteTable(int msg);				// Deleting a table.
 extern void deleteDb(int msg);					// Deleting a database.
 extern void clearTable();						// Clears any requested table (clears of all data it holds).
 extern void clearDb();							// Clear all the tables present in a database.
-extern int 	checkUnique(						// Checking if unique value exists or not. (UNTESTED ON UNIQUE KEYS).
+extern int checkUnique(							// Checking if unique value exists or not. (UNTESTED ON UNIQUE KEYS).
 	char value[], int currArg, int totalArg
 );
-extern int 	typeParser();						// Data type parsing & validating automaton.
+extern int typeParser();						// Data type parsing & validating automaton.
 extern void pushRow();							// Pushing row into a table.
 extern void selectionParser();					// Parses the selection arguments & provides feedback on its integrity.
 extern void allRows();							// Parser to check integrity of conditional syntax (after WHERE).
