@@ -3,7 +3,7 @@
 
 ## **1. Introduction**
 
-Hello dear contributors! I am ***Gourav Kumar Mallick*** - the author of this project. Tosbit aims at providing very **simple syntax grammar** for database commands, following **relational database** theory & design. Also there are some key features that we are trying to implement in it to keep the mommentum going & contributing with new ideas. Started it as a **hobby project** with excuse of college's minor project, but would really love to see it evolving with improvements. I invite all interested developers to freely discuss & contribute to this **open-source** project.
+Hello contributors! I am the author of project Tosbit, which aims at providing very **simple syntax grammar** for database commands, following **relational database** theory & design. Also there are some key features that we are trying to implement in it to keep the mommentum going & contributing with new ideas. Started it as a **hobby project** with excuse of college's minor project, but would really love to see it evolving with improvements. I invite all interested developers to freely discuss & contribute to this **open-source** project.
 
 
 ## **2. Features**
