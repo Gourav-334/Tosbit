@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #include "../include/driver_manager.h"
 
 
@@ -300,3 +304,7 @@ void interpret(char *user_cmd)
 /* End the current connection by closing the socket. */
 
 void endConnection() {close(sockFD);}
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

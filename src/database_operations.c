@@ -30,25 +30,27 @@ FILE *fptr2 = NULL;
 FILE *cache = NULL;
 char *feedback = NULL;
 
-char command[COMMAND_MAX_LENGTH] = {0};
-char database[DATABASE_MAX_LENGTH] = {0};
-char table[TABLE_MAX_LENGTH] = {0};
-char directory[DIRECTORY_MAX_LENGTH] = {0};
-char buffer[BUFFER_MAX_LENGTH] = {0};
-char buffer2[BUFFER_MAX_LENGTH] = {0};
-char dataType[DATA_TYPE_MAX_LENGTH] = {0};
-char attribute[ATTRIBUTE_MAX_LENGTH] = {0};
-char key[KEY_MAX_LENGTH] = {0};
-char value[VALUE_MAX_LENGTH] = {0};
-char pureValue[VALUE_MAX_LENGTH] = {0};
-char ascii[INT_TO_ASCII_LIMIT] = {0};
-char feedbackBuffer[FEEDBACK_BUFFER_SIZE] = {0};
 
-int state = 0;								// Main automaton
-int state2 = 0;								// Table attribute automaton
-int breaker = FALSE;						// Set TRUE when the syntax goes wrong.
+char command 		[COMMAND_MAX_LENGTH] 	= {0};
+char database 		[DATABASE_MAX_LENGTH] 	= {0};
+char table 			[TABLE_MAX_LENGTH] 		= {0};
+char directory 		[DIRECTORY_MAX_LENGTH] 	= {0};
+char buffer 		[BUFFER_MAX_LENGTH] 	= {0};
+char buffer2 		[BUFFER_MAX_LENGTH] 	= {0};
+char dataType 		[DATA_TYPE_MAX_LENGTH] 	= {0};
+char attribute 		[ATTRIBUTE_MAX_LENGTH] 	= {0};
+char key 			[KEY_MAX_LENGTH] 		= {0};
+char value 			[VALUE_MAX_LENGTH] 		= {0};
+char pureValue		[VALUE_MAX_LENGTH] 		= {0};
+char ascii 			[INT_TO_ASCII_LIMIT] 	= {0};
+char feedbackBuffer [FEEDBACK_BUFFER_SIZE] 	= {0};
+
+
+int state = 0;
+int state2 = 0;
+int breaker = FALSE;
 int breaker2 = FALSE;
-int valid = TRUE;							// Syntax if found wrong, only then invalid.
+int valid = TRUE;
 int serverMode = FALSE;
 size_t feedbackSize = 0;
 
@@ -693,7 +695,7 @@ void allTables()
 
 
 
-/* This funstion checks if a invalid data type was passed. (NOT "CASE INSENSITIVE") */
+/* This funstion checks if a invalid data type was passed. */
 
 void checkDataType()
 {
@@ -3497,3 +3499,7 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "OK: Total %d rows updated!", totalRows);
 	extendFeedback(feedbackBuffer);
 }
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
