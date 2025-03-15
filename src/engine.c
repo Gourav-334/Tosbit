@@ -16,7 +16,7 @@
 
 
 int main(int argc, char **argv[])
-{while(TRUE) {syntaxParser(username, NULL, FALSE);}
+{
 	/* Declarations */
 
 	char decision;

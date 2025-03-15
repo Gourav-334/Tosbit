@@ -1,33 +1,13 @@
-#include "../src/queue.c"
-
-
+#include <stdio.h>
+#include "../include/driver_manager.h"
 
 int main()
 {
-	Queue q = {
-		.n = 0,
-		.pos = 0,
-		.m = NULL,
-		.head = NULL, 
-		.temp = NULL,
-		.trav = NULL,
-		.queue = Queue_queue,
-		.clear = Queue_clear,
-		.getIndex = Queue_getIndex,
-		.getValue = Queue_getValue,
-		.peek = Queue_peek,
-		.showAll = Queue_showAll,
-		.changeAt = Queue_changeAt
-	};
+	setConnection("Gourav", "tosbit_user", "Gouraarav", 8080, "Gourav", "tosbit_user", FALSE);
+	interpret("@ This is a comment @");
+	endConnection();
 
-
-	q.queue(&q, "ABC");
-	q.queue(&q, "OPQR");
-	q.queue(&q, "XYZ");
-	q.changeAt(&q, 1, "GHI");
-
-	q.showAll(&q);
-
+	printf("Hello, World!\n");
 
 	return 0;
 }
