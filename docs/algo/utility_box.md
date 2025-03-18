@@ -2,63 +2,87 @@
 
 ## 0. Description:
 
-- This documentation is regarding ***utility_box.h*** & ***utility_box.c***.
-- The primary role of this library is to provide service through basic utility functions to other libraries.
+- This file is regarding ***utility_box.h*** & ***utility_box.c***.
+- The primary role of this library is to provide basic utility functions to other libraries.
 
 
-## 1. String Append:
+## 1. `strappend()` (deprecated)
 
+### **1.1 Introduction:**
 ```c
 void strappend(char str[], char *addition);
 ```
+- Appends a string to another string.
+- `str` is the target string.
+- `addition` is the string to append.
 
-- Move pointer to the base of last character.
-- Make this base as offset of string to be appended.
-- Insert the string right there.
+### **1.2 Algorithm:**
+1. Move pointer to the base of last character.
+2. Make this base as offset of string to be appended.
+3. Insert the string right there.
 
 
-## 2. Constant String Append:
+## 2. `constrappend()` (deprecated)
 
+### **2.1 Introduction:**
 ```c
 void constrappend(char str[], const char *addition);
 ```
+- Used for adding a constant string to another string.
+- `str` is the target string.
+- `addition` is the string to append.
 
-- Move pointer to the base of last character.
-- Make this base as offset of string to be appended.
-- Insert the string right there.
+### **2.2 Algorithm:**
+1. Move pointer to the base of last character.
+2. Make this base as offset of string to be appended.
+3. Insert the string right there.
 
 
-## 3. Character Append:
+## 3. `charappend()`
 
+### **3.1 Introduction:**
 ```c
 void charappend(char str[], char addition);
 ```
+- Used for appending a character to string.
+- `str` is the target string.
+- `addition` is the character to append.
 
-- Move pointer to the base of last character.
-- Make this base as offset of character to be appended.
-- Insert the character right there.
+### **3.2 Algorithm:**
+1. Move pointer to the base of last character.
+2. Make this base as offset of character to be appended.
+3. Insert the character right there.
 
 
-## 4. Constant Character Append:
+## 4. `const_charappend()`
 
+### **4.1 Introduction:**
 ```c
 void const_charappend(char str[], const char addition);
 ```
+- Used for appending constant character to a string.
+- `str` is the target string.
+- `addition` is the character to append.
 
-- Move pointer to the base of last character.
-- Make this base as offset of character to be appended.
-- Insert the character right there.
+### **Algorithm:**
+1. Move pointer to the base of last character.
+2. Make this base as offset of character to be appended.
+3. Insert the character right there.
 
 
-## 5. Newline Remover:
+## 5. `newline_remover()`
 
+### **Introduction:**
 ```c
 void newline_remover(char str[]);
 ```
+- Removes the newline from the end of the string (if any).
+- `str` is the string to remove newline from.
 
-- Check if the last character of the string is a newline character.
-- If yes, move to the offset of last character.
-- Remove the newline character.
+### **Algorithm:**
+1. Check if the last character of the string is a newline character.
+2. If yes, move to the offset of last character.
+3. Remove the newline character.
 
 
 ## 6. Front Character Remover:
