@@ -176,12 +176,18 @@ int Queue_getIndex(Queue *q, char str[])
 
 char *Queue_getValue(Queue *q, int index)
 {
+	/* If the passed 'index' is less than corresponding total elements. */
+
 	if (((q -> n)<index+1)||(index<0)) {return "NULL";}
+
+
+	/* Traversing to target node. */
 
 	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
 
 	strcpy(node_value, q->trav->name);
 	q -> trav = q -> head;
+
 
 	return node_value;
 }
@@ -240,7 +246,12 @@ void Queue_showAll(Queue *q)
 
 void Queue_changeAt(Queue *q, int index, char str[])
 {
+	/* Traversing to target node. */
+
 	for (int i=0; i<index; i++) {q -> trav = q -> trav -> next;}
+
+
+	/* Pasting new value. */
 
 	memset(q->trav->name, 0, sizeof(q->trav->name));
 	strcpy(q->trav->name, str);

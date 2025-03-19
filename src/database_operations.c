@@ -25,10 +25,10 @@
 
 /* Global initializations */
 
-FILE *fptr = NULL;
-FILE *fptr2 = NULL;
-FILE *cache = NULL;
-char *feedback = NULL;
+FILE *fptr 		= NULL;
+FILE *fptr2 	= NULL;
+FILE *cache 	= NULL;
+char *feedback 	= NULL;
 
 
 char command 		[COMMAND_MAX_LENGTH] 	= {0};
@@ -46,12 +46,12 @@ char ascii 			[INT_TO_ASCII_LIMIT] 	= {0};
 char feedbackBuffer [FEEDBACK_BUFFER_SIZE] 	= {0};
 
 
-int state = 0;
-int state2 = 0;
-int breaker = FALSE;
-int breaker2 = FALSE;
-int valid = TRUE;
-int serverMode = FALSE;
+int state 			= 0;
+int state2 			= 0;
+int breaker 		= FALSE;
+int breaker2 		= FALSE;
+int valid 			= TRUE;
+int serverMode 		= FALSE;
 size_t feedbackSize = 0;
 
 
@@ -117,19 +117,21 @@ void extendFeedback(char message[])
 
 void clearEntity(char *str)
 {
-	if (!strcmp(str,"command")) {memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"database")) {memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"table")) {memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"directory")) {memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"buffer")) {memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"buffer2")) {memset(buffer2, 0, BUFFER_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"dataType")) {memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"attribute")) {memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"key")) {memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"value")) {memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"pureValue")) {memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
-	else if (!strcmp(str,"feedback")) {memset(feedback, 0, (size_t)feedbackSize);}
+	if (!strcmp(str,"command")) 			{memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"database")) 		{memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"table")) 			{memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"directory")) 		{memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"buffer")) 		{memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"buffer2")) 		{memset(buffer2, 0, BUFFER_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"dataType")) 		{memset(dataType, 0, DATA_TYPE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"attribute")) 		{memset(attribute, 0, ATTRIBUTE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"key")) 			{memset(key, 0, KEY_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"value")) 			{memset(value, 0, VALUE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"pureValue")) 		{memset(pureValue, 0, VALUE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"feedback")) 		{memset(feedback, 0, (size_t)feedbackSize);}
 	else if (!strcmp(str,"feedbackBuffer")) {memset(feedbackBuffer, 0, FEEDBACK_BUFFER_SIZE*sizeof(char));}
+
+	else {extendFeedback("ERROR: clearEntity() used for unknown string!\n");}
 }
 
 
@@ -996,11 +998,12 @@ void makeTable()
 
 			/* Knowing the data type by its initials (already verified by DFA). */
 
-			if (dataType[0]=='i' || dataType[0]=='I') {clearEntity("dataType"); strcpy(dataType,"int");}
-			else if (dataType[0]=='s' || dataType[0]=='S') {clearEntity("dataType"); strcpy(dataType,"string");}
-			else if (dataType[0]=='f' || dataType[0]=='F') {clearEntity("dataType"); strcpy(dataType,"float");}
-			else if (dataType[0]=='b' || dataType[0]=='B') {clearEntity("dataType"); strcpy(dataType,"bool");}
-			else if (dataType[0]=='m' || dataType[0]=='M') {clearEntity("dataType"); strcpy(dataType,"media");}
+			if (dataType[0]=='i' || dataType[0]=='I') 		{clearEntity("dataType"); strcpy(dataType,"int");}
+			else if (dataType[0]=='s' || dataType[0]=='S') 	{clearEntity("dataType"); strcpy(dataType,"string");}
+			else if (dataType[0]=='f' || dataType[0]=='F') 	{clearEntity("dataType"); strcpy(dataType,"float");}
+			else if (dataType[0]=='b' || dataType[0]=='B') 	{clearEntity("dataType"); strcpy(dataType,"bool");}
+			else if (dataType[0]=='m' || dataType[0]=='M') 	{clearEntity("dataType"); strcpy(dataType,"media");}
+			
 			newline_remover(dataType);
 
 

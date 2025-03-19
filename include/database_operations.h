@@ -85,7 +85,7 @@ extern size_t 	feedbackSize;			// Tracks size for the 'feedback' string.
 /* Implementation of DB operations. */
 
 extern void extendFeedback(char message[]);		// Stores all bytes in final feedback.
-extern void clearEntity(char *str);				// This function clears a string, identified through entered value of string.
+extern void clearEntity(char *str);				// This function clears a string, identified through passed string argument.
 extern int checkDbExistence(int msg);			// Checks if the user requested database exists or not.
 extern int checkTableExistence(int msg);		// Checks if a user requested table exists or not.
 extern void tableStructure();					// Shows structure of the requested table (console design comes before fetching).
