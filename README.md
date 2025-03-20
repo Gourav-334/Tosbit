@@ -17,7 +17,15 @@ Hello contributors! I am the author of project Tosbit, which aims at providing v
 - Unambiguous parsing
 
 
-## **3. Directory Structure**
+## **3. System Requirements**
+
+- **Architecture:** x86, x86_64, RISC-V (*coming soon...*)
+- **Platform:** Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS
+- **RAM:** A few megabytes
+- **Space:** A few megabytes
+
+
+## **4. Directory Structure**
 
 - `assets/` - Contains media files & images for testing purpose.
 - `dist/` - Contains object (`.o`) files as result of intermediate compilation.
@@ -32,7 +40,7 @@ Hello contributors! I am the author of project Tosbit, which aims at providing v
 >**<u>NOTE</u>:** Most directories & nested directories contain their own ***README*** files for more information regarding their contained directories.
 
 
-## **4. Installation**
+## **5. Installation**
 
 For installation, follow the given steps (assuming you to be in parent directory):
 
@@ -80,7 +88,7 @@ cd ../..
 ```
 
 
-## **5. In-Code Tosbit Usage**
+## **6. In-Code Tosbit Usage**
 
 Follow the given steps for using in-code Tosbit in C:
 
@@ -142,10 +150,12 @@ gcc myfile.c -I../include -L../lib -ltosbitAPI -o myfile
 This was a very basic tutorial on very painlessly using in-code **Tosbit** using GCC.
 
 
-## **6. Personal Information**
+## **7. Personal Information**
 
 For anyone willing to connect with me, I am more than happy to connect back.
 
 - [Gmail](guduthestriker11@gmail.com)
 - [LinkedIn](www.linkedin.com/in/gourav-kumar-mallick-272715250)
 - [GitHub](https://github.com/Gourav-334) (lol, ofcourse)
+
+---

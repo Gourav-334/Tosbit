@@ -15,6 +15,9 @@ So, you are an expert? Well, you are at the right place! Being an experienced pr
 
 |Sno.|Area|References|Prerequisites|
 |:---:|:---:|---|---|
-|1|B+ tree searching|`../algo/database_operations.md`|Data structures, Trees, C file handling|
+|1|B+ tree search|`../algo/database_operations.md`|Data structures, Trees, C file handling|
+|2|Improving security|`../algo/encrypter.md`|Encryption techniques, SHA32/SHA64, OpenSSL|
+|3|Tuning for RISC-V|-|GCC on RISC-V, Compilation & linking|
+|4|Serverless C connection option|`../algo/device_driver.md`|BSD sockets, Compilation & linking|
 
 ---
