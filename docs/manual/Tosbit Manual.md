@@ -74,7 +74,7 @@ bash scripts/ubuntu.sh
 2. Set up environment using CMake:
 ```sh
 cd exec
-bash remake.sh 0
+mkdir build
 bash remake.sh 1
 cd build
 cmake ..
