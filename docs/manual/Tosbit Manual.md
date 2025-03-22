@@ -104,7 +104,12 @@ For installation by developers having cloned the repository, follow the given st
 
 1. Install required tools for our database:
 ```sh
-bash scripts/ubuntu.sh
+bash scripts/alpinelinux.sh         # Only for Alpine Linux.
+bash scripts/arch.sh                # Only for Arch, Manjero & EndeavourOS.
+bash scripts/fedora.sh              # Only for Fedora, RHEL, Rocky & AlmaLinux.
+bash scripts/opensuse.sh            # Only for openSUSE.
+bash scripts/ubuntu.sh              # Only for Debian & Ubuntu.
+bash scripts/voidlinux.sh           # Only for Void Linux.
 ```
 
 2. Set up environment using CMake:
