@@ -40,6 +40,11 @@ int profileManager()
 	char c;
 
 
+	/* Structures */
+
+	struct termios oldt, newt;
+
+
 	/* Opening 'users.tosbit' with NULL safety. */
 
 	file = fopen("users/user.tosbit", "r+");
@@ -82,7 +87,15 @@ int profileManager()
 
 		/* Continuing with password. */
 
-		printf("Enter password: "); fgets(password, sizeof(password), stdin); newline_remover(password);
+		printf("Enter password: ");
+
+	    tcgetattr(STDIN_FILENO, &oldt); newt = oldt;		// Disabling reading password.
+	    newt.c_lflag &= ~ECHO; tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	    
+		fgets(password, sizeof(password), stdin); newline_remover(password);
+		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);			// Re-enabling reading terminal.
+		printf("\n");
+
 
 		if (strlen(password)<(PASSWORD_MIN_SIZE-1))
 			{printf("ERROR: The password must be at least %d characters long!\n", PASSWORD_MIN_SIZE-1); return FALSE;}
@@ -90,7 +103,15 @@ int profileManager()
 		else if (strlen(password)>=(PASSWORD_MAX_SIZE-1))
 			{printf("ERROR: The password must be at least %d characters long!\n", PASSWORD_MAX_SIZE-1); return FALSE;}
 
-		printf("Re-enter password: "); fgets(re_password, sizeof(re_password), stdin); newline_remover(re_password);
+
+		printf("Re-enter password: ");
+
+		tcgetattr(STDIN_FILENO, &oldt); newt = oldt;		// Disabling reading password.
+	    newt.c_lflag &= ~ECHO; tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+	    fgets(re_password, sizeof(re_password), stdin); newline_remover(re_password);
+	    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);			// Re-enabling reading terminal.
+	    printf("\n");
 
 
 		/* Matching passwords. */

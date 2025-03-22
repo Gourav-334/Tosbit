@@ -121,6 +121,12 @@ int main(int argc, char *argv[])
     /* Fetching password for host. */
 
     fptr = fopen("users/user.tosbit", "r");
+    
+    if (newFile(fptr))
+    {
+        printf("ERROR: Please create your account by running engine.\n");
+        exit(EXIT_FAILURE);
+    }
 
     c = fgetc(fptr);
     while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);}
