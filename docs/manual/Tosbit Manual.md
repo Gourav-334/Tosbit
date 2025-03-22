@@ -62,6 +62,34 @@
 
 ## **Topic - 3: Installation & Setup**
 
+### <u>For Release Users</u>
+
+1. Get the `.tar.gz` file from **GitHub**.
+
+```sh
+wget https://github.com/Gourav-334/Tosbit/releases/download/v0.1.1-beta/Tosbit_v0.1.1-beta.tar.gz
+```
+
+2. Extract this `.tar.gz` file.
+
+```sh
+tar -xzvf Tosbit_v0.1.0-beta.tar.gz
+```
+
+3. Navigate inside the directory.
+
+```sh
+cd Tosbit_v0.1.1-beta.tar.gz
+```
+
+4. Try running engine or server.
+
+```sh
+./engine
+./server 8080           # Create an account in engine first before running server.
+```
+
+
 ### <u>For Developers</u>
 
 For installation, follow the given steps (assuming you to be in parent directory of repository):
