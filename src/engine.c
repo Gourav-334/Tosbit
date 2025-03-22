@@ -34,12 +34,6 @@ int main(int argc, char **argv[])
 
 	if (profileManager()==TRUE)
 	{
-		/* Fetching the location. */
-
-		getLocation();
-
-
-
 		/* Asking user for connecting to certain server. */
 
 		printf("Do you want to access an external server? (y/n): "); scanf("%c", &decision); getchar();
@@ -47,6 +41,11 @@ int main(int argc, char **argv[])
 
 		if (decision=='y'||decision=='Y')
 		{
+			/* Getting location. */
+
+			getLocation();
+
+
 			/* Getting server information. */
 
 			printf("Enter host IP: "); fgets(hostIP, sizeof(hostIP), stdin); newline_remover(hostIP);

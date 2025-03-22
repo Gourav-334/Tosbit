@@ -30,6 +30,7 @@
 #include <stdlib.h>				// Standard library functionalities header.
 #include <unistd.h>				// UNIX standard library.
 #include <termios.h>			// Disabling ECHO to hide password.
+
 #include "encrypter.h"			// Encryption & decryption header.
 #include "utility_box.h"  		// Custom utility functions header.
 

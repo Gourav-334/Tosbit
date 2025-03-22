@@ -29,9 +29,9 @@ FILE *fptr 		= NULL;
 FILE *fptr2 	= NULL;
 FILE *cache 	= NULL;
 char *feedback 	= NULL;
+char *command 	= NULL;
 
 
-char command 		[COMMAND_MAX_LENGTH] 	= {0};
 char database 		[DATABASE_MAX_LENGTH] 	= {0};
 char table 			[TABLE_MAX_LENGTH] 		= {0};
 char directory 		[DIRECTORY_MAX_LENGTH] 	= {0};

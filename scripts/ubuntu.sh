@@ -1,7 +1,4 @@
-sudo apt update && sudo apt upgrade
-sudo apt autoclean && sudo apt autoremove
+sudo apt update && sudo apt upgrade -y
+sudo apt autoclean && sudo apt autoremove -y
 
-sudo apt install gcc
-sudo apt install cmake
-sudo apt install xz-utils
-sudo apt install gdb
+sudo apt install -y gcc libreadline-dev cmake xz-utils gdb

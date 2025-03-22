@@ -22,30 +22,6 @@
 - Bodies which want to **store files** while not descarding relational properties.
 - Also those who prefer to use an **open-source relational database** for security reasons.
 - This also targets at new **learners** due to its simple syntax grammar which are easier to grasp than other databases.
-# $\fbox{TOSBIT - USER MANUAL}$
-
-
-
-
-
-## **Topic - 1: Introduction**
-
-### <u>Overview</u>
-
-- ***Tosbit*** is an open-source relational database under continuous development & maintainance on **GitHub**.
-- It aims at providing a **good performance**, **compressed media file storage**, **easy server setup** & many more features.
-- The file system follows a CSV-like storage pattern, with extension of `.tosbit`.
-- This pattern contains the data separated by commas & spaces, which can be skipped during various operations, thus saving computation time.
-- Also ***Tosbit*** relies on operating system's buffers, Linux in this case, for high performance.
-- This makes it very portable across various architectures.
-
-
-### <u>Target Users</u>
-
-- **Embedded system vendors** relying on **Linux** for their products.
-- Bodies which want to **store files** while not descarding relational properties.
-- Also those who prefer to use an **open-source relational database** for security reasons.
-- This also targets at new **learners** due to its simple syntax grammar which are easier to grasp than other databases.
 
 
 ### <u>Limitations</u>

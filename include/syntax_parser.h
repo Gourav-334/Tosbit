@@ -16,7 +16,9 @@
 
 
 
-#include <time.h>
+#include <time.h>						// Time header to track time for performance.
+#include <readline/readline.h>			// Readline library for reading line instead of 'fgets()'.
+#include <readline/history.h>			// Saves history for inputs through 'readline'.
 
 #include "utility_box.h"				// Custom utility functions header.
 #include "encrypter.h"					// Encryption & decryption header.

@@ -48,9 +48,9 @@
 extern FILE *fptr, *fptr2;		// File pointers used in file operations.
 extern FILE *cache;				// File pointer used specifically for cache files.
 extern char *feedback;			// The final string printed after full execution of command.
+extern char *command; 			// Command input by user.
 
 
-extern char command 		[COMMAND_MAX_LENGTH];		// Command input by user.
 extern char database 		[DATABASE_MAX_LENGTH];		// Stores name of the database.
 extern char table 			[TABLE_MAX_LENGTH];			// Stores name of the table.
 extern char directory 		[DIRECTORY_MAX_LENGTH];		// Continuously formatted directory path.

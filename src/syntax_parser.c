@@ -32,20 +32,33 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 	struct timespec start, end;
 
 
+	read_history(".my_history");
+
+
 
 	/* Syntax parsing & feedback loop. */
 
 	while (TRUE)
 	{
+		/* Clearing feedback. */
+		
+		if (feedbackSize>0) {free(feedback); feedback = NULL; feedbackSize = 0;}
+
+
 		/* Resetting command buffer. */
 
-		memset(command, 0, sizeof(command));
-		printf("TOS> ");
+		if (command!=NULL) {free(command);}
 
 
 		/* For driver manager piping. */
 
-		if (user_cmd==NULL) {fgets(command, COMMAND_MAX_LENGTH, stdin); newline_remover(command);}
+		if (user_cmd==NULL)
+		{
+			command = readline("TOS> ");
+
+			if (!command) {printf("Exiting the program..."); exit(EXIT_FAILURE);}
+			else if (*command) {add_history(command); write_history(".my_history");}
+		}
 		else {strcpy(command, user_cmd); printf("%s\n", command);}
 
 
@@ -72,8 +85,6 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 			if (serverConn==TRUE) {serverMode = TRUE;}
 			else if (serverConn==FALSE) {serverMode = FALSE;}
-
-			if (feedbackSize>0) {free(feedback); feedback = NULL;} feedbackSize = 0;
 
 
 
@@ -443,8 +454,6 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 
 		recordLog(username, command);
-		memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));
-
 		state = 0;
 
 

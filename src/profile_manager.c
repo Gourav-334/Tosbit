@@ -141,13 +141,33 @@ int profileManager()
 		/* Storing remaining bytes (encrypted password). */
 
 		fgets(codedPassword, sizeof(codedPassword), file); strcpy(re_password, decrypt(codedPassword)); newline_remover(re_password);
-		printf("Enter password: "); fgets(password, sizeof(password), stdin); newline_remover(password);
+
+
+
+		/* Getting password by user. */
+
+		printf("Enter password: ");
+
+		tcgetattr(STDIN_FILENO, &oldt); newt = oldt;		// Disabling reading password.
+	    newt.c_lflag &= ~ECHO; tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+	    fgets(password, sizeof(password), stdin); newline_remover(password);
+	    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);			// Re-enabling reading terminal.
+	    printf("\n");
+
 
 
 		/* Greeting users or exiting program for wrong credentials. */
 
 		if (strcmp(password,re_password)) {printf("ERROR: What you entered doesn't match the password!\n"); return FALSE;}
-		else if (!strcmp(password,re_password)) {printf("\n***** Tosbit v0.1.0-beta *****\n\n"); printf("Welcome back %s!\n\n", decrypt(codedUsername));}
+		else if (!strcmp(password,re_password))
+		{
+			printf("\n------------------------------");
+			printf("***** Tosbit v0.1.0-beta *****");
+			printf("------------------------------\n\n");
+
+			printf("Welcome back %s!\n\n", decrypt(codedUsername));
+		}
 	}
 
 
