@@ -15,11 +15,11 @@
 
 /* Variables */
 
-char username[USERNAME_MAX_SIZE] = {0};
-char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
-char password[PASSWORD_MAX_SIZE] = {0};
-char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
-char re_password[PASSWORD_MAX_SIZE] = {0};
+char username[USERNAME_MAX_SIZE] 		= {0};
+char codedUsername[MAX_ENCRYPTED_SIZE] 	= {0};
+char password[PASSWORD_MAX_SIZE] 		= {0};
+char codedPassword[MAX_ENCRYPTED_SIZE] 	= {0};
+char re_password[PASSWORD_MAX_SIZE] 	= {0};
 
 
 
@@ -119,10 +119,7 @@ int profileManager()
 		if (strcmp(password,re_password)) {printf("ERROR: Your passwords don't match, please restart the engine.\n"); return FALSE;}
 		else if (!strcmp(password,re_password))
 		{
-			fputs(encrypt(username), file); fputc('\n', file); 
-			memset(encrypt(username), 0, sizeof(encrypt(username))); fputs(encrypt(password), file);
-
-			printf("Hi %s!\n\n", username);
+			fputs(encrypt(username), file); fputc('\n', file); fputs(encrypt(password), file);
 		}
 	}
 
@@ -162,11 +159,9 @@ int profileManager()
 		if (strcmp(password,re_password)) {printf("ERROR: What you entered doesn't match the password!\n"); return FALSE;}
 		else if (!strcmp(password,re_password))
 		{
-			printf("\n------------------------------");
+			printf("\n------------------------------\n");
 			printf("***** Tosbit v0.1.0-beta *****");
-			printf("------------------------------\n\n");
-
-			printf("Welcome back %s!\n\n", decrypt(codedUsername));
+			printf("\n------------------------------\n\n");
 		}
 	}
 

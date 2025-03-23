@@ -27,13 +27,20 @@
 
 void syntaxParser(char username[], char *user_cmd, int serverConn)
 {
+	/* Declarations */
+
+	int comment = FALSE;
+
+
 	/* Calculating performance. */
 
 	struct timespec start, end;
 
 
-	read_history(".my_history");
+	/* Read history of entered inputs. */
 
+	read_history(".my_history");
+	clear_history();
 
 
 	/* Syntax parsing & feedback loop. */
@@ -59,7 +66,11 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 			if (!command) {printf("Exiting the program..."); exit(EXIT_FAILURE);}
 			else if (*command) {add_history(command); write_history(".my_history");}
 		}
-		else {strcpy(command, user_cmd); printf("%s\n", command);}
+		else
+		{
+			command = (char*)malloc(sizeof(char)*(strlen(user_cmd)+1));
+			printf("TOS> "); strcpy(command, user_cmd); printf("%s\n", command);
+		}
 
 
 
@@ -68,17 +79,11 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 		clock_gettime(CLOCK_MONOTONIC, &start);
 
 
-		/* Filtering illegal characters. */
-
-		if (illegalChars(command, "\"[]")==TRUE)
-			{extendFeedback("ERROR: Please don't use \", [ or ]\n\n"); continue;}
-
-
 
 
 
 		/* Parsing of the entered command. */
-
+ 
 		for (int i=0; i<strlen(command); i++)
 		{
 			/* Initial memory cleanage & assingment process. */
@@ -90,7 +95,9 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsSmMdDcCpPuU", "0,1,3,3,16,16,47,47,73,73,95,95,116,116,152,152", &state, 2); break;
+				case 0: changeState(command[i], " @oOsSmMdDcCpPuU", "0,1,3,3,16,16,47,47,73,73,95,95,116,116,152,152", &state, 2);
+						if(command[i]=='@') {comment = TRUE;} break;
+
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
 				case 2: breaker = TRUE; break;
 				case 3: changeState(command[i], "pP", "4,4", &state, 2); break;
@@ -453,8 +460,15 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 
 
+		/* Checking for empty strings & re-initializing. */
+
+		if (state==0 && comment==FALSE) {comment = FALSE; continue;}
+		state = 0; comment = FALSE;
+
+
+		/* Recording information to log. */
+
 		recordLog(username, command);
-		state = 0;
 
 
 

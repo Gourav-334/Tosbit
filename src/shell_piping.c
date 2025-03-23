@@ -209,7 +209,7 @@ void getLocation()
 	fgets(loc, sizeof(loc), fetcher); newline_remover(loc);
 	pclose(fetcher);
 
-	printf("(FETCHED)\n\n");
+	printf("(FETCHED)\n");
 }
 
 

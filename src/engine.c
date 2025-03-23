@@ -2,6 +2,9 @@
 
 
 
+#include <termios.h>		// Disabling ECHO to hide password.
+#include <unistd.h>			// UNIX standard header.
+
 #include "../include/profile_manager.h"
 #include "../include/driver_manager.h"
 #include "../include/shell_piping.h"
@@ -15,18 +18,28 @@
 
 
 
+
+
+
+
+
+/* The main windows for engine. */
+
 int main(int argc, char **argv[])
 {
 	/* Declarations */
 
 	char decision;
-	char codedUsername[MAX_ENCRYPTED_SIZE] = {0};
-	char codedPassword[MAX_ENCRYPTED_SIZE] = {0};
-
 	char hostIP[16] = {0};
 	short unsigned int port;
+
 	char hostUsername[MAX_DECRYPTED_SIZE] = {0};
 	char hostPassword[MAX_DECRYPTED_SIZE] = {0};
+
+
+	/* Structures */
+
+	struct termios oldt, newt;
 
 
 
@@ -41,19 +54,21 @@ int main(int argc, char **argv[])
 
 		if (decision=='y'||decision=='Y')
 		{
-			/* Getting location. */
-
-			getLocation();
-
-
 			/* Getting server information. */
 
 			printf("Enter host IP: "); fgets(hostIP, sizeof(hostIP), stdin); newline_remover(hostIP);
 			printf("Enter port number: "); scanf("%hu", &port); getchar();	// Consuming '\n' in buffer.
 			printf("Enter host username: "); fgets(hostUsername, sizeof(hostUsername), stdin); newline_remover(hostUsername);
-			printf("Enter host password: "); fgets(hostPassword, sizeof(hostPassword), stdin); newline_remover(hostPassword);
 
-			printf("\n");
+			printf("Enter host password: "); 
+			tcgetattr(STDIN_FILENO, &oldt); newt = oldt;		// Disabling reading password.
+	    	newt.c_lflag &= ~ECHO; tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	    	fgets(hostPassword, sizeof(hostPassword), stdin); newline_remover(hostPassword);
+	    	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);			// Re-enabling reading terminal.
+
+
+			printf("\n\n");
+
 
 
 			/* Connecting to driver. */

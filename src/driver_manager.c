@@ -89,7 +89,7 @@ void runClient(char username[], char hostIP[], short unsigned int port, char hos
     /* Variable declarations. */
 
     int bytesInvolved;
-    char user_cmd[COMMAND_MAX_LENGTH] = {0};
+    char *user_cmd = NULL;
 
 
 
@@ -177,7 +177,24 @@ void runClient(char username[], char hostIP[], short unsigned int port, char hos
     else
         printf("ERROR: Unable to read stream sent by server!\n");
 
+
+
+    /* Sending client's location to server. */
+
+    getLocation(); printf("STAT: Sending location \"%s\".\n", loc);
+
+    if (writeMessage(&sockFD, loc)==1) {printf("OK: Location written to socket!\n");}
+    else {printf("ERROR: Can't write location to socket!\n");}
+
+    if (readMessage(&sockFD, onlineBuffer, sizeof(onlineBuffer))==1)
+        printf("STAT: Location socket received is \"%s\".\n", onlineBuffer);
+
+    else
+        printf("ERROR: Unable to read stream sent by server!\n");
+
     printf("\n");
+
+
 
 
 
@@ -189,13 +206,21 @@ void runClient(char username[], char hostIP[], short unsigned int port, char hos
 
 
 
+    /* Read history of entered inputs. */
+
+    read_history(".my_history");
+    clear_history();
+
+
     /* Request-response loop. */
 
     while (1)
     {
         /* Clean buffer & send the message. */
 
-        printf("TOS> "); fgets(user_cmd, sizeof(user_cmd), stdin); newline_remover(user_cmd);
+        user_cmd = readline("TOS> ");
+        add_history(user_cmd); write_history(".my_history");
+
         bytesInvolved = write(sockFD, user_cmd, strlen(user_cmd));
         if (bytesInvolved<=0) {perror("ERROR: (w) First byte"); return;}
 
@@ -256,8 +281,13 @@ void setConnection(char username[], char password[], char hostIP[], short unsign
 
 		if (!strcmp(username,decrypt(codedUsername)) && !strcmp(password,decrypt(codedPassword)))
 		{
+            /*
+             * WARNING: Fix value of 'username' changing before & after this 'if' statement.
+             * Problem might be in shared buffers or static string in 'decrypt()'.
+             */
+
 			printf("STAT: Checking credentials for host %s...\n", hostUsername);
-			runClient(username, hostIP, port, hostUsername, hostPassword, takeover);
+			runClient(decrypt(codedUsername), hostIP, port, hostUsername, hostPassword, takeover);
 		}
 		else {printf("ERROR: Username or password doesn't match!\n"); return;}
 	}

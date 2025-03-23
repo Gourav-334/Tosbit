@@ -22,5 +22,6 @@ Those who have spent enough work time on C & know some related theories to compi
 |4|String restrictions|`../../src/database_operations.c` - `typeParser()`|Basic C knowledge|
 |5|Log transfer|`../algo/shell_piping.md`, `../algo/syntax_parser.md`|Linux shell commands, Pipe I/O|
 |6|Cleansing deleted data|`../algo/database_operations.md`|C file I/O|
+|7|Driver manager line 284|`../src/driver_manager.c`, `../src/encrypter.c`|Shared buffers, Static variables|
 
 ---

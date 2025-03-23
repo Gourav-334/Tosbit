@@ -1,3 +1,7 @@
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -138,7 +142,6 @@ int main(int argc, char *argv[])
     /* Confirming details on terminal screen. */
 
     printf("Username: %s\n", decrypt(codedUsername));
-    printf("Password: %s\n", decrypt(codedPassword));
 
 
 
@@ -314,6 +317,19 @@ int main(int argc, char *argv[])
                         printf("ERROR: Can't send acknowledgment to client.\n");
                 }
 
+
+
+                /* Receiving location. */
+
+                if (readMessage(&newsockFD, loc, sizeof(loc))==1)
+                    printf("OK: Guest location \"%s\" received.\n", loc);
+
+                else
+                    printf("ERROR: Unable to read stream sent by client.\n");
+
+                if (writeMessage(&newsockFD, loc)==1) {printf("OK: Guest location written to socket!\n");}
+                else {printf("ERROR: Can't write guest location to socket!\n");}
+
                 printf("\n");
             }
 
@@ -352,3 +368,7 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+
+
+/* Copyright (C) under Apache 2.0, Gourav Kumar Mallick */

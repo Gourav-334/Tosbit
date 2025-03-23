@@ -28,7 +28,7 @@
 #include <sys/socket.h>				// Central socket header.
 #include <netinet/in.h>				// Internet protocol header.
 #include <netdb.h>					// Network database operations header.
-
+#include <termios.h>				// Disabling ECHO to hide password.
 
 #include "encrypter.h"				// Encryption & decryption header.
 #include "utility_box.h"			// Custom utility functions header.
