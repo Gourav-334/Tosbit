@@ -69,25 +69,25 @@ These installation steps are for those who are willing to download the release:
 1. Get the `.tar.gz` file from **GitHub**.
 
 ```sh
-wget https://github.com/Gourav-334/Tosbit/releases/download/v0.1.0-beta/Tosbit_v0.1.0-beta.tar.gz
+wget https://github.com/Gourav-334/Tosbit/releases/download/Tosbit-v0.1.0/Tosbit-v0.1.0-Linux.tar.gz
 ```
 
 2. Extract this `.tar.gz` file.
 
 ```sh
-tar -xzvf Tosbit_v0.1.0-beta.tar.gz
+tar -xzvf Tosbit-v0.1.0-Linux.tar.gz
 ```
 
 3. Allow permission to it.
 
 ```sh
-chmod +x Tosbit_v0.1.0-beta/*
+chmod +x Tosbit-v0.1.0-Linux/*
 ```
 
 4. Navigate inside the directory.
 
 ```sh
-cd Tosbit_v0.1.0-beta
+cd Tosbit-v0.1.0-Linux
 ```
 
 5. Try running engine or server.
