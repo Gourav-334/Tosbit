@@ -20,7 +20,7 @@ Hello contributors! I am the author of project Tosbit, which aims at providing v
 ## **3. System Requirements**
 
 - **Architecture:** x86, x86_64, RISC-V (*coming soon...*)
-- **Platform:** Debian, Ubuntu, Linux Mint, Pop!_OS, Zorin OS
+- **Platform:** Any Linux distro
 - **RAM:** A few megabytes
 - **Space:** A few megabytes
 
