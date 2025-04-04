@@ -1,4 +1,4 @@
-# $\fbox{TOSBIT v0.1.0-beta}$
+# TOSBIT v0.1.0-beta
 
 
 ## **1. Introduction**
@@ -174,7 +174,7 @@ int main(void)
 4. Link against `tosbitAPI.a` static library:
 
 ```sh
-gcc myfile.c -I../include -L../lib -ltosbitAPI -o myfile
+gcc myfile.c -I../../include -L../../lib -ltosbitAPI -o myfile
 ```
 
 5. Run the server:

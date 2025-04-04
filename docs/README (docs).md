@@ -1,4 +1,4 @@
-# $docs/$
+# docs/
 
 
 - `algo/` - Contains algorithms for all functions in each source file (named by name of source files).

@@ -264,33 +264,38 @@ void setConnection(char username[], char password[], char hostIP[], short unsign
 
 
 	if (fptr==NULL) {printf("ERROR: Can't find user credential file!\n"); return;}
-	else
+    else if (newFile(fptr))
+    {
+        account = FALSE;
+        printf("ERROR: Please create your user account by running engine first!\n");
+        return;
+    }
+
+
+	/* Fetching encrypted username & password. */
+
+	c = fgetc(fptr);
+	while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);}
+
+	c = fgetc(fptr);
+	while (!reachedEOF(fptr)) {codedPassword[strlen(codedPassword)] = c; c = fgetc(fptr);}
+
+	fclose(fptr);
+
+
+	/* Confirming details on terminal screen. */
+
+	if (!strcmp(username,decrypt(codedUsername)) && !strcmp(password,decrypt(codedPassword)))
 	{
-		/* Fetching encrypted username & password. */
+        /*
+         * WARNING: Fix value of 'username' changing before & after this 'if' statement.
+         * Problem might be in shared buffers or static string in 'decrypt()'.
+         */
 
-		c = fgetc(fptr);
-		while (c!='\n') {codedUsername[strlen(codedUsername)] = c; c = fgetc(fptr);}
-
-		c = fgetc(fptr);
-		while (!reachedEOF(fptr)) {codedPassword[strlen(codedPassword)] = c; c = fgetc(fptr);}
-
-		fclose(fptr);
-
-
-		/* Confirming details on terminal screen. */
-
-		if (!strcmp(username,decrypt(codedUsername)) && !strcmp(password,decrypt(codedPassword)))
-		{
-            /*
-             * WARNING: Fix value of 'username' changing before & after this 'if' statement.
-             * Problem might be in shared buffers or static string in 'decrypt()'.
-             */
-
-			printf("STAT: Checking credentials for host %s...\n", hostUsername);
-			runClient(decrypt(codedUsername), hostIP, port, hostUsername, hostPassword, takeover);
-		}
-		else {printf("ERROR: Username or password doesn't match!\n"); return;}
+		printf("STAT: Checking credentials for host %s...\n", hostUsername);
+		runClient(decrypt(codedUsername), hostIP, port, hostUsername, hostPassword, takeover);
 	}
+	else {printf("ERROR: Username or password doesn't match!\n"); account = FALSE; return;}
 }
 
 
@@ -306,6 +311,11 @@ void setConnection(char username[], char password[], char hostIP[], short unsign
 
 void interpret(char *user_cmd)
 {
+    /* Checking for account existence. */
+
+    if (account==FALSE) {printf("ERROR: Account must exist for using \"interpret()\"!\n"); return;}
+
+
 	/* Declarations */
 
 	int bytesInvolved;
@@ -333,7 +343,14 @@ void interpret(char *user_cmd)
 
 /* End the current connection by closing the socket. */
 
-void endConnection() {close(sockFD);}
+void endConnection()
+{
+    /* Checking for account existence. */
+
+    if (account==FALSE) {printf("ERROR: No successful connection opened yet!\n"); return;}
+
+    close(sockFD);
+}
 
 
 

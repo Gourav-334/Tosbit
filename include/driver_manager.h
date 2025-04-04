@@ -29,6 +29,8 @@
 #include <netinet/in.h>				// Internet protocol header.
 #include <netdb.h>					// Network database operations header.
 #include <termios.h>				// Disabling ECHO to hide password.
+#include <readline/readline.h>		// Readline library for reading line instead of 'fgets()'.
+#include <readline/history.h>		// Saves history for inputs through 'readline'.
 
 #include "encrypter.h"				// Encryption & decryption header.
 #include "utility_box.h"			// Custom utility functions header.
@@ -45,6 +47,7 @@
 
 /* Declarations */
 
+static int account			= TRUE;			// Tells if account really exists or not.
 static int connected 		= FALSE;		// Tells if a remote database is being accessed.
 static int interpretLoop 	= FALSE;		// Tells if database command loop is there or not.
 static int sockFD 			= 0;			// Socket file descriptor for client-side.

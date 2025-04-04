@@ -1,4 +1,4 @@
-# $docs/algo/$
+# docs/algo/
 
 
 - `database_operations.md` - Contains functions written to run various **operations** on the database. Also includes some **secondary DFA** parsers.

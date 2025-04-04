@@ -1,4 +1,4 @@
-# $docs/charts/$
+# docs/charts/
 
 - `Attribute Parser.drawio` - The DFA for parsing everything within paranthesis while executing `MAKE TABLE tbl_name` (in `syntax_parser.c`).
 - `Data Parser.drawio` - The DFA for parsing a data type as per its data type while executing `PUSH TO tbl_name(...)` (in `database_operations.c`).

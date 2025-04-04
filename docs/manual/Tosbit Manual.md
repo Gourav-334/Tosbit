@@ -1,4 +1,4 @@
-# $\fbox{TOSBIT - USER MANUAL}$
+# TOSBIT - USER MANUAL
 
 
 
@@ -582,7 +582,7 @@ int main(void)
 4. Link against `tosbitAPI.a` static library:
 
 ```sh
-gcc myfile.c -I../include -L../lib -ltosbitAPI -o myfile
+gcc myfile.c -I../../include -L../../lib -ltosbitAPI -o myfile
 ```
 
 5. Run the server:

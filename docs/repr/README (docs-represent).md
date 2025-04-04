@@ -1,4 +1,4 @@
-# $docs/represent/$
+# docs/represent/
 
 
 - `File System.md` - Explains the file system in Tosbit.

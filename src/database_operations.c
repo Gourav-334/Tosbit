@@ -795,6 +795,7 @@ void makeTable()
 {
 	/* Initialization */
 
+	FILE *fptr3 = NULL;
 	char decision, c;
 	char metaBuff[2] = {0};
 	int write = TRUE, uniqueKey = FALSE;
@@ -1030,6 +1031,7 @@ void makeTable()
 			clearEntity("key");
 
 
+
 			/* Assigning keys, avoiding multiple unique keys & hardwiring file keys to media types. */
 
 			if ((dataType[0]=='m' || dataType[0]=='M') && !(attribute[0]=='$')) {strcpy(key,"file");}
@@ -1045,9 +1047,26 @@ void makeTable()
 			else if (attribute[0]=='$' && uniqueKey==FALSE) {strcpy(key,"unique"); uniqueKey = TRUE;}
 			else if (attribute[0]=='$' && uniqueKey==TRUE)
 			{
+				/* Removing all data related to the just created table. */
+
 				clearEntity("directory");
 				snprintf(directory, sizeof(directory), "rm -rf data/%s/%s", database, table);
 				system(directory);
+
+
+				/* Removing table's name from the table list of its database. */
+
+				clearEntity("directory");
+				snprintf(directory, sizeof(directory), "data/%s/tables.tosbit", database);
+
+				fptr3 = fopen(directory, "r+");
+				fseek(fptr3, -(TABLE_MAX_LENGTH-1), SEEK_END);
+				fputc('\t', fptr3);
+				fclose(fptr3);
+
+
+				/* Error message to user. */
+
 				extendFeedback("ERROR: A table can't have multiple unique keys!");
 
 				return;

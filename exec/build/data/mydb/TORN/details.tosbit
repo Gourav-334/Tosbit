@@ -1,0 +1,2 @@
+age                             ,int   ,regular,3 
+$name                           ,string,unique ,5 
