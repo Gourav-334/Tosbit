@@ -1,4 +1,4 @@
-# TOSBIT v0.1.0-beta
+# TOSBIT v0.1.1-beta
 
 
 ## **1. Introduction**
@@ -10,6 +10,7 @@ Hello contributors! I am the author of project Tosbit, which aims at providing v
 
 - Relational design
 - Simple syntax grammar
+- Precise error messages
 - Media file storage facility
 - CSV-like data storage
 - High performance
@@ -19,7 +20,8 @@ Hello contributors! I am the author of project Tosbit, which aims at providing v
 
 ## **3. System Requirements**
 
-- **Architecture:** x86, x86_64, RISC-V (*coming soon...*)
+- **Architecture (existing):** x86, x86_64
+- **Architecture (*coming soon...*):** RISC-V, ARM-Cortex (M/R/A)
 - **Platform:** Any Linux distro
 - **RAM:** A few megabytes
 - **Space:** A few megabytes
@@ -49,25 +51,25 @@ These installation steps are for those who are willing to download the release:
 1. Get the `.tar.gz` file from **GitHub**.
 
 ```sh
-wget https://github.com/Gourav-334/Tosbit/releases/download/Tosbit-v0.1.0/Tosbit-v0.1.0-Linux.tar.gz
+wget https://github.com/Gourav-334/Tosbit/releases/download/Tosbit-v0.1.1/Tosbit-v0.1.1-Linux.tar.gz
 ```
 
 2. Extract this `.tar.gz` file.
 
 ```sh
-tar -xzvf Tosbit-v0.1.0-Linux.tar.gz
+tar -xzvf Tosbit-v0.1.1-Linux.tar.gz
 ```
 
 3. Allow permission to it.
 
 ```sh
-chmod +x Tosbit-v0.1.0-Linux/*
+chmod +x Tosbit-v0.1.1-Linux/*
 ```
 
 4. Navigate inside the directory.
 
 ```sh
-cd Tosbit-v0.1.0-Linux
+cd Tosbit-v0.1.1-Linux
 ```
 
 5. Try running engine or server.
@@ -96,7 +98,7 @@ bash scripts/voidlinux.sh           # Only for Void Linux.
 2. Set up environment using CMake:
 ```sh
 cd exec
-bash remake.sh 0
+mkdir build
 bash remake.sh 1
 cd build
 cmake ..
@@ -174,7 +176,11 @@ int main(void)
 4. Link against `tosbitAPI.a` static library:
 
 ```sh
-gcc myfile.c -I../../include -L../../lib -ltosbitAPI -o myfile
+gcc myfile.c \
+-I/usr/include -I/usr/include/readline -I../../include \
+-L/usr/lib/x86_64-linux-gnu -L../../lib \
+-ltosbitAPI -lreadline -lhistory -lncurses \
+-o myfile
 ```
 
 5. Run the server:
@@ -191,10 +197,93 @@ gcc myfile.c -I../../include -L../../lib -ltosbitAPI -o myfile
 ./myfile
 ```
 
-This was a very basic tutorial on very painlessly using in-code **Tosbit** using GCC.
+- This was a very basic tutorial on very painlessly using in-code **Tosbit** using GCC.
+- Also the linking stage we went through (*step 4*) was considering the user to be at `exec/build/` of repository.
+- One must know how to link libraries using **GCC** to link `libtosbitAPI.a` present at `lib/`.
+- And there is no worry of space in **embedded systems** regarding it, because linking is just a one time process.
 
 
-## **7. Personal Information**
+### 7. <u>File System</u>
+
+- `data/`
+    - `db_name/`
+    - `tbl_name/`
+        - `details.tosbit`
+        - `rows.tosbit`
+        - `metadata.tosbit`
+    - `tables.tosbit`
+    - `metadata.tosbit`
+- `databases.tosbit`
+- `metadata.tosbit`
+- `logs/`
+- `users/`
+    - `user.tosbit`
+
+>**<u>NOTE</u>:** Dots (`.`) in code sections below are spaces, added for clarity.
+
+### 1.1 `details.tosbit` (`data/db_name/tbl_name/`)
+
+```tosbit
+name............................,string,unique.,5.\n
+age.............................,int...,regular,4.
+```
+1. Attribute name
+2. Data type
+3. Key type
+4. Length of largest value in an attribute.
+
+### 1.2 `metadata.tosbit` (`data/db_name/tbl_name/`)
+
+```tosbit
+10,10,6.
+```
+1. Length of largest attribute name (larger than 10)
+2. Length of largest data type name (larger than 10)
+3. Length of largest key type (larger than 6)
+
+### 1.3 `tables.tosbit` (`data/db_name/`)
+
+```tosbit
+table1..........................\n
+table2..........................
+```
+1. Table's name
+
+### 1.4 `metadata.tosbit` (`data/db_name/`)
+
+```tosbit
+6.
+```
+1. Length of largest table.
+
+### 1.5 `database.tosbit` (`data/`)
+
+```tosbit
+db1.............................\n
+db2.............................\n
+mydb............................
+```
+1. Name of database
+2. Name of its largest tables.
+
+### 1.6 `metadata.tosbit` (`data/`)
+
+```tosbit
+10
+```
+1. Length of largest database name (larger than 10).
+
+### 1.7 `logs/`
+
+- `logs/` directory contains all the log history in **JSON** format.
+- These are easy to access in the local file system.
+
+### 1.8 `user.tosbit` (`users/`)
+
+- `user/tosbit` contains all the user credential in encrypted form.
+
+
+## **8. Personal Information**
 
 For anyone willing to connect with me, I am more than happy to connect back.
 

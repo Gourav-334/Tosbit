@@ -69,25 +69,25 @@ These installation steps are for those who are willing to download the release:
 1. Get the `.tar.gz` file from **GitHub**.
 
 ```sh
-wget https://github.com/Gourav-334/Tosbit/releases/download/Tosbit-v0.1.0/Tosbit-v0.1.0-Linux.tar.gz
+wget https://github.com/Gourav-334/Tosbit/releases/download/Tosbit-v0.1.1/Tosbit-v0.1.1-Linux.tar.gz
 ```
 
 2. Extract this `.tar.gz` file.
 
 ```sh
-tar -xzvf Tosbit-v0.1.0-Linux.tar.gz
+tar -xzvf Tosbit-v0.1.1-Linux.tar.gz
 ```
 
 3. Allow permission to it.
 
 ```sh
-chmod +x Tosbit-v0.1.0-Linux/*
+chmod +x Tosbit-v0.1.1-Linux/*
 ```
 
 4. Navigate inside the directory.
 
 ```sh
-cd Tosbit-v0.1.0-Linux
+cd Tosbit-v0.1.1-Linux
 ```
 
 5. Try running engine or server.
@@ -115,7 +115,7 @@ bash scripts/voidlinux.sh           # Only for Void Linux.
 2. Set up environment using CMake:
 ```sh
 cd exec
-bash remake.sh 0
+mkdir build
 bash remake.sh 1
 cd build
 cmake ..
@@ -699,25 +699,25 @@ These installation steps are for those who are willing to download the release:
 1. Get the `.tar.gz` file from **GitHub**.
 
 ```sh
-wget https://github.com/Gourav-334/Tosbit/releases/download/v0.1.0-beta/Tosbit_v0.1.0-beta.tar.gz
+wget https://github.com/Gourav-334/Tosbit/releases/download/v0.1.1-beta/Tosbit_v0.1.1-beta.tar.gz
 ```
 
 2. Extract this `.tar.gz` file.
 
 ```sh
-tar -xzvf Tosbit_v0.1.0-beta.tar.gz
+tar -xzvf Tosbit_v0.1.1-beta.tar.gz
 ```
 
 3. Allow permission to it.
 
 ```sh
-chmod +x Tosbit_v0.1.0-beta/*
+chmod +x Tosbit_v0.1.1-beta/*
 ```
 
 4. Navigate inside the directory.
 
 ```sh
-cd Tosbit_v0.1.0-beta
+cd Tosbit_v0.1.1-beta
 ```
 
 5. Try running engine or server.
@@ -1207,7 +1207,11 @@ int main(void)
 4. Link against `tosbitAPI.a` static library:
 
 ```sh
-gcc myfile.c -I../include -L../lib -ltosbitAPI -o myfile
+gcc myfile.c \
+-I/usr/include -I/usr/include/readline -I../../include \
+-L/usr/lib/x86_64-linux-gnu -L../../lib \
+-ltosbitAPI -lreadline -lhistory -lncurses \
+-o myfile
 ```
 
 5. Run the server:
@@ -1224,8 +1228,9 @@ gcc myfile.c -I../include -L../lib -ltosbitAPI -o myfile
 ./myfile
 ```
 
-- This was a very basic tutorial on very painlessly using in-code **Tosbit** using **GCC**.
-- Users should take note that they are free to modify the directory structure & customize their way of usage.
+- This was a very basic tutorial on very painlessly using in-code **Tosbit** using GCC.
+- Also the linking stage we went through (*step 4*) was considering the user to be at `exec/build/` of repository.
+- One must know how to link libraries using **GCC** to link `libtosbitAPI.a` present at `lib/`.
 - And there is no worry of space in **embedded systems** regarding it, because linking is just a one time process.
 
 

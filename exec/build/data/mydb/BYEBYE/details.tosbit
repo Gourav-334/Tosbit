@@ -1,2 +1,0 @@
-$enrollment                     ,int   ,unique ,11
-slave_name                      ,string,regular,10

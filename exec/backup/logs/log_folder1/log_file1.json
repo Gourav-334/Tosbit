@@ -1,19 +1,4 @@
 {
 	"logs": [
-		{
-			"serial": 1,
-			"time": "Sat Mar 22 13:53:22 UTC 2025",
-			"location": "22.3051,73.4002",
-			"author": "Gourav",
-			"command": "show all tables"
-		},
-
-		{
-			"serial": 2,
-			"time": "Sat Mar 22 14:05:11 UTC 2025",
-			"location": "22.3051,73.4002",
-			"author": "Gourav",
-			"command": "show all db"
-		}
 	]
 }
