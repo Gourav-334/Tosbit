@@ -4,6 +4,7 @@
 ## Features
 
 - Modifying names of entities.
+- Aggregate functions
 
 
 ## Commands

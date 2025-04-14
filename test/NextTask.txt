@@ -9,14 +9,9 @@ MAKE TABLE PARSER:
 
 UPCOMING CHALLENGES:
 
--> Tosbit server
 -> Encryption
+-> Bytecode engine
+-> B+ trees
+-> Transactions
 
 -----------------------------------------------------------
-
-PRE-DEPLOYMENT:
-
--> Proper commenting
--> Copyright taggings
--> Ubuntu packaging
--> Documentation
