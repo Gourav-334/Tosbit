@@ -32,8 +32,13 @@ char *feedback 	= NULL;
 char *command 	= NULL;
 
 
+
 char database 		[DATABASE_MAX_LENGTH] 	= {0};
+char old_db 		[DATABASE_MAX_LENGTH] 	= {0};
+char new_db 		[DATABASE_MAX_LENGTH] 	= {0};
 char table 			[TABLE_MAX_LENGTH] 		= {0};
+char old_table		[TABLE_MAX_LENGTH]		= {0};
+char new_table		[TABLE_MAX_LENGTH]		= {0};
 char directory 		[DIRECTORY_MAX_LENGTH] 	= {0};
 char buffer 		[BUFFER_MAX_LENGTH] 	= {0};
 char buffer2 		[BUFFER_MAX_LENGTH] 	= {0};
@@ -53,7 +58,7 @@ int breaker2 		= FALSE;
 int valid 			= TRUE;
 int serverMode 		= FALSE;
 size_t feedbackSize = 0;
-
+int renamed			= FALSE;
 
 
 
@@ -119,7 +124,11 @@ void clearEntity(char *str)
 {
 	if (!strcmp(str,"command")) 			{memset(command, 0, COMMAND_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"database")) 		{memset(database, 0, DATABASE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"old_db")) 		{memset(old_db, 0, DATABASE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"new_db")) 		{memset(new_db, 0, DATABASE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"table")) 			{memset(table, 0, TABLE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"old_table")) 		{memset(old_table, 0, TABLE_MAX_LENGTH*sizeof(char));}
+	else if (!strcmp(str,"new_table")) 		{memset(new_table, 0, TABLE_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"directory")) 		{memset(directory, 0, DIRECTORY_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"buffer")) 		{memset(buffer, 0, BUFFER_MAX_LENGTH*sizeof(char));}
 	else if (!strcmp(str,"buffer2")) 		{memset(buffer2, 0, BUFFER_MAX_LENGTH*sizeof(char));}
@@ -3520,6 +3529,204 @@ void updateAll(struct Queue *argumentQueue, struct Queue *valueQueue)
 	clearEntity("feedbackBuffer");
 	snprintf(feedbackBuffer, sizeof(feedbackBuffer), "OK: Total %d rows updated!", totalRows);
 	extendFeedback(feedbackBuffer);
+}
+
+
+
+int renameTable() {
+    char filePath[256];
+    snprintf(filePath, sizeof(filePath), "data/%s/tables.tosbit", database);
+
+    FILE *fp = fopen(filePath, "r+");   // open for read/write
+    if (!fp) {
+        extendFeedback("ERROR: Could not open tables.tosbit");
+        return 0;
+    }
+
+    char line[LINE_MAX_LEN];
+    long pos;
+    // renamed = 0;
+
+    while ((pos = ftell(fp)) >= 0 && fgets(line, sizeof(line), fp)) {
+        // strip newline
+        size_t len = strlen(line);
+        if (len > 0 && line[len-1] == '\n') {
+            line[len-1] = '\0';
+            len--;
+        }
+
+        // make a copy without trailing spaces
+        char cleanName[LINE_MAX_LEN];
+        strcpy(cleanName, line);
+        for (int j = len-1; j >= 0 && (cleanName[j] == ' '); j--) {
+            cleanName[j] = '\0';
+        }
+
+        if (strcmp(cleanName, old_table) == 0) {
+            size_t fixedLen = len; // full width before newline
+            if (strlen(new_table) > fixedLen) {
+                fclose(fp);
+                extendFeedback("ERROR: New name is longer than allowed length.");
+                return 0;
+            }
+
+            // move file pointer back to start of line
+            fseek(fp, pos, SEEK_SET);
+
+            // write new_table
+            fwrite(new_table, 1, strlen(new_table), fp);
+
+            // pad with spaces until fixedLen
+            for (size_t i = strlen(new_table); i < fixedLen; i++) {
+                fputc(' ', fp);
+            }
+
+            // newline
+            fputc('\n', fp);
+
+
+            if(strcmp(old_table,new_table) == 0) {
+            	printf("ERROR: Table name cannot be same");
+            	return 0;
+            }
+            else snprintf(buffer, sizeof(buffer),"mv data/%s/%s/ data/%s/%s", database, old_table, database, new_table);
+			system(buffer);
+
+
+            renamed = TRUE;
+            break;
+        }
+    }
+
+
+    fclose(fp);
+
+    if (!renamed) {
+        extendFeedback("ERROR: Old table name not found.");
+        return 0;
+    }
+
+    // --- Step 2: Update metadata.tosbit ---
+    char metaPath[256];
+    snprintf(metaPath, sizeof(metaPath), "data/%s/metadata.tosbit", database);
+
+    FILE *metaFp = fopen(metaPath, "r+");
+    if (!metaFp) {
+        extendFeedback("ERROR: Could not open metadata.tosbit");
+        return 0;
+    }
+
+    int maxLen = 0;
+    fscanf(metaFp, "%d", &maxLen);
+
+    if ((int)strlen(new_table) > maxLen) {
+        fseek(metaFp, 0, SEEK_SET);
+        fprintf(metaFp, "%d\n", (int)strlen(new_table));
+        fflush(metaFp);
+    }
+
+    fclose(metaFp);
+
+    extendFeedback("OK: Table renamed successfully.");
+    return 1;
+}
+
+
+
+int renameDatabase() {
+    char filePath[256];
+    snprintf(filePath, sizeof(filePath), "data/databases.tosbit");
+
+    FILE *fp = fopen(filePath, "r+");   // open for read/write
+    if (!fp) {
+        extendFeedback("ERROR: Could not open databases.tosbit");
+        return 0;
+    }
+
+    char line[LINE_MAX_LEN];
+    long pos;
+    // renamed = 0;
+
+    while ((pos = ftell(fp)) >= 0 && fgets(line, sizeof(line), fp)) {
+        // strip newline
+        size_t len = strlen(line);
+        if (len > 0 && line[len-1] == '\n') {
+            line[len-1] = '\0';
+            len--;
+        }
+
+        // make a copy without trailing spaces
+        char cleanName[LINE_MAX_LEN];
+        strcpy(cleanName, line);
+        for (int j = len-1; j >= 0 && (cleanName[j] == ' '); j--) {
+            cleanName[j] = '\0';
+        }
+
+        if (strcmp(cleanName, old_db) == 0) {
+            size_t fixedLen = len; // full width before newline
+            if (strlen(new_db) > fixedLen) {
+                fclose(fp);
+                extendFeedback("ERROR: New name is longer than allowed length.");
+                return 0;
+            }
+
+            // move file pointer back to start of line
+            fseek(fp, pos, SEEK_SET);
+
+            // write new_db
+            fwrite(new_db, 1, strlen(new_db), fp);
+
+            // pad with spaces until fixedLen
+            for (size_t i = strlen(new_db); i < fixedLen; i++) {
+                fputc(' ', fp);
+            }
+
+            // newline
+            fputc('\n', fp);
+
+            if(strcmp(old_db,new_db) == 0) {
+            	printf("ERROR: Database name cannot be same");
+            	return 0;
+            }
+            else snprintf(buffer, sizeof(buffer),"mv data/%s/ data/%s",old_db, new_db);
+			system(buffer);
+
+
+            renamed = TRUE;
+            break;
+        }
+    }
+
+    fclose(fp);
+
+    if (!renamed) {
+        extendFeedback("ERROR: Old database name not found.");
+        return 0;
+    }
+
+    // --- Step 2: Update metadata.tosbit ---
+    char metaPath[256];
+    snprintf(metaPath, sizeof(metaPath), "data/metadata.tosbit");
+
+    FILE *metaFp = fopen(metaPath, "r+");
+    if (!metaFp) {
+        extendFeedback("ERROR: Could not open data/metadata.tosbit");
+        return 0;
+    }
+
+    int maxLen = 0;
+    fscanf(metaFp, "%d", &maxLen);
+
+    if ((int)strlen(new_db) > maxLen) {
+        fseek(metaFp, 0, SEEK_SET);
+        fprintf(metaFp, "%d\n", (int)strlen(new_db));
+        fflush(metaFp);
+    }
+
+    fclose(metaFp);
+
+    extendFeedback("OK: Database renamed successfully.");
+    return 1;
 }
 
 

@@ -33,7 +33,7 @@
 #include "utility_box.h"			// Custom utility header.
 #include "transition_tool.h"		// DFA state transition management header.
 #include "queue.h"					// Queue data structure utility header.
-
+#define LINE_MAX_LEN 512			// Define MAX length of file path - Added by Dipayan (Didn't think through)
 
 
 
@@ -52,7 +52,11 @@ extern char *command; 			// Command input by user.
 
 
 extern char database 		[DATABASE_MAX_LENGTH];		// Stores name of the database.
+extern char old_db			[DATABASE_MAX_LENGTH];		// Stores old name of the database. (added by dipayan)
+extern char new_db			[DATABASE_MAX_LENGTH];		// Stores new name of the database. (added by dipayan)
 extern char table 			[TABLE_MAX_LENGTH];			// Stores name of the table.
+extern char old_table		[TABLE_MAX_LENGTH];			// Stores old name of the table. (added by dipayan)
+extern char new_table		[TABLE_MAX_LENGTH];			// Stores new name of the table. (added by dipayan)
 extern char directory 		[DIRECTORY_MAX_LENGTH];		// Continuously formatted directory path.
 extern char buffer 			[BUFFER_MAX_LENGTH];		// Intermediate buffer for many operations.
 extern char buffer2 		[BUFFER_MAX_LENGTH];		// Another buffer for some cases.
@@ -72,6 +76,7 @@ extern int 		breaker2;				// Set TRUE when syntax goes wrong in secondary DFA.
 extern int 		valid;					// Syntax if found wrong, only then invalid.
 extern int 		serverMode;				// Tells if database is currently connected to server.
 extern size_t 	feedbackSize;			// Tracks size for the 'feedback' string.
+extern int 		renamed;				// Flag to for rename - Added by Dipayan (Flag for renaming)
 
 
 
@@ -110,7 +115,8 @@ extern void updateAll(							// Updating all rows for a given value for each.
 	struct Queue *argumentQueue,
 	struct Queue *valueQueue
 );
-
+extern int renameTable();						// Fuction to rename you know what - dipayan
+extern int renameDatabase();					// Do I need to tell you, but also done by - dipayan
 
 
 

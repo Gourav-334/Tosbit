@@ -95,7 +95,7 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 
 			switch (state)
 			{
-				case 0: changeState(command[i], " @oOsSmMdDcCpPuU", "0,1,3,3,16,16,47,47,73,73,95,95,116,116,152,152", &state, 2);
+				case 0: changeState(command[i], " @oOsSmMdDcCpPuUrR", "0,1,3,3,16,16,47,47,73,73,95,95,116,116,152,152,181,181", &state, 2);
 						if(command[i]=='@') {comment = TRUE;} break;
 
 				case 1: changeState(command[i], "@", "0", &state, 1); break;
@@ -252,6 +252,67 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 				case 178: changeState(command[i], "tT", "179,179", &state, 150); breakValue(&state, 150, &breaker); break;
 				case 179: changeState(command[i], " ", "180", &state, 150); breakValue(&state, 150, &breaker); break;
 				case 180: clearEntity("table"); changeState(command[i], " ", "180", &state, 132); appendState(&state, 132, table, command[i]); break;
+
+
+				// --- "RENAME" keyword ---    Statrted From here Dipayan
+				case 181: changeState(command[i], "eE", "182,182", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 182: changeState(command[i], "nN", "183,183", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 183: changeState(command[i], "aA", "184,184", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 184: changeState(command[i], "mM", "185,185", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 185: changeState(command[i], "eE", "186,186", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 186: changeState(command[i], " ", "187", &state, 201); breakValue(&state, 201, &breaker); break;
+
+				// --- Expecting "TABLE" keyword ---
+				case 187: changeState(command[i], "tTdD", "188,188,205,205", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 188: changeState(command[i], "aA", "189,189", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 189: changeState(command[i], "bB", "190,190", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 190: changeState(command[i], "lL", "191,191", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 191: changeState(command[i], "eE", "192,192", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 192: changeState(command[i], " ", "193", &state, 201); breakValue(&state, 201, &breaker); break;
+
+				// --- Capture old table name ---
+				case 193: clearEntity("old_table"); changeState(command[i], " ", "193", &state, 194);
+						  appendState(&state, 194, old_table, command[i]); break;
+				case 194: changeState(command[i], " ", "195", &state, 194);
+					      appendState(&state, 194, old_table, command[i]); break;
+				// case 205: changeState(command[i], " ", "194", &state, 195);appendState(&state, 194, old_table, command[i]); break;
+				// --- Expecting "AS" keyword ---
+				case 195: changeState(command[i], "aA", "196,196", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 196: changeState(command[i], "sS", "197,197", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 197: changeState(command[i], " ", "198", &state, 201); breakValue(&state, 201, &breaker); break;
+
+				// --- Capture new table name ---
+				case 198: clearEntity("new_table"); changeState(command[i], " ", "198", &state, 199);appendState(&state, 199, new_table, command[i]); break;
+				case 199: changeState(command[i], " ", "200", &state, 199);appendState(&state, 199, new_table, command[i]); break;
+
+				// --- Final semicolon to terminate ---
+				// case 200: changeState(command[i], ";", "201", &state, 201); breakValue(&state, 201, &breaker); break;
+				case 200: /* Successfully parsed RENAME TABLE command */ breakValue(&state, 200, &breaker); break;
+
+				// --- "DB" keyword (starting at 'b' since 'd' was handled before) ---
+				case 205: changeState(command[i], "bB", "206,206", &state, 215); breakValue(&state, 215, &breaker); break;
+				case 206: changeState(command[i], " ", "207", &state, 215); breakValue(&state, 215, &breaker); break;
+
+				// --- Capture old database name ---
+				case 207: clearEntity("old_db"); changeState(command[i], " ", "207", &state, 208);
+				          appendState(&state, 208, old_db, command[i]); break;
+				case 208: changeState(command[i], " ", "209", &state, 208);
+				          appendState(&state, 208, old_db, command[i]); break;
+
+				// --- Expecting "AS" keyword ---
+				case 209: changeState(command[i], "aA", "210,210", &state, 215); breakValue(&state, 215, &breaker); break;
+				case 210: changeState(command[i], "sS", "211,211", &state, 215); breakValue(&state, 215, &breaker); break;
+				case 211: changeState(command[i], " ", "212", &state, 215); breakValue(&state, 215, &breaker); break;
+
+				// --- Capture new database name ---
+				case 212: clearEntity("new_db"); changeState(command[i], " ", "212", &state, 213);
+				          appendState(&state, 213, new_db, command[i]); break;
+				case 213: changeState(command[i], " ", "214", &state, 213);
+				          appendState(&state, 213, new_db, command[i]); break;
+
+				// --- Final success state (no semicolon needed) ---
+				case 214: /* Successfully parsed RENAME DB command */ breakValue(&state, 214, &breaker); break;
+			
 			}
 
 
@@ -456,6 +517,67 @@ void syntaxParser(char username[], char *user_cmd, int serverConn)
 			case 178: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
 			case 179: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
 			case 180: extendFeedback("ERROR: Did you meant \"select tbl_name.(...)\"?"); break;
+
+			// --- Feedback for RENAME TABLE command ---   181 - 214 is done by dipayan
+			// RENAME
+			case 181: extendFeedback("ERROR: Did you mean \"rename ...\"?"); break;
+			case 182: extendFeedback("ERROR: Did you mean \"rename ...\"?"); break;
+			case 183: extendFeedback("ERROR: Did you mean \"rename ...\"?"); break;
+			case 184: extendFeedback("ERROR: Did you mean \"rename ...\"?"); break;
+			case 185: extendFeedback("ERROR: Did you mean \"rename ...\"?"); break;
+			case 186: extendFeedback("ERROR: Did you mean \"rename table ...\"?"); break;
+
+			// TABLE
+			case 187: extendFeedback("ERROR: Did you mean \"rename table ...\"?"); break;
+			case 188: extendFeedback("ERROR: Did you mean \"rename table ...\"?"); break;
+			case 189: extendFeedback("ERROR: Did you mean \"rename table ...\"?"); break;
+			case 190: extendFeedback("ERROR: Did you mean \"rename table ...\"?"); break;
+			case 191: extendFeedback("ERROR: Did you mean \"rename table ...\"?"); break;
+			case 192: extendFeedback("ERROR: Did you mean \"rename table old_name ...\"?"); break;
+
+			// OLD TABLE NAME
+			case 193: extendFeedback("ERROR: Did you mean \"rename table old_name ...\"?"); break;
+			case 194: extendFeedback("ERROR: Did you mean \"rename table old_name ...\"?"); break;
+
+			// AS
+			case 195: extendFeedback("ERROR: Did you mean \"rename table old_name as ...\"?"); break;
+			case 196: extendFeedback("ERROR: Did you mean \"rename table old_name as ...\"?"); break;
+			case 197: extendFeedback("ERROR: Did you mean \"rename table old_name as new_name ...\"?"); break;
+
+			// NEW TABLE NAME
+			case 198: extendFeedback("ERROR: Did you mean \"rename table old_name as new_name ...\"?"); break;
+			case 199: renameTable();renamed = FALSE;break;
+
+			// --- Final feedback states for RENAME TABLE ---
+			case 200: if(!renamed)renameTable();renamed = FALSE;break;
+
+			// --- Possible error/help states (optional, for better user guidance) ---
+			case 201: extendFeedback("ERROR: Did you mean \"rename table old_name as new_name;\"?"); break;
+			case 202: extendFeedback("ERROR: Missing new table name in RENAME TABLE statement."); break;
+			case 203: extendFeedback("ERROR: Missing keyword \"AS\" in RENAME TABLE statement."); break;
+			case 204: extendFeedback("ERROR: Did you mean \"rename table old_name as new_name;\"?"); break;
+
+			// --- Feedback for RENAME DB command ---
+
+			// RENAME DB
+			case 205: extendFeedback("ERROR: Did you mean \"rename db ...\"?"); break;
+			case 206: extendFeedback("ERROR: Did you mean \"rename db ...\"?"); break;
+
+			// OLD DATABASE NAME
+			case 207: extendFeedback("ERROR: Did you mean \"rename db old_db_name ...\"?"); break;
+			case 208: extendFeedback("ERROR: Did you mean \"rename db old_db_name ...\"?"); break;
+
+			// AS
+			case 209: extendFeedback("ERROR: Did you mean \"rename db old_db_name as ...\"?"); break;
+			case 210: extendFeedback("ERROR: Did you mean \"rename db old_db_name as ...\"?"); break;
+			case 211: extendFeedback("ERROR: Did you mean \"rename db old_db_name as ...\"?"); break;
+
+			// NEW DATABASE NAME
+			case 212: extendFeedback("ERROR: Did you mean \"rename db old_db_name as new_db_name ...\"?"); break;
+			case 213: renameDatabase();renamed = FALSE; break;
+
+			// SUCCESS
+			case 214: if(!renamed)renameDatabase();renamed = FALSE; break;
 		}
 
 
